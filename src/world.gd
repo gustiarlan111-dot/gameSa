@@ -35,6 +35,8 @@ var _trail: Array[Vector2] = []
 var _surface := PackedByteArray()  # footstep surface letters per cell (see tools/worldgen/hdmap.py)
 var _surf_cell := 8
 var _surf_w := 0
+var _alts: Array = []             # props with an alternate look once a story flag is set (chest opened, bridge fixed)
+var _alt_t := 0.0
 var foliage: Array = []           # [{node, pos, r, kind: "grass"|"bush", t}] rustle when walked through
 
 
@@ -111,8 +113,12 @@ func _build_ground() -> void:
 func _build_props() -> void:
 	light_spots.clear()
 	foliage.clear()
+	_alts.clear()
 	for p in area.get("props", []):
-		var d: Dictionary = Data.props.get(p.get("type", ""), {})
+		var ptype: String = p.get("type", "")
+		if p.has("alt") and p.has("altFlag") and flags.has(p.altFlag):
+			ptype = p.alt
+		var d: Dictionary = Data.props.get(ptype, {})
 		if d.is_empty():
 			continue
 		var tex: Texture2D = load("res://assets/" + d.image) if ResourceLoader.exists("res://assets/" + d.image) else null
@@ -128,6 +134,8 @@ func _build_props() -> void:
 		s.position = Vector2(-tex.get_width() * k / 2.0, -tex.get_height() * k)
 		s.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS if k < 1.0 else CanvasItem.TEXTURE_FILTER_NEAREST
 		holder.add_child(s)
+		if p.has("alt") and p.has("altFlag"):
+			_alts.append({"sprite": s, "p": p, "on": flags.has(p.altFlag)})
 		var img: String = d.image
 		var sway := _sway_for(img)
 		if sway:
@@ -144,6 +152,25 @@ func _build_props() -> void:
 			_floor.add_child(holder)
 		else:
 			_sorted.add_child(holder)
+
+
+## Swap a prop to its alternate texture when its flag changes while the player is in the area.
+func _refresh_alts() -> void:
+	for e in _alts:
+		var p: Dictionary = e.p
+		var on: bool = flags.has(p.altFlag)
+		if on == e.on:
+			continue
+		e.on = on
+		var d: Dictionary = Data.props.get(p.alt if on else p.type, {})
+		if d.is_empty() or not ResourceLoader.exists("res://assets/" + d.image):
+			continue
+		var s: Sprite2D = e.sprite
+		var tex: Texture2D = load("res://assets/" + d.image)
+		var k := Data.prop_scale(d)
+		s.texture = tex
+		s.scale = Vector2(k, k)
+		s.position = Vector2(-tex.get_width() * k / 2.0, -tex.get_height() * k)
 
 
 func _foliage_kind(img: String) -> String:
@@ -302,6 +329,10 @@ var talking_to := ""
 
 
 func _physics_process(delta: float) -> void:
+	_alt_t -= delta
+	if _alt_t <= 0.0:
+		_alt_t = 0.4
+		_refresh_alts()
 	if player == null:
 		return
 	door_cooldown = maxf(0.0, door_cooldown - delta)

@@ -78,10 +78,11 @@ def canopy_tile(seed, size=512):
         x, y = rng.uniform(-30, size + 30), rng.uniform(-30, size + 30)
         r = rng.uniform(30, 62)
         cl.append((x, y, r, rng.uniform(0.2, 0.7)))
-        for dx in (-size, size):                 # wrap so tiles join
-            if (x < 70 and dx > 0) or (x > size - 70 and dx < 0):
-                cl.append((x + dx, y, r, 0.4))
-    R = [kit.LEAF_DARK, kit.PINE, kit.LEAF][seed % 3]
+        for dx in (-size, 0, size):              # wrap in x and y so tiles join without seams
+            for dy in (-size, 0, size):
+                if (dx or dy) and abs(x + dx - size / 2) < size / 2 + 70 and abs(y + dy - size / 2) < size / 2 + 70:
+                    cl.append((x + dx, y + dy, r, 0.4))
+    R = kit.LEAF_DARK
     nature._leafy_cluster_field(sp, cl, R, seed)
     img = sp.rgb.copy()
     img[sp.a < 0.5] = R[0]
@@ -178,10 +179,10 @@ def design(m, P, path_w, water_w):
     for ty in range(0, c.h, T):
         for tx in range(0, c.w, T):
             t = tiles[rng.integers(0, 3)]
-            if rng.random() < 0.5:
-                t = t[:, ::-1]
             hh, ww = min(T, c.h - ty), min(T, c.w - tx)
             canopy[ty:ty + hh, tx:tx + ww] = t[:hh, :ww]
+    tint = noise(c.h, c.w, 300, SEED + 44)                   # large hue drift hides the tile repeat
+    canopy = canopy * (0.88 + 0.24 * tint)[..., None]
     shade = np.clip(dist_from(~deep_k, 60 * K) / (60 * K), 0, 1)
     canopy *= (1.0 - 0.35 * shade)[..., None]
     c.put(deep_k, canopy, CANOPY)
@@ -261,7 +262,7 @@ def furnish(m, P, old):
             j, i = int(yy / 4), int(xx / 4)
             if not (0 <= j < dt.shape[0] and 0 <= i < dt.shape[1]):
                 continue
-            if dc[j, i] > 0 and dc[j, i] < 200 and ok(xx, yy, 46):
+            if dc[j, i] > 0 and dc[j, i] < 170 and ok(xx, yy, 46):
                 pr(TREES[rng.choice(len(TREES), p=np.array(TREE_W) / sum(TREE_W))], xx, yy)
             elif dc[j, i] == 0 and rng.random() < 0.08 and dt[j, i] > 80:
                 pr(TREES[rng.integers(0, 4)], xx, yy)          # a few crowns poking out of the canopy

@@ -1017,3 +1017,211 @@ def fence_picket(W=196, H=70, seed=0):
             sp.put(sp.ellipse(x, y - 3, 2.4, 2.4), FLOWERS[k % 5][2])
     outline(sp, TRIM[0] * 0.8, width=1)
     return sp
+
+
+# ----------------------------------------------------------------------------- town street
+
+SHOP_STYLES = {
+    'florist': dict(wall='plaster', wallR=ramp('#7a6a6e', '#9c8a8e', '#bba6aa', '#d6c2c4', '#e8d8d8', '#f4ecea', '#fdf8f6'),
+                    awning=('#4f8a47', '#f1e6d3'), sign='TOKO BUNGA', signR=SHUTTER_GREEN, roof=GREEN_ROOF),
+    'bakery': dict(wall='brick', wallR=BRICK, awning=('#c95a2c', '#f4ecd4'), sign='TOKO ROTI', signR=SHOP_WOOD, roof=TERRA),
+    'mart': dict(wall='siding', wallR=ramp('#3a4a3a', '#4a5e48', '#5d7458', '#728a6a', '#8aa180', '#a6b99a', '#c4d3b8'),
+                 awning=('#3d6fd3', '#eef0f2'), sign='WARUNG 24', signR=ramp('#1f2a4a', '#2b3a63', '#3a4e7e', '#4c6597', '#6382b0'), roof=SLATE),
+    'arcade': dict(wall='plaster', wallR=ramp('#3b2c6a', '#4d3a85', '#6a52a8', '#8a72cf', '#a894e0', '#c6b8f0', '#e4dcfc'),
+                   awning=('#e0627a', '#2b2350'), sign='ARCADE', signR=ramp('#140f2a', '#1f1840', '#2b2366', '#41389a', '#6a5fd0'), roof=SLATE),
+    'books': dict(wall='siding', wallR=ramp('#5a3a22', '#704a2c', '#8a5c36', '#a37045', '#bb875a', '#d1a275', '#e4c098'),
+                  awning=('#7a2a1a', '#e8dcbb'), sign='BUKU', signR=SHOP_WOOD, roof=TERRA),
+}
+
+
+def shopfront(kind='florist', W=440, H=520):
+    """Two-storey town shop: shop window + door + striped awning + sign below, flat with balcony
+    windows above, parapet roof with a water tank / AC units. Door at the horizontal centre."""
+    st = SHOP_STYLES[kind]
+    sp = Sprite(W, H)
+    dith = bayer(H, W)
+    cx = W / 2
+    bot = H - 4
+    x0, x1 = 12, W - 12
+    ground_shadow(sp, cx, bot - 2, W / 2 - 4, 10, 0.35)
+    top = 92
+    wm = sp.rect(x0, top, x1 - x0, bot - top)
+    if st['wall'] == 'brick':
+        bricks(sp, wm, st['wallR'], x0, top, 24, 11, 3)
+    elif st['wall'] == 'siding':
+        clapboard(sp, wm, st['wallR'], x0, top, 10, 4)
+    else:
+        plaster(sp, wm, st['wallR'], 6, 0.68)
+    # parapet + roof edge
+    sp.put(sp.rect(x0 - 6, top - 14, x1 - x0 + 12, 16), quant(vgrad(sp, top - 14, top + 2, 0.85, 0.45), STONE, dith))
+    sp.put(sp.rect(x0 - 6, top - 14, x1 - x0 + 12, 2), STONE[6])
+    roof = sp.rect(x0 + 4, 20, x1 - x0 - 8, top - 34)
+    sp.put(roof, quant(0.45 + (noise(H, W, 6, 2) - 0.5) * 0.15, st['roof'], dith))
+    sp.put(sp.rect(x0 + 4, 20, x1 - x0 - 8, 3), st['roof'][-1])
+    # roof clutter: water tank, AC units, antenna
+    tx = x1 - 90
+    sp.put(sp.rect(tx, 8, 54, 44), quant(hgrad(sp, tx, tx + 54, 0.9, 0.35), ramp('#2c5a7a', '#3c7194', '#4f8aae', '#6aa4c4', '#90c0da')))
+    sp.put(sp.ellipse(tx + 27, 8, 27, 7), hexrgb('#90c0da'))
+    for ax in (x0 + 30, x0 + 74):
+        sp.put(sp.rect(ax, 36, 34, 22), quant(hgrad(sp, ax, ax + 34, 0.9, 0.4), METAL))
+        sp.put(sp.ellipse(ax + 17, 47, 8, 8), METAL[1])
+    sp.put(sp.rect(cx, 0, 3, 40), METAL[2])
+    # upper floor: two windows with flower boxes, one with a small balcony rail
+    for i, wx in enumerate((x0 + 46, x1 - 46 - 86)):
+        window(sp, wx, top + 34, 86, 76, TRIM, ('cream', 'rose', 'teal')[i % 3], box=(i == 0), panes=(2, 2))
+        if i == 1:
+            for k in range(9):
+                sp.put(sp.rect(wx - 6 + k * 12, top + 108, 3, 24), METAL[2])
+            sp.put(sp.rect(wx - 8, top + 106, 104, 4), METAL[3])
+            sp.put(sp.rect(wx - 8, top + 130, 104, 4), METAL[1])
+    # sign band
+    sy = top + 150
+    sp.put(sp.rect(x0, sy, x1 - x0, 46), st['signR'][1])
+    sm = sp.rect(x0 + 24, sy + 5, x1 - x0 - 48, 36)
+    sp.put(sm, quant(vgrad(sp, sy, sy + 46, 0.75, 0.4), st['signR'], dith))
+    tm = text_mask(sp, st['sign'], cx, sy + 23, 26)
+    sp.put(np.roll(np.roll(tm, 2, 0), 2, 1), st['signR'][0])
+    sp.put(tm, quant(vgrad(sp, sy + 8, sy + 38, 0.95, 0.55), GOLD if kind != 'arcade' else ramp('#7a2a5a', '#c4467e', '#ee7aa8', '#ffb6d4', '#fff0f6')))
+    if kind == 'arcade':
+        glow(sp, cx, sy + 23, 120, hexrgb('#ff8ad0'), 0.25)
+    # awning
+    ay0, ay1 = sy + 48, sy + 92
+    aw = sp.poly([(x0 - 10, ay1), (x1 + 10, ay1), (x1, ay0), (x0, ay0)])
+    stripe = (((sp.xx - x0) // 24) % 2 == 0)
+    a0 = quant(vgrad(sp, ay0, ay1, 0.85, 0.45), ramp_from_hex(st['awning'][0]))
+    a1 = quant(vgrad(sp, ay0, ay1, 0.85, 0.45), ramp_from_hex(st['awning'][1]))
+    sp.put(aw, np.where(stripe[..., None], a0, a1))
+    for xx in range(int(x0 - 10), int(x1 + 10), 24):
+        sp.put(sp.ellipse(xx + 12, ay1, 12, 8) & (sp.yy >= ay1), a0 if ((xx - x0) // 24) % 2 == 0 else a1)
+    darken(sp, sp.rect(x0, ay1 + 8, x1 - x0, 16) & wm, 0.72)
+    # shop window + door
+    dw, dh = 78, 126
+    door(sp, cx, bot - 8, dw, dh, SHOP_WOOD, TRIM, glass=True, double=(kind in ('mart', 'arcade')))
+    for wx, ww in ((x0 + 18, cx - dw / 2 - 30 - x0 - 18), (cx + dw / 2 + 30, x1 - 18 - (cx + dw / 2 + 30))):
+        sp.put(sp.rect(wx - 6, ay1 + 18, ww + 12, bot - 30 - ay1 - 18 + 6), SHOP_WOOD[1])
+        window(sp, wx, ay1 + 24, ww, bot - 44 - ay1 - 24, SHOP_WOOD, curtain=None, box=False,
+               lit=(kind in ('bakery', 'arcade', 'mart')), panes=(2, 1))
+        sp.put(sp.rect(wx - 6, bot - 22, ww + 12, 14), quant(hgrad(sp, wx, wx + ww, 0.7, 0.35), SHOP_WOOD))
+    # threshold step
+    sp.put(sp.rect(cx - dw / 2 - 12, bot - 8, dw + 24, 8), STONE[4])
+    # kind-specific goods outside
+    rng = np.random.default_rng(len(kind))
+    if kind == 'florist':
+        for i, bx in enumerate((x0 + 30, x0 + 64, x1 - 64, x1 - 30)):
+            potted_plant(sp, bx, bot - 2, 1.2, i)
+    elif kind == 'bakery':
+        sp.put(sp.rect(x1 - 70, bot - 60, 40, 56), hexrgb('#243028'))
+        for k in range(5):
+            sp.put(sp.rect(x1 - 64, bot - 54 + k * 9, 20 + (k * 7) % 9, 2), hexrgb('#e8e2cf'))
+    elif kind == 'mart':
+        for k, bx in enumerate((x1 - 64, x1 - 34)):
+            sp.put(sp.rect(bx - 12, bot - 58, 26, 54), hexrgb(['#c4433f', '#3d6fd3'][k]))
+            sp.put(sp.rect(bx - 8, bot - 52, 18, 24), hexrgb('#e8f6ff'))
+    elif kind == 'arcade':
+        for k in range(10):
+            x = x0 + 10 + k * (x1 - x0 - 20) / 9
+            sp.put(sp.ellipse(x, sy - 4, 4, 4), hexrgb(['#ff8ad0', '#8af0ff', '#fff08a'][k % 3]))
+    outline(sp, st['roof'][0] * 0.8, width=2)
+    return sp
+
+
+def ramp_from_hex(h):
+    c = hexrgb(h)
+    return np.array([c * 0.55, c * 0.72, c * 0.88, c, np.minimum(c * 1.12 + 12, 255)], np.float32)
+
+
+def car(color='#c4433f', W=232, H=124, facing=1):
+    """Parked compact car seen from the street side (3/4 top-down)."""
+    sp = Sprite(W, H)
+    dith = bayer(H, W)
+    R = ramp_from_hex(color)
+    ground_shadow(sp, W / 2, H - 10, W / 2 - 8, 14, 0.45)
+    body = sp.poly([(10, H - 30), (W - 10, H - 30), (W - 6, H - 62), (W - 40, H - 70), (W - 70, H - 108), (70, H - 110), (44, H - 72), (8, H - 64)])
+    sp.put(body, quant(vgrad(sp, H - 110, H - 28, 0.95, 0.4) + hgrad(sp, 0, W, 0.05, -0.08), R, dith))
+    glass = sp.poly([(78, H - 104), (W - 76, H - 104), (W - 50, H - 72), (52, H - 72)])
+    sp.put(glass, quant(vgrad(sp, H - 104, H - 72, 0.85, 0.35), ramp('#20354a', '#2c4c66', '#3f6a86', '#5e8ea8', '#8fb8cc', '#c4e0ea')))
+    sp.put(sp.rect(W / 2 - 3, H - 104, 6, 32), R[1])
+    diag = sp.xx + (sp.yy - H) * 0.8
+    lighten(sp, glass & ((diag % 70) < 10), 0.3, (220, 240, 250))
+    sp.put(sp.rect(12, H - 46, W - 24, 3), R[1])                       # door line
+    sp.put(sp.rect(W / 2 - 1, H - 70, 2, 40), R[1])
+    for hx in (W / 2 - 30, W / 2 + 24):
+        sp.put(sp.rect(hx, H - 58, 12, 3), METAL[4])
+    lx = W - 16 if facing > 0 else 10
+    sp.put(sp.rect(lx, H - 58, 8, 10), hexrgb('#fff2c0'))
+    sp.put(sp.rect(W - 18 - lx + 10 if facing > 0 else W - 18, H - 58, 8, 10), hexrgb('#e04040'))
+    sp.put(sp.rect(8, H - 34, W - 16, 8), METAL[2])                    # bumper line
+    for wx in (52, W - 52):
+        sp.put(sp.ellipse(wx, H - 26, 20, 18), hexrgb('#1a1d22'))
+        sp.put(sp.ellipse(wx, H - 26, 10, 9), METAL[4])
+        sp.put(sp.ellipse(wx, H - 26, 4, 4), METAL[2])
+    outline(sp, R[0] * 0.6, width=2)
+    return sp
+
+
+def bus_shelter(W=220, H=200):
+    sp = Sprite(W, H)
+    dith = bayer(H, W)
+    ground_shadow(sp, W / 2, H - 8, W / 2 - 4, 12, 0.38)
+    for x in (14, W - 22):
+        sp.put(sp.rect(x, 40, 8, H - 46), quant(hgrad(sp, x, x + 8, 0.9, 0.35), METAL))
+    back = sp.rect(22, 54, W - 44, H - 100)
+    sp.put(back, quant(vgrad(sp, 54, H - 46, 0.85, 0.6), ramp('#7b8f9a', '#a9c1cc', '#d6e8ee', '#f4fbfc')), 0.75)
+    sp.put(sp.rect(30, 62, 60, 80), hexrgb('#f4ecd4'))                  # poster / route map
+    for k in range(6):
+        sp.put(sp.rect(36, 70 + k * 11, 44 - (k * 7) % 15, 3), hexrgb(['#3d6fd3', '#c4433f', '#4f8a47'][k % 3]))
+    roof = sp.poly([(0, 42), (W, 42), (W - 10, 20), (10, 20)])
+    sp.put(roof, quant(vgrad(sp, 20, 42, 0.9, 0.5), ramp('#1f5a4a', '#2b7360', '#3c8c76', '#55a68e', '#78c0a8')))
+    sp.put(sp.rect(0, 40, W, 6), METAL[2])
+    sp.put(sp.rect(W / 2 - 40, 26, 80, 12), hexrgb('#f4ecd4'))
+    sp.put(text_mask(sp, 'HALTE', W / 2, 32, 10), hexrgb('#1f5a4a'))
+    bench_y = H - 58
+    sp.put(sp.rect(30, bench_y, W - 60, 10), quant(hgrad(sp, 30, W - 30, 0.85, 0.4), WOOD))
+    for x in (40, W - 48):
+        sp.put(sp.rect(x, bench_y + 10, 6, 40), METAL[2])
+    outline(sp, METAL[0], width=1)
+    return sp
+
+
+def kiosk(W=180, H=190):
+    """Rini's little street kiosk: wooden booth with goods, striped canopy."""
+    sp = Sprite(W, H)
+    dith = bayer(H, W)
+    ground_shadow(sp, W / 2, H - 8, W / 2 - 4, 12, 0.38)
+    booth = sp.rect(14, 80, W - 28, H - 88)
+    sp.put(booth, quant(hgrad(sp, 14, W - 14, 0.8, 0.35) + (((sp.xx - 14) % 18) < 2) * -0.2, WOOD, dith))
+    sp.put(sp.rect(10, 104, W - 20, 10), WOOD[4])
+    rng = np.random.default_rng(9)
+    for k in range(12):
+        x = 22 + (k % 6) * 24; y = 88 + (k // 6) * 8
+        sp.put(sp.rect(x, y, 14, 12), hexrgb(['#e1b12c', '#c4433f', '#3d8aa0', '#4f8a47', '#f4ecd4', '#ee8a2e'][k % 6]))
+    for x in (16, W - 22):
+        sp.put(sp.rect(x, 30, 6, 52), WOOD[2])
+    can = sp.poly([(0, 82), (W, 82), (W - 12, 26), (12, 26)])
+    stripe = ((sp.xx // 20) % 2 == 0)
+    sp.put(can, np.where(stripe[..., None], quant(vgrad(sp, 26, 82, 0.9, 0.5), ramp_from_hex('#e1b12c')),
+                         quant(vgrad(sp, 26, 82, 0.9, 0.5), CREAM)))
+    sp.put(sp.rect(W / 2 - 44, 6, 88, 22), WOOD[1])
+    sp.put(text_mask(sp, 'KIOS RINI', W / 2, 17, 11), CREAM[5])
+    outline(sp, WOOD[0], width=1)
+    return sp
+
+
+def flower_stall(W=200, H=150):
+    sp = Sprite(W, H)
+    ground_shadow(sp, W / 2, H - 6, W / 2 - 4, 10, 0.35)
+    sp.put(sp.rect(10, H - 60, W - 20, 50), quant(hgrad(sp, 10, W - 10, 0.85, 0.4), WOOD))
+    for i in range(4):
+        sub = flower_buckets(i % 3, 152, 94).image()
+    rng = np.random.default_rng(3)
+    for k in range(70):
+        x = rng.uniform(18, W - 18); y = rng.uniform(H - 92, H - 58)
+        F = FLOWERS[rng.integers(0, 5)]
+        sp.put(sp.ellipse(x, y + 5, 4, 3), LEAF[rng.integers(2, 5)])
+        sp.put(sp.ellipse(x, y, 4, 3.6), F[rng.integers(1, 4)])
+    for x in (12, W - 18):
+        sp.put(sp.rect(x, 24, 6, H - 70), WOOD[2])
+    can = sp.poly([(0, 40), (W, 40), (W - 10, 10), (10, 10)])
+    sp.put(can, quant(vgrad(sp, 10, 40, 0.9, 0.5), ramp_from_hex('#4f8a47')))
+    outline(sp, WOOD[0], width=1)
+    return sp

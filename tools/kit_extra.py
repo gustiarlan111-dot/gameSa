@@ -520,6 +520,19 @@ KIT = {
     'hd_signpost_hill': (lambda: lm.signpost([('Bukit', 1), ('Kemah', -1)]), 6, 4, 'sort'),
     'hd_signpost_park': (lambda: lm.signpost([('Taman', 1), ('Kemah', -1)]), 6, 4, 'sort'),
     'hd_signpost_camp': (lambda: lm.signpost([('Gua', -1), ('Sungai', 1)]), 6, 4, 'sort'),
+    # Jalan Kota (town street), drawn new
+    'hd_shop_florist': (lambda: lm.shopfront('florist', 400), 184, 24, 'sort'),
+    'hd_shop_bakery': (lambda: lm.shopfront('bakery', 400), 184, 24, 'sort'),
+    'hd_shop_mart': (lambda: lm.shopfront('mart', 360), 164, 24, 'sort'),
+    'hd_shop_arcade': (lambda: lm.shopfront('arcade', 400), 184, 24, 'sort'),
+    'hd_shop_books': (lambda: lm.shopfront('books', 260), 114, 24, 'sort'),
+    'hd_car_red': (lambda: lm.car('#c4433f'), 104, 30, 'sort'),
+    'hd_car_blue': (lambda: lm.car('#3d6fd3', facing=-1), 104, 30, 'sort'),
+    'hd_car_cream': (lambda: lm.car('#e8dcbb'), 104, 30, 'sort'),
+    'hd_car_green': (lambda: lm.car('#4f8a6a', facing=-1), 104, 30, 'sort'),
+    'hd_bus_shelter': (lambda: lm.bus_shelter(), 96, 14, 'sort'),
+    'hd_kiosk': (lambda: lm.kiosk(), 76, 16, 'sort'),
+    'hd_flower_stall': (lambda: lm.flower_stall(), 88, 14, 'sort'),
 }
 
 

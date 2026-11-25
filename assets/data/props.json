@@ -2838,6 +2838,78 @@
       "cw": 6,
       "ch": 4,
       "layer": "sort"
+    },
+    "hd_shop_florist": {
+      "image": "props/hd/hd_shop_florist@2x.png",
+      "cw": 184,
+      "ch": 24,
+      "layer": "sort"
+    },
+    "hd_shop_bakery": {
+      "image": "props/hd/hd_shop_bakery@2x.png",
+      "cw": 184,
+      "ch": 24,
+      "layer": "sort"
+    },
+    "hd_shop_mart": {
+      "image": "props/hd/hd_shop_mart@2x.png",
+      "cw": 164,
+      "ch": 24,
+      "layer": "sort"
+    },
+    "hd_shop_arcade": {
+      "image": "props/hd/hd_shop_arcade@2x.png",
+      "cw": 184,
+      "ch": 24,
+      "layer": "sort"
+    },
+    "hd_shop_books": {
+      "image": "props/hd/hd_shop_books@2x.png",
+      "cw": 114,
+      "ch": 24,
+      "layer": "sort"
+    },
+    "hd_car_red": {
+      "image": "props/hd/hd_car_red@2x.png",
+      "cw": 104,
+      "ch": 30,
+      "layer": "sort"
+    },
+    "hd_car_blue": {
+      "image": "props/hd/hd_car_blue@2x.png",
+      "cw": 104,
+      "ch": 30,
+      "layer": "sort"
+    },
+    "hd_bus_shelter": {
+      "image": "props/hd/hd_bus_shelter@2x.png",
+      "cw": 96,
+      "ch": 14,
+      "layer": "sort"
+    },
+    "hd_kiosk": {
+      "image": "props/hd/hd_kiosk@2x.png",
+      "cw": 76,
+      "ch": 16,
+      "layer": "sort"
+    },
+    "hd_flower_stall": {
+      "image": "props/hd/hd_flower_stall@2x.png",
+      "cw": 88,
+      "ch": 14,
+      "layer": "sort"
+    },
+    "hd_car_cream": {
+      "image": "props/hd/hd_car_cream@2x.png",
+      "cw": 104,
+      "ch": 30,
+      "layer": "sort"
+    },
+    "hd_car_green": {
+      "image": "props/hd/hd_car_green@2x.png",
+      "cw": 104,
+      "ch": 30,
+      "layer": "sort"
     }
   }
 }

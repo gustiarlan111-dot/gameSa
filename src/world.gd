@@ -341,6 +341,16 @@ func _sway_for(img: String) -> Material:
 	return _sway_mats[amp]
 
 
+## World rectangle on screen, from the viewport's canvas transform (works for the 2D camera and for
+## the 3D view, which sets the canvas transform itself so 2D effects line up with the 3D ground).
+func view_rect() -> Rect2:
+	var inv := get_viewport().get_canvas_transform().affine_inverse()
+	var vs := get_viewport_rect().size
+	var a := inv * Vector2.ZERO
+	var b := inv * vs
+	return Rect2(a, b - a).abs()
+
+
 func nearest_open(p: Vector2) -> Vector2:
 	if not Data.blocked(area, p.x, p.y, flags):
 		return p

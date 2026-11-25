@@ -198,10 +198,7 @@ func _process(delta: float) -> void:
 
 
 func _view() -> Rect2:
-	var cam := world.camera
-	var vs := get_viewport_rect().size / cam.zoom
-	var c := cam.get_screen_center_position()
-	return Rect2(c - vs / 2, vs)
+	return world.view_rect()
 
 
 func _draw() -> void:

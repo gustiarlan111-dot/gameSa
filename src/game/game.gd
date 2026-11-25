@@ -808,7 +808,7 @@ func line(s: String, e: String, t: String, done: Callable) -> void:
 
 
 func cam_center() -> Vector2:
-	return world.camera.get_screen_center_position()
+	return world.view_rect().get_center()
 
 
 func can_stand(x: float, y: float) -> bool:

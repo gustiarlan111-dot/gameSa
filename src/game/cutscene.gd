@@ -405,12 +405,7 @@ func cam_point() -> Vector2:
 ## World-space effects. Same maths as the Java build, with y pointing down.
 func _draw() -> void:
 	var vr := get_viewport_rect()
-	var cam_node := get_viewport().get_camera_2d()
-	var view := Rect2(Vector2.ZERO, vr.size)
-	if cam_node:
-		var z := cam_node.zoom.x
-		var c := cam_node.get_screen_center_position()
-		view = Rect2(c - vr.size / z / 2.0, vr.size / z)
+	var view: Rect2 = host.world.view_rect() if host and host.get("world") else Rect2(Vector2.ZERO, vr.size)
 	for f in _fxs:
 		var k: float = f.t / f.dur
 		var al := minf(minf(1.0, (f.dur - f.t) * 2.0), minf(1.0, f.t * 3.0))

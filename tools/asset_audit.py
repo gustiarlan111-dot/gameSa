@@ -69,7 +69,7 @@ def main():
     prop_images = {}
     for pid, d in P['props'].items():
         prop_images.setdefault(d['image'], set()).add(pid)
-    live_images = {img for img, ids in prop_images.items() if ids & used_props}
+    live_images = {img for img, ids in prop_images.items() if ids & used_props or any(i.startswith('hd_') for i in ids)}
     used_tiles = {t['image'] for a in M['areas'].values() for t in a.get('tiles', [])}
     used_tiles |= {a.get('image') for a in M['areas'].values()}
     char_used = {}

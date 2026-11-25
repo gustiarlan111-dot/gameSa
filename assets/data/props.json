@@ -2478,6 +2478,234 @@
       "cw": 36,
       "ch": 10,
       "layer": "sort"
+    },
+    "hd_sacks": {
+      "image": "props/hd/hd_sacks@2x.png",
+      "cw": 30,
+      "ch": 10,
+      "layer": "sort"
+    },
+    "hd_crate_stack": {
+      "image": "props/hd/hd_crate_stack@2x.png",
+      "cw": 40,
+      "ch": 12,
+      "layer": "sort"
+    },
+    "hd_cart": {
+      "image": "props/hd/hd_cart@2x.png",
+      "cw": 60,
+      "ch": 14,
+      "layer": "sort"
+    },
+    "hd_bunting": {
+      "image": "props/hd/hd_bunting@2x.png",
+      "cw": 0,
+      "ch": 0,
+      "layer": "sort"
+    },
+    "hd_lantern_string": {
+      "image": "props/hd/hd_lantern_string@2x.png",
+      "cw": 0,
+      "ch": 0,
+      "layer": "sort"
+    },
+    "hd_tree_planter": {
+      "image": "props/hd/hd_tree_planter@2x.png",
+      "cw": 46,
+      "ch": 14,
+      "layer": "sort"
+    },
+    "hd_bollard": {
+      "image": "props/hd/hd_bollard@2x.png",
+      "cw": 8,
+      "ch": 6,
+      "layer": "sort"
+    },
+    "hd_bike_rack": {
+      "image": "props/hd/hd_bike_rack@2x.png",
+      "cw": 50,
+      "ch": 8,
+      "layer": "sort"
+    },
+    "hd_fern_a": {
+      "image": "props/hd/hd_fern_a@2x.png",
+      "cw": 0,
+      "ch": 0,
+      "layer": "sort"
+    },
+    "hd_fern_b": {
+      "image": "props/hd/hd_fern_b@2x.png",
+      "cw": 0,
+      "ch": 0,
+      "layer": "sort"
+    },
+    "hd_grass_tall": {
+      "image": "props/hd/hd_grass_tall@2x.png",
+      "cw": 0,
+      "ch": 0,
+      "layer": "sort"
+    },
+    "hd_grass_tall_b": {
+      "image": "props/hd/hd_grass_tall_b@2x.png",
+      "cw": 0,
+      "ch": 0,
+      "layer": "sort"
+    },
+    "hd_log": {
+      "image": "props/hd/hd_log@2x.png",
+      "cw": 60,
+      "ch": 12,
+      "layer": "sort"
+    },
+    "hd_tree_big_a": {
+      "image": "props/hd/hd_tree_big_a@2x.png",
+      "cw": 22,
+      "ch": 11,
+      "layer": "sort"
+    },
+    "hd_tree_big_b": {
+      "image": "props/hd/hd_tree_big_b@2x.png",
+      "cw": 22,
+      "ch": 11,
+      "layer": "sort"
+    },
+    "hd_house_arland": {
+      "image": "props/hd/hd_house_arland@2x.png",
+      "cw": 250,
+      "ch": 82,
+      "layer": "sort"
+    },
+    "hd_house_sofia": {
+      "image": "props/hd/hd_house_sofia@2x.png",
+      "cw": 260,
+      "ch": 82,
+      "layer": "sort"
+    },
+    "hd_cafe_senja": {
+      "image": "props/hd/hd_cafe_senja@2x.png",
+      "cw": 280,
+      "ch": 82,
+      "layer": "sort"
+    },
+    "hd_fountain_grand": {
+      "image": "props/hd/hd_fountain_grand@2x.png",
+      "cw": 190,
+      "ch": 70,
+      "layer": "sort"
+    },
+    "hd_fountain_tiered": {
+      "image": "props/hd/hd_fountain_tiered@2x.png",
+      "cw": 48,
+      "ch": 18,
+      "layer": "sort"
+    },
+    "hd_mural_old": {
+      "image": "props/hd/hd_mural_old@2x.png",
+      "cw": 112,
+      "ch": 12,
+      "layer": "sort"
+    },
+    "hd_mural_new": {
+      "image": "props/hd/hd_mural_new@2x.png",
+      "cw": 112,
+      "ch": 12,
+      "layer": "sort"
+    },
+    "hd_notice_board": {
+      "image": "props/hd/hd_notice_board@2x.png",
+      "cw": 50,
+      "ch": 8,
+      "layer": "sort"
+    },
+    "hd_mailbox": {
+      "image": "props/hd/hd_mailbox@2x.png",
+      "cw": 6,
+      "ch": 4,
+      "layer": "sort"
+    },
+    "hd_mailbox_old": {
+      "image": "props/hd/hd_mailbox_old@2x.png",
+      "cw": 12,
+      "ch": 6,
+      "layer": "sort"
+    },
+    "hd_bicycle": {
+      "image": "props/hd/hd_bicycle@2x.png",
+      "cw": 30,
+      "ch": 6,
+      "layer": "sort"
+    },
+    "hd_vending": {
+      "image": "props/hd/hd_vending@2x.png",
+      "cw": 26,
+      "ch": 12,
+      "layer": "sort"
+    },
+    "hd_signpost_w": {
+      "image": "props/hd/hd_signpost_w@2x.png",
+      "cw": 6,
+      "ch": 4,
+      "layer": "sort"
+    },
+    "hd_banner_cafe": {
+      "image": "props/hd/hd_banner_cafe@2x.png",
+      "cw": 0,
+      "ch": 0,
+      "layer": "sort"
+    },
+    "hd_lamp_gold": {
+      "image": "props/hd/hd_lamp_gold@2x.png",
+      "cw": 0,
+      "ch": 0,
+      "layer": "sort"
+    },
+    "hd_birdbath": {
+      "image": "props/hd/hd_birdbath@2x.png",
+      "cw": 22,
+      "ch": 12,
+      "layer": "sort"
+    },
+    "hd_garden_plot": {
+      "image": "props/hd/hd_garden_plot@2x.png",
+      "cw": 70,
+      "ch": 20,
+      "layer": "sort"
+    },
+    "hd_flower_buckets": {
+      "image": "props/hd/hd_flower_buckets@2x.png",
+      "cw": 70,
+      "ch": 14,
+      "layer": "sort"
+    },
+    "hd_flower_buckets_b": {
+      "image": "props/hd/hd_flower_buckets_b@2x.png",
+      "cw": 70,
+      "ch": 14,
+      "layer": "sort"
+    },
+    "hd_column_stone": {
+      "image": "props/hd/hd_column_stone@2x.png",
+      "cw": 14,
+      "ch": 10,
+      "layer": "sort"
+    },
+    "hd_signpost_e": {
+      "image": "props/hd/hd_signpost_e@2x.png",
+      "cw": 6,
+      "ch": 4,
+      "layer": "sort"
+    },
+    "hd_signpost_s": {
+      "image": "props/hd/hd_signpost_s@2x.png",
+      "cw": 6,
+      "ch": 4,
+      "layer": "sort"
+    },
+    "hd_flower_buckets_c": {
+      "image": "props/hd/hd_flower_buckets_c@2x.png",
+      "cw": 70,
+      "ch": 14,
+      "layer": "sort"
     }
   }
 }

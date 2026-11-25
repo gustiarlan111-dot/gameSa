@@ -10,7 +10,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools/artkit'))
-import kit, nature, built                                         # noqa: E402
+import kit, nature, built, landmarks as lm                                         # noqa: E402
 from kit import (Sprite, quant, bayer, sphere_shade, outline, noise, hexrgb, ramp, BARK, STONE, LEAF,   # noqa: E402
                  LEAF_DARK, WOOD, METAL, FLOWERS)
 
@@ -255,6 +255,187 @@ def flowerbed(seed=131, w=140, h=60):
     return sp
 
 
+# ---------------------------------------------------------------- town clutter (plaza pass)
+def sacks(seed=141, w=80, h=56):
+    sp = Sprite(w, h)
+    BURLAP = ramp('#5e4a32', '#7a6244', '#957c58', '#ad946c', '#c4ab82', '#d8c39c')
+    rng = np.random.default_rng(seed)
+    for i, (x, y, r) in enumerate(((22, 36, 16), (54, 38, 17), (38, 22, 15))):
+        m = sp.ellipse(x, y, r, r * 0.9)
+        sp.put(m, quant(sphere_shade(sp, x, y, r, r * 0.9) * 0.8 + (noise(h, w, 2, seed + i) - 0.5) * 0.15, BURLAP))
+        sp.put(sp.rect(x - 5, y - r * 0.9 - 2, 10, 5), BURLAP[1])
+        if i == 2:
+            sp.put(sp.ellipse(x, y - r * 0.9, 9, 3), hexrgb('#e9d98a'))
+    outline(sp, BURLAP[0] * 0.8)
+    return sp
+
+
+def crate_stack(seed=151):
+    a = crate(seed).image()
+    from PIL import Image
+    w, h = a.width + 30, a.height + 40
+    im = Image.new('RGBA', (w, h))
+    im.alpha_composite(a, (0, 40))
+    im.alpha_composite(a, (30, 38))
+    im.alpha_composite(a.resize((52, 52)), (14, 0))
+    return im
+
+
+def cart(seed=161, w=170, h=120):
+    sp = Sprite(w, h)
+    built._planks(sp, sp.rect(20, 40, 120, 44), WOOD, True, 11, seed)
+    sp.put(sp.rect(20, 36, 120, 6), WOOD[5])
+    sp.put(sp.rect(138, 66, 30, 6), WOOD[2])                      # handle
+    rng = np.random.default_rng(seed)
+    cols = [FLOWERS[0][2], FLOWERS[1][2], FLOWERS[4][2], hexrgb('#8fc65a'), hexrgb('#e2564e')]
+    for i in range(26):                                            # fruit / flowers heaped on top
+        x, y = rng.uniform(28, 132), rng.uniform(22, 40)
+        sp.put(sp.ellipse(x, y, 6, 5), cols[i % len(cols)])
+        sp.put(sp.ellipse(x - 2, y - 2, 2, 1.5), hexrgb('#fff4dc'))
+    for cx in (46, 116):
+        wheel = sp.ellipse(cx, 92, 20, 20)
+        sp.put(wheel, WOOD[1])
+        sp.put(sp.ellipse(cx, 92, 15, 15), WOOD[3])
+        sp.put(sp.ellipse(cx, 92, 4, 4), METAL[3])
+        for a in range(0, 180, 45):
+            t = np.radians(a)
+            sp.put((np.abs((sp.xx - cx) * np.sin(t) - (sp.yy - 92) * np.cos(t)) < 1.6) & sp.ellipse(cx, 92, 15, 15), WOOD[1])
+    outline(sp, WOOD[0] * 0.8)
+    return sp
+
+
+def bunting(w=360, h=130, seed=171):
+    """Two poles with a sagging string of triangle flags; poles collide, flags do not."""
+    sp = Sprite(w, h)
+    for x in (8, w - 16):
+        sp.put(sp.rect(x, 14, 8, h - 16), quant(0.75 - (sp.xx - x) / 8 * 0.6, WOOD))
+        sp.put(sp.ellipse(x + 4, 12, 6, 6), WOOD[5])
+    cols = [hexrgb(c) for c in ('#e2566c', '#f2c94c', '#5aa7d6', '#7fc67a', '#f29bc0', '#ffffff')]
+    xs = np.linspace(16, w - 16, 15)
+    sag = lambda x: 22 + 26 * np.sin((x - 16) / (w - 32) * np.pi)
+    for x0, x1 in zip(xs[:-1], xs[1:]):
+        sp.put(np.abs(sp.yy - sag(sp.xx)) < 1.1 & (sp.xx >= x0) & (sp.xx <= x1) if False else
+               ((np.abs(sp.yy - sag(sp.xx)) < 1.1) & (sp.xx >= x0) & (sp.xx <= x1)), METAL[2])
+    for i, x in enumerate(xs[1:-1]):
+        y = sag(x)
+        tri = sp.poly([(x - 9, y), (x + 9, y), (x, y + 20)])
+        sp.put(tri, cols[i % len(cols)])
+        sp.put(tri & (sp.xx > x + 2), cols[i % len(cols)] * 0.8)
+    outline(sp, WOOD[0] * 0.7, inner=False, width=1)
+    return sp
+
+
+def lantern_string(w=360, h=150, seed=181):
+    sp = Sprite(w, h)
+    for x in (8, w - 16):
+        sp.put(sp.rect(x, 14, 8, h - 16), quant(0.75 - (sp.xx - x) / 8 * 0.6, WOOD))
+    sag = lambda x: 22 + 30 * np.sin((x - 16) / (w - 32) * np.pi)
+    sp.put((np.abs(sp.yy - sag(sp.xx)) < 1.1) & (sp.xx > 12) & (sp.xx < w - 12), BARK[1])
+    for x in np.linspace(40, w - 40, 7):
+        y = sag(x) + 14
+        sp.put(sp.rect(int(x), int(y) - 13, 1, 10), BARK[1])
+        body = sp.ellipse(x, y, 9, 11)
+        sp.put(body, quant(sphere_shade(sp, x, y, 9, 11) * 0.55 + 0.45, LANTERN))
+        sp.put(sp.rect(int(x) - 6, int(y) - 12, 12, 3) | sp.rect(int(x) - 6, int(y) + 10, 12, 3), WOOD[0])
+        glow(sp, x, y, 24, LANTERN[3], 0.4)
+    outline(sp, WOOD[0] * 0.7, inner=False, width=1)
+    return sp
+
+
+def tree_planter(seed=191):
+    from PIL import Image
+    t = nature.broadleaf(LEAF, seed, w=150, h=220).image()
+    box = Sprite(110, 52)
+    box.put(box.rect(6, 8, 98, 40), quant(0.75 - (box.xx - 6) / 98 * 0.5, STONE))
+    box.put(box.rect(2, 4, 106, 8), STONE[5])
+    box.put(box.rect(10, 12, 90, 6), hexrgb('#5b4330'))
+    outline(box, STONE[0])
+    im = Image.new('RGBA', (150, 250))
+    im.alpha_composite(t, (0, 0))
+    im.alpha_composite(box.image(), (20, 198))
+    return im
+
+
+def flower_cart():
+    sp = cart(167)
+    return sp
+
+
+def bollard(w=26, h=50):
+    sp = Sprite(w, h)
+    sp.put(sp.rect(6, 10, 14, 36), quant(0.8 - (sp.xx - 6) / 14 * 0.6, METAL))
+    sp.put(sp.ellipse(13, 10, 7, 4), METAL[5])
+    sp.put(sp.rect(6, 20, 14, 3), hexrgb('#d9b25a'))
+    outline(sp, METAL[0])
+    return sp
+
+
+def bike_rack(w=120, h=60):
+    sp = Sprite(w, h)
+    for x in range(14, w - 10, 26):
+        sp.put(sp.rect(x, 14, 4, 40) | sp.rect(x + 14, 14, 4, 40) | sp.rect(x, 12, 18, 4), METAL[3])
+    sp.put(sp.rect(6, 50, w - 12, 4), METAL[2])
+    outline(sp, METAL[0], width=1)
+    return sp
+
+
+# ---------------------------------------------------------------- forest undergrowth
+def fern(seed=201, w=110, h=70, R=LEAF):
+    sp = Sprite(w, h)
+    rng = np.random.default_rng(seed)
+    base = (w / 2, h - 4)
+    for i in range(9):
+        ang = np.radians(rng.uniform(-170, -10))
+        L = rng.uniform(34, 52)
+        ex, ey = base[0] + np.cos(ang) * L, base[1] + np.sin(ang) * L * 0.75
+        n = 12
+        for k in range(n):
+            t = k / n
+            x = base[0] + (ex - base[0]) * t
+            y = base[1] + (ey - base[1]) * t - np.sin(t * np.pi) * 6
+            r = (1 - t) * 6 + 2
+            sp.put(sp.ellipse(x, y, r * 1.2, r * 0.7), R[2 + int((1 - t) * 2 + (i % 2))])
+        sp.put(sp.ellipse(ex, ey, 2.5, 2), R[5])
+    outline(sp, R[0] * 0.8, width=1)
+    return sp
+
+
+def tall_grass(seed=211, w=70, h=56, R=LEAF):
+    sp = Sprite(w, h)
+    rng = np.random.default_rng(seed)
+    for i in range(30):
+        x0 = rng.uniform(8, w - 8)
+        top = rng.uniform(4, 28)
+        bend = rng.uniform(-10, 10)
+        for y in range(int(top), h - 2):
+            t = (y - top) / (h - top)
+            x = x0 + bend * (1 - t) ** 2
+            sp.put(sp.rect(int(x), y, 2, 1), R[2 + (i % 4)])
+    outline(sp, R[0] * 0.8, inner=False, width=1)
+    return sp
+
+
+def fallen_log(seed=221, w=170, h=60):
+    sp = Sprite(w, h)
+    body = sp.rect(14, 18, w - 34, 30)
+    sp.put(body, quant(0.85 - np.abs(sp.yy - 30) / 16 * 0.6 + (noise(h, w, 3, seed) - 0.5) * 0.2, BARK))
+    end = sp.ellipse(w - 20, 33, 10, 15)
+    rings = (np.sqrt(((sp.xx - (w - 20)) / 10) ** 2 + ((sp.yy - 33) / 15) ** 2) * 4) % 1
+    sp.put(end, np.where((rings < 0.3)[..., None], hexrgb('#a9825a'), hexrgb('#cfa977')))
+    moss = body & (sp.yy < 26) & (noise(h, w, 4, seed + 1) > 0.5)
+    sp.rgb[moss] = LEAF[4]
+    rng = np.random.default_rng(seed)
+    for i in range(3):
+        x = rng.uniform(30, w - 50)
+        sp.put(sp.ellipse(x, 18, 5, 3) & (sp.yy < 18), hexrgb('#e8d6b4'))
+    outline(sp, BARK[0])
+    return sp
+
+
+def big_oak(seed=231, R=LEAF):
+    return nature.broadleaf(R, seed, w=240, h=320)
+
+
 KIT = {
     'hd_tree_dream_a': (lambda: dream_tree(DREAM, 31), 16, 9, 'sort'),
     'hd_tree_dream_b': (lambda: dream_tree(DREAM_BLUE, 33, '#e8f6ff'), 16, 9, 'sort'),
@@ -277,6 +458,45 @@ KIT = {
     'hd_umbrella_table': (lambda: umbrella_table(), 60, 14, 'sort'),
     'hd_flowerbed': (lambda: flowerbed(131), 60, 10, 'sort'),
     'hd_bush_berry': (lambda: nature.bush(19, flowers=FLOWERS[0]), 36, 10, 'sort'),
+    'hd_fern_a': (lambda: fern(201), 0, 0, 'sort'),
+    'hd_fern_b': (lambda: fern(203, R=LEAF_DARK), 0, 0, 'sort'),
+    'hd_grass_tall': (lambda: tall_grass(211), 0, 0, 'sort'),
+    'hd_grass_tall_b': (lambda: tall_grass(213, R=LEAF_DARK), 0, 0, 'sort'),
+    'hd_log': (lambda: fallen_log(221), 60, 12, 'sort'),
+    'hd_tree_big_a': (lambda: big_oak(231), 22, 11, 'sort'),
+    'hd_tree_big_b': (lambda: big_oak(233, LEAF_DARK), 22, 11, 'sort'),
+    'hd_sacks': (lambda: sacks(141), 30, 10, 'sort'),
+    'hd_crate_stack': (lambda: crate_stack(151), 40, 12, 'sort'),
+    'hd_cart': (lambda: cart(161), 60, 14, 'sort'),
+    'hd_bunting': (lambda: bunting(), 0, 0, 'sort'),
+    'hd_lantern_string': (lambda: lantern_string(), 0, 0, 'sort'),
+    'hd_tree_planter': (lambda: tree_planter(191), 46, 14, 'sort'),
+    'hd_bollard': (lambda: bollard(), 8, 6, 'sort'),
+    'hd_bike_rack': (lambda: bike_rack(), 50, 8, 'sort'),
+    # Plaza landmarks, drawn new (replace the old v43/v51 PNGs)
+    'hd_house_arland': (lambda: lm.house('arland', 600, 500), 250, 82, 'sort'),
+    'hd_house_sofia': (lambda: lm.house('sofia', 620, 500), 260, 82, 'sort'),
+    'hd_cafe_senja': (lambda: lm.house('cafe', 680, 500), 280, 82, 'sort'),
+    'hd_fountain_grand': (lambda: lm.fountain_grand(), 190, 70, 'sort'),
+    'hd_fountain_tiered': (lambda: lm.fountain_tiered(), 48, 18, 'sort'),
+    'hd_mural_old': (lambda: lm.mural_wall(False), 112, 12, 'sort'),
+    'hd_mural_new': (lambda: lm.mural_wall(True), 112, 12, 'sort'),
+    'hd_notice_board': (lambda: lm.notice_board(), 50, 8, 'sort'),
+    'hd_mailbox': (lambda: lm.mailbox(), 6, 4, 'sort'),
+    'hd_mailbox_old': (lambda: lm.old_mailbox(), 12, 6, 'sort'),
+    'hd_bicycle': (lambda: lm.bicycle(), 30, 6, 'sort'),
+    'hd_vending': (lambda: lm.vending(), 26, 12, 'sort'),
+    'hd_signpost_w': (lambda: lm.signpost([('Taman', -1), ('Plaza', 1)]), 6, 4, 'sort'),
+    'hd_signpost_e': (lambda: lm.signpost([('Jalan Kota', 1), ('Plaza', -1)]), 6, 4, 'sort'),
+    'hd_signpost_s': (lambda: lm.signpost([('Danau', 1), ('Plaza', -1)]), 6, 4, 'sort'),
+    'hd_banner_cafe': (lambda: lm.banner_pole(), 0, 0, 'sort'),
+    'hd_lamp_gold': (lambda: lm.lamp_gold(), 0, 0, 'sort'),
+    'hd_birdbath': (lambda: lm.birdbath(), 22, 12, 'sort'),
+    'hd_garden_plot': (lambda: lm.garden_plot(), 70, 20, 'sort'),
+    'hd_flower_buckets': (lambda: lm.flower_buckets(0), 70, 14, 'sort'),
+    'hd_flower_buckets_b': (lambda: lm.flower_buckets(1), 70, 14, 'sort'),
+    'hd_flower_buckets_c': (lambda: lm.flower_buckets(2), 70, 14, 'sort'),
+    'hd_column_stone': (lambda: lm.column_stone(), 14, 10, 'sort'),
 }
 
 
@@ -288,7 +508,8 @@ def build(only=None, sheet=None):
     for pid, (fn, cw, ch, layer) in KIT.items():
         if only and pid not in only:
             continue
-        img = fn().image()
+        r = fn()
+        img = r.image() if hasattr(r, 'image') else r
         rel = 'props/hd/%s@2x.png' % pid
         img.save(A / rel, optimize=True)
         data['props'][pid] = {'image': rel, 'cw': cw, 'ch': ch, 'layer': layer}

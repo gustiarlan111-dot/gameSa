@@ -123,6 +123,9 @@ func _build_props() -> void:
 		s.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS if k < 1.0 else CanvasItem.TEXTURE_FILTER_NEAREST
 		holder.add_child(s)
 		var img: String = d.image
+		var sway := _sway_for(img)
+		if sway:
+			s.material = sway
 		if img.contains("lamp") or img.contains("lantern_post") or img.contains("lantern_on") or img.contains("crystal"):
 			var kind := "crystal" if img.contains("crystal") else "lamp"
 			var hgt := tex.get_height() * k
@@ -131,6 +134,30 @@ func _build_props() -> void:
 			_floor.add_child(holder)
 		else:
 			_sorted.add_child(holder)
+
+
+const SWAY_SHADER := preload("res://src/fx/sway.gdshader")
+var _sway_mats := {}
+
+
+## Foliage gets a gentle wind sway (one shared material per strength, cheap on mobile).
+func _sway_for(img: String) -> Material:
+	var amp := 0.0
+	if img.contains("tree") or img.contains("willow"):
+		amp = 3.0
+	elif img.contains("grass") or img.contains("reeds") or img.contains("fern"):
+		amp = 4.0
+	elif img.contains("bush") or img.contains("flowers"):
+		amp = 1.2
+	if amp == 0.0 or img.contains("planter") or img.contains("stump") or img.contains("log"):
+		return null
+	if not _sway_mats.has(amp):
+		var m := ShaderMaterial.new()
+		m.shader = SWAY_SHADER
+		m.set_shader_parameter("amp", amp)
+		m.set_shader_parameter("speed", 1.1 if amp < 4.0 else 1.6)
+		_sway_mats[amp] = m
+	return _sway_mats[amp]
 
 
 func nearest_open(p: Vector2) -> Vector2:

@@ -111,6 +111,9 @@ func _build_ui() -> void:
 	_toast.add_theme_constant_override("shadow_offset_y", 2)
 	_toast.add_theme_constant_override("shadow_outline_size", 6)
 	_toast.set_anchors_preset(Control.PRESET_CENTER_TOP)
+	var tst := UiTheme.panel(Color(0.16, 0.12, 0.2, 0.78), Color(1, 1, 1, 0.25), 14, 2, 0)
+	tst.content_margin_left = 18; tst.content_margin_right = 18; tst.content_margin_top = 6; tst.content_margin_bottom = 7
+	_toast.add_theme_stylebox_override("normal", tst)
 	root.add_child(_toast)
 	# dialogue
 	dialog = DialogBox.new()
@@ -240,7 +243,7 @@ func _update_hud(delta: float, busy: bool) -> void:
 	hud.refresh(engine, cine.letterboxed())
 	_toast_time = maxf(0, _toast_time - delta)
 	_toast.modulate.a = clampf(_toast_time * 2.0, 0, 1)
-	_toast.position = Vector2(_ui.get_viewport().get_visible_rect().size.x / 2 - _toast.size.x / 2, 82)
+	_toast.position = Vector2(_ui.get_viewport().get_visible_rect().size.x / 2 - _toast.size.x / 2, hud.bottom() + 12)
 	var show := not busy and not _target.is_empty()
 	_prompt.visible = show
 	if show:

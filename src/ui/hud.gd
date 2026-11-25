@@ -69,12 +69,33 @@ func flash_objective() -> void:
 func refresh(engine: QuestEngine, hidden: bool) -> void:
 	visible = not hidden
 	var p := engine.p
-	_objective.text = "✦  " + engine.objective_text()
 	_clock.text = "%s %d  ·  %s  %s" % [WorldClock.day_name(p.day), p.day, WorldClock.hhmm(p.minute), ("☾" if engine.weather_now() == "cerah" and WorldClock.is_night(p.minute) else WEATHER_ICON.get(engine.weather_now(), ""))]
 	_coins.text = str(p.coins)
 	_hearts.text = str(p.affection)
 	_right.reset_size()
 	_right.position = Vector2(size.x - _right.size.x - 172, 16)
+	_fit_objective("✦  " + engine.objective_text())
+
+
+## The objective pill never runs under the clock pill: long objectives end with an ellipsis.
+func _fit_objective(t: String) -> void:
+	if _objective.text == t and _obj_panel.size.x + 18 < _right.position.x:
+		return
+	_objective.text = t
+	var maxw := maxf(160.0, _right.position.x - 18 - 14 - 36)
+	var f := _objective.get_theme_font("font")
+	var fs := _objective.get_theme_font_size("font_size")
+	var natural := f.get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 4
+	_objective.clip_text = natural > maxw
+	_objective.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	_objective.custom_minimum_size = Vector2(minf(natural, maxw), 0)
+	_objective.size = Vector2.ZERO
+	_obj_panel.size = Vector2.ZERO
+	_obj_panel.reset_size()
+
+
+func bottom() -> float:
+	return maxf(_obj_panel.position.y + _obj_panel.size.y, _right.position.y + _right.size.y)
 
 
 func _process(delta: float) -> void:

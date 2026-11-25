@@ -33,6 +33,7 @@ var _snap := true
 var _glow_tex: Texture2D
 var _quad: QuadMesh
 var _mats := {}
+const SWAY3D := preload("res://src/fx/sway3d.gdshader")
 
 
 func _ready() -> void:
@@ -119,6 +120,12 @@ func rebuild() -> void:
 	_build_ground()
 	_build_props()
 	_build_lamps()
+	if not _indoor:
+		var wf := WaterFx.new().setup(world)
+		if wf.active():
+			_static.add_child(wf)
+		else:
+			wf.free()
 	_snap = true
 
 
@@ -169,10 +176,23 @@ func _build_ground() -> void:
 	_static.add_child(out)
 
 
-func _material(tex: Texture2D, img: String, standing: bool) -> StandardMaterial3D:
+func _material(tex: Texture2D, img: String, standing: bool) -> Material:
 	var key := "%s|%s" % [img, standing]
 	if _mats.has(key):
 		return _mats[key]
+	var sway: Material = world._sway_for(img) if standing and not _indoor else null
+	if sway:
+		var sm := ShaderMaterial.new()
+		sm.shader = SWAY3D
+		sm.set_shader_parameter("albedo_tex", tex)
+		sm.set_shader_parameter("amp", float(sway.get_shader_parameter("amp")) * 1.4 * S)
+		sm.set_shader_parameter("speed", sway.get_shader_parameter("speed"))
+		var nm := "res://assets/" + img.get_base_dir() + "/n/" + img.get_file().replace("@2x.png", "_n.png")
+		if ResourceLoader.exists(nm):
+			sm.set_shader_parameter("normal_tex", load(nm))
+			sm.set_shader_parameter("use_normal", true)
+		_mats[key] = sm
+		return sm
 	var mat := StandardMaterial3D.new()
 	mat.albedo_texture = tex
 	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR
@@ -364,7 +384,7 @@ func _update_rustle() -> void:
 func _update_mirrors() -> void:
 	var roots: Array = []
 	for c in world._sorted.get_children():
-		if c is Actor:
+		if c is Actor or c is Critter:
 			roots.append(c)
 	for c in world.extras.get_children():
 		roots.append(c)

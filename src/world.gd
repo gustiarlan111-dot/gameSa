@@ -38,6 +38,7 @@ var _surf_w := 0
 var _alts: Array = []             # props with an alternate look once a story flag is set (chest opened, bridge fixed)
 var _alt_t := 0.0
 var _prop_nodes: Array[Node2D] = []   # prop holders; WorldView3D builds the 3D scene from them
+var atmo: Atmosphere               # set by Game; animals read night / rain from it
 var foliage: Array = []           # [{node, pos, r, kind: "grass"|"bush", t}] rustle when walked through
 
 
@@ -75,6 +76,7 @@ func enter_area(area_id: String, pos: Vector2, facing := "down") -> void:
 	_build_ground()
 	_build_props()
 	_load_surface()
+	_spawn_animals(area_id)
 	if player.get_parent() == null:
 		_sorted.add_child(player); _sorted.add_child(partner)
 	player.position = nearest_open(pos)
@@ -87,6 +89,17 @@ func enter_area(area_id: String, pos: Vector2, facing := "down") -> void:
 	camera.reset_smoothing()
 	door_cooldown = 0.6
 	area_entered.emit(area_id)
+
+
+func _spawn_animals(area_id: String) -> void:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = hash(area_id)
+	for spec in area.get("animals", []):
+		var type := str(spec.get("type", ""))
+		if not ResourceLoader.exists("res://assets/animals/%s.png" % type):
+			continue
+		for i in int(spec.get("n", 1)):
+			_sorted.add_child(Critter.new().setup(self, type, spec, rng))
 
 
 func _build_ground() -> void:

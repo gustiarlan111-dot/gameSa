@@ -66,6 +66,7 @@ func _ready() -> void:
 	world.door_touched.connect(_on_door)
 	atmosphere = Atmosphere.new()
 	atmosphere.world = world
+	world.atmo = atmosphere
 	world.add_child(atmosphere)
 	_build_ui()
 	world.flags = p.flags

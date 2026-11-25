@@ -526,6 +526,8 @@ KIT = {
     'hd_shop_mart': (lambda: lm.shopfront('mart', 360), 164, 24, 'sort'),
     'hd_shop_arcade': (lambda: lm.shopfront('arcade', 400), 184, 24, 'sort'),
     'hd_shop_books': (lambda: lm.shopfront('books', 260), 114, 24, 'sort'),
+    'hd_signpost_town_w': (lambda: lm.signpost([('Plaza', -1), ('Halte', 1)]), 6, 4, 'sort'),
+    'hd_signpost_town_e': (lambda: lm.signpost([('Perumahan', 1), ('Plaza', -1)]), 6, 4, 'sort'),
     'hd_car_red': (lambda: lm.car('#c4433f'), 104, 30, 'sort'),
     'hd_car_blue': (lambda: lm.car('#3d6fd3', facing=-1), 104, 30, 'sort'),
     'hd_car_cream': (lambda: lm.car('#e8dcbb'), 104, 30, 'sort'),

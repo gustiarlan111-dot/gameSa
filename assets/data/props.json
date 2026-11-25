@@ -2910,6 +2910,18 @@
       "cw": 104,
       "ch": 30,
       "layer": "sort"
+    },
+    "hd_signpost_town_w": {
+      "image": "props/hd/hd_signpost_town_w@2x.png",
+      "cw": 6,
+      "ch": 4,
+      "layer": "sort"
+    },
+    "hd_signpost_town_e": {
+      "image": "props/hd/hd_signpost_town_e@2x.png",
+      "cw": 6,
+      "ch": 4,
+      "layer": "sort"
     }
   }
 }

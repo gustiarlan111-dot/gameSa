@@ -4756,106 +4756,1075 @@
           0,
           0,
           1200,
-          275
+          262
         ],
         [
           0,
-          730,
+          262,
+          20,
+          203
+        ],
+        [
+          0,
+          565,
+          20,
+          171
+        ],
+        [
+          1180,
+          262,
+          20,
+          203
+        ],
+        [
+          1180,
+          565,
+          20,
+          171
+        ],
+        [
+          0,
+          736,
           1200,
-          166
-        ],
-        [
-          0,
-          275,
-          40,
-          90
-        ],
-        [
-          1160,
-          275,
-          40,
-          90
-        ],
-        [
-          735,
-          392,
-          93,
-          72
-        ],
-        [
-          900,
-          395,
-          89,
-          70
-        ],
-        [
-          1073,
-          391,
-          116,
-          72
-        ],
-        [
-          23,
-          522,
-          125,
-          62
-        ],
-        [
-          680,
-          518,
-          120,
-          62
-        ],
-        [
-          165,
-          634,
-          95,
-          60
-        ],
-        [
-          426,
-          620,
-          80,
-          80
-        ],
-        [
-          890,
-          630,
-          135,
-          88
+          160
         ]
       ],
       "ellipses": [],
       "props": [
         {
-          "type": "maps_v4_jalan_kota_lamp",
-          "x": 464,
-          "y": 395
+          "type": "hd_shop_florist",
+          "x": 261,
+          "y": 284
         },
         {
-          "type": "v51_street_lamp",
+          "type": "hd_shop_bakery",
+          "x": 495,
+          "y": 284
+        },
+        {
+          "type": "hd_shop_mart",
+          "x": 720,
+          "y": 284
+        },
+        {
+          "type": "hd_shop_arcade",
+          "x": 946,
+          "y": 284
+        },
+        {
+          "type": "hd_shop_books",
+          "x": 1106,
+          "y": 284
+        },
+        {
+          "type": "hd_bin",
+          "x": 378,
+          "y": 296
+        },
+        {
+          "type": "hd_planter_violet",
+          "x": 612,
+          "y": 298
+        },
+        {
+          "type": "hd_vending",
+          "x": 828,
+          "y": 296
+        },
+        {
+          "type": "hd_tree_oak_a",
+          "x": 70,
+          "y": 262
+        },
+        {
+          "type": "hd_notice_board",
+          "x": 92,
+          "y": 300
+        },
+        {
+          "type": "hd_bicycle",
+          "x": 140,
+          "y": 318
+        },
+        {
+          "type": "hd_lamp_gold",
+          "x": 140,
+          "y": 400
+        },
+        {
+          "type": "hd_lamp_gold",
+          "x": 380,
+          "y": 400
+        },
+        {
+          "type": "hd_lamp_gold",
+          "x": 620,
+          "y": 400
+        },
+        {
+          "type": "hd_lamp_gold",
+          "x": 860,
+          "y": 400
+        },
+        {
+          "type": "hd_lamp_gold",
+          "x": 1100,
+          "y": 400
+        },
+        {
+          "type": "hd_tree_planter",
+          "x": 330,
+          "y": 396
+        },
+        {
+          "type": "hd_tree_planter",
+          "x": 560,
+          "y": 396
+        },
+        {
+          "type": "hd_tree_planter",
+          "x": 800,
+          "y": 396
+        },
+        {
+          "type": "hd_tree_planter",
+          "x": 1030,
+          "y": 396
+        },
+        {
+          "type": "hd_bench",
+          "x": 430,
+          "y": 322
+        },
+        {
+          "type": "hd_bench",
+          "x": 1022,
+          "y": 322
+        },
+        {
+          "type": "hd_flower_buckets_b",
+          "x": 340,
+          "y": 322
+        },
+        {
+          "type": "hd_mailbox",
+          "x": 600,
+          "y": 332
+        },
+        {
+          "type": "hd_bike_rack",
+          "x": 652,
+          "y": 330
+        },
+        {
+          "type": "hd_bollard",
+          "x": 182,
+          "y": 402
+        },
+        {
+          "type": "hd_bollard",
+          "x": 236,
+          "y": 402
+        },
+        {
+          "type": "hd_bollard",
+          "x": 470,
+          "y": 402
+        },
+        {
+          "type": "hd_bollard",
+          "x": 524,
+          "y": 402
+        },
+        {
+          "type": "hd_car_red",
+          "x": 330,
+          "y": 450
+        },
+        {
+          "type": "hd_car_cream",
+          "x": 790,
+          "y": 450
+        },
+        {
+          "type": "hd_car_blue",
+          "x": 520,
+          "y": 588
+        },
+        {
+          "type": "hd_car_green",
+          "x": 1030,
+          "y": 592
+        },
+        {
+          "type": "hd_bus_shelter",
+          "x": 150,
+          "y": 662
+        },
+        {
+          "type": "hd_kiosk",
+          "x": 395,
+          "y": 670
+        },
+        {
+          "type": "hd_flower_stall",
+          "x": 735,
+          "y": 676
+        },
+        {
+          "type": "hd_notice_board",
+          "x": 860,
+          "y": 650
+        },
+        {
+          "type": "hd_vending",
+          "x": 1000,
+          "y": 668
+        },
+        {
+          "type": "hd_vending",
+          "x": 1030,
+          "y": 668
+        },
+        {
+          "type": "hd_bin",
+          "x": 300,
+          "y": 640
+        },
+        {
+          "type": "hd_planter_pink",
+          "x": 1080,
+          "y": 640
+        },
+        {
+          "type": "hd_mailbox_old",
+          "x": 560,
+          "y": 650
+        },
+        {
+          "type": "hd_lamp_gold",
+          "x": 260,
+          "y": 620
+        },
+        {
+          "type": "hd_lamp_gold",
+          "x": 500,
+          "y": 620
+        },
+        {
+          "type": "hd_lamp_gold",
+          "x": 740,
+          "y": 620
+        },
+        {
+          "type": "hd_lamp_gold",
+          "x": 980,
+          "y": 620
+        },
+        {
+          "type": "hd_signpost_town_w",
+          "x": 60,
+          "y": 640
+        },
+        {
+          "type": "hd_signpost_town_e",
+          "x": 1150,
+          "y": 650
+        },
+        {
+          "type": "hd_railing_iron",
+          "x": 300,
+          "y": 606
+        },
+        {
+          "type": "hd_railing_iron",
+          "x": 400,
+          "y": 606
+        },
+        {
+          "type": "hd_railing_iron",
+          "x": 640,
+          "y": 606
+        },
+        {
+          "type": "hd_railing_iron",
+          "x": 740,
+          "y": 606
+        },
+        {
+          "type": "hd_railing_iron",
+          "x": 840,
+          "y": 606
+        },
+        {
+          "type": "hd_railing_iron",
+          "x": 70,
+          "y": 744
+        },
+        {
+          "type": "hd_railing_iron",
+          "x": 170,
+          "y": 744
+        },
+        {
+          "type": "hd_railing_iron",
+          "x": 270,
+          "y": 744
+        },
+        {
+          "type": "hd_railing_iron",
+          "x": 370,
+          "y": 744
+        },
+        {
+          "type": "hd_railing_iron",
+          "x": 470,
+          "y": 744
+        },
+        {
+          "type": "hd_railing_iron",
+          "x": 570,
+          "y": 744
+        },
+        {
+          "type": "hd_railing_iron",
+          "x": 670,
+          "y": 744
+        },
+        {
+          "type": "hd_railing_iron",
+          "x": 770,
+          "y": 744
+        },
+        {
+          "type": "hd_railing_iron",
+          "x": 870,
+          "y": 744
+        },
+        {
+          "type": "hd_railing_iron",
+          "x": 970,
+          "y": 744
+        },
+        {
+          "type": "hd_railing_iron",
+          "x": 1070,
+          "y": 744
+        },
+        {
+          "type": "hd_railing_iron",
+          "x": 1170,
+          "y": 744
+        },
+        {
+          "type": "hd_tree_oak_a",
+          "x": 34,
+          "y": 806
+        },
+        {
+          "type": "hd_tree_oak_c",
+          "x": 118,
+          "y": 803
+        },
+        {
+          "type": "hd_tree_blossom",
+          "x": 230,
+          "y": 811
+        },
+        {
+          "type": "hd_tree_oak_c",
+          "x": 314,
+          "y": 802
+        },
+        {
+          "type": "hd_tree_oak_b",
+          "x": 397,
+          "y": 802
+        },
+        {
+          "type": "hd_tree_oak_b",
+          "x": 492,
+          "y": 815
+        },
+        {
+          "type": "hd_tree_cherry_b",
+          "x": 594,
+          "y": 808
+        },
+        {
+          "type": "hd_tree_blossom",
           "x": 703,
-          "y": 333
+          "y": 804
         },
         {
-          "type": "v51_bench_stone",
-          "x": 575,
-          "y": 333
+          "type": "hd_tree_blossom",
+          "x": 793,
+          "y": 814
         },
         {
-          "type": "v51_signpost",
-          "x": 643,
-          "y": 333
+          "type": "hd_tree_cherry_a",
+          "x": 874,
+          "y": 806
         },
         {
-          "type": "v51_column_stone",
-          "x": 695,
-          "y": 408
+          "type": "hd_tree_oak_a",
+          "x": 964,
+          "y": 818
         },
         {
-          "type": "v51_information_board",
-          "x": 731,
-          "y": 490
+          "type": "hd_tree_cherry_b",
+          "x": 1060,
+          "y": 810
+        },
+        {
+          "type": "hd_tree_cherry_a",
+          "x": 1177,
+          "y": 814
+        },
+        {
+          "type": "hd_tree_oak_b",
+          "x": 62,
+          "y": 881
+        },
+        {
+          "type": "hd_tree_cherry_a",
+          "x": 174,
+          "y": 898
+        },
+        {
+          "type": "hd_tree_cherry_a",
+          "x": 271,
+          "y": 891
+        },
+        {
+          "type": "hd_tree_blossom",
+          "x": 348,
+          "y": 887
+        },
+        {
+          "type": "hd_tree_oak_c",
+          "x": 447,
+          "y": 890
+        },
+        {
+          "type": "hd_tree_cherry_a",
+          "x": 562,
+          "y": 898
+        },
+        {
+          "type": "hd_tree_oak_c",
+          "x": 661,
+          "y": 885
+        },
+        {
+          "type": "hd_tree_oak_b",
+          "x": 722,
+          "y": 885
+        },
+        {
+          "type": "hd_tree_oak_c",
+          "x": 834,
+          "y": 898
+        },
+        {
+          "type": "hd_tree_cherry_b",
+          "x": 916,
+          "y": 896
+        },
+        {
+          "type": "hd_tree_oak_a",
+          "x": 1034,
+          "y": 882
+        },
+        {
+          "type": "hd_tree_oak_c",
+          "x": 1118,
+          "y": 897
+        },
+        {
+          "type": "hd_bush_yellow",
+          "x": 813,
+          "y": 843
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 974,
+          "y": 847
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 1129,
+          "y": 838
+        },
+        {
+          "type": "hd_bush_yellow",
+          "x": 796,
+          "y": 852
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 708,
+          "y": 809
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 639,
+          "y": 859
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 391,
+          "y": 833
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 871,
+          "y": 834
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 875,
+          "y": 788
+        },
+        {
+          "type": "hd_bush_rose",
+          "x": 165,
+          "y": 856
+        },
+        {
+          "type": "hd_bush_yellow",
+          "x": 43,
+          "y": 773
+        },
+        {
+          "type": "hd_bush_rose",
+          "x": 331,
+          "y": 793
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 151,
+          "y": 795
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 43,
+          "y": 835
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 68,
+          "y": 825
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 763,
+          "y": 838
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 616,
+          "y": 828
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 789,
+          "y": 810
+        },
+        {
+          "type": "hd_bush_rose",
+          "x": 627,
+          "y": 845
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 593,
+          "y": 859
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 727,
+          "y": 797
+        },
+        {
+          "type": "hd_bush_rose",
+          "x": 1096,
+          "y": 816
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 218,
+          "y": 787
+        },
+        {
+          "type": "hd_bush_yellow",
+          "x": 984,
+          "y": 781
+        },
+        {
+          "type": "hd_bush_rose",
+          "x": 587,
+          "y": 794
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 669,
+          "y": 774
+        },
+        {
+          "type": "hd_bush_yellow",
+          "x": 251,
+          "y": 814
+        },
+        {
+          "type": "hd_bush_rose",
+          "x": 659,
+          "y": 786
+        },
+        {
+          "type": "hd_bush_yellow",
+          "x": 947,
+          "y": 790
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 421,
+          "y": 853
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 880,
+          "y": 839
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 36,
+          "y": 857
+        },
+        {
+          "type": "hd_bush_rose",
+          "x": 130,
+          "y": 778
+        },
+        {
+          "type": "hd_bush_yellow",
+          "x": 680,
+          "y": 795
+        },
+        {
+          "type": "hd_bush_rose",
+          "x": 573,
+          "y": 828
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 947,
+          "y": 806
+        },
+        {
+          "type": "hd_bush_yellow",
+          "x": 219,
+          "y": 805
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 581,
+          "y": 820
+        },
+        {
+          "type": "hd_bush_rose",
+          "x": 796,
+          "y": 805
+        },
+        {
+          "type": "hd_bush_rose",
+          "x": 361,
+          "y": 771
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 1097,
+          "y": 807
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 645,
+          "y": 842
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 371,
+          "y": 869
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 428,
+          "y": 878
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 462,
+          "y": 827
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 355,
+          "y": 763
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 99,
+          "y": 781
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 629,
+          "y": 805
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 1150,
+          "y": 774
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 299,
+          "y": 827
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 482,
+          "y": 796
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 439,
+          "y": 764
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 894,
+          "y": 878
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 270,
+          "y": 821
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 582,
+          "y": 845
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 689,
+          "y": 852
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 787,
+          "y": 764
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 109,
+          "y": 772
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 877,
+          "y": 845
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 188,
+          "y": 889
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 399,
+          "y": 886
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 23,
+          "y": 855
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 1084,
+          "y": 810
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 896,
+          "y": 799
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 1160,
+          "y": 787
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 1090,
+          "y": 759
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 63,
+          "y": 852
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 336,
+          "y": 801
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 151,
+          "y": 761
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 64,
+          "y": 846
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 1004,
+          "y": 835
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 1055,
+          "y": 793
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 521,
+          "y": 765
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 106,
+          "y": 769
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 144,
+          "y": 872
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 452,
+          "y": 853
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 1089,
+          "y": 796
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 29,
+          "y": 829
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 629,
+          "y": 843
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 838,
+          "y": 831
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 517,
+          "y": 829
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 156,
+          "y": 887
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 906,
+          "y": 865
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 910,
+          "y": 871
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 284,
+          "y": 888
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 935,
+          "y": 819
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 967,
+          "y": 766
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 291,
+          "y": 871
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 593,
+          "y": 854
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 146,
+          "y": 763
+        },
+        {
+          "type": "hd_tree_oak_b",
+          "x": 10,
+          "y": 69
+        },
+        {
+          "type": "hd_tree_blossom",
+          "x": 106,
+          "y": 53
+        },
+        {
+          "type": "hd_tree_oak_a",
+          "x": 178,
+          "y": 55
+        },
+        {
+          "type": "hd_tree_cherry_a",
+          "x": 288,
+          "y": 45
+        },
+        {
+          "type": "hd_tree_oak_b",
+          "x": 348,
+          "y": 66
+        },
+        {
+          "type": "hd_tree_oak_b",
+          "x": 451,
+          "y": 64
+        },
+        {
+          "type": "hd_tree_blossom",
+          "x": 518,
+          "y": 60
+        },
+        {
+          "type": "hd_tree_oak_c",
+          "x": 614,
+          "y": 42
+        },
+        {
+          "type": "hd_tree_oak_c",
+          "x": 686,
+          "y": 54
+        },
+        {
+          "type": "hd_tree_cherry_b",
+          "x": 775,
+          "y": 66
+        },
+        {
+          "type": "hd_tree_cherry_a",
+          "x": 860,
+          "y": 62
+        },
+        {
+          "type": "hd_tree_oak_a",
+          "x": 967,
+          "y": 61
+        },
+        {
+          "type": "hd_tree_cherry_a",
+          "x": 1037,
+          "y": 52
+        },
+        {
+          "type": "hd_tree_oak_c",
+          "x": 1134,
+          "y": 45
+        },
+        {
+          "type": "hd_tree_oak_b",
+          "x": 1188,
+          "y": 262
+        },
+        {
+          "type": "hd_bush_rose",
+          "x": 26,
+          "y": 258
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 48,
+          "y": 258
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 70,
+          "y": 255
+        },
+        {
+          "type": "hd_bush_rose",
+          "x": 92,
+          "y": 255
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 114,
+          "y": 255
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 136,
+          "y": 258
+        },
+        {
+          "type": "hd_bush_rose",
+          "x": 158,
+          "y": 259
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 372,
+          "y": 259
+        },
+        {
+          "type": "hd_bush_rose",
+          "x": 386,
+          "y": 260
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 606,
+          "y": 255
+        },
+        {
+          "type": "hd_bush_rose",
+          "x": 620,
+          "y": 257
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 1176,
+          "y": 255
         }
       ],
       "doors": [
@@ -4891,9 +5860,9 @@
           "id": "door_florist",
           "rect": [
             225,
-            309,
+            284,
             72,
-            45
+            40
           ],
           "label": "Toko Bunga",
           "to": "toko_bunga",
@@ -4905,9 +5874,9 @@
           "id": "door_arcade",
           "rect": [
             905,
-            307,
+            284,
             82,
-            48
+            40
           ],
           "label": "Arcade",
           "to": "arcade",
@@ -5002,7 +5971,148 @@
       ],
       "v4Layout": "handcrafted_16bit",
       "v4SourceOriginalFilename": "04_arcade.png",
-      "elevationPlatforms": []
+      "elevationPlatforms": [],
+      "visualStyle": "godot_hd_dense",
+      "visualUpdate": "godot_jalan_kota_hd",
+      "stairs": [],
+      "v6Layout": {
+        "version": 3,
+        "generator": "tools/worldgen/jalan_kota_hd.py",
+        "hd": true
+      },
+      "tiles": [
+        {
+          "image": "maps/hd/jalan_kota_0_0@2x.png",
+          "x": 0,
+          "y": 0,
+          "w": 1024,
+          "h": 896
+        },
+        {
+          "image": "maps/hd/jalan_kota_0_1@2x.png",
+          "x": 1024,
+          "y": 0,
+          "w": 176,
+          "h": 896
+        }
+      ],
+      "surface": {
+        "cell": 8,
+        "rows": [
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "g2s145g3",
+          "s150",
+          "s150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150"
+        ]
+      }
     },
     "taman_kota": {
       "name": "Taman Kota",

@@ -133,14 +133,14 @@ def furnish(m, P):
         pr('hd_bollard', x, 402)
     # parked cars (north curb faces east, south curb faces west)
     pr('hd_car_red', 330, 450); pr('hd_car_cream', 790, 450)
-    pr('hd_car_blue', 400, 592); pr('hd_car_green', 1030, 592)
+    pr('hd_car_blue', 520, 588); pr('hd_car_green', 1030, 592)
     # south pavement
     pr('hd_bus_shelter', 150, 662); pr('hd_kiosk', 395, 670); pr('hd_flower_stall', 735, 676)
     pr('hd_notice_board', 860, 650); pr('hd_vending', 1000, 668); pr('hd_vending', 1030, 668)
     pr('hd_bin', 300, 640); pr('hd_planter_pink', 1080, 640); pr('hd_mailbox_old', 560, 650)
     for x in (260, 500, 740, 980):
         pr('hd_lamp_gold', x, 620)
-    pr('hd_signpost_w', 60, 640); pr('hd_signpost_e', 1150, 650)
+    pr('hd_signpost_town_w', 60, 640); pr('hd_signpost_town_e', 1150, 650)
     # railings: along the road edge of the south pavement (gaps for crossings / bus stop), park edge
     for x in (300, 400, 640, 740, 840):
         pr('hd_railing_iron', x, 606)
@@ -160,6 +160,9 @@ def furnish(m, P):
     for x in range(20, W, 85):
         pr(trees[rng.integers(0, len(trees))], x + rng.uniform(-15, 15), rng.uniform(40, 70))
     pr('hd_tree_oak_b', 1188, 262)
+    # hedges and shrubs in the gaps between and beside the shop fronts
+    for x in list(range(26, 160, 22)) + [372, 386, 606, 620, 1176]:
+        pr(['hd_bush_a', 'hd_bush_b', 'hd_bush_rose'][int(x) % 3], x, 258 + rng.uniform(-3, 3))
 
 
 def main():

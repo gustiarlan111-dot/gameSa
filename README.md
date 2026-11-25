@@ -44,3 +44,4 @@ Memeriksa aturan cerita, quest, save (schema 8), minigame, toko, puzzle, romance
 | `assets/` | gambar, audio dan data JSON (cerita, quest, map, prop) |
 | `fonts/` | font Inter (lisensi OFL) |
 | `tests/` | tes logika headless |
+| `tools/` | generator aset Python (Pillow, numpy, scipy, matplotlib): NPC (`npc_gen.py`), kit prop HD (`artkit/`, `kit_extra.py`), map HD (`worldgen/`, `hd_remaster.py`) |

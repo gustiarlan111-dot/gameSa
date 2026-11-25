@@ -28,6 +28,8 @@ var _rustle := {}                       # 2D prop holder -> [MultiMesh, index, T
 var _alts: Array = []                   # [{sprite2d, mesh, tex}]
 var _lamps: Array = []                  # [{light, glow, crystal}]
 var _player_light: OmniLight3D
+var _occ: Array = []                   # standing props that could hide the couple: [pos2d, w, h]
+var _occ_pitch := 0.0
 var _key_light: OmniLight3D             # cutscenes: warm key light on the couple
 var _rim_light: OmniLight3D             # cutscenes: cool light from behind for a rim
 var _cam_target := Vector3.ZERO
@@ -228,6 +230,7 @@ func _prop_basis(w: float, h: float, standing: bool, skew := 0.0) -> Basis:
 
 
 func _build_props() -> void:
+	_occ.clear()
 	var groups := {}                     # key -> {tex, img, standing, items: [[holder, xf]]}
 	for holder in world._prop_nodes:
 		if not is_instance_valid(holder) or holder.is_queued_for_deletion() or holder.get_child_count() == 0:
@@ -253,6 +256,8 @@ func _build_props() -> void:
 			_static.add_child(mi)
 			_alts.append({"sprite": s, "mesh": mi, "tex": s.texture, "standing": standing, "foot": foot})
 			continue
+		if standing and not building and h > 36.0:
+			_occ.append([holder.position, w, h])
 		var b := Basis(Vector3.RIGHT, 0.0) * Basis.from_scale(Vector3(w * S, h * S, 1.0)) if building else _prop_basis(w, h, standing)
 		var key := "%s|%s|%s" % [img, standing, building]
 		if not groups.has(key):
@@ -594,6 +599,21 @@ func _update_key_light() -> void:
 	_rim_light.light_energy = 0.75 * dim * f
 
 
+func _clear_pitch() -> float:
+	var foc := world.player.position
+	if world.partner.visible:
+		foc = (foc + world.partner.position) * 0.5
+	var need := 0.0
+	for o in _occ:
+		var dy: float = o[0].y - foc.y
+		if dy < 6.0 or dy > 420.0 or absf(o[0].x - foc.x) > o[1] * 0.5 + 26.0:
+			continue
+		var top: float = o[2] * S * cos(TILT) - 0.6      # metres above the couple's shoulders
+		if top > 0.0:
+			need = maxf(need, atan2(top, dy * S) + deg_to_rad(10.0))
+	return minf(need, deg_to_rad(68.0))
+
+
 func _update_camera(delta: float) -> void:
 	var vp := get_viewport().get_visible_rect().size
 	var c2 := world.camera
@@ -608,6 +628,12 @@ func _update_camera(delta: float) -> void:
 	var cine := world.cine
 	var film: float = cine.film if cine != null else 0.0
 	var pitch := deg_to_rad(cine.view_pitch()) if cine != null else PITCH
+	if film > 0.001 and not _indoor:
+		# a low film camera must not put a bush or tree between the lens and the couple's faces:
+		# raise the angle just enough to look over anything standing in front of them
+		var need := _clear_pitch()
+		_occ_pitch = lerpf(_occ_pitch, need, 1.0 - exp(-delta * 4.0)) if not _snap else need
+		pitch = maxf(pitch, _occ_pitch)
 	var yaw := deg_to_rad(cine.view_yaw()) if cine != null else 0.0
 	# film shots look at the characters' chest rather than their feet
 	var want := at(tgt.x, tgt.y, 0.6) + Vector3(0, 0.55 * film, 0)

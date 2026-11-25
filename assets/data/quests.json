@@ -4768,8 +4768,92 @@
           "label": "Duduk di gazebo",
           "actions": [
             {
-              "do": "scene",
-              "id": "V468-C02-GAZEBO"
+              "do": "cine",
+              "cmds": [
+                {
+                  "c": "bars",
+                  "on": true,
+                  "t": 0.5
+                },
+                {
+                  "c": "mood",
+                  "id": "warm",
+                  "t": 1.6
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.2,
+                  "t": 0,
+                  "bars": false
+                },
+                {
+                  "c": "crane",
+                  "t": 3.6,
+                  "zoom": 1.2,
+                  "block": true
+                },
+                {
+                  "c": "fx",
+                  "kind": "petals",
+                  "on": "player",
+                  "t": 14.0,
+                  "n": 36
+                },
+                {
+                  "c": "orbit",
+                  "deg": 10,
+                  "t": 12.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.8,
+                  "t": 1.5
+                },
+                {
+                  "c": "say",
+                  "scene": "V468-C02-GAZEBO"
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.3599999999999999,
+                  "t": 1.6,
+                  "bars": false,
+                  "async": true
+                },
+                {
+                  "c": "pair",
+                  "kind": "lean",
+                  "t": 2.4
+                },
+                {
+                  "c": "wait",
+                  "t": 0.6
+                },
+                {
+                  "c": "angle",
+                  "yaw": 0,
+                  "t": 1.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.35,
+                  "t": 0.8
+                },
+                {
+                  "c": "bars",
+                  "on": false,
+                  "t": 0.6
+                }
+              ],
+              "made": "story_cines",
+              "orig": [
+                {
+                  "do": "scene",
+                  "id": "V468-C02-GAZEBO"
+                }
+              ]
             },
             {
               "do": "if",
@@ -4880,15 +4964,12 @@
                         {
                           "c": "bars",
                           "on": true,
-                          "t": 0.24
+                          "t": 0.5
                         },
                         {
-                          "c": "shot",
-                          "focus": "couple",
-                          "frame": "intimate",
-                          "zoom": 1.2,
-                          "t": 1.15,
-                          "bars": false
+                          "c": "mood",
+                          "id": "warm",
+                          "t": 1.6
                         },
                         {
                           "c": "fx",
@@ -4897,19 +4978,126 @@
                           "t": 2.0
                         },
                         {
+                          "c": "shot",
+                          "focus": "couple",
+                          "zoom": 1.2,
+                          "t": 0,
+                          "bars": false
+                        },
+                        {
+                          "c": "crane",
+                          "t": 3.6,
+                          "zoom": 1.2,
+                          "block": true
+                        },
+                        {
+                          "c": "fx",
+                          "kind": "petals",
+                          "on": "player",
+                          "t": 14.0,
+                          "n": 36
+                        },
+                        {
+                          "c": "orbit",
+                          "deg": 10,
+                          "t": 12.0
+                        },
+                        {
+                          "c": "dof",
+                          "a": 0.8,
+                          "t": 1.5
+                        },
+                        {
+                          "c": "say",
+                          "scene": "V468-C02-PHOTO-LANTERN"
+                        },
+                        {
+                          "c": "shot",
+                          "focus": "couple",
+                          "zoom": 1.3599999999999999,
+                          "t": 1.6,
+                          "bars": false,
+                          "async": true
+                        },
+                        {
+                          "c": "emote",
+                          "who": "player",
+                          "e": "heart",
+                          "t": 1.6
+                        },
+                        {
+                          "c": "emote",
+                          "who": "partner",
+                          "e": "heart",
+                          "t": 1.6
+                        },
+                        {
+                          "c": "fx",
+                          "kind": "glow",
+                          "on": "player",
+                          "t": 2.6,
+                          "block": true
+                        },
+                        {
                           "c": "wait",
-                          "t": 0.32
+                          "t": 0.6
+                        },
+                        {
+                          "c": "angle",
+                          "yaw": 0,
+                          "t": 1.0
+                        },
+                        {
+                          "c": "dof",
+                          "a": 0.35,
+                          "t": 0.8
                         },
                         {
                           "c": "bars",
                           "on": false,
-                          "t": 0.3
+                          "t": 0.6
+                        }
+                      ],
+                      "made": "story_cines",
+                      "orig": [
+                        {
+                          "do": "cine",
+                          "cmds": [
+                            {
+                              "c": "bars",
+                              "on": true,
+                              "t": 0.24
+                            },
+                            {
+                              "c": "shot",
+                              "focus": "couple",
+                              "frame": "intimate",
+                              "zoom": 1.2,
+                              "t": 1.15,
+                              "bars": false
+                            },
+                            {
+                              "c": "fx",
+                              "kind": "glow",
+                              "on": "player",
+                              "t": 2.0
+                            },
+                            {
+                              "c": "wait",
+                              "t": 0.32
+                            },
+                            {
+                              "c": "bars",
+                              "on": false,
+                              "t": 0.3
+                            }
+                          ]
+                        },
+                        {
+                          "do": "scene",
+                          "id": "V468-C02-PHOTO-LANTERN"
                         }
                       ]
-                    },
-                    {
-                      "do": "scene",
-                      "id": "V468-C02-PHOTO-LANTERN"
                     },
                     {
                       "do": "item",
@@ -4964,15 +5152,12 @@
                     {
                       "c": "bars",
                       "on": true,
-                      "t": 0.24
+                      "t": 0.5
                     },
                     {
-                      "c": "shot",
-                      "focus": "couple",
-                      "frame": "intimate",
-                      "zoom": 1.2,
-                      "t": 1.15,
-                      "bars": false
+                      "c": "mood",
+                      "id": "warm",
+                      "t": 1.6
                     },
                     {
                       "c": "fx",
@@ -4981,19 +5166,126 @@
                       "t": 2.0
                     },
                     {
+                      "c": "shot",
+                      "focus": "couple",
+                      "zoom": 1.2,
+                      "t": 0,
+                      "bars": false
+                    },
+                    {
+                      "c": "crane",
+                      "t": 3.6,
+                      "zoom": 1.2,
+                      "block": true
+                    },
+                    {
+                      "c": "fx",
+                      "kind": "petals",
+                      "on": "player",
+                      "t": 14.0,
+                      "n": 36
+                    },
+                    {
+                      "c": "orbit",
+                      "deg": -10,
+                      "t": 12.0
+                    },
+                    {
+                      "c": "dof",
+                      "a": 0.8,
+                      "t": 1.5
+                    },
+                    {
+                      "c": "say",
+                      "scene": "V468-C02-PHOTO-LANTERN"
+                    },
+                    {
+                      "c": "shot",
+                      "focus": "couple",
+                      "zoom": 1.3599999999999999,
+                      "t": 1.6,
+                      "bars": false,
+                      "async": true
+                    },
+                    {
+                      "c": "emote",
+                      "who": "player",
+                      "e": "heart",
+                      "t": 1.6
+                    },
+                    {
+                      "c": "emote",
+                      "who": "partner",
+                      "e": "heart",
+                      "t": 1.6
+                    },
+                    {
+                      "c": "fx",
+                      "kind": "glow",
+                      "on": "player",
+                      "t": 2.6,
+                      "block": true
+                    },
+                    {
                       "c": "wait",
-                      "t": 0.32
+                      "t": 0.6
+                    },
+                    {
+                      "c": "angle",
+                      "yaw": 0,
+                      "t": 1.0
+                    },
+                    {
+                      "c": "dof",
+                      "a": 0.35,
+                      "t": 0.8
                     },
                     {
                       "c": "bars",
                       "on": false,
-                      "t": 0.3
+                      "t": 0.6
+                    }
+                  ],
+                  "made": "story_cines",
+                  "orig": [
+                    {
+                      "do": "cine",
+                      "cmds": [
+                        {
+                          "c": "bars",
+                          "on": true,
+                          "t": 0.24
+                        },
+                        {
+                          "c": "shot",
+                          "focus": "couple",
+                          "frame": "intimate",
+                          "zoom": 1.2,
+                          "t": 1.15,
+                          "bars": false
+                        },
+                        {
+                          "c": "fx",
+                          "kind": "glow",
+                          "on": "player",
+                          "t": 2.0
+                        },
+                        {
+                          "c": "wait",
+                          "t": 0.32
+                        },
+                        {
+                          "c": "bars",
+                          "on": false,
+                          "t": 0.3
+                        }
+                      ]
+                    },
+                    {
+                      "do": "scene",
+                      "id": "V468-C02-PHOTO-LANTERN"
                     }
                   ]
-                },
-                {
-                  "do": "scene",
-                  "id": "V468-C02-PHOTO-LANTERN"
                 },
                 {
                   "do": "item",
@@ -5236,8 +5528,99 @@
               "else": []
             },
             {
-              "do": "scene",
-              "id": "C02-X04"
+              "do": "cine",
+              "cmds": [
+                {
+                  "c": "bars",
+                  "on": true,
+                  "t": 0.5
+                },
+                {
+                  "c": "mood",
+                  "id": "warm",
+                  "t": 1.6
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.15,
+                  "t": 0,
+                  "bars": false
+                },
+                {
+                  "c": "crane",
+                  "t": 3.6,
+                  "zoom": 1.15,
+                  "block": true
+                },
+                {
+                  "c": "fx",
+                  "kind": "fireflies",
+                  "on": "player",
+                  "t": 14.0,
+                  "n": 36
+                },
+                {
+                  "c": "orbit",
+                  "deg": -14,
+                  "t": 12.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.8,
+                  "t": 1.5
+                },
+                {
+                  "c": "say",
+                  "scene": "C02-X04"
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.3099999999999998,
+                  "t": 1.6,
+                  "bars": false,
+                  "async": true
+                },
+                {
+                  "c": "pair",
+                  "kind": "lean",
+                  "t": 2.4
+                },
+                {
+                  "c": "fx",
+                  "kind": "glow",
+                  "on": "player",
+                  "t": 2.6,
+                  "block": true
+                },
+                {
+                  "c": "wait",
+                  "t": 0.6
+                },
+                {
+                  "c": "angle",
+                  "yaw": 0,
+                  "t": 1.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.35,
+                  "t": 0.8
+                },
+                {
+                  "c": "bars",
+                  "on": false,
+                  "t": 0.6
+                }
+              ],
+              "made": "story_cines",
+              "orig": [
+                {
+                  "do": "scene",
+                  "id": "C02-X04"
+                }
+              ]
             },
             {
               "do": "if",
@@ -6296,8 +6679,88 @@
               "else": []
             },
             {
-              "do": "scene",
-              "id": "C03-X01"
+              "do": "cine",
+              "cmds": [
+                {
+                  "c": "bars",
+                  "on": true,
+                  "t": 0.5
+                },
+                {
+                  "c": "mood",
+                  "id": "warm",
+                  "t": 1.6
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.15,
+                  "t": 0,
+                  "bars": false
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.23,
+                  "t": 1.4,
+                  "bars": false
+                },
+                {
+                  "c": "dof",
+                  "a": 0.8,
+                  "t": 1.5
+                },
+                {
+                  "c": "say",
+                  "scene": "C03-X01"
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.3099999999999998,
+                  "t": 1.6,
+                  "bars": false,
+                  "async": true
+                },
+                {
+                  "c": "pair",
+                  "kind": "highfive",
+                  "t": 2.4
+                },
+                {
+                  "c": "fx",
+                  "kind": "sparkles",
+                  "on": "player",
+                  "t": 2.6,
+                  "block": true
+                },
+                {
+                  "c": "wait",
+                  "t": 0.6
+                },
+                {
+                  "c": "angle",
+                  "yaw": 0,
+                  "t": 1.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.35,
+                  "t": 0.8
+                },
+                {
+                  "c": "bars",
+                  "on": false,
+                  "t": 0.6
+                }
+              ],
+              "made": "story_cines",
+              "orig": [
+                {
+                  "do": "scene",
+                  "id": "C03-X01"
+                }
+              ]
             },
             {
               "do": "item",
@@ -6444,12 +6907,107 @@
           "label": "Mulai piknik",
           "actions": [
             {
-              "do": "scene",
-              "id": "C03-X02"
-            },
-            {
-              "do": "scene",
-              "id": "V469-C03-PICNIC-REFLECTION"
+              "do": "cine",
+              "cmds": [
+                {
+                  "c": "bars",
+                  "on": true,
+                  "t": 0.5
+                },
+                {
+                  "c": "mood",
+                  "id": "warm",
+                  "t": 1.6
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.2,
+                  "t": 0,
+                  "bars": false
+                },
+                {
+                  "c": "crane",
+                  "t": 3.6,
+                  "zoom": 1.2,
+                  "block": true
+                },
+                {
+                  "c": "fx",
+                  "kind": "petals",
+                  "on": "player",
+                  "t": 14.0,
+                  "n": 36
+                },
+                {
+                  "c": "orbit",
+                  "deg": 14,
+                  "t": 12.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.8,
+                  "t": 1.5
+                },
+                {
+                  "c": "say",
+                  "scene": "C03-X02"
+                },
+                {
+                  "c": "say",
+                  "scene": "V469-C03-PICNIC-REFLECTION"
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.3599999999999999,
+                  "t": 1.6,
+                  "bars": false,
+                  "async": true
+                },
+                {
+                  "c": "pair",
+                  "kind": "lean",
+                  "t": 2.4
+                },
+                {
+                  "c": "fx",
+                  "kind": "hearts",
+                  "on": "player",
+                  "t": 2.6,
+                  "block": true
+                },
+                {
+                  "c": "wait",
+                  "t": 0.6
+                },
+                {
+                  "c": "angle",
+                  "yaw": 0,
+                  "t": 1.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.35,
+                  "t": 0.8
+                },
+                {
+                  "c": "bars",
+                  "on": false,
+                  "t": 0.6
+                }
+              ],
+              "made": "story_cines",
+              "orig": [
+                {
+                  "do": "scene",
+                  "id": "C03-X02"
+                },
+                {
+                  "do": "scene",
+                  "id": "V469-C03-PICNIC-REFLECTION"
+                }
+              ]
             },
             {
               "do": "removeItem",
@@ -7497,6 +8055,91 @@
         "count": 5,
         "actions": [
           {
+            "do": "cine",
+            "cmds": [
+              {
+                "c": "bars",
+                "on": true,
+                "t": 0.5
+              },
+              {
+                "c": "mood",
+                "id": "dream",
+                "t": 1.5
+              },
+              {
+                "c": "shot",
+                "focus": "couple",
+                "zoom": 1.05,
+                "t": 0,
+                "bars": false
+              },
+              {
+                "c": "crane",
+                "t": 3.2,
+                "zoom": 1.05,
+                "block": true
+              },
+              {
+                "c": "sfx",
+                "id": "lantern"
+              },
+              {
+                "c": "fx",
+                "kind": "lanterns",
+                "on": "player",
+                "t": 6.0,
+                "n": 18
+              },
+              {
+                "c": "orbit",
+                "deg": 16,
+                "t": 7.0
+              },
+              {
+                "c": "fx",
+                "kind": "restore",
+                "on": "player",
+                "t": 2.4,
+                "block": true
+              },
+              {
+                "c": "emote",
+                "who": "player",
+                "e": "heart",
+                "t": 1.6
+              },
+              {
+                "c": "emote",
+                "who": "partner",
+                "e": "heart",
+                "t": 1.6
+              },
+              {
+                "c": "shot",
+                "focus": "couple",
+                "zoom": 1.25,
+                "t": 2.0
+              },
+              {
+                "c": "wait",
+                "t": 1.0
+              },
+              {
+                "c": "angle",
+                "yaw": 0,
+                "t": 1.0
+              },
+              {
+                "c": "bars",
+                "on": false,
+                "t": 0.6
+              }
+            ],
+            "made": "story_cines",
+            "orig": []
+          },
+          {
             "do": "toast",
             "text": "Bawa kelima cahaya ke altar Rain Garden."
           },
@@ -7642,8 +8285,97 @@
           "label": "Duduk dan bicara",
           "actions": [
             {
-              "do": "scene",
-              "id": "V26-C04-ME@$ROUTE"
+              "do": "cine",
+              "cmds": [
+                {
+                  "c": "bars",
+                  "on": true,
+                  "t": 0.5
+                },
+                {
+                  "c": "mood",
+                  "id": "cool",
+                  "t": 1.6
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.2,
+                  "t": 0,
+                  "bars": false
+                },
+                {
+                  "c": "crane",
+                  "t": 3.6,
+                  "zoom": 1.2,
+                  "block": true
+                },
+                {
+                  "c": "fx",
+                  "kind": "rainlight",
+                  "on": "player",
+                  "t": 14.0,
+                  "n": 36
+                },
+                {
+                  "c": "orbit",
+                  "deg": -10,
+                  "t": 12.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.8,
+                  "t": 1.5
+                },
+                {
+                  "c": "say",
+                  "scene": "V26-C04-ME@$ROUTE"
+                },
+                {
+                  "c": "mood",
+                  "id": "warm",
+                  "t": 2.0
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.3599999999999999,
+                  "t": 1.6,
+                  "bars": false,
+                  "async": true
+                },
+                {
+                  "c": "pair",
+                  "kind": "hug",
+                  "t": 2.4
+                },
+                {
+                  "c": "wait",
+                  "t": 0.6
+                },
+                {
+                  "c": "angle",
+                  "yaw": 0,
+                  "t": 1.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.35,
+                  "t": 0.8
+                },
+                {
+                  "c": "bars",
+                  "on": false,
+                  "t": 0.6
+                }
+              ],
+              "made": "story_cines",
+              "orig": [
+                {
+                  "do": "scene",
+                  "id": "V26-C04-ME@$ROUTE"
+                }
+              ]
             },
             {
               "do": "flag",
@@ -8876,7 +9608,12 @@
                 {
                   "c": "bars",
                   "on": true,
-                  "t": 0.35
+                  "t": 0.5
+                },
+                {
+                  "c": "mood",
+                  "id": "night",
+                  "t": 1.6
                 },
                 {
                   "c": "caption",
@@ -8885,33 +9622,142 @@
                   "t": 3.1
                 },
                 {
-                  "c": "shot",
-                  "focus": "player",
-                  "zoom": 1.23,
-                  "t": 1.3,
-                  "frame": "intimate",
-                  "bars": false
-                },
-                {
                   "c": "fx",
                   "kind": "glow",
                   "on": "player",
                   "t": 3.2
                 },
                 {
+                  "c": "shot",
+                  "focus": "player",
+                  "zoom": 1.2,
+                  "t": 0,
+                  "bars": false
+                },
+                {
+                  "c": "crane",
+                  "t": 3.6,
+                  "zoom": 1.2,
+                  "block": true
+                },
+                {
+                  "c": "fx",
+                  "kind": "stars",
+                  "on": "player",
+                  "t": 14.0,
+                  "n": 36
+                },
+                {
+                  "c": "orbit",
+                  "deg": 10,
+                  "t": 12.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.8,
+                  "t": 1.5
+                },
+                {
+                  "c": "say",
+                  "scene": "C05-X03"
+                },
+                {
+                  "c": "say",
+                  "scene": "V464-C05-REPAIR"
+                },
+                {
+                  "c": "shot",
+                  "focus": "player",
+                  "zoom": 1.3599999999999999,
+                  "t": 1.6,
+                  "bars": false,
+                  "async": true
+                },
+                {
+                  "c": "emote",
+                  "who": "player",
+                  "e": "heart",
+                  "t": 1.6
+                },
+                {
+                  "c": "emote",
+                  "who": "partner",
+                  "e": "heart",
+                  "t": 1.6
+                },
+                {
+                  "c": "fx",
+                  "kind": "glow",
+                  "on": "player",
+                  "t": 2.6,
+                  "block": true
+                },
+                {
+                  "c": "wait",
+                  "t": 0.6
+                },
+                {
+                  "c": "angle",
+                  "yaw": 0,
+                  "t": 1.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.35,
+                  "t": 0.8
+                },
+                {
                   "c": "bars",
                   "on": false,
-                  "t": 0.5
+                  "t": 0.6
+                }
+              ],
+              "made": "story_cines",
+              "orig": [
+                {
+                  "do": "cine",
+                  "cmds": [
+                    {
+                      "c": "bars",
+                      "on": true,
+                      "t": 0.35
+                    },
+                    {
+                      "c": "caption",
+                      "text": "Dua Sisi, Satu Hari",
+                      "sub": "Tidak ada satu ingatan yang cukup sendiri",
+                      "t": 3.1
+                    },
+                    {
+                      "c": "shot",
+                      "focus": "player",
+                      "zoom": 1.23,
+                      "t": 1.3,
+                      "frame": "intimate",
+                      "bars": false
+                    },
+                    {
+                      "c": "fx",
+                      "kind": "glow",
+                      "on": "player",
+                      "t": 3.2
+                    },
+                    {
+                      "c": "bars",
+                      "on": false,
+                      "t": 0.5
+                    }
+                  ]
+                },
+                {
+                  "do": "scene",
+                  "id": "C05-X03"
+                },
+                {
+                  "do": "scene",
+                  "id": "V464-C05-REPAIR"
                 }
               ]
-            },
-            {
-              "do": "scene",
-              "id": "C05-X03"
-            },
-            {
-              "do": "scene",
-              "id": "V464-C05-REPAIR"
             },
             {
               "do": "step",
@@ -9398,8 +10244,99 @@
           "label": "Lihat langit bersama",
           "actions": [
             {
-              "do": "scene",
-              "id": "V26-C05-STAR"
+              "do": "cine",
+              "cmds": [
+                {
+                  "c": "bars",
+                  "on": true,
+                  "t": 0.5
+                },
+                {
+                  "c": "mood",
+                  "id": "night",
+                  "t": 1.6
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.1,
+                  "t": 0,
+                  "bars": false
+                },
+                {
+                  "c": "crane",
+                  "t": 3.6,
+                  "zoom": 1.1,
+                  "block": true
+                },
+                {
+                  "c": "fx",
+                  "kind": "stars",
+                  "on": "player",
+                  "t": 14.0,
+                  "n": 36
+                },
+                {
+                  "c": "orbit",
+                  "deg": 16,
+                  "t": 12.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.8,
+                  "t": 1.5
+                },
+                {
+                  "c": "say",
+                  "scene": "V26-C05-STAR"
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.26,
+                  "t": 1.6,
+                  "bars": false,
+                  "async": true
+                },
+                {
+                  "c": "pair",
+                  "kind": "lean",
+                  "t": 2.4
+                },
+                {
+                  "c": "fx",
+                  "kind": "aurora",
+                  "on": "player",
+                  "t": 2.6,
+                  "block": true
+                },
+                {
+                  "c": "wait",
+                  "t": 0.6
+                },
+                {
+                  "c": "angle",
+                  "yaw": 0,
+                  "t": 1.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.35,
+                  "t": 0.8
+                },
+                {
+                  "c": "bars",
+                  "on": false,
+                  "t": 0.6
+                }
+              ],
+              "made": "story_cines",
+              "orig": [
+                {
+                  "do": "scene",
+                  "id": "V26-C05-STAR"
+                }
+              ]
             },
             {
               "do": "flag",
@@ -10135,8 +11072,99 @@
           "label": "Pohon Harapan",
           "actions": [
             {
-              "do": "scene",
-              "id": "C06-X02"
+              "do": "cine",
+              "cmds": [
+                {
+                  "c": "bars",
+                  "on": true,
+                  "t": 0.5
+                },
+                {
+                  "c": "mood",
+                  "id": "dream",
+                  "t": 1.6
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.1,
+                  "t": 0,
+                  "bars": false
+                },
+                {
+                  "c": "crane",
+                  "t": 3.6,
+                  "zoom": 1.1,
+                  "block": true
+                },
+                {
+                  "c": "fx",
+                  "kind": "petals",
+                  "on": "player",
+                  "t": 14.0,
+                  "n": 36
+                },
+                {
+                  "c": "orbit",
+                  "deg": 14,
+                  "t": 12.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.8,
+                  "t": 1.5
+                },
+                {
+                  "c": "say",
+                  "scene": "C06-X02"
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.26,
+                  "t": 1.6,
+                  "bars": false,
+                  "async": true
+                },
+                {
+                  "c": "pair",
+                  "kind": "hug",
+                  "t": 2.4
+                },
+                {
+                  "c": "fx",
+                  "kind": "lanterns",
+                  "on": "player",
+                  "t": 2.6,
+                  "block": true
+                },
+                {
+                  "c": "wait",
+                  "t": 0.6
+                },
+                {
+                  "c": "angle",
+                  "yaw": 0,
+                  "t": 1.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.35,
+                  "t": 0.8
+                },
+                {
+                  "c": "bars",
+                  "on": false,
+                  "t": 0.6
+                }
+              ],
+              "made": "story_cines",
+              "orig": [
+                {
+                  "do": "scene",
+                  "id": "C06-X02"
+                }
+              ]
             },
             {
               "do": "removeItem",
@@ -10188,6 +11216,11 @@
                   "t": 0.5
                 },
                 {
+                  "c": "mood",
+                  "id": "dream",
+                  "t": 1.6
+                },
+                {
                   "c": "cam",
                   "x": 1200,
                   "y": 612,
@@ -10207,19 +11240,135 @@
                   "t": 4.4
                 },
                 {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.2,
+                  "t": 0,
+                  "bars": false
+                },
+                {
+                  "c": "crane",
+                  "t": 3.6,
+                  "zoom": 1.2,
+                  "block": true
+                },
+                {
+                  "c": "fx",
+                  "kind": "sparkles",
+                  "on": "player",
+                  "t": 14.0,
+                  "n": 36
+                },
+                {
+                  "c": "orbit",
+                  "deg": -10,
+                  "t": 12.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.8,
+                  "t": 1.5
+                },
+                {
+                  "c": "say",
+                  "scene": "V464-C06-EMPTY-SEAT"
+                },
+                {
+                  "c": "say",
+                  "scene": "V464-C06-MEMORY-WALK"
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.3599999999999999,
+                  "t": 1.6,
+                  "bars": false,
+                  "async": true
+                },
+                {
+                  "c": "emote",
+                  "who": "player",
+                  "e": "heart",
+                  "t": 1.6
+                },
+                {
+                  "c": "emote",
+                  "who": "partner",
+                  "e": "heart",
+                  "t": 1.6
+                },
+                {
+                  "c": "fx",
+                  "kind": "glow",
+                  "on": "player",
+                  "t": 2.6,
+                  "block": true
+                },
+                {
+                  "c": "wait",
+                  "t": 0.6
+                },
+                {
+                  "c": "angle",
+                  "yaw": 0,
+                  "t": 1.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.35,
+                  "t": 0.8
+                },
+                {
                   "c": "bars",
                   "on": false,
-                  "t": 0.55
+                  "t": 0.6
+                }
+              ],
+              "made": "story_cines",
+              "orig": [
+                {
+                  "do": "cine",
+                  "cmds": [
+                    {
+                      "c": "bars",
+                      "on": true,
+                      "t": 0.5
+                    },
+                    {
+                      "c": "cam",
+                      "x": 1200,
+                      "y": 612,
+                      "zoom": 1.3,
+                      "t": 2.0
+                    },
+                    {
+                      "c": "caption",
+                      "text": "Our Tomorrow",
+                      "sub": "Satu cerita, dua suara, banyak hari lagi",
+                      "t": 3.5
+                    },
+                    {
+                      "c": "fx",
+                      "kind": "petals",
+                      "on": "player",
+                      "t": 4.4
+                    },
+                    {
+                      "c": "bars",
+                      "on": false,
+                      "t": 0.55
+                    }
+                  ]
+                },
+                {
+                  "do": "scene",
+                  "id": "V464-C06-EMPTY-SEAT"
+                },
+                {
+                  "do": "scene",
+                  "id": "V464-C06-MEMORY-WALK"
                 }
               ]
-            },
-            {
-              "do": "scene",
-              "id": "V464-C06-EMPTY-SEAT"
-            },
-            {
-              "do": "scene",
-              "id": "V464-C06-MEMORY-WALK"
             },
             {
               "do": "if",
@@ -10830,8 +11979,112 @@
           "label": "Nenek Sari: halaman Wira",
           "actions": [
             {
-              "do": "scene",
-              "id": "Q-EPI-SARI@$ROUTE"
+              "do": "cine",
+              "cmds": [
+                {
+                  "c": "bars",
+                  "on": true,
+                  "t": 0.5
+                },
+                {
+                  "c": "mood",
+                  "id": "memory",
+                  "t": 1.6
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.2,
+                  "t": 0,
+                  "bars": false
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.28,
+                  "t": 1.4,
+                  "bars": false
+                },
+                {
+                  "c": "fx",
+                  "kind": "sparkles",
+                  "on": "player",
+                  "t": 14.0,
+                  "n": 36
+                },
+                {
+                  "c": "orbit",
+                  "deg": 8,
+                  "t": 12.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.8,
+                  "t": 1.5
+                },
+                {
+                  "c": "say",
+                  "scene": "Q-EPI-SARI@$ROUTE"
+                },
+                {
+                  "c": "mood",
+                  "id": "warm",
+                  "t": 2.0
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.3599999999999999,
+                  "t": 1.6,
+                  "bars": false,
+                  "async": true
+                },
+                {
+                  "c": "emote",
+                  "who": "player",
+                  "e": "heart",
+                  "t": 1.6
+                },
+                {
+                  "c": "emote",
+                  "who": "partner",
+                  "e": "heart",
+                  "t": 1.6
+                },
+                {
+                  "c": "fx",
+                  "kind": "glow",
+                  "on": "player",
+                  "t": 2.6,
+                  "block": true
+                },
+                {
+                  "c": "wait",
+                  "t": 0.6
+                },
+                {
+                  "c": "angle",
+                  "yaw": 0,
+                  "t": 1.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.35,
+                  "t": 0.8
+                },
+                {
+                  "c": "bars",
+                  "on": false,
+                  "t": 0.6
+                }
+              ],
+              "made": "story_cines",
+              "orig": [
+                {
+                  "do": "scene",
+                  "id": "Q-EPI-SARI@$ROUTE"
+                }
+              ]
             },
             {
               "do": "if",
@@ -11605,13 +12858,12 @@
                 {
                   "c": "bars",
                   "on": true,
-                  "t": 0.55
+                  "t": 0.5
                 },
                 {
-                  "c": "shot",
-                  "focus": "player",
-                  "zoom": 1.2,
-                  "t": 0.9
+                  "c": "mood",
+                  "id": "warm",
+                  "t": 1.6
                 },
                 {
                   "c": "fx",
@@ -11625,36 +12877,162 @@
                   "id": "v50_memory_shimmer"
                 },
                 {
+                  "c": "shot",
+                  "focus": "player",
+                  "zoom": 1.2,
+                  "t": 0,
+                  "bars": false
+                },
+                {
+                  "c": "crane",
+                  "t": 3.6,
+                  "zoom": 1.2,
+                  "block": true
+                },
+                {
+                  "c": "fx",
+                  "kind": "petals",
+                  "on": "player",
+                  "t": 14.0,
+                  "n": 36
+                },
+                {
+                  "c": "orbit",
+                  "deg": 10,
+                  "t": 12.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.8,
+                  "t": 1.5
+                },
+                {
+                  "c": "say",
+                  "scene": "V468-C02-S-REUNION"
+                },
+                {
+                  "c": "say",
+                  "scene": "C02-X00"
+                },
+                {
+                  "c": "say",
+                  "scene": "C02-X01"
+                },
+                {
+                  "c": "say",
+                  "scene": "V464-C02-GALLERY-TEASE"
+                },
+                {
+                  "c": "say",
+                  "scene": "V468-C02-SOFT-SKETCH"
+                },
+                {
+                  "c": "shot",
+                  "focus": "player",
+                  "zoom": 1.3599999999999999,
+                  "t": 1.6,
+                  "bars": false,
+                  "async": true
+                },
+                {
+                  "c": "emote",
+                  "who": "player",
+                  "e": "heart",
+                  "t": 1.6
+                },
+                {
+                  "c": "emote",
+                  "who": "partner",
+                  "e": "heart",
+                  "t": 1.6
+                },
+                {
+                  "c": "fx",
+                  "kind": "glow",
+                  "on": "player",
+                  "t": 2.6,
+                  "block": true
+                },
+                {
                   "c": "wait",
-                  "t": 0.5
+                  "t": 0.6
+                },
+                {
+                  "c": "angle",
+                  "yaw": 0,
+                  "t": 1.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.35,
+                  "t": 0.8
                 },
                 {
                   "c": "bars",
                   "on": false,
-                  "t": 0.55
+                  "t": 0.6
                 }
               ],
-              "v50Cinematic": true
-            },
-            {
-              "do": "scene",
-              "id": "V468-C02-S-REUNION"
-            },
-            {
-              "do": "scene",
-              "id": "C02-X00"
-            },
-            {
-              "do": "scene",
-              "id": "C02-X01"
-            },
-            {
-              "do": "scene",
-              "id": "V464-C02-GALLERY-TEASE"
-            },
-            {
-              "do": "scene",
-              "id": "V468-C02-SOFT-SKETCH"
+              "made": "story_cines",
+              "orig": [
+                {
+                  "do": "cine",
+                  "cmds": [
+                    {
+                      "c": "bars",
+                      "on": true,
+                      "t": 0.55
+                    },
+                    {
+                      "c": "shot",
+                      "focus": "player",
+                      "zoom": 1.2,
+                      "t": 0.9
+                    },
+                    {
+                      "c": "fx",
+                      "kind": "fireflies",
+                      "on": "player",
+                      "t": 4.6,
+                      "n": 32
+                    },
+                    {
+                      "c": "sfx",
+                      "id": "v50_memory_shimmer"
+                    },
+                    {
+                      "c": "wait",
+                      "t": 0.5
+                    },
+                    {
+                      "c": "bars",
+                      "on": false,
+                      "t": 0.55
+                    }
+                  ],
+                  "v50Cinematic": true
+                },
+                {
+                  "do": "scene",
+                  "id": "V468-C02-S-REUNION"
+                },
+                {
+                  "do": "scene",
+                  "id": "C02-X00"
+                },
+                {
+                  "do": "scene",
+                  "id": "C02-X01"
+                },
+                {
+                  "do": "scene",
+                  "id": "V464-C02-GALLERY-TEASE"
+                },
+                {
+                  "do": "scene",
+                  "id": "V468-C02-SOFT-SKETCH"
+                }
+              ]
             },
             {
               "do": "companion",
@@ -11740,13 +13118,12 @@
                 {
                   "c": "bars",
                   "on": true,
-                  "t": 0.55
+                  "t": 0.5
                 },
                 {
-                  "c": "shot",
-                  "focus": "player",
-                  "zoom": 1.2,
-                  "t": 0.9
+                  "c": "mood",
+                  "id": "warm",
+                  "t": 1.6
                 },
                 {
                   "c": "fx",
@@ -11760,20 +13137,130 @@
                   "id": "v50_memory_shimmer"
                 },
                 {
+                  "c": "shot",
+                  "focus": "player",
+                  "zoom": 1.2,
+                  "t": 0,
+                  "bars": false
+                },
+                {
+                  "c": "crane",
+                  "t": 3.6,
+                  "zoom": 1.2,
+                  "block": true
+                },
+                {
+                  "c": "fx",
+                  "kind": "fireflies",
+                  "on": "player",
+                  "t": 14.0,
+                  "n": 36
+                },
+                {
+                  "c": "orbit",
+                  "deg": -10,
+                  "t": 12.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.8,
+                  "t": 1.5
+                },
+                {
+                  "c": "say",
+                  "scene": "V464-C03-SEAT"
+                },
+                {
+                  "c": "shot",
+                  "focus": "player",
+                  "zoom": 1.3599999999999999,
+                  "t": 1.6,
+                  "bars": false,
+                  "async": true
+                },
+                {
+                  "c": "emote",
+                  "who": "player",
+                  "e": "heart",
+                  "t": 1.6
+                },
+                {
+                  "c": "emote",
+                  "who": "partner",
+                  "e": "heart",
+                  "t": 1.6
+                },
+                {
+                  "c": "fx",
+                  "kind": "glow",
+                  "on": "player",
+                  "t": 2.6,
+                  "block": true
+                },
+                {
                   "c": "wait",
-                  "t": 0.5
+                  "t": 0.6
+                },
+                {
+                  "c": "angle",
+                  "yaw": 0,
+                  "t": 1.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.35,
+                  "t": 0.8
                 },
                 {
                   "c": "bars",
                   "on": false,
-                  "t": 0.55
+                  "t": 0.6
                 }
               ],
-              "v50Cinematic": true
-            },
-            {
-              "do": "scene",
-              "id": "V464-C03-SEAT"
+              "made": "story_cines",
+              "orig": [
+                {
+                  "do": "cine",
+                  "cmds": [
+                    {
+                      "c": "bars",
+                      "on": true,
+                      "t": 0.55
+                    },
+                    {
+                      "c": "shot",
+                      "focus": "player",
+                      "zoom": 1.2,
+                      "t": 0.9
+                    },
+                    {
+                      "c": "fx",
+                      "kind": "mist",
+                      "on": "player",
+                      "t": 4.6,
+                      "n": 32
+                    },
+                    {
+                      "c": "sfx",
+                      "id": "v50_memory_shimmer"
+                    },
+                    {
+                      "c": "wait",
+                      "t": 0.5
+                    },
+                    {
+                      "c": "bars",
+                      "on": false,
+                      "t": 0.55
+                    }
+                  ],
+                  "v50Cinematic": true
+                },
+                {
+                  "do": "scene",
+                  "id": "V464-C03-SEAT"
+                }
+              ]
             },
             {
               "do": "flag",
@@ -11888,15 +13375,12 @@
               {
                 "c": "bars",
                 "on": true,
-                "t": 0.45
+                "t": 0.5
               },
               {
-                "c": "shot",
-                "type": "wide",
-                "x": 480,
-                "y": 335,
-                "zoom": 1.16,
-                "t": 1.2
+                "c": "mood",
+                "id": "warm",
+                "t": 1.6
               },
               {
                 "c": "fx",
@@ -11906,23 +13390,135 @@
                 "t": 1.6
               },
               {
+                "c": "shot",
+                "focus": "couple",
+                "zoom": 1.2,
+                "t": 0,
+                "bars": false
+              },
+              {
+                "c": "crane",
+                "t": 3.6,
+                "zoom": 1.2,
+                "block": true
+              },
+              {
+                "c": "fx",
+                "kind": "fireflies",
+                "on": "player",
+                "t": 14.0,
+                "n": 36
+              },
+              {
+                "c": "orbit",
+                "deg": 10,
+                "t": 12.0
+              },
+              {
+                "c": "dof",
+                "a": 0.8,
+                "t": 1.5
+              },
+              {
+                "c": "say",
+                "scene": "V469-C03-GALLERY-FORESHADOW"
+              },
+              {
+                "c": "say",
+                "scene": "V464-C03-END"
+              },
+              {
+                "c": "shot",
+                "focus": "couple",
+                "zoom": 1.3599999999999999,
+                "t": 1.6,
+                "bars": false,
+                "async": true
+              },
+              {
+                "c": "emote",
+                "who": "player",
+                "e": "heart",
+                "t": 1.6
+              },
+              {
+                "c": "emote",
+                "who": "partner",
+                "e": "heart",
+                "t": 1.6
+              },
+              {
+                "c": "fx",
+                "kind": "glow",
+                "on": "player",
+                "t": 2.6,
+                "block": true
+              },
+              {
                 "c": "wait",
-                "t": 0.9
+                "t": 0.6
+              },
+              {
+                "c": "angle",
+                "yaw": 0,
+                "t": 1.0
+              },
+              {
+                "c": "dof",
+                "a": 0.35,
+                "t": 0.8
               },
               {
                 "c": "bars",
                 "on": false,
-                "t": 0.45
+                "t": 0.6
+              }
+            ],
+            "made": "story_cines",
+            "orig": [
+              {
+                "do": "cine",
+                "cmds": [
+                  {
+                    "c": "bars",
+                    "on": true,
+                    "t": 0.45
+                  },
+                  {
+                    "c": "shot",
+                    "type": "wide",
+                    "x": 480,
+                    "y": 335,
+                    "zoom": 1.16,
+                    "t": 1.2
+                  },
+                  {
+                    "c": "fx",
+                    "id": "book",
+                    "x": 480,
+                    "y": 320,
+                    "t": 1.6
+                  },
+                  {
+                    "c": "wait",
+                    "t": 0.9
+                  },
+                  {
+                    "c": "bars",
+                    "on": false,
+                    "t": 0.45
+                  }
+                ]
+              },
+              {
+                "do": "scene",
+                "id": "V469-C03-GALLERY-FORESHADOW"
+              },
+              {
+                "do": "scene",
+                "id": "V464-C03-END"
               }
             ]
-          },
-          {
-            "do": "scene",
-            "id": "V469-C03-GALLERY-FORESHADOW"
-          },
-          {
-            "do": "scene",
-            "id": "V464-C03-END"
           },
           {
             "do": "chapterEnd",
@@ -14475,13 +16071,12 @@
                 {
                   "c": "bars",
                   "on": true,
-                  "t": 0.55
+                  "t": 0.5
                 },
                 {
-                  "c": "shot",
-                  "focus": "player",
-                  "zoom": 1.2,
-                  "t": 0.9
+                  "c": "mood",
+                  "id": "night",
+                  "t": 1.6
                 },
                 {
                   "c": "fx",
@@ -14495,20 +16090,130 @@
                   "id": "v50_memory_shimmer"
                 },
                 {
+                  "c": "shot",
+                  "focus": "player",
+                  "zoom": 1.2,
+                  "t": 0,
+                  "bars": false
+                },
+                {
+                  "c": "crane",
+                  "t": 3.6,
+                  "zoom": 1.2,
+                  "block": true
+                },
+                {
+                  "c": "fx",
+                  "kind": "stars",
+                  "on": "player",
+                  "t": 14.0,
+                  "n": 36
+                },
+                {
+                  "c": "orbit",
+                  "deg": -10,
+                  "t": 12.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.8,
+                  "t": 1.5
+                },
+                {
+                  "c": "say",
+                  "scene": "V471-C05-MOON-MIRROR"
+                },
+                {
+                  "c": "shot",
+                  "focus": "player",
+                  "zoom": 1.3599999999999999,
+                  "t": 1.6,
+                  "bars": false,
+                  "async": true
+                },
+                {
+                  "c": "emote",
+                  "who": "player",
+                  "e": "heart",
+                  "t": 1.6
+                },
+                {
+                  "c": "emote",
+                  "who": "partner",
+                  "e": "heart",
+                  "t": 1.6
+                },
+                {
+                  "c": "fx",
+                  "kind": "glow",
+                  "on": "player",
+                  "t": 2.6,
+                  "block": true
+                },
+                {
                   "c": "wait",
-                  "t": 0.5
+                  "t": 0.6
+                },
+                {
+                  "c": "angle",
+                  "yaw": 0,
+                  "t": 1.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.35,
+                  "t": 0.8
                 },
                 {
                   "c": "bars",
                   "on": false,
-                  "t": 0.55
+                  "t": 0.6
                 }
               ],
-              "v50Cinematic": true
-            },
-            {
-              "do": "scene",
-              "id": "V471-C05-MOON-MIRROR"
+              "made": "story_cines",
+              "orig": [
+                {
+                  "do": "cine",
+                  "cmds": [
+                    {
+                      "c": "bars",
+                      "on": true,
+                      "t": 0.55
+                    },
+                    {
+                      "c": "shot",
+                      "focus": "player",
+                      "zoom": 1.2,
+                      "t": 0.9
+                    },
+                    {
+                      "c": "fx",
+                      "kind": "aurora",
+                      "on": "player",
+                      "t": 4.6,
+                      "n": 32
+                    },
+                    {
+                      "c": "sfx",
+                      "id": "v50_memory_shimmer"
+                    },
+                    {
+                      "c": "wait",
+                      "t": 0.5
+                    },
+                    {
+                      "c": "bars",
+                      "on": false,
+                      "t": 0.55
+                    }
+                  ],
+                  "v50Cinematic": true
+                },
+                {
+                  "do": "scene",
+                  "id": "V471-C05-MOON-MIRROR"
+                }
+              ]
             },
             {
               "do": "flag",
@@ -15304,8 +17009,99 @@
           "label": "Letakkan dua kenangan berdampingan",
           "actions": [
             {
-              "do": "scene",
-              "id": "V471-C05-BRIDGE-STEP"
+              "do": "cine",
+              "cmds": [
+                {
+                  "c": "bars",
+                  "on": true,
+                  "t": 0.5
+                },
+                {
+                  "c": "mood",
+                  "id": "dream",
+                  "t": 1.6
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.2,
+                  "t": 0,
+                  "bars": false
+                },
+                {
+                  "c": "crane",
+                  "t": 3.6,
+                  "zoom": 1.2,
+                  "block": true
+                },
+                {
+                  "c": "fx",
+                  "kind": "sparkles",
+                  "on": "player",
+                  "t": 14.0,
+                  "n": 36
+                },
+                {
+                  "c": "orbit",
+                  "deg": -12,
+                  "t": 12.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.8,
+                  "t": 1.5
+                },
+                {
+                  "c": "say",
+                  "scene": "V471-C05-BRIDGE-STEP"
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.3599999999999999,
+                  "t": 1.6,
+                  "bars": false,
+                  "async": true
+                },
+                {
+                  "c": "pair",
+                  "kind": "handwalk",
+                  "t": 2.4
+                },
+                {
+                  "c": "fx",
+                  "kind": "restore",
+                  "on": "player",
+                  "t": 2.6,
+                  "block": true
+                },
+                {
+                  "c": "wait",
+                  "t": 0.6
+                },
+                {
+                  "c": "angle",
+                  "yaw": 0,
+                  "t": 1.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.35,
+                  "t": 0.8
+                },
+                {
+                  "c": "bars",
+                  "on": false,
+                  "t": 0.6
+                }
+              ],
+              "made": "story_cines",
+              "orig": [
+                {
+                  "do": "scene",
+                  "id": "V471-C05-BRIDGE-STEP"
+                }
+              ]
             },
             {
               "do": "flag",
@@ -15374,8 +17170,100 @@
               ]
             },
             {
-              "do": "scene",
-              "id": "V471-C05-HANDOFF"
+              "do": "cine",
+              "cmds": [
+                {
+                  "c": "bars",
+                  "on": true,
+                  "t": 0.5
+                },
+                {
+                  "c": "mood",
+                  "id": "dream",
+                  "t": 1.6
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.2,
+                  "t": 0,
+                  "bars": false
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.28,
+                  "t": 1.4,
+                  "bars": false
+                },
+                {
+                  "c": "fx",
+                  "kind": "fireflies",
+                  "on": "player",
+                  "t": 14.0,
+                  "n": 36
+                },
+                {
+                  "c": "orbit",
+                  "deg": 10,
+                  "t": 12.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.8,
+                  "t": 1.5
+                },
+                {
+                  "c": "say",
+                  "scene": "V471-C05-HANDOFF"
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.3599999999999999,
+                  "t": 1.6,
+                  "bars": false,
+                  "async": true
+                },
+                {
+                  "c": "pair",
+                  "kind": "handwalk",
+                  "t": 2.4
+                },
+                {
+                  "c": "fx",
+                  "kind": "beam",
+                  "on": "player",
+                  "t": 2.6,
+                  "block": true
+                },
+                {
+                  "c": "wait",
+                  "t": 0.6
+                },
+                {
+                  "c": "angle",
+                  "yaw": 0,
+                  "t": 1.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.35,
+                  "t": 0.8
+                },
+                {
+                  "c": "bars",
+                  "on": false,
+                  "t": 0.6
+                }
+              ],
+              "made": "story_cines",
+              "orig": [
+                {
+                  "do": "scene",
+                  "id": "V471-C05-HANDOFF"
+                }
+              ]
             },
             {
               "do": "warp",
@@ -16092,15 +17980,12 @@
               {
                 "c": "bars",
                 "on": true,
-                "t": 0.4
+                "t": 0.5
               },
               {
-                "c": "shot",
-                "focus": "partner",
-                "zoom": 1.26,
-                "frame": "intimate",
-                "t": 1.4,
-                "bars": false
+                "c": "mood",
+                "id": "dream",
+                "t": 1.6
               },
               {
                 "c": "caption",
@@ -16109,15 +17994,122 @@
                 "t": 3.1
               },
               {
+                "c": "shot",
+                "focus": "partner",
+                "zoom": 1.2,
+                "t": 0,
+                "bars": false
+              },
+              {
+                "c": "crane",
+                "t": 3.6,
+                "zoom": 1.2,
+                "block": true
+              },
+              {
+                "c": "fx",
+                "kind": "sparkles",
+                "on": "player",
+                "t": 14.0,
+                "n": 36
+              },
+              {
+                "c": "orbit",
+                "deg": 10,
+                "t": 12.0
+              },
+              {
+                "c": "dof",
+                "a": 0.8,
+                "t": 1.5
+              },
+              {
+                "c": "say",
+                "scene": "V472-C06-TWO-VOICES"
+              },
+              {
+                "c": "shot",
+                "focus": "partner",
+                "zoom": 1.3599999999999999,
+                "t": 1.6,
+                "bars": false,
+                "async": true
+              },
+              {
+                "c": "emote",
+                "who": "player",
+                "e": "heart",
+                "t": 1.6
+              },
+              {
+                "c": "emote",
+                "who": "partner",
+                "e": "heart",
+                "t": 1.6
+              },
+              {
+                "c": "fx",
+                "kind": "glow",
+                "on": "player",
+                "t": 2.6,
+                "block": true
+              },
+              {
+                "c": "wait",
+                "t": 0.6
+              },
+              {
+                "c": "angle",
+                "yaw": 0,
+                "t": 1.0
+              },
+              {
+                "c": "dof",
+                "a": 0.35,
+                "t": 0.8
+              },
+              {
                 "c": "bars",
                 "on": false,
-                "t": 0.4
+                "t": 0.6
+              }
+            ],
+            "made": "story_cines",
+            "orig": [
+              {
+                "do": "cine",
+                "cmds": [
+                  {
+                    "c": "bars",
+                    "on": true,
+                    "t": 0.4
+                  },
+                  {
+                    "c": "shot",
+                    "focus": "partner",
+                    "zoom": 1.26,
+                    "frame": "intimate",
+                    "t": 1.4,
+                    "bars": false
+                  },
+                  {
+                    "c": "caption",
+                    "text": "Dua Suara",
+                    "sub": "Kenangan tidak harus sama untuk tetap jadi milik bersama",
+                    "t": 3.1
+                  },
+                  {
+                    "c": "bars",
+                    "on": false,
+                    "t": 0.4
+                  }
+                ]
+              },
+              {
+                "do": "scene",
+                "id": "V472-C06-TWO-VOICES"
               }
             ]
-          },
-          {
-            "do": "scene",
-            "id": "V472-C06-TWO-VOICES"
           },
           {
             "do": "item",
@@ -16432,15 +18424,12 @@
                 {
                   "c": "bars",
                   "on": true,
-                  "t": 0.25
+                  "t": 0.5
                 },
                 {
-                  "c": "shot",
-                  "focus": "partner",
-                  "zoom": 1.25,
-                  "frame": "intimate",
-                  "t": 1.35,
-                  "bars": false
+                  "c": "mood",
+                  "id": "memory",
+                  "t": 1.6
                 },
                 {
                   "c": "caption",
@@ -16449,15 +18438,122 @@
                   "t": 2.5
                 },
                 {
+                  "c": "shot",
+                  "focus": "partner",
+                  "zoom": 1.2,
+                  "t": 0,
+                  "bars": false
+                },
+                {
+                  "c": "crane",
+                  "t": 3.6,
+                  "zoom": 1.2,
+                  "block": true
+                },
+                {
+                  "c": "fx",
+                  "kind": "fireflies",
+                  "on": "player",
+                  "t": 14.0,
+                  "n": 36
+                },
+                {
+                  "c": "orbit",
+                  "deg": -10,
+                  "t": 12.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.8,
+                  "t": 1.5
+                },
+                {
+                  "c": "say",
+                  "scene": "V473-EPI-GALLERY"
+                },
+                {
+                  "c": "shot",
+                  "focus": "partner",
+                  "zoom": 1.3599999999999999,
+                  "t": 1.6,
+                  "bars": false,
+                  "async": true
+                },
+                {
+                  "c": "emote",
+                  "who": "player",
+                  "e": "heart",
+                  "t": 1.6
+                },
+                {
+                  "c": "emote",
+                  "who": "partner",
+                  "e": "heart",
+                  "t": 1.6
+                },
+                {
+                  "c": "fx",
+                  "kind": "glow",
+                  "on": "player",
+                  "t": 2.6,
+                  "block": true
+                },
+                {
+                  "c": "wait",
+                  "t": 0.6
+                },
+                {
+                  "c": "angle",
+                  "yaw": 0,
+                  "t": 1.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.35,
+                  "t": 0.8
+                },
+                {
                   "c": "bars",
                   "on": false,
-                  "t": 0.3
+                  "t": 0.6
+                }
+              ],
+              "made": "story_cines",
+              "orig": [
+                {
+                  "do": "cine",
+                  "cmds": [
+                    {
+                      "c": "bars",
+                      "on": true,
+                      "t": 0.25
+                    },
+                    {
+                      "c": "shot",
+                      "focus": "partner",
+                      "zoom": 1.25,
+                      "frame": "intimate",
+                      "t": 1.35,
+                      "bars": false
+                    },
+                    {
+                      "c": "caption",
+                      "text": "The Empty Seat",
+                      "sub": "Tidak semua kenangan harus dihapus",
+                      "t": 2.5
+                    },
+                    {
+                      "c": "bars",
+                      "on": false,
+                      "t": 0.3
+                    }
+                  ]
+                },
+                {
+                  "do": "scene",
+                  "id": "V473-EPI-GALLERY"
                 }
               ]
-            },
-            {
-              "do": "scene",
-              "id": "V473-EPI-GALLERY"
             },
             {
               "do": "if",
@@ -16517,8 +18613,97 @@
           "label": "Foto kencan lama",
           "actions": [
             {
-              "do": "scene",
-              "id": "V473-EPI-LAKE-PHOTO"
+              "do": "cine",
+              "cmds": [
+                {
+                  "c": "bars",
+                  "on": true,
+                  "t": 0.5
+                },
+                {
+                  "c": "mood",
+                  "id": "memory",
+                  "t": 1.6
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.2,
+                  "t": 0,
+                  "bars": false
+                },
+                {
+                  "c": "crane",
+                  "t": 3.6,
+                  "zoom": 1.2,
+                  "block": true
+                },
+                {
+                  "c": "fx",
+                  "kind": "fireflies",
+                  "on": "player",
+                  "t": 14.0,
+                  "n": 36
+                },
+                {
+                  "c": "orbit",
+                  "deg": -12,
+                  "t": 12.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.8,
+                  "t": 1.5
+                },
+                {
+                  "c": "say",
+                  "scene": "V473-EPI-LAKE-PHOTO"
+                },
+                {
+                  "c": "mood",
+                  "id": "warm",
+                  "t": 2.0
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.3599999999999999,
+                  "t": 1.6,
+                  "bars": false,
+                  "async": true
+                },
+                {
+                  "c": "pair",
+                  "kind": "lean",
+                  "t": 2.4
+                },
+                {
+                  "c": "wait",
+                  "t": 0.6
+                },
+                {
+                  "c": "angle",
+                  "yaw": 0,
+                  "t": 1.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.35,
+                  "t": 0.8
+                },
+                {
+                  "c": "bars",
+                  "on": false,
+                  "t": 0.6
+                }
+              ],
+              "made": "story_cines",
+              "orig": [
+                {
+                  "do": "scene",
+                  "id": "V473-EPI-LAKE-PHOTO"
+                }
+              ]
             },
             {
               "do": "flag",
@@ -17464,7 +19649,12 @@
                 {
                   "c": "bars",
                   "on": true,
-                  "t": 0.3
+                  "t": 0.5
+                },
+                {
+                  "c": "mood",
+                  "id": "memory",
+                  "t": 1.6
                 },
                 {
                   "c": "cam",
@@ -17480,15 +19670,121 @@
                   "t": 3
                 },
                 {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.2,
+                  "t": 0,
+                  "bars": false
+                },
+                {
+                  "c": "crane",
+                  "t": 3.6,
+                  "zoom": 1.2,
+                  "block": true
+                },
+                {
+                  "c": "fx",
+                  "kind": "fireflies",
+                  "on": "player",
+                  "t": 14.0,
+                  "n": 36
+                },
+                {
+                  "c": "orbit",
+                  "deg": 10,
+                  "t": 12.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.8,
+                  "t": 1.5
+                },
+                {
+                  "c": "say",
+                  "scene": "V473-EPI-BONUS-CHOICE"
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.3599999999999999,
+                  "t": 1.6,
+                  "bars": false,
+                  "async": true
+                },
+                {
+                  "c": "emote",
+                  "who": "player",
+                  "e": "heart",
+                  "t": 1.6
+                },
+                {
+                  "c": "emote",
+                  "who": "partner",
+                  "e": "heart",
+                  "t": 1.6
+                },
+                {
+                  "c": "fx",
+                  "kind": "glow",
+                  "on": "player",
+                  "t": 2.6,
+                  "block": true
+                },
+                {
+                  "c": "wait",
+                  "t": 0.6
+                },
+                {
+                  "c": "angle",
+                  "yaw": 0,
+                  "t": 1.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.35,
+                  "t": 0.8
+                },
+                {
                   "c": "bars",
                   "on": false,
-                  "t": 0.3
+                  "t": 0.6
+                }
+              ],
+              "made": "story_cines",
+              "orig": [
+                {
+                  "do": "cine",
+                  "cmds": [
+                    {
+                      "c": "bars",
+                      "on": true,
+                      "t": 0.3
+                    },
+                    {
+                      "c": "cam",
+                      "x": 480,
+                      "y": 430,
+                      "zoom": 1.3,
+                      "t": 1.3
+                    },
+                    {
+                      "c": "caption",
+                      "text": "The Other Side of the Page",
+                      "sub": "Dua versi, satu tempat pulang",
+                      "t": 3
+                    },
+                    {
+                      "c": "bars",
+                      "on": false,
+                      "t": 0.3
+                    }
+                  ]
+                },
+                {
+                  "do": "scene",
+                  "id": "V473-EPI-BONUS-CHOICE"
                 }
               ]
-            },
-            {
-              "do": "scene",
-              "id": "V473-EPI-BONUS-CHOICE"
             },
             {
               "do": "item",

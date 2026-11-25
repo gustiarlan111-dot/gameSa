@@ -2964,6 +2964,36 @@
       "cw": 6,
       "ch": 4,
       "layer": "sort"
+    },
+    "hd_fishing_hut": {
+      "image": "props/hd/hd_fishing_hut@2x.png",
+      "cw": 120,
+      "ch": 20,
+      "layer": "sort"
+    },
+    "hd_telescope": {
+      "image": "props/hd/hd_telescope@2x.png",
+      "cw": 16,
+      "ch": 6,
+      "layer": "sort"
+    },
+    "hd_pier_post": {
+      "image": "props/hd/hd_pier_post@2x.png",
+      "cw": 10,
+      "ch": 6,
+      "layer": "sort"
+    },
+    "hd_lifebuoy": {
+      "image": "props/hd/hd_lifebuoy@2x.png",
+      "cw": 8,
+      "ch": 6,
+      "layer": "sort"
+    },
+    "hd_signpost_lake": {
+      "image": "props/hd/hd_signpost_lake@2x.png",
+      "cw": 6,
+      "ch": 4,
+      "layer": "sort"
     }
   }
 }

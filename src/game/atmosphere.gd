@@ -12,6 +12,13 @@ var indoor := false
 var realm := false
 var ambient := ""
 var quality := 2
+var minute := 720
+var _clouds: Sprite2D
+var _cloud_mat: ShaderMaterial
+var _post: ColorRect
+var _sun: DirectionalLight2D
+var _post_mat: ShaderMaterial
+const CLOUD_WORLD := 1500.0     # world units covered by one repeat of the cloud texture
 
 var _modulate: CanvasModulate
 var _lights: Array[PointLight2D] = []
@@ -40,9 +47,84 @@ func _ready() -> void:
 	_glow_tex = gt
 	_sparkle = Data.tex("ui/sparkle.png")
 	_player_light = _make_light(Color(1, 0.92, 0.8), 1.0)
+	_build_25d()
 	var r := RandomNumberGenerator.new(); r.seed = 11
 	for i in 220:
 		_rain.append(Vector2(r.randf(), r.randf()))
+
+
+## 2.5D layer: drifting cloud shadows over the world and a screen pass (tilt-shift depth blur,
+## bloom, grade, vignette) under the HUD.
+func _build_25d() -> void:
+	var nt := NoiseTexture2D.new()
+	nt.width = 512; nt.height = 512
+	nt.seamless = true
+	var fn := FastNoiseLite.new()
+	fn.frequency = 0.006
+	fn.fractal_octaves = 4
+	fn.seed = 7
+	nt.noise = fn
+	_clouds = Sprite2D.new()
+	_clouds.texture = nt
+	_clouds.centered = false
+	_clouds.z_index = -1
+	_clouds.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
+	_cloud_mat = ShaderMaterial.new()
+	_cloud_mat.shader = preload("res://src/fx/clouds.gdshader")
+	_clouds.material = _cloud_mat
+	add_child(_clouds)
+	_sun = DirectionalLight2D.new()
+	_sun.blend_mode = Light2D.BLEND_MODE_ADD
+	_sun.energy = 0.0
+	add_child(_sun)
+	var layer := CanvasLayer.new()
+	layer.layer = 1
+	add_child(layer)
+	_post = ColorRect.new()
+	_post.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_post.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_post_mat = ShaderMaterial.new()
+	_post_mat.shader = preload("res://src/fx/post25d.gdshader")
+	_post.material = _post_mat
+	layer.add_child(_post)
+
+
+## Sun path over the day: shadows fall west in the morning, short at noon, long and east at dusk.
+func _update_sun(rain: bool) -> void:
+	var t := (minute - 360.0) / 750.0
+	var outdoors := not indoor and not realm and not dark_cave()
+	var e := sin(PI * clampf(t, 0.0, 1.0))
+	var a := 0.0
+	if outdoors and t > 0.0 and t < 1.0:
+		a = 0.36 * clampf(e * 3.0, 0.0, 1.0)
+		if rain:
+			a = 0.0
+		elif weather == "berawan":
+			a *= 0.45
+	var ln := 0.3 + 0.95 * (1.0 - e)
+	var dir := Vector2(-cos(PI * t) * ln * 0.9, 0.2 + 0.28 * (1.0 - e))
+	world.set_sun(dir, a if quality > 0 else 0.0)
+	_sun.rotation = dir.angle() - PI / 2.0
+	_sun.height = 0.25 + 0.5 * e
+	_sun.color = Color(1.0, 0.93, 0.8).lerp(Color(1.0, 0.7, 0.45), clampf((1.0 - e) * 1.4, 0.0, 1.0))
+	_sun.energy = a * (1.25 - 0.55 * e) if quality == 2 else 0.0
+	_sun.enabled = _sun.energy > 0.01
+	# clouds
+	var v := _view()
+	_clouds.visible = quality > 0 and outdoors and not rain and t > 0.0 and t < 1.0
+	if _clouds.visible:
+		_clouds.position = v.position
+		_clouds.scale = v.size / 512.0
+		_cloud_mat.set_shader_parameter("uv_scale", v.size / CLOUD_WORLD)
+		_cloud_mat.set_shader_parameter("uv_off", v.position / CLOUD_WORLD + Vector2(time * 0.006, time * 0.0025))
+		_cloud_mat.set_shader_parameter("strength", clampf(e * 3.0, 0.0, 1.0) * (0.75 if weather == "berawan" else 0.5))
+	# screen pass
+	_post.visible = quality > 0
+	_post_mat.set_shader_parameter("blur_amt", 1.0)
+	_post_mat.set_shader_parameter("taps", quality == 2)
+	_post_mat.set_shader_parameter("bloom", 0.3 if _night > 0.3 else 0.18)
+	_post_mat.set_shader_parameter("warmth", (clampf((t - 0.75) * 4.0, 0.0, 1.0) * 0.45 if outdoors else 0.0))
+	_post_mat.set_shader_parameter("vignette", 0.42 if (_night > 0.3 or dark_cave()) else 0.3)
 
 
 func _make_light(c: Color, scale_k: float) -> PointLight2D:
@@ -89,6 +171,8 @@ func _process(delta: float) -> void:
 		mod = mod * Color(0.93, 0.94, 0.97)
 	if dark_cave():
 		mod = Color(0.16, 0.15, 0.24)
+	if _sun and _sun.energy > 0.0:
+		mod = mod * Color(1, 1, 1).darkened(_sun.energy * _sun.height * 1.05)
 	_target_mod = mod
 	_modulate.color = _modulate.color.lerp(_target_mod, minf(1.0, delta * 3.0))
 	_night = clampf((light.a - 0.12) / 0.2, 0.0, 1.0) if not indoor else 0.0
@@ -99,6 +183,10 @@ func _process(delta: float) -> void:
 		var crystal: bool = l.get_meta("crystal")
 		var flick := 1.0 + 0.06 * sin(time * 2.0 + l.position.x)
 		l.energy = (1.1 if crystal and dark_cave() else (0.9 if crystal else 1.05)) * (1.0 if crystal and dark_cave() else lamp_on) * flick
+	_update_sun(rain)
+	for l in _lights:
+		l.enabled = l.energy > 0.02
+	_player_light.enabled = _player_light.energy > 0.02
 	_player_light.position = world.player.position + Vector2(0, -26)
 	if dark_cave():
 		_player_light.texture_scale = 1.9

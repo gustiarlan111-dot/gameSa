@@ -7,6 +7,7 @@ signal resume
 signal save_requested
 signal quit_requested
 signal book_requested
+signal gfx_changed(q: int)
 
 var _box: VBoxContainer
 var _history: PanelContainer
@@ -38,6 +39,14 @@ func _ready() -> void:
 		b.custom_minimum_size = Vector2(320, 56)
 		b.pressed.connect(item[1])
 		_box.add_child(b)
+	var gfx := UiTheme.button("Grafik: " + GfxSettings.NAMES[GfxSettings.quality()], 20, false)
+	gfx.custom_minimum_size = Vector2(320, 50)
+	gfx.pressed.connect(func():
+		var q := (GfxSettings.quality() + 1) % 3
+		GfxSettings.set_quality(q)
+		gfx.text = "Grafik: " + GfxSettings.NAMES[q]
+		gfx_changed.emit(q))
+	_box.add_child(gfx)
 	_status = UiTheme.label("", 16, UiTheme.INK_SOFT, "body")
 	_status.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_box.add_child(_status)

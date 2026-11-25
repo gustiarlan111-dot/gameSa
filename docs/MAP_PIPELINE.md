@@ -36,3 +36,18 @@ Every sprite is drawn by code; nothing is pasted from old PNGs.
 - In progress: Hutan Bisik (`forest_hd.py` not applied yet).
 - Next: other outdoor areas (jalan_kota, taman_kota, riverside, perumahan, dermaga, bukit_bintang, memory maps), then interiors.
 - Known pre-existing validator errors: arland_room `a_frame`, jalan_kota 3 quest points, perpustakaan 2 quest points.
+
+## 2.5D layer (Godot)
+
+- `tools/normals.py` writes `assets/props/hd/n/<prop>_n.png` for every HD prop. Run it after
+  drawing or changing props, then `godot --headless --path . --import`.
+- `src/world.gd`: props use a CanvasTexture (diffuse + normal) on quality Tinggi; tall props get a
+  long sun shadow on the `SunShadows` layer, sheared by `World.sun_dir` (`set_sun`). Actors mirror
+  their frame into the same kind of shadow.
+- `src/game/atmosphere.gd`: sun path over the day (shadow direction and length, DirectionalLight2D
+  for normal-mapped light), drifting cloud shadows (`src/fx/clouds.gdshader`), screen pass
+  `src/fx/post25d.gdshader` (depth blur at the top and bottom, bloom, grade, vignette) on CanvasLayer 1
+  under the HUD (layer 2).
+- Quality: pause menu "Grafik: Rendah / Sedang / Tinggi" (`src/logic/gfx_settings.gd`, stored in
+  user://settings.cfg, default Sedang). Env `GFX_QUALITY=0..2` overrides it for screenshots.
+  Software-rendered test machine, Hutan Bisik: Rendah 38-40 fps, Sedang 29-31, Tinggi 16-17.

@@ -1329,3 +1329,85 @@ def library(W=600, H=480):
     potted_plant(sp, px1 - 2, bot - 14, 1.2, 3)
     outline(sp, SANDST[0] * 0.7, width=2)
     return sp
+
+
+# ----------------------------------------------------------------------------- lakeside
+
+def fishing_hut(W=300, H=260):
+    """Weathered plank fishing hut on short stilts, tin roof, net and floats on the wall, lantern."""
+    sp = Sprite(W, H)
+    dith = bayer(H, W)
+    cx = W / 2
+    bot = H - 4
+    x0, x1 = 34, W - 34
+    ground_shadow(sp, cx, bot - 4, W / 2 - 20, 12, 0.4)
+    for px in (x0 + 8, cx - 4, x1 - 16):                          # stilts
+        sp.put(sp.rect(px, bot - 30, 10, 28), quant(hgrad(sp, px, px + 10, 0.7, 0.3), WOOD))
+    sp.put(sp.rect(x0 - 10, bot - 36, x1 - x0 + 20, 10), quant(vgrad(sp, bot - 36, bot - 26, 0.8, 0.4), WOOD))
+    top = 104
+    wm = sp.rect(x0, top, x1 - x0, bot - 36 - top)
+    sp.put(wm, quant(0.55 + (((sp.xx - x0) % 16) < 2) * -0.25 + (noise(H, W, 5, 2) - 0.5) * 0.08 + vgrad(sp, top, bot, 0.05, -0.1),
+                     ramp('#3d3226', '#54463a', '#6b5c4c', '#857462', '#a08e78', '#bba98f'), dith))
+    window(sp, x0 + 22, top + 26, 56, 46, WOOD, 'cream', box=False, lit=True, panes=(2, 1))
+    door(sp, x1 - 52, bot - 36, 52, 92, ramp('#2e3a3a', '#3e4e4e', '#516464', '#667a7a', '#7e9494'), WOOD, glass=False)
+    # net + floats
+    nm = sp.rect(cx - 30, top + 20, 60, 56)
+    sp.put(nm & ((((sp.xx - sp.yy) % 8) == 0) | (((sp.xx + sp.yy) % 8) == 0)), hexrgb('#c9bfa4'))
+    for k in range(4):
+        sp.put(sp.ellipse(cx - 24 + k * 16, top + 80, 5, 5), hexrgb(['#e04a3a', '#f4ecd4'][k % 2]))
+    # tin roof
+    rm = sp.poly([(x0 - 22, top + 6), (x1 + 22, top + 6), (x1 + 6, 28), (x0 - 6, 28)])
+    ribs = ((sp.xx // 10) % 2 == 0)
+    tin = ramp('#4a5560', '#5e6a76', '#76838e', '#909ca6', '#aeb8c0', '#ccd4da')
+    sp.put(rm, quant(vgrad(sp, 28, top + 6, 0.85, 0.45) + ribs * 0.1, tin, dith))
+    rust = rm & (noise(H, W, 7, 9) > 0.86) & (sp.yy > top - 20)
+    sp.put(rust, hexrgb('#8a4a2a'))
+    sp.put(sp.rect(x0 - 22, top + 4, x1 - x0 + 44, 5), tin[0])
+    darken(sp, sp.rect(x0, top + 8, x1 - x0, 16) & wm, 0.7)
+    wall_lamp(sp, x1 - 62, top + 30)
+    # sign
+    sp.put(sp.rect(x0 + 18, top - 4, 92, 18), hexrgb('#e8dcbb'))
+    sp.put(text_mask(sp, 'UMPAN', x0 + 64, top + 5, 11), hexrgb('#2f5c7a'))
+    # oar + bucket
+    sp.put(sp.poly([(x1 + 6, bot - 40), (x1 + 12, bot - 40), (x1 + 26, bot - 120), (x1 + 20, bot - 120)]), WOOD[3])
+    sp.put(sp.rect(x0 - 26, bot - 30, 22, 24), METAL[2]); sp.put(sp.rect(x0 - 26, bot - 30, 22, 3), METAL[4])
+    outline(sp, WOOD[0], width=2)
+    return sp
+
+
+def telescope(W=80, H=130):
+    sp = Sprite(W, H)
+    cx = W / 2
+    ground_shadow(sp, cx, H - 6, 24, 6)
+    for a in (-1, 0, 1):                                           # tripod
+        sp.put(sp.poly([(cx - 2, 64), (cx + 2, 64), (cx + a * 26 + 2, H - 6), (cx + a * 26 - 2, H - 6)]), METAL[1 + abs(a)])
+    tube = sp.poly([(cx - 30, 58), (cx + 26, 30), (cx + 32, 40), (cx - 24, 68)])
+    sp.put(tube, quant(vgrad(sp, 28, 70, 0.95, 0.35), ramp('#5a3a10', '#8a5c18', '#b98424', '#dcae3c', '#f2d36c')))
+    sp.put(sp.ellipse(cx + 29, 35, 6, 8), hexrgb('#9fd0e8'))
+    sp.put(sp.rect(cx - 8, 60, 16, 8), METAL[3])
+    outline(sp, METAL[0], width=1)
+    return sp
+
+
+def pier_post(W=36, H=84, rope=True):
+    sp = Sprite(W, H)
+    cx = W / 2
+    sp.put(sp.rect(cx - 8, 8, 16, H - 12), quant(hgrad(sp, cx - 8, cx + 8, 0.8, 0.3), WOOD))
+    sp.put(sp.ellipse(cx, 9, 8, 4), WOOD[4])
+    if rope:
+        sp.put(sp.rect(cx - 10, 26, 20, 4), hexrgb('#c9b48a'))
+        sp.put(sp.rect(cx - 10, 32, 20, 3), hexrgb('#a8946a'))
+    outline(sp, WOOD[0], width=1)
+    return sp
+
+
+def lifebuoy_post(W=60, H=120):
+    sp = Sprite(W, H)
+    cx = W / 2
+    ground_shadow(sp, cx, H - 5, 14, 4)
+    sp.put(sp.rect(cx - 4, 10, 8, H - 14), quant(hgrad(sp, cx - 4, cx + 4, 0.8, 0.3), WOOD))
+    ring = sp.ellipse(cx, 46, 22, 22) & ~sp.ellipse(cx, 46, 11, 11)
+    ang = np.arctan2(sp.yy - 46, sp.xx - cx)
+    sp.put(ring, np.where(((ang * 2 / np.pi).astype(int) % 2 == 0)[..., None], hexrgb('#e04a3a') * np.ones(3), hexrgb('#f4f0e6') * np.ones(3)))
+    outline(sp, WOOD[0], width=1)
+    return sp

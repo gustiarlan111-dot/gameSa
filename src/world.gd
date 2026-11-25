@@ -37,12 +37,19 @@ var _surf_cell := 8
 var _surf_w := 0
 var _alts: Array = []             # props with an alternate look once a story flag is set (chest opened, bridge fixed)
 var _alt_t := 0.0
+static var sun_dir := Vector2(0.5, 0.3)   # shadow tip offset per unit of height (2.5D cast shadows)
+static var sun_alpha := 0.0
+var _shadows: Node2D
+var _prop_nodes: Array[Node2D] = []
+var _casts: Array[Node2D] = []
+var _sun_applied := Vector2.ZERO
 var foliage: Array = []           # [{node, pos, r, kind: "grass"|"bush", t}] rustle when walked through
 
 
 func _ready() -> void:
 	_ground = Node2D.new(); _ground.name = "Ground"; add_child(_ground)
 	_floor = Node2D.new(); _floor.name = "Floor"; add_child(_floor)
+	_shadows = Node2D.new(); _shadows.name = "SunShadows"; add_child(_shadows)
 	_sorted = Node2D.new(); _sorted.name = "Sorted"; _sorted.y_sort_enabled = true; add_child(_sorted)
 	extras = Node2D.new(); extras.name = "Extras"; extras.y_sort_enabled = true
 	_sorted.add_child(extras)
@@ -61,7 +68,8 @@ func start(route_id: String, area_id: String, pos: Vector2, facing := "down") ->
 
 func enter_area(area_id: String, pos: Vector2, facing := "down") -> void:
 	area = Data.area(area_id)
-	for n in [_ground, _floor]:
+	_casts.clear()
+	for n in [_ground, _floor, _shadows]:
 		for c in n.get_children():
 			c.queue_free()
 	for c in _sorted.get_children():
@@ -110,7 +118,20 @@ func _build_ground() -> void:
 		_ground.add_child(s)
 
 
+## Rebuild only the props (after a graphics quality change), keeping actors, NPCs and markers.
+func rebuild_props() -> void:
+	for n in _prop_nodes:
+		if is_instance_valid(n):
+			n.queue_free()
+	_prop_nodes.clear()
+	for c in _shadows.get_children():
+		c.queue_free()
+	_casts.clear()
+	_build_props()
+
+
 func _build_props() -> void:
+	_prop_nodes.clear()
 	light_spots.clear()
 	foliage.clear()
 	_alts.clear()
@@ -128,7 +149,7 @@ func _build_props() -> void:
 		holder.position = Vector2(p.x, p.y)
 		var s := Sprite2D.new()
 		var k := Data.prop_scale(d)
-		s.texture = tex
+		s.texture = _with_normals(tex, d.image)
 		s.centered = false
 		s.scale = Vector2(k, k)
 		s.position = Vector2(-tex.get_width() * k / 2.0, -tex.get_height() * k)
@@ -148,10 +169,69 @@ func _build_props() -> void:
 			var kind := "crystal" if img.contains("crystal") else "lamp"
 			var hgt := tex.get_height() * k
 			light_spots.append({"pos": Vector2(p.x, p.y - hgt * (0.82 if kind == "lamp" else 0.5)), "foot": Vector2(p.x, p.y - 8), "kind": kind})
+		if d.get("layer", "sort") != "floor" and tex.get_height() * k > 40.0 and fk == "" and Settings_quality() > 0:
+			_add_cast(holder.position, s, sway)
+		_prop_nodes.append(holder)
 		if d.get("layer", "sort") == "floor":
 			_floor.add_child(holder)
 		else:
 			_sorted.add_child(holder)
+
+
+## 0 low (no 2.5D extras), 1 medium, 2 high. Read from the Atmosphere when it exists.
+var quality := 2
+func Settings_quality() -> int:
+	return quality
+
+
+## HD props have generated normal maps (tools/normals.py) so the sun and lamps light their sides.
+var _ctex := {}
+func _with_normals(tex: Texture2D, img: String) -> Texture2D:
+	if not img.contains("@2x") or quality < 2:
+		return tex
+	if _ctex.has(img):
+		return _ctex[img]
+	var np_ := "res://assets/" + img.get_base_dir() + "/n/" + img.get_file().replace("@2x.png", "_n.png")
+	var out: Texture2D = tex
+	if ResourceLoader.exists(np_):
+		var ct := CanvasTexture.new()
+		ct.diffuse_texture = tex
+		ct.normal_texture = load(np_)
+		out = ct
+	_ctex[img] = out
+	return out
+
+
+## Long sun shadow of a prop: a dark copy of its sprite on the shadow layer, sheared along the sun.
+func _add_cast(foot: Vector2, src: Sprite2D, mat: Material) -> void:
+	var h := Node2D.new()
+	h.position = foot
+	var c := Sprite2D.new()
+	c.texture = src.texture
+	c.centered = false
+	c.scale = src.scale
+	c.position = src.position
+	c.texture_filter = src.texture_filter
+	c.self_modulate = Color(0.05, 0.08, 0.12, 1.0)
+	if mat:
+		c.material = mat
+	h.add_child(c)
+	_shadows.add_child(h)
+	_casts.append(h)
+	_sun_applied = Vector2.ZERO
+
+
+## Called by Atmosphere when the sun moves: shear every cast shadow and set their strength.
+func set_sun(dir: Vector2, alpha: float) -> void:
+	sun_dir = dir
+	sun_alpha = alpha
+	_shadows.visible = alpha > 0.01
+	_shadows.modulate = Color(1, 1, 1, alpha)
+	if _shadows.visible and dir.distance_to(_sun_applied) > 0.004:
+		_sun_applied = dir
+		var y_axis := -dir
+		for h in _casts:
+			h.transform = Transform2D(Vector2(1, 0), y_axis, h.position)
 
 
 ## Swap a prop to its alternate texture when its flag changes while the player is in the area.

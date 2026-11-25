@@ -33,6 +33,8 @@ var style := {"cadence": 1.0, "bounce": 1.0, "sway": 1.0, "breathing": 1.0, "pha
 
 var _sprite: Sprite2D
 var _shadow: Sprite2D
+var _cast_holder: Node2D       # long sun shadow (2.5D), skewed by World.sun_dir
+var _cast: Sprite2D
 var _sheets := {}     # name -> {tex, cols, rows, k}
 
 const STYLES := {
@@ -53,6 +55,12 @@ func setup(id: String) -> Actor:
 	_shadow.texture = load("res://assets/fx/contact_shadow_v37.png") if ResourceLoader.exists("res://assets/fx/contact_shadow_v37.png") else null
 	_shadow.modulate = Color(1, 1, 1, 0.9)
 	add_child(_shadow)
+	_cast_holder = Node2D.new()
+	_cast_holder.show_behind_parent = true
+	add_child(_cast_holder)
+	_cast = Sprite2D.new()
+	_cast.centered = false
+	_cast_holder.add_child(_cast)
 	_sprite = Sprite2D.new()
 	_sprite.centered = false
 	add_child(_sprite)
@@ -201,6 +209,16 @@ func _update_frame() -> void:
 		var sk := 1.0 - minf(0.4, lift / 20.0)
 		_shadow.scale = Vector2(26.0 * sk / _shadow.texture.get_width(), 10.0 / _shadow.texture.get_height())
 		_shadow.position = Vector2(0, 0)
+	_cast_holder.visible = World.sun_alpha > 0.01
+	if _cast_holder.visible:
+		_cast.texture = _sprite.texture
+		_cast.region_enabled = true
+		_cast.region_rect = _sprite.region_rect
+		_cast.texture_filter = _sprite.texture_filter
+		_cast.scale = _sprite.scale
+		_cast.position = Vector2(_sprite.position.x, _sprite.position.y + lift)
+		_cast.modulate = Color(0.05, 0.08, 0.12, World.sun_alpha * 0.85)
+		_cast_holder.transform = Transform2D(Vector2(1, 0), -World.sun_dir, Vector2.ZERO)
 	modulate.a = alpha
 	_emote_sprite.visible = emote != null and _emote_sprite.texture != null
 	if _emote_sprite.visible:

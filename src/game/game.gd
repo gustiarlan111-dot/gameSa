@@ -65,6 +65,8 @@ func _ready() -> void:
 	world.door_touched.connect(_on_door)
 	atmosphere = Atmosphere.new()
 	atmosphere.world = world
+	atmosphere.quality = GfxSettings.quality()
+	world.quality = atmosphere.quality
 	world.add_child(atmosphere)
 	_build_ui()
 	world.flags = p.flags
@@ -75,6 +77,7 @@ func _ready() -> void:
 
 func _build_ui() -> void:
 	_ui = CanvasLayer.new()
+	_ui.layer = 2
 	add_child(_ui)
 	var root := Control.new()
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -157,6 +160,12 @@ func _build_ui() -> void:
 			save_now()
 		quit_to_title.emit())
 	pause.process_mode = Node.PROCESS_MODE_ALWAYS
+	pause.gfx_changed.connect(func(q: int):
+		GfxSettings.set_quality(q)
+		atmosphere.quality = q
+		world.quality = q
+		world.rebuild_props()
+		atmosphere.rebuild_lights())
 	pause.book_requested.connect(func():
 		pause.visible = false
 		get_tree().paused = false
@@ -389,6 +398,7 @@ func light_now() -> Color:
 func _update_atmosphere() -> void:
 	atmosphere.light = light_now()
 	atmosphere.weather = weather()
+	atmosphere.minute = p.minute
 
 
 func sync_soundscape() -> void:

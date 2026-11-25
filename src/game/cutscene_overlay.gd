@@ -23,12 +23,13 @@ func _draw() -> void:
 	var W := size.x
 	var H := size.y
 	if cine.bars > 0.001:
-		var bh := H * 0.11 * cine.bars
+		# 2.39:1 scope bars (never thinner than 9% so phones still read as film), eased in
+		var bh := clampf((H - W / 2.39) * 0.5, H * 0.09, H * 0.15) * Cutscene._ease(cine.bars)
 		draw_rect(Rect2(0, 0, W, bh), UiTheme.INK)
 		draw_rect(Rect2(0, H - bh, W, bh), UiTheme.INK)
 		draw_rect(Rect2(0, bh, W, 2), Color(UiTheme.GOLD, cine.bars * 0.55))
 		draw_rect(Rect2(0, H - bh - 2, W, 2), Color(UiTheme.GOLD, cine.bars * 0.36))
-		if cine.active:
+		if cine.active and not cine._waiting_cb:     # the dialogue box would sit on top of it
 			var txt := "▶▶" if cine.fast else "Tahan layar untuk mempercepat"
 			draw_string(UiTheme.font("body"), Vector2(W - 520, H - bh * 0.32), txt, HORIZONTAL_ALIGNMENT_RIGHT, 500, 16, Color(UiTheme.LAVENDER, 0.9))
 	if cine.cap_dur > 0:

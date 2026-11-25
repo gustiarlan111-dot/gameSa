@@ -28,6 +28,10 @@ var _rustle := {}                       # 2D prop holder -> [MultiMesh, index, T
 var _alts: Array = []                   # [{sprite2d, mesh, tex}]
 var _lamps: Array = []                  # [{light, glow, crystal}]
 var _player_light: OmniLight3D
+var _occ: Array = []                   # standing props that could hide the couple: [pos2d, w, h]
+var _occ_pitch := 0.0
+var _key_light: OmniLight3D             # cutscenes: warm key light on the couple
+var _rim_light: OmniLight3D             # cutscenes: cool light from behind for a rim
 var _cam_target := Vector3.ZERO
 var _snap := true
 var _glow_tex: Texture2D
@@ -80,6 +84,16 @@ func _ready() -> void:
 	_player_light.light_color = Color(1, 0.92, 0.8)
 	_player_light.omni_range = 5.0
 	add_child(_player_light)
+	_key_light = OmniLight3D.new()
+	_key_light.omni_range = 5.5
+	_key_light.omni_attenuation = 1.4
+	_key_light.visible = false
+	add_child(_key_light)
+	_rim_light = OmniLight3D.new()
+	_rim_light.omni_range = 4.5
+	_rim_light.light_color = Color(0.62, 0.74, 1.0)
+	_rim_light.visible = false
+	add_child(_rim_light)
 	_dyn = Node3D.new(); _dyn.name = "Dynamic"; add_child(_dyn)
 	world.area_entered.connect(func(_id): rebuild.call_deferred())
 	world.camera.enabled = false
@@ -216,6 +230,7 @@ func _prop_basis(w: float, h: float, standing: bool, skew := 0.0) -> Basis:
 
 
 func _build_props() -> void:
+	_occ.clear()
 	var groups := {}                     # key -> {tex, img, standing, items: [[holder, xf]]}
 	for holder in world._prop_nodes:
 		if not is_instance_valid(holder) or holder.is_queued_for_deletion() or holder.get_child_count() == 0:
@@ -241,6 +256,8 @@ func _build_props() -> void:
 			_static.add_child(mi)
 			_alts.append({"sprite": s, "mesh": mi, "tex": s.texture, "standing": standing, "foot": foot})
 			continue
+		if standing and not building and h > 36.0:
+			_occ.append([holder.position, w, h])
 		var b := Basis(Vector3.RIGHT, 0.0) * Basis.from_scale(Vector3(w * S, h * S, 1.0)) if building else _prop_basis(w, h, standing)
 		var key := "%s|%s|%s" % [img, standing, building]
 		if not groups.has(key):
@@ -556,6 +573,45 @@ func _update_light(delta: float) -> void:
 	_player_light.light_energy = 1.8 if cave else 0.6 * float(a.night)
 	_player_light.omni_range = 7.0 if cave else 4.0
 	_player_light.visible = _player_light.light_energy > 0.02
+	_update_key_light()
+
+
+## Cutscene lighting: a warm key from the camera side and a cool rim from behind the subject,
+## stronger at night so faces stay readable, fading in and out with the film look.
+func _update_key_light() -> void:
+	var c := world.cine
+	var f: float = c.film * c.key if c != null else 0.0
+	_key_light.visible = f > 0.02 and not _indoor
+	_rim_light.visible = _key_light.visible
+	if not _key_light.visible:
+		return
+	var a := atmosphere
+	var dim := clampf(0.55 + 0.9 * float(a.night) + (0.6 if a.dark_cave() else 0.0), 0.0, 1.6)
+	var foc := world.player.position
+	if world.partner.visible:
+		foc = (foc + world.partner.position) * 0.5
+	var yaw := deg_to_rad(c.view_yaw())
+	var side := Vector3(sin(yaw), 0, cos(yaw))
+	_key_light.position = stand(foc.x, foc.y, 52) + side * 1.6 + Vector3(-0.9, 0.4, 0)
+	_key_light.light_color = c.key_color
+	_key_light.light_energy = 0.9 * dim * f
+	_rim_light.position = stand(foc.x, foc.y, 60) - side * 1.3 + Vector3(0.7, 0.3, 0)
+	_rim_light.light_energy = 0.75 * dim * f
+
+
+func _clear_pitch() -> float:
+	var foc := world.player.position
+	if world.partner.visible:
+		foc = (foc + world.partner.position) * 0.5
+	var need := 0.0
+	for o in _occ:
+		var dy: float = o[0].y - foc.y
+		if dy < 6.0 or dy > 420.0 or absf(o[0].x - foc.x) > o[1] * 0.5 + 26.0:
+			continue
+		var top: float = o[2] * S * cos(TILT) - 0.6      # metres above the couple's shoulders
+		if top > 0.0:
+			need = maxf(need, atan2(top, dy * S) + deg_to_rad(10.0))
+	return minf(need, deg_to_rad(68.0))
 
 
 func _update_camera(delta: float) -> void:
@@ -569,8 +625,19 @@ func _update_camera(delta: float) -> void:
 	tgt.x = aw / 2.0 if aw <= view_w else clampf(tgt.x, view_w / 2.0, aw - view_w / 2.0)
 	tgt.y = ah / 2.0 if ah <= view_h else clampf(tgt.y, view_h * (0.5 if _indoor else 0.42), ah - view_h * 0.5)
 	var dist := 1.3 * view_h * S * sin(PITCH) / (2.0 * tan(deg_to_rad(FOV) / 2.0))
-	var want := at(tgt.x, tgt.y, 0.6)
-	var cine_cam := world.cine != null and world.cine.cam_active
+	var cine := world.cine
+	var film: float = cine.film if cine != null else 0.0
+	var pitch := deg_to_rad(cine.view_pitch()) if cine != null else PITCH
+	if film > 0.001 and not _indoor:
+		# a low film camera must not put a bush or tree between the lens and the couple's faces:
+		# raise the angle just enough to look over anything standing in front of them
+		var need := _clear_pitch()
+		_occ_pitch = lerpf(_occ_pitch, need, 1.0 - exp(-delta * 4.0)) if not _snap else need
+		pitch = maxf(pitch, _occ_pitch)
+	var yaw := deg_to_rad(cine.view_yaw()) if cine != null else 0.0
+	# film shots look at the characters' chest rather than their feet
+	var want := at(tgt.x, tgt.y, 0.6) + Vector3(0, 0.55 * film, 0)
+	var cine_cam := cine != null and cine.cam_active
 	if _snap or cine_cam:
 		_cam_target = want
 		_snap = false
@@ -583,7 +650,9 @@ func _update_camera(delta: float) -> void:
 		cam.look_at(_cam_target, Vector3(0, 0, -1))
 	else:
 		cam.projection = Camera3D.PROJECTION_PERSPECTIVE
-		cam.position = _cam_target + Vector3(0, sin(PITCH) * dist, cos(PITCH) * dist)
+		var hz := cos(pitch) * dist
+		cam.position = _cam_target + Vector3(sin(yaw) * hz, sin(pitch) * dist, cos(yaw) * hz)
+		cam.fov = lerpf(FOV, FOV - 4.0, film)       # a slightly longer lens in cutscenes
 		cam.look_at(_cam_target, Vector3.UP)
 	# 2D overlay alignment: an affine map from map pixels to the screen, fitted around the view centre
 	var c := Vector2(_cam_target.x / S, _cam_target.z / S)

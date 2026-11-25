@@ -550,6 +550,26 @@
       "name": "Draf Kartu Pos",
       "icon": "items/v474_postcard.png",
       "desc": "Kata-kata pertama yang ditulis perlahan."
+    },
+    "v7_proyektor": {
+      "name": "Proyektor Tua",
+      "icon": "items/mini_telescope.png",
+      "desc": "Proyektor peninggalan Ayah Arland. Rencananya jadi kejutan untuk galeri Sofia."
+    },
+    "v7_halaman_wira": {
+      "name": "Halaman Abu-abu",
+      "icon": "items/memory_page.png",
+      "desc": "Halaman Wira dan Sari yang memudar. Tulisannya hanya kembali kalau ceritanya diucapkan."
+    },
+    "v7_foto_wira": {
+      "name": "Foto di Gazebo",
+      "icon": "items/photo_small.png",
+      "desc": "Wira dan Sari muda di bawah satu payung yang kebesaran."
+    },
+    "v7_kaset": {
+      "name": "Kaset \"Lagu Hujan\"",
+      "icon": "items/music_box.png",
+      "desc": "Kaset keroncong tulisan tangan. Pitanya sudah digulung ulang oleh Bang Juna."
     }
   },
   "entries": [
@@ -3902,6 +3922,56 @@
       "icon": "items/symbol_star.png",
       "title": "Atlas Kenangan Kecil",
       "text": "Semua jejak dunia ditemukan. Dua sudut pandang mengungkapkan satu kisah, tanpa akhir baru."
+    },
+    {
+      "id": "m_v7_jadian",
+      "chapter": "C02",
+      "route": "shared",
+      "type": "fictional_memory",
+      "unlock": "V7_JADIAN",
+      "icon": "items/photo_strip.png",
+      "title": "Senja yang Sama",
+      "text": "Di ujung dermaga, dua orang berhenti pura-pura cuma berteman."
+    },
+    {
+      "id": "m_v7_rumah_sari",
+      "chapter": "C03",
+      "route": "shared",
+      "type": "fictional_memory",
+      "unlock": "V7_C03_SARI_VISITED",
+      "icon": "items/dried_flowers.png",
+      "title": "Bingkai yang Kosong",
+      "text": "Rumah Nenek Sari wangi melati. Di rak, satu bingkai menunggu fotonya pulang."
+    },
+    {
+      "id": "m_v7_arsip",
+      "chapter": "C05",
+      "route": "shared",
+      "type": "fictional_memory",
+      "unlock": "V7_C05_ARCHIVE_DONE",
+      "icon": "items/memory_page.png",
+      "title": "Arsip yang Memudar",
+      "text": "Cerita yang ditulis tapi tak pernah diucapkan pelan-pelan kehilangan warnanya."
+    },
+    {
+      "id": "m_v7_gazebo",
+      "chapter": "C06",
+      "route": "shared",
+      "type": "fictional_memory",
+      "unlock": "V7_WIRA_PAGE_SAVED",
+      "icon": "items/lantern_small.png",
+      "title": "Empat Puluh Tahun Lalu",
+      "text": "Hujan yang sama, gazebo yang sama. Kali ini ceritanya selesai diucapkan."
+    },
+    {
+      "id": "m_v7_kaset",
+      "chapter": "C03",
+      "route": "shared",
+      "type": "fictional_memory",
+      "unlock": "SQ_V7_KASET_DONE",
+      "icon": "items/music_box.png",
+      "title": "Lagu Hujan",
+      "text": "Suara yang disimpan di pita kaset ternyata tidak pernah benar-benar hilang."
     }
   ],
   "bonus": {

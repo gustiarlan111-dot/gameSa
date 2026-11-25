@@ -1,0 +1,5341 @@
+{
+ "quests": {
+  "steps": {
+   "PRO_PORTAL": {
+    "id": "PRO_PORTAL",
+    "chapter": "PRO",
+    "quest": "Q_PRO_GARDEN",
+    "objective": {
+     "arland": "Masuk gerbang cahaya di utara untuk pulang",
+     "sofia": "Masuk gerbang cahaya di utara untuk pulang"
+    },
+    "interactables": [
+     {
+      "id": "portal",
+      "area": "memory_garden",
+      "x": 1000,
+      "y": 500,
+      "r": 80,
+      "label": "Gerbang pulang",
+      "actions": [
+       {
+        "do": "music",
+        "id": "cinema_prologue_memory_v474"
+       },
+       {
+        "do": "cine",
+        "cmds": [
+         {
+          "c": "bars",
+          "on": true,
+          "t": 0.4
+         },
+         {
+          "c": "shot",
+          "focus": "partner",
+          "zoom": 1.26,
+          "frame": "intimate",
+          "t": 1.8,
+          "bars": false
+         },
+         {
+          "c": "fx",
+          "kind": "sparkles",
+          "on": "player",
+          "t": 2.4,
+          "n": 16
+         },
+         {
+          "c": "bars",
+          "on": false,
+          "t": 0.5
+         }
+        ]
+       },
+       {
+        "do": "if",
+        "when": {
+         "route": "arland"
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V474-P-PORTAL-A"
+         }
+        ],
+        "else": [
+         {
+          "do": "scene",
+          "id": "V474-P-PORTAL-S"
+         }
+        ]
+       },
+       {
+        "do": "flag",
+        "id": "V474_PRO_NEW_COMPLETE"
+       },
+       {
+        "do": "sfx",
+        "id": "sparkle"
+       },
+       {
+        "do": "warp",
+        "area": "plaza",
+        "x": 1450,
+        "y": 1112,
+        "dir": "down"
+       },
+       {
+        "do": "chapterEnd",
+        "chapter": "PRO"
+       },
+       {
+        "do": "companion",
+        "on": false
+       },
+       {
+        "do": "warp",
+        "area": "$ROOM",
+        "x": 243,
+        "y": 217,
+        "dir": "down"
+       },
+       {
+        "do": "chapterCard",
+        "chapter": "C01"
+       },
+       {
+        "do": "step",
+        "id": "C01_NOTE"
+       }
+      ]
+     }
+    ]
+   },
+   "C02_PHONE": {
+    "id": "C02_PHONE",
+    "chapter": "C02",
+    "quest": "Q_C02_DATE",
+    "objective": {
+     "arland": "Baca pesan dari Sofia di ponsel",
+     "sofia": "Kirim ajakan lewat ponsel"
+    },
+    "interactables": [
+     {
+      "id": "phone2",
+      "area": "arland_room",
+      "x": 360,
+      "y": 199,
+      "r": 40,
+      "label": "Lihat ponsel",
+      "actions": [
+       {
+        "do": "sfx",
+        "id": "page"
+       },
+       {
+        "do": "scene",
+        "id": "V468-C02-A-INVITE"
+       },
+       {
+        "do": "scene",
+        "id": "V468-C02-A-REPLY"
+       },
+       {
+        "do": "scene",
+        "id": "C02-A00"
+       },
+       {
+        "do": "scene",
+        "id": "C02-FREE@$ROUTE"
+       },
+       {
+        "do": "step",
+        "id": "C02_FREE"
+       }
+      ],
+      "route": "arland"
+     },
+     {
+      "id": "phone2",
+      "area": "sofia_room",
+      "x": 350,
+      "y": 193,
+      "r": 40,
+      "label": "Ambil ponsel",
+      "actions": [
+       {
+        "do": "sfx",
+        "id": "page"
+       },
+       {
+        "do": "scene",
+        "id": "V468-C02-S-REPLY"
+       },
+       {
+        "do": "scene",
+        "id": "C02-S00"
+       },
+       {
+        "do": "step",
+        "id": "C02_S_OUTFIT"
+       }
+      ],
+      "route": "sofia"
+     }
+    ]
+   },
+   "C02_SUNSET": {
+    "id": "C02_SUNSET",
+    "chapter": "C02",
+    "quest": "Q_C02_DATE",
+    "objective": {
+     "arland": "Lihat senja di ujung dermaga Tepi Danau",
+     "sofia": "Lihat senja di ujung dermaga Tepi Danau"
+    },
+    "interactables": [
+     {
+      "id": "pier",
+      "area": "riverside",
+      "x": 1525,
+      "y": 1050,
+      "r": 60,
+      "label": "Lihat senja",
+      "actions": [
+       {
+        "do": "if",
+        "when": {
+         "flags": [
+          "V468_S_REPLY_YES"
+         ]
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V468-C02-PAYOFF-YES"
+         }
+        ],
+        "else": []
+       },
+       {
+        "do": "if",
+        "when": {
+         "flags": [
+          "V468_S_REPLY_LATER"
+         ]
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V468-C02-PAYOFF-LATER"
+         }
+        ],
+        "else": []
+       },
+       {
+        "do": "if",
+        "when": {
+         "flags": [
+          "V468_S_REPLY_NO"
+         ]
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V468-C02-PAYOFF-NO"
+         }
+        ],
+        "else": []
+       },
+       {
+        "do": "if",
+        "when": {
+         "flags": [
+          "V468_C02_PHOTO_LAUGH"
+         ]
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V468-C02-PHOTO-MEMORY-LAUGH"
+         }
+        ],
+        "else": []
+       },
+       {
+        "do": "if",
+        "when": {
+         "flags": [
+          "V468_C02_PHOTO_LOOK"
+         ]
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V468-C02-PHOTO-MEMORY-LOOK"
+         }
+        ],
+        "else": []
+       },
+       {
+        "do": "if",
+        "when": {
+         "flags": [
+          "V468_C02_PHOTO_BLUR"
+         ]
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V468-C02-PHOTO-MEMORY-BLUR"
+         }
+        ],
+        "else": []
+       },
+       {
+        "do": "if",
+        "when": {
+         "flags": [
+          "V467_C01_RESULT_LISTEN"
+         ]
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V468-C02-C01-AFTER"
+         }
+        ],
+        "else": []
+       },
+       {
+        "do": "if",
+        "when": {
+         "flags": [
+          "V467_C01_RESULT_RECORD"
+         ]
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V468-C02-C01-AFTER"
+         }
+        ],
+        "else": []
+       },
+       {
+        "do": "if",
+        "when": {
+         "flags": [
+          "V467_C01_RESULT_TRACE"
+         ]
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V468-C02-C01-AFTER"
+         }
+        ],
+        "else": []
+       },
+       {
+        "do": "cine",
+        "cmds": [
+         {
+          "c": "bars",
+          "on": true,
+          "t": 0.5
+         },
+         {
+          "c": "mood",
+          "id": "warm",
+          "t": 1.6
+         },
+         {
+          "c": "shot",
+          "focus": "couple",
+          "zoom": 1.15,
+          "t": 0,
+          "bars": false
+         },
+         {
+          "c": "crane",
+          "t": 3.6,
+          "zoom": 1.15,
+          "block": true
+         },
+         {
+          "c": "fx",
+          "kind": "fireflies",
+          "on": "player",
+          "t": 14.0,
+          "n": 36
+         },
+         {
+          "c": "orbit",
+          "deg": -14,
+          "t": 12.0
+         },
+         {
+          "c": "dof",
+          "a": 0.8,
+          "t": 1.5
+         },
+         {
+          "c": "say",
+          "scene": "C02-X04"
+         },
+         {
+          "c": "shot",
+          "focus": "couple",
+          "zoom": 1.3099999999999998,
+          "t": 1.6,
+          "bars": false,
+          "async": true
+         },
+         {
+          "c": "pair",
+          "kind": "lean",
+          "t": 2.4
+         },
+         {
+          "c": "fx",
+          "kind": "glow",
+          "on": "player",
+          "t": 2.6,
+          "block": true
+         },
+         {
+          "c": "wait",
+          "t": 0.6
+         },
+         {
+          "c": "angle",
+          "yaw": 0,
+          "t": 1.0
+         },
+         {
+          "c": "dof",
+          "a": 0.35,
+          "t": 0.8
+         },
+         {
+          "c": "bars",
+          "on": false,
+          "t": 0.6
+         }
+        ],
+        "made": "story_cines",
+        "orig": [
+         {
+          "do": "scene",
+          "id": "C02-X04"
+         }
+        ]
+       },
+       {
+        "do": "if",
+        "when": {
+         "route": "arland"
+        },
+        "then": [
+         {
+          "do": "removeItem",
+          "id": "bunga_pita"
+         },
+         {
+          "do": "item",
+          "id": "foto_kecil"
+         }
+        ],
+        "else": [
+         {
+          "do": "removeItem",
+          "id": "foto_kecil"
+         },
+         {
+          "do": "item",
+          "id": "bunga_pita"
+         }
+        ]
+       },
+       {
+        "do": "chapterEnd",
+        "chapter": "C02"
+       },
+       {
+        "do": "companion",
+        "on": false
+       },
+       {
+        "do": "warp",
+        "area": "$ROOM",
+        "x": 243,
+        "y": 217,
+        "dir": "down"
+       },
+       {
+        "do": "chapterCard",
+        "chapter": "C03"
+       },
+       {
+        "do": "if",
+        "when": {
+         "route": "arland"
+        },
+        "then": [
+         {
+          "do": "step",
+          "id": "C03_A_IDEA"
+         }
+        ],
+        "else": [
+         {
+          "do": "step",
+          "id": "C03_S_CORNER"
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "tint": "#ff9a5a",
+    "tintAlpha": 0.16
+   },
+   "C03_A_IDEA": {
+    "id": "C03_A_IDEA",
+    "chapter": "C03",
+    "quest": "Q_C03_PICNIC",
+    "objective": {
+     "arland": "Rencanakan sesuatu di meja kerja",
+     "sofia": "Rencanakan sesuatu di meja kerja"
+    },
+    "interactables": [
+     {
+      "id": "idea",
+      "area": "arland_room",
+      "x": 356,
+      "y": 194,
+      "r": 40,
+      "label": "Meja kerja",
+      "actions": [
+       {
+        "do": "scene",
+        "id": "C03-A00"
+       },
+       {
+        "do": "if",
+        "when": {
+         "flags": [
+          "V468_A_INVITE_SIMPLE"
+         ]
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V469-C03-A-INVITE-SIMPLE"
+         }
+        ],
+        "else": []
+       },
+       {
+        "do": "if",
+        "when": {
+         "flags": [
+          "V468_A_INVITE_CARE"
+         ]
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V469-C03-A-INVITE-CARE"
+         }
+        ],
+        "else": []
+       },
+       {
+        "do": "if",
+        "when": {
+         "flags": [
+          "V468_A_INVITE_OPEN"
+         ]
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V469-C03-A-INVITE-OPEN"
+         }
+        ],
+        "else": []
+       },
+       {
+        "do": "step",
+        "id": "V469_C03_A_FRAME"
+       }
+      ],
+      "route": "arland"
+     }
+    ]
+   },
+   "C03_S_CORNER": {
+    "id": "C03_S_CORNER",
+    "chapter": "C03",
+    "quest": "Q_C03_CORNER",
+    "objective": {
+     "arland": "Lihat kotak kenangan di sudut kamar",
+     "sofia": "Lihat kotak kenangan di sudut kamar"
+    },
+    "interactables": [
+     {
+      "id": "corner",
+      "area": "sofia_room",
+      "x": 252,
+      "y": 343,
+      "r": 40,
+      "label": "Kotak kenangan",
+      "actions": [
+       {
+        "do": "scene",
+        "id": "C03-S00"
+       },
+       {
+        "do": "scene",
+        "id": "C03-S01"
+       },
+       {
+        "do": "if",
+        "when": {
+         "flags": [
+          "V468_S_REPLY_YES"
+         ]
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V469-C03-S-DATE-YES"
+         }
+        ],
+        "else": []
+       },
+       {
+        "do": "if",
+        "when": {
+         "flags": [
+          "V468_S_REPLY_LATER"
+         ]
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V469-C03-S-DATE-LATER"
+         }
+        ],
+        "else": []
+       },
+       {
+        "do": "if",
+        "when": {
+         "flags": [
+          "V468_S_REPLY_NO"
+         ]
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V469-C03-S-DATE-NO"
+         }
+        ],
+        "else": []
+       },
+       {
+        "do": "step",
+        "id": "V469_C03_S_SCRAP"
+       }
+      ],
+      "route": "sofia"
+     }
+    ]
+   },
+   "V469_C03_NEIGHBOR": {
+    "id": "V469_C03_NEIGHBOR",
+    "chapter": "C03",
+    "quest": "Q_V469_C03_MEMORIES",
+    "objective": {
+     "arland": "Kembalikan mangkuk pinjaman ke Pak Harun di perumahan",
+     "sofia": "Kembalikan buku sketsa ke Bu Laras di perpustakaan"
+    },
+    "interactables": [
+     {
+      "id": "v469_return_a",
+      "area": "perumahan",
+      "x": 510,
+      "y": 555,
+      "r": 110,
+      "label": "Kembalikan mangkuk Pak Harun",
+      "actions": [
+       {
+        "do": "scene",
+        "id": "V469-C03-A-NEIGHBOR"
+       },
+       {
+        "do": "item",
+        "id": "v469_neighbor_note"
+       },
+       {
+        "do": "step",
+        "id": "C03_A_INGREDIENTS"
+       }
+      ],
+      "route": "arland"
+     },
+     {
+      "id": "v469_return_s",
+      "area": "perpustakaan",
+      "x": 602,
+      "y": 510,
+      "r": 110,
+      "label": "Kembalikan buku Bu Laras",
+      "actions": [
+       {
+        "do": "scene",
+        "id": "V469-C03-S-NEIGHBOR"
+       },
+       {
+        "do": "item",
+        "id": "v469_neighbor_note"
+       },
+       {
+        "do": "step",
+        "id": "C03_S_DECOR"
+       }
+      ],
+      "route": "sofia"
+     }
+    ]
+   },
+   "C03_PICNIC": {
+    "id": "C03_PICNIC",
+    "chapter": "C03",
+    "quest": "Q_C03_PICNIC",
+    "objective": {
+     "arland": "Piknik di selimut Taman Kota",
+     "sofia": "Piknik di selimut Taman Kota"
+    },
+    "interactables": [
+     {
+      "id": "picnic",
+      "area": "taman_kota",
+      "x": 1900,
+      "y": 1325,
+      "r": 64,
+      "label": "Mulai piknik",
+      "actions": [
+       {
+        "do": "cine",
+        "cmds": [
+         {
+          "c": "bars",
+          "on": true,
+          "t": 0.5
+         },
+         {
+          "c": "mood",
+          "id": "warm",
+          "t": 1.6
+         },
+         {
+          "c": "shot",
+          "focus": "couple",
+          "zoom": 1.2,
+          "t": 0,
+          "bars": false
+         },
+         {
+          "c": "crane",
+          "t": 3.6,
+          "zoom": 1.2,
+          "block": true
+         },
+         {
+          "c": "fx",
+          "kind": "petals",
+          "on": "player",
+          "t": 14.0,
+          "n": 36
+         },
+         {
+          "c": "orbit",
+          "deg": 14,
+          "t": 12.0
+         },
+         {
+          "c": "dof",
+          "a": 0.8,
+          "t": 1.5
+         },
+         {
+          "c": "say",
+          "scene": "C03-X02"
+         },
+         {
+          "c": "say",
+          "scene": "V469-C03-PICNIC-REFLECTION"
+         },
+         {
+          "c": "shot",
+          "focus": "couple",
+          "zoom": 1.3599999999999999,
+          "t": 1.6,
+          "bars": false,
+          "async": true
+         },
+         {
+          "c": "pair",
+          "kind": "lean",
+          "t": 2.4
+         },
+         {
+          "c": "fx",
+          "kind": "hearts",
+          "on": "player",
+          "t": 2.6,
+          "block": true
+         },
+         {
+          "c": "wait",
+          "t": 0.6
+         },
+         {
+          "c": "angle",
+          "yaw": 0,
+          "t": 1.0
+         },
+         {
+          "c": "dof",
+          "a": 0.35,
+          "t": 0.8
+         },
+         {
+          "c": "bars",
+          "on": false,
+          "t": 0.6
+         }
+        ],
+        "made": "story_cines",
+        "orig": [
+         {
+          "do": "scene",
+          "id": "C03-X02"
+         },
+         {
+          "do": "scene",
+          "id": "V469-C03-PICNIC-REFLECTION"
+         }
+        ]
+       },
+       {
+        "do": "removeItem",
+        "id": "roti_lapis"
+       },
+       {
+        "do": "scene",
+        "id": "V464-C03-PROMISE"
+       },
+       {
+        "do": "warp",
+        "area": "galeri_komunitas",
+        "x": 480,
+        "y": 532,
+        "dir": "up"
+       },
+       {
+        "do": "step",
+        "id": "C03_V464_GALLERY_PREP"
+       }
+      ]
+     }
+    ]
+   },
+   "C04_S_WAKE": {
+    "id": "C04_S_WAKE",
+    "chapter": "C04",
+    "quest": "Q_C04_RAIN",
+    "objective": {
+     "arland": "Lihat ponsel di meja",
+     "sofia": "Lihat ponsel di meja"
+    },
+    "interactables": [
+     {
+      "id": "phone4",
+      "area": "sofia_room",
+      "x": 350,
+      "y": 193,
+      "r": 40,
+      "label": "Ponsel",
+      "actions": [
+       {
+        "do": "sfx",
+        "id": "page"
+       },
+       {
+        "do": "scene",
+        "id": "V464-C04-S-MORNING"
+       },
+       {
+        "do": "warp",
+        "area": "galeri_komunitas",
+        "x": 480,
+        "y": 530,
+        "dir": "up"
+       },
+       {
+        "do": "step",
+        "id": "V470_C04_S_PREP"
+       }
+      ],
+      "route": "sofia"
+     }
+    ],
+    "weather": "rain"
+   },
+   "C04_V464_S_GALLERY": {
+    "id": "C04_V464_S_GALLERY",
+    "chapter": "C04",
+    "quest": "Q_C04_V464_S_GALLERY",
+    "objective": {
+     "arland": "Sampaikan cerita di depan pengunjung galeri",
+     "sofia": "Mulai presentasi sketsa di galeri"
+    },
+    "interactables": [
+     {
+      "id": "stage_s_v464",
+      "area": "galeri_komunitas",
+      "x": 520,
+      "y": 320,
+      "r": 115,
+      "label": "Mulai presentasi gambar Sofia",
+      "actions": [
+       {
+        "do": "music",
+        "id": "v50_rain_reflections",
+        "v50Cinematic": true
+       },
+       {
+        "do": "music",
+        "id": "cinema_gallery_empty"
+       },
+       {
+        "do": "music",
+        "id": "score_empty_chair_v480"
+       },
+       {
+        "do": "cine",
+        "cmds": [
+         {
+          "c": "fx",
+          "kind": "mist",
+          "on": "player",
+          "t": 4.6,
+          "n": 32
+         },
+         {
+          "c": "sfx",
+          "id": "v50_memory_shimmer"
+         },
+         {
+          "c": "bars",
+          "on": true,
+          "t": 0.8
+         },
+         {
+          "c": "cam",
+          "x": 294,
+          "y": 432,
+          "zoom": 1.3,
+          "t": 2.2
+         },
+         {
+          "c": "wait",
+          "t": 1.0
+         },
+         {
+          "c": "caption",
+          "text": "The Empty Seat",
+          "sub": "Tepuk tangan tidak mengisi kursi itu",
+          "t": 3.7
+         },
+         {
+          "c": "shot",
+          "focus": "player",
+          "zoom": 1.3,
+          "frame": "intimate",
+          "t": 1.8,
+          "bars": false
+         },
+         {
+          "c": "bars",
+          "on": false,
+          "t": 0.6
+         }
+        ],
+        "v50Cinematic": true
+       },
+       {
+        "do": "if",
+        "when": {
+         "flags": [
+          "V464_PROMISE_TIME"
+         ]
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V470-C04-PROMISE-TIME"
+         }
+        ],
+        "else": [
+         {
+          "do": "if",
+          "when": {
+           "flags": [
+            "V464_PROMISE_LISTEN"
+           ]
+          },
+          "then": [
+           {
+            "do": "scene",
+            "id": "V470-C04-PROMISE-LISTEN"
+           }
+          ],
+          "else": [
+           {
+            "do": "if",
+            "when": {
+             "flags": [
+              "V464_PROMISE_SIMPLE"
+             ]
+            },
+            "then": [
+             {
+              "do": "scene",
+              "id": "V470-C04-PROMISE-SIMPLE"
+             }
+            ],
+            "else": []
+           }
+          ]
+         }
+        ]
+       },
+       {
+        "do": "if",
+        "when": {
+         "flags": [
+          "V469_GALLERY_ASK"
+         ]
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V470-C04-INVITE-ASK"
+         }
+        ],
+        "else": [
+         {
+          "do": "if",
+          "when": {
+           "flags": [
+            "V469_GALLERY_SCHEDULE"
+           ]
+          },
+          "then": [
+           {
+            "do": "scene",
+            "id": "V470-C04-INVITE-SCHEDULE"
+           }
+          ],
+          "else": []
+         }
+        ]
+       },
+       {
+        "do": "if",
+        "when": {
+         "flags": [
+          "V468_S_REPLY_YES"
+         ]
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V470-C04-C02-S-YES"
+         }
+        ],
+        "else": [
+         {
+          "do": "if",
+          "when": {
+           "flags": [
+            "V468_S_REPLY_LATER"
+           ]
+          },
+          "then": [
+           {
+            "do": "scene",
+            "id": "V470-C04-C02-S-LATER"
+           }
+          ],
+          "else": [
+           {
+            "do": "if",
+            "when": {
+             "flags": [
+              "V468_S_REPLY_NO"
+             ]
+            },
+            "then": [
+             {
+              "do": "scene",
+              "id": "V470-C04-C02-S-NO"
+             }
+            ],
+            "else": []
+           }
+          ]
+         }
+        ]
+       },
+       {
+        "do": "scene",
+        "id": "V464-C04-S-PRESENT"
+       },
+       {
+        "do": "if",
+        "when": {
+         "flags": [
+          "V470_S_OPEN_FLOWER"
+         ]
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V470-C04-S-PRESENT-FLOWER"
+         }
+        ],
+        "else": [
+         {
+          "do": "if",
+          "when": {
+           "flags": [
+            "V470_S_OPEN_WORK"
+           ]
+          },
+          "then": [
+           {
+            "do": "scene",
+            "id": "V470-C04-S-PRESENT-WORK"
+           }
+          ],
+          "else": [
+           {
+            "do": "scene",
+            "id": "V470-C04-S-PRESENT-GUESTS"
+           }
+          ]
+         }
+        ]
+       },
+       {
+        "do": "step",
+        "id": "C04_V464_S_REFLECT"
+       }
+      ]
+     }
+    ]
+   },
+   "C04_V26_VOW": {
+    "id": "C04_V26_VOW",
+    "chapter": "C04",
+    "quest": "Q_C04_LANTERN",
+    "objective": {
+     "arland": "Tulis janji yang bisa dilakukan berdua di bangku taman",
+     "sofia": "Tulis janji yang bisa dilakukan berdua di bangku taman"
+    },
+    "interactables": [
+     {
+      "id": "v26_c04_vow",
+      "area": "taman_kota",
+      "x": 1250,
+      "y": 612,
+      "r": 70,
+      "label": "Janji untuk besok",
+      "actions": [
+       {
+        "do": "cine",
+        "cmds": [
+         {
+          "id": "cinema_reconciliation",
+          "c": "music"
+         },
+         {
+          "on": true,
+          "t": 0.4,
+          "c": "bars"
+         },
+         {
+          "x": 1250,
+          "y": 575,
+          "zoom": 1.28,
+          "t": 1.3,
+          "c": "cam"
+         },
+         {
+          "kind": "petals",
+          "on": "player",
+          "t": 4.0,
+          "c": "fx"
+         },
+         {
+          "text": "Setelah Hujan",
+          "sub": "Belajar saling mendengar",
+          "t": 2.6,
+          "c": "caption"
+         },
+         {
+          "zoom": 1.17,
+          "t": 1.0,
+          "c": "shot",
+          "focus": "player",
+          "frame": "intimate",
+          "bars": false
+         },
+         {
+          "on": false,
+          "t": 0.35,
+          "c": "bars"
+         }
+        ]
+       },
+       {
+        "do": "scene",
+        "id": "V26-C04-VOW"
+       },
+       {
+        "do": "scene",
+        "id": "V465-C04-NOT-YET"
+       },
+       {
+        "do": "if",
+        "when": {
+         "route": "arland"
+        },
+        "then": [
+         {
+          "do": "step",
+          "id": "C04_V465_A_REFLECT"
+         }
+        ],
+        "else": [
+         {
+          "do": "step",
+          "id": "C04_V465_S_REFLECT"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "C04_V465_SECOND_TALK": {
+    "id": "C04_V465_SECOND_TALK",
+    "chapter": "C04",
+    "quest": "Q_C04_V465_SECOND_TALK",
+    "objective": {
+     "arland": "Bicaralah lagi ketika sama-sama siap",
+     "sofia": "Temui pasangan di taman untuk bicara tanpa terburu-buru"
+    },
+    "interactables": [
+     {
+      "id": "v465_second_talk",
+      "area": "taman_kota",
+      "x": 1250,
+      "y": 612,
+      "r": 100,
+      "label": "Duduk dan bicarakan hari berikutnya",
+      "actions": [
+       {
+        "do": "music",
+        "id": "cinema_gallery_repair"
+       },
+       {
+        "do": "cine",
+        "cmds": [
+         {
+          "c": "bars",
+          "on": true,
+          "t": 0.4
+         },
+         {
+          "c": "shot",
+          "focus": "couple",
+          "zoom": 1.16,
+          "frame": "intimate",
+          "t": 1.1,
+          "bars": false
+         },
+         {
+          "c": "caption",
+          "text": "Beberapa Waktu Kemudian",
+          "sub": "Tidak ada maaf yang menggantikan kehadiran",
+          "t": 2.4
+         },
+         {
+          "c": "bars",
+          "on": false,
+          "t": 0.4
+         }
+        ]
+       },
+       {
+        "do": "music",
+        "id": "cinema_listen_again_v470"
+       },
+       {
+        "do": "if",
+        "when": {
+         "flags": [
+          "V470_A_AGENDA"
+         ]
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V470-C04-RESOLVE-A"
+         }
+        ],
+        "else": [
+         {
+          "do": "scene",
+          "id": "V470-C04-RESOLVE-S"
+         }
+        ]
+       },
+       {
+        "do": "if",
+        "when": {
+         "flags": [
+          "V464_A_WARN"
+         ]
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V470-C04-RESOLVE-WARN"
+         }
+        ],
+        "else": [
+         {
+          "do": "if",
+          "when": {
+           "flags": [
+            "V464_A_SILENT"
+           ]
+          },
+          "then": [
+           {
+            "do": "scene",
+            "id": "V470-C04-RESOLVE-SILENT"
+           }
+          ],
+          "else": [
+           {
+            "do": "if",
+            "when": {
+             "flags": [
+              "V464_A_HELP"
+             ]
+            },
+            "then": [
+             {
+              "do": "scene",
+              "id": "V470-C04-RESOLVE-HELP"
+             }
+            ],
+            "else": []
+           }
+          ]
+         }
+        ]
+       },
+       {
+        "do": "if",
+        "when": {
+         "flags": [
+          "V464_S_SPACE"
+         ]
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V470-C04-RESOLVE-SPACE"
+         }
+        ],
+        "else": [
+         {
+          "do": "if",
+          "when": {
+           "flags": [
+            "V464_S_SPEAK"
+           ]
+          },
+          "then": [
+           {
+            "do": "scene",
+            "id": "V470-C04-RESOLVE-SPEAK"
+           }
+          ],
+          "else": [
+           {
+            "do": "if",
+            "when": {
+             "flags": [
+              "V464_S_DRAW"
+             ]
+            },
+            "then": [
+             {
+              "do": "scene",
+              "id": "V470-C04-RESOLVE-DRAW"
+             }
+            ],
+            "else": []
+           }
+          ]
+         }
+        ]
+       },
+       {
+        "do": "scene",
+        "id": "V465-C04-SECOND-TALK"
+       },
+       {
+        "do": "scene",
+        "id": "V470-C04-HANDOFF"
+       },
+       {
+        "do": "item",
+        "id": "v470_two_sides"
+       },
+       {
+        "do": "chapterEnd",
+        "chapter": "C04"
+       },
+       {
+        "do": "companion",
+        "on": false
+       },
+       {
+        "do": "warp",
+        "area": "$ROOM",
+        "x": 243,
+        "y": 217,
+        "dir": "down"
+       },
+       {
+        "do": "chapterCard",
+        "chapter": "C05"
+       },
+       {
+        "do": "scene",
+        "id": "C05-FREE@$ROUTE"
+       },
+       {
+        "do": "step",
+        "id": "C05_FREE"
+       }
+      ]
+     }
+    ]
+   },
+   "C05_FREE": {
+    "id": "C05_FREE",
+    "chapter": "C05",
+    "quest": "Q_C05_FREE",
+    "objective": {
+     "arland": "Hari bebas: bantu 2 persiapan festival (Kak Raka, Bu Melati, papan pengumuman plaza)",
+     "sofia": "Hari bebas: bantu 2 persiapan festival (Kak Raka, Bu Melati, papan pengumuman plaza)"
+    },
+    "interactables": [
+     {
+      "id": "f5_raka",
+      "area": "cafe",
+      "x": 210,
+      "y": 300,
+      "r": 70,
+      "label": "Bicara dengan Kak Raka",
+      "actions": [
+       {
+        "do": "scene",
+        "id": "F5-TEH-1@$ROUTE"
+       },
+       {
+        "do": "minigame",
+        "id": "pour"
+       },
+       {
+        "do": "scene",
+        "id": "F5-TEH-2@$ROUTE"
+       },
+       {
+        "do": "item",
+        "id": "teh_rempah"
+       },
+       {
+        "do": "flag",
+        "id": "F5_TEH_DONE"
+       },
+       {
+        "do": "count",
+        "id": "hari_C05",
+        "add": 1
+       },
+       {
+        "do": "sfx",
+        "id": "sparkle"
+       }
+      ],
+      "hideIfFlag": "F5_TEH_DONE"
+     },
+     {
+      "id": "f5_melati",
+      "area": "toko_bunga",
+      "x": 414,
+      "y": 230,
+      "r": 70,
+      "label": "Bicara dengan Bu Melati",
+      "actions": [
+       {
+        "do": "scene",
+        "id": "F5-LENTERA-1@$ROUTE"
+       },
+       {
+        "do": "flag",
+        "id": "F5_LANTERN_START"
+       },
+       {
+        "do": "item",
+        "id": "lentera_kertas"
+       },
+       {
+        "do": "toast",
+        "text": "Gantung 4 lentera di Taman Kota"
+       }
+      ],
+      "when": {
+       "notFlags": [
+        "F5_LANTERN_START"
+       ]
+      }
+     },
+     {
+      "id": "f5_lantern1",
+      "area": "taman_kota",
+      "x": 1800,
+      "y": 700,
+      "r": 56,
+      "label": "Gantung lentera",
+      "actions": [
+       {
+        "do": "flag",
+        "id": "F5_LANTERN_1"
+       },
+       {
+        "do": "count",
+        "id": "lentera_f5",
+        "add": 1
+       },
+       {
+        "do": "sfx",
+        "id": "sparkle"
+       },
+       {
+        "do": "toast",
+        "text": "Lentera 1/4"
+       },
+       {
+        "do": "if",
+        "when": {
+         "count": {
+          "lentera_f5": 4
+         }
+        },
+        "then": [
+         {
+          "do": "removeItem",
+          "id": "lentera_kertas"
+         },
+         {
+          "do": "toast",
+          "text": "Semua lentera tergantung! Kembali ke Bu Melati."
+         }
+        ],
+        "else": []
+       }
+      ],
+      "when": {
+       "flags": [
+        "F5_LANTERN_START"
+       ]
+      },
+      "hideIfFlag": "F5_LANTERN_1"
+     },
+     {
+      "id": "f5_lantern2",
+      "area": "taman_kota",
+      "x": 890,
+      "y": 690,
+      "r": 56,
+      "label": "Gantung lentera",
+      "actions": [
+       {
+        "do": "flag",
+        "id": "F5_LANTERN_2"
+       },
+       {
+        "do": "count",
+        "id": "lentera_f5",
+        "add": 1
+       },
+       {
+        "do": "sfx",
+        "id": "sparkle"
+       },
+       {
+        "do": "toast",
+        "text": "Lentera 2/4"
+       },
+       {
+        "do": "if",
+        "when": {
+         "count": {
+          "lentera_f5": 4
+         }
+        },
+        "then": [
+         {
+          "do": "removeItem",
+          "id": "lentera_kertas"
+         },
+         {
+          "do": "toast",
+          "text": "Semua lentera tergantung! Kembali ke Bu Melati."
+         }
+        ],
+        "else": []
+       }
+      ],
+      "when": {
+       "flags": [
+        "F5_LANTERN_START"
+       ]
+      },
+      "hideIfFlag": "F5_LANTERN_2"
+     },
+     {
+      "id": "f5_lantern3",
+      "area": "taman_kota",
+      "x": 1625,
+      "y": 1388,
+      "r": 56,
+      "label": "Gantung lentera",
+      "actions": [
+       {
+        "do": "flag",
+        "id": "F5_LANTERN_3"
+       },
+       {
+        "do": "count",
+        "id": "lentera_f5",
+        "add": 1
+       },
+       {
+        "do": "sfx",
+        "id": "sparkle"
+       },
+       {
+        "do": "toast",
+        "text": "Lentera 3/4"
+       },
+       {
+        "do": "if",
+        "when": {
+         "count": {
+          "lentera_f5": 4
+         }
+        },
+        "then": [
+         {
+          "do": "removeItem",
+          "id": "lentera_kertas"
+         },
+         {
+          "do": "toast",
+          "text": "Semua lentera tergantung! Kembali ke Bu Melati."
+         }
+        ],
+        "else": []
+       }
+      ],
+      "when": {
+       "flags": [
+        "F5_LANTERN_START"
+       ]
+      },
+      "hideIfFlag": "F5_LANTERN_3"
+     },
+     {
+      "id": "f5_lantern4",
+      "area": "taman_kota",
+      "x": 2050,
+      "y": 975,
+      "r": 56,
+      "label": "Gantung lentera",
+      "actions": [
+       {
+        "do": "flag",
+        "id": "F5_LANTERN_4"
+       },
+       {
+        "do": "count",
+        "id": "lentera_f5",
+        "add": 1
+       },
+       {
+        "do": "sfx",
+        "id": "sparkle"
+       },
+       {
+        "do": "toast",
+        "text": "Lentera 4/4"
+       },
+       {
+        "do": "if",
+        "when": {
+         "count": {
+          "lentera_f5": 4
+         }
+        },
+        "then": [
+         {
+          "do": "removeItem",
+          "id": "lentera_kertas"
+         },
+         {
+          "do": "toast",
+          "text": "Semua lentera tergantung! Kembali ke Bu Melati."
+         }
+        ],
+        "else": []
+       }
+      ],
+      "when": {
+       "flags": [
+        "F5_LANTERN_START"
+       ]
+      },
+      "hideIfFlag": "F5_LANTERN_4"
+     },
+     {
+      "id": "f5_melati_done",
+      "area": "toko_bunga",
+      "x": 414,
+      "y": 230,
+      "r": 70,
+      "label": "Lapor ke Bu Melati",
+      "actions": [
+       {
+        "do": "scene",
+        "id": "F5-LENTERA-2@$ROUTE"
+       },
+       {
+        "do": "flag",
+        "id": "F5_LANTERN_DONE"
+       },
+       {
+        "do": "count",
+        "id": "hari_C05",
+        "add": 1
+       },
+       {
+        "do": "sfx",
+        "id": "sparkle"
+       }
+      ],
+      "when": {
+       "count": {
+        "lentera_f5": 4
+       },
+       "notFlags": [
+        "F5_LANTERN_DONE"
+       ]
+      }
+     },
+     {
+      "id": "f5_card",
+      "area": "plaza",
+      "x": 1525,
+      "y": 625,
+      "r": 60,
+      "label": "Tulis kartu harapan",
+      "actions": [
+       {
+        "do": "scene",
+        "id": "F5-KARTU@$ROUTE"
+       },
+       {
+        "do": "flag",
+        "id": "F5_KARTU_DONE"
+       },
+       {
+        "do": "count",
+        "id": "hari_C05",
+        "add": 1
+       },
+       {
+        "do": "sfx",
+        "id": "page"
+       }
+      ],
+      "hideIfFlag": "F5_KARTU_DONE"
+     }
+    ],
+    "complete": {
+     "counter": "hari_C05",
+     "count": 2,
+     "actions": [
+      {
+       "do": "removeItem",
+       "id": "lentera_kertas"
+      },
+      {
+       "do": "flag",
+       "id": "C05_FREE_DONE"
+      },
+      {
+       "do": "toast",
+       "text": "Matahari terbenam... malam ini terasa istimewa."
+      },
+      {
+       "do": "warp",
+       "area": "$ROOM",
+       "x": 243,
+       "y": 217,
+       "dir": "down"
+      },
+      {
+       "do": "if",
+       "when": {
+        "route": "arland"
+       },
+       "then": [
+        {
+         "do": "step",
+         "id": "C05_A_START"
+        }
+       ],
+       "else": [
+        {
+         "do": "step",
+         "id": "C05_S_START"
+        }
+       ]
+      }
+     ]
+    },
+    "counter": "hari_C05",
+    "counterMax": 2,
+    "tint": "#ff9a5a",
+    "tintAlpha": 0.14
+   },
+   "C05_V26_STARGAZE": {
+    "id": "C05_V26_STARGAZE",
+    "chapter": "C05",
+    "quest": "Q_C05_STARS",
+    "objective": {
+     "arland": "Lihat bintang jatuh dari lapangan desa sebelum berangkat",
+     "sofia": "Lihat bintang jatuh dari lapangan desa sebelum berangkat"
+    },
+    "interactables": [
+     {
+      "id": "v26_stargaze",
+      "area": "starfall_village",
+      "x": 1200,
+      "y": 950,
+      "r": 72,
+      "label": "Lihat langit bersama",
+      "actions": [
+       {
+        "do": "cine",
+        "cmds": [
+         {
+          "c": "bars",
+          "on": true,
+          "t": 0.5
+         },
+         {
+          "c": "mood",
+          "id": "night",
+          "t": 1.6
+         },
+         {
+          "c": "shot",
+          "focus": "couple",
+          "zoom": 1.1,
+          "t": 0,
+          "bars": false
+         },
+         {
+          "c": "crane",
+          "t": 3.6,
+          "zoom": 1.1,
+          "block": true
+         },
+         {
+          "c": "fx",
+          "kind": "stars",
+          "on": "player",
+          "t": 14.0,
+          "n": 36
+         },
+         {
+          "c": "orbit",
+          "deg": 16,
+          "t": 12.0
+         },
+         {
+          "c": "dof",
+          "a": 0.8,
+          "t": 1.5
+         },
+         {
+          "c": "say",
+          "scene": "V26-C05-STAR"
+         },
+         {
+          "c": "shot",
+          "focus": "couple",
+          "zoom": 1.26,
+          "t": 1.6,
+          "bars": false,
+          "async": true
+         },
+         {
+          "c": "pair",
+          "kind": "lean",
+          "t": 2.4
+         },
+         {
+          "c": "fx",
+          "kind": "aurora",
+          "on": "player",
+          "t": 2.6,
+          "block": true
+         },
+         {
+          "c": "wait",
+          "t": 0.6
+         },
+         {
+          "c": "angle",
+          "yaw": 0,
+          "t": 1.0
+         },
+         {
+          "c": "dof",
+          "a": 0.35,
+          "t": 0.8
+         },
+         {
+          "c": "bars",
+          "on": false,
+          "t": 0.6
+         }
+        ],
+        "made": "story_cines",
+        "orig": [
+         {
+          "do": "scene",
+          "id": "V26-C05-STAR"
+         }
+        ]
+       },
+       {
+        "do": "flag",
+        "id": "V26_C05_STARGAZE"
+       },
+       {
+        "do": "step",
+        "id": "V471_C05_CLOCK_ENTRY"
+       }
+      ]
+     }
+    ]
+   },
+   "V472_C06_FUTURES": {
+    "id": "V472_C06_FUTURES",
+    "chapter": "C06",
+    "quest": "Q_V472_C06",
+    "objective": {
+     "arland": "Periksa tiga masa depan sempurna dan apa yang hilang darinya",
+     "sofia": "Periksa tiga masa depan sempurna dan apa yang hilang darinya"
+    },
+    "interactables": [
+     {
+      "id": "v472_future_date",
+      "area": "hall_of_tomorrow",
+      "x": 410,
+      "y": 880,
+      "r": 100,
+      "label": "Lihat masa depan: date",
+      "actions": [
+       {
+        "do": "if",
+        "when": {
+         "route": "arland"
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V472-C06-ILLUSION-DATE-A"
+         }
+        ],
+        "else": [
+         {
+          "do": "scene",
+          "id": "V472-C06-ILLUSION-DATE-S"
+         }
+        ]
+       },
+       {
+        "do": "sfx",
+        "id": "v472_memory_glint"
+       },
+       {
+        "do": "flag",
+        "id": "V472_C06_SEEN_DATE"
+       },
+       {
+        "do": "count",
+        "id": "v472_c06_futures",
+        "add": 1
+       }
+      ],
+      "hideIfFlag": "V472_C06_SEEN_DATE",
+      "sprite": {
+       "image": "items/v472_c06_mirror.png",
+       "x": 410,
+       "y": 865,
+       "bob": true
+      }
+     },
+     {
+      "id": "v472_future_presence",
+      "area": "hall_of_tomorrow",
+      "x": 960,
+      "y": 460,
+      "r": 100,
+      "label": "Lihat masa depan: presence",
+      "actions": [
+       {
+        "do": "if",
+        "when": {
+         "route": "arland"
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V472-C06-ILLUSION-PRESENCE-A"
+         }
+        ],
+        "else": [
+         {
+          "do": "scene",
+          "id": "V472-C06-ILLUSION-PRESENCE-S"
+         }
+        ]
+       },
+       {
+        "do": "sfx",
+        "id": "v472_memory_glint"
+       },
+       {
+        "do": "flag",
+        "id": "V472_C06_SEEN_PRESENCE"
+       },
+       {
+        "do": "count",
+        "id": "v472_c06_futures",
+        "add": 1
+       }
+      ],
+      "hideIfFlag": "V472_C06_SEEN_PRESENCE",
+      "sprite": {
+       "image": "items/v472_c06_mirror.png",
+       "x": 960,
+       "y": 445,
+       "bob": true
+      }
+     },
+     {
+      "id": "v472_future_agreement",
+      "area": "hall_of_tomorrow",
+      "x": 1510,
+      "y": 880,
+      "r": 100,
+      "label": "Lihat masa depan: agreement",
+      "actions": [
+       {
+        "do": "if",
+        "when": {
+         "route": "arland"
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V472-C06-ILLUSION-AGREEMENT-A"
+         }
+        ],
+        "else": [
+         {
+          "do": "scene",
+          "id": "V472-C06-ILLUSION-AGREEMENT-S"
+         }
+        ]
+       },
+       {
+        "do": "sfx",
+        "id": "v472_memory_glint"
+       },
+       {
+        "do": "flag",
+        "id": "V472_C06_SEEN_AGREEMENT"
+       },
+       {
+        "do": "count",
+        "id": "v472_c06_futures",
+        "add": 1
+       }
+      ],
+      "hideIfFlag": "V472_C06_SEEN_AGREEMENT",
+      "sprite": {
+       "image": "items/v472_c06_mirror.png",
+       "x": 1510,
+       "y": 865,
+       "bob": true
+      }
+     }
+    ],
+    "counter": "v472_c06_futures",
+    "counterMax": 3,
+    "complete": {
+     "counter": "v472_c06_futures",
+     "count": 3,
+     "actions": [
+      {
+       "do": "scene",
+       "id": "V472-C06-THREE-FUTURES"
+      },
+      {
+       "do": "music",
+       "id": "cinema_unwritten_v472"
+      },
+      {
+       "do": "if",
+       "when": {
+        "route": "arland"
+       },
+       "then": [
+        {
+         "do": "step",
+         "id": "V472_C06_REFLECT_A"
+        }
+       ],
+       "else": [
+        {
+         "do": "step",
+         "id": "V472_C06_REFLECT_S"
+        }
+       ]
+      }
+     ]
+    }
+   },
+   "V472_C06_PROMISE": {
+    "id": "V472_C06_PROMISE",
+    "chapter": "C06",
+    "quest": "Q_V472_C06",
+    "objective": {
+     "arland": "Dengarkan pasangan, kemudian buka jalan kembali ke Eternal Garden",
+     "sofia": "Dengarkan pasangan, kemudian buka jalan kembali ke Eternal Garden"
+    },
+    "interactables": [
+     {
+      "id": "v472_listen",
+      "area": "hall_of_tomorrow",
+      "x": 690,
+      "y": 970,
+      "r": 100,
+      "label": "Dengarkan pasangan tanpa memotong",
+      "actions": [
+       {
+        "do": "scene",
+        "id": "V472-C06-PROMISE"
+       },
+       {
+        "do": "flag",
+        "id": "V472_C06_LISTEN_DONE"
+       }
+      ],
+      "hideIfFlag": "V472_C06_LISTEN_DONE",
+      "sprite": {
+       "image": "items/v472_c06_flower.png",
+       "x": 690,
+       "y": 955,
+       "bob": true
+      }
+     },
+     {
+      "id": "v472_return",
+      "area": "hall_of_tomorrow",
+      "x": 1370,
+      "y": 970,
+      "r": 100,
+      "label": "Kembali ke Pohon Harapan",
+      "actions": [
+       {
+        "do": "music",
+        "id": "v50_tomorrow_horizon",
+        "v50Cinematic": true
+       },
+       {
+        "do": "music",
+        "id": "cinema_unwritten_v472"
+       },
+       {
+        "do": "music",
+        "id": "score_open_page_v480"
+       },
+       {
+        "do": "sfx",
+        "id": "v472_memory_glint"
+       },
+       {
+        "do": "cine",
+        "cmds": [
+         {
+          "c": "fx",
+          "kind": "aurora",
+          "on": "player",
+          "t": 4.6,
+          "n": 32
+         },
+         {
+          "c": "sfx",
+          "id": "v50_memory_shimmer"
+         },
+         {
+          "c": "bars",
+          "on": true,
+          "t": 0.8
+         },
+         {
+          "c": "cam",
+          "x": 965,
+          "y": 590,
+          "zoom": 1.12,
+          "t": 2.3
+         },
+         {
+          "c": "caption",
+          "text": "Our Tomorrow",
+          "sub": "Masa depan tidak harus sempurna",
+          "t": 3.5
+         },
+         {
+          "c": "fx",
+          "kind": "petals",
+          "x": 980,
+          "y": 625,
+          "t": 3.2,
+          "n": 24
+         },
+         {
+          "c": "shot",
+          "focus": "couple",
+          "zoom": 1.1,
+          "frame": "wide",
+          "t": 2
+         },
+         {
+          "c": "flash",
+          "color": "fff3db",
+          "t": 0.7
+         },
+         {
+          "c": "bars",
+          "on": false,
+          "t": 0.8
+         }
+        ],
+        "v50Cinematic": true
+       },
+       {
+        "do": "flag",
+        "id": "V472_C06_READY"
+       },
+       {
+        "do": "warp",
+        "area": "eternal_garden",
+        "x": 1200,
+        "y": 888,
+        "dir": "up"
+       },
+       {
+        "do": "step",
+        "id": "C06_LETTER"
+       }
+      ],
+      "when": {
+       "flags": [
+        "V472_C06_LISTEN_DONE"
+       ]
+      },
+      "sprite": {
+       "image": "items/v472_c06_hall.png",
+       "x": 1370,
+       "y": 955,
+       "bob": true
+      }
+     }
+    ]
+   },
+   "EPI_SARI_CLOSURE": {
+    "id": "EPI_SARI_CLOSURE",
+    "chapter": "EPI",
+    "quest": "Q_EPI_FEST",
+    "objective": {
+     "arland": "Temui Nenek Sari dan serahkan halaman Pak Wira di taman",
+     "sofia": "Temui Nenek Sari dan serahkan halaman Pak Wira di taman"
+    },
+    "interactables": [
+     {
+      "id": "q_sari_closure",
+      "area": "taman_kota",
+      "x": 1250,
+      "y": 612,
+      "r": 80,
+      "label": "Nenek Sari: halaman Wira",
+      "actions": [
+       {
+        "do": "cine",
+        "cmds": [
+         {
+          "c": "bars",
+          "on": true,
+          "t": 0.5
+         },
+         {
+          "c": "mood",
+          "id": "memory",
+          "t": 1.6
+         },
+         {
+          "c": "shot",
+          "focus": "couple",
+          "zoom": 1.2,
+          "t": 0,
+          "bars": false
+         },
+         {
+          "c": "shot",
+          "focus": "couple",
+          "zoom": 1.28,
+          "t": 1.4,
+          "bars": false
+         },
+         {
+          "c": "fx",
+          "kind": "sparkles",
+          "on": "player",
+          "t": 14.0,
+          "n": 36
+         },
+         {
+          "c": "orbit",
+          "deg": 8,
+          "t": 12.0
+         },
+         {
+          "c": "dof",
+          "a": 0.8,
+          "t": 1.5
+         },
+         {
+          "c": "say",
+          "scene": "Q-EPI-SARI@$ROUTE"
+         },
+         {
+          "c": "mood",
+          "id": "warm",
+          "t": 2.0
+         },
+         {
+          "c": "shot",
+          "focus": "couple",
+          "zoom": 1.3599999999999999,
+          "t": 1.6,
+          "bars": false,
+          "async": true
+         },
+         {
+          "c": "emote",
+          "who": "player",
+          "e": "heart",
+          "t": 1.6
+         },
+         {
+          "c": "emote",
+          "who": "partner",
+          "e": "heart",
+          "t": 1.6
+         },
+         {
+          "c": "fx",
+          "kind": "glow",
+          "on": "player",
+          "t": 2.6,
+          "block": true
+         },
+         {
+          "c": "wait",
+          "t": 0.6
+         },
+         {
+          "c": "angle",
+          "yaw": 0,
+          "t": 1.0
+         },
+         {
+          "c": "dof",
+          "a": 0.35,
+          "t": 0.8
+         },
+         {
+          "c": "bars",
+          "on": false,
+          "t": 0.6
+         }
+        ],
+        "made": "story_cines",
+        "orig": [
+         {
+          "do": "scene",
+          "id": "Q-EPI-SARI@$ROUTE"
+         }
+        ]
+       },
+       {
+        "do": "if",
+        "when": {
+         "route": "arland"
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "Q-EPI-A"
+         }
+        ],
+        "else": [
+         {
+          "do": "scene",
+          "id": "Q-EPI-S"
+         }
+        ]
+       },
+       {
+        "do": "removeItem",
+        "id": "halaman_suara"
+       },
+       {
+        "do": "item",
+        "id": "pembatas_wira"
+       },
+       {
+        "do": "flag",
+        "id": "Q_SARI_CLOSURE"
+       },
+       {
+        "do": "sfx",
+        "id": "page"
+       },
+       {
+        "do": "step",
+        "id": "EPI_FEST"
+       }
+      ]
+     }
+    ],
+    "npcs": [
+     {
+      "who": "sari",
+      "area": "taman_kota",
+      "x": 1250,
+      "y": 612,
+      "dir": "down"
+     }
+    ]
+   },
+   "EPI_FREE": {
+    "id": "EPI_FREE",
+    "chapter": "EPI",
+    "quest": "Q_EPI",
+    "objective": {
+     "arland": "Tamat! Jelajahi kota bersama & selesaikan misi sampingan",
+     "sofia": "Tamat! Jelajahi kota bersama & selesaikan misi sampingan"
+    },
+    "final": true,
+    "interactables": [
+     {
+      "id": "v466_gallery_return",
+      "area": "galeri_komunitas",
+      "x": 300,
+      "y": 405,
+      "r": 115,
+      "label": "Lihat kembali kursi dan gambar di galeri",
+      "actions": [
+       {
+        "do": "music",
+        "id": "cinema_letter_tomorrow"
+       },
+       {
+        "do": "if",
+        "when": {
+         "route": "arland"
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V466-EPI-A-GALLERY"
+         }
+        ],
+        "else": [
+         {
+          "do": "scene",
+          "id": "V466-EPI-S-GALLERY"
+         }
+        ]
+       },
+       {
+        "do": "flag",
+        "id": "V466_GALLERY_RETURN_DONE"
+       },
+       {
+        "do": "sfx",
+        "id": "page"
+       }
+      ],
+      "when": {
+       "notFlags": [
+        "V466_GALLERY_RETURN_DONE"
+       ]
+      }
+     },
+     {
+      "id": "v473_post_plaza",
+      "area": "plaza",
+      "x": 1225,
+      "y": 788,
+      "r": 105,
+      "label": "Kenangan kecil setelah petualangan",
+      "actions": [
+       {
+        "do": "scene",
+        "id": "V473-EPI-POST-PLAZA"
+       },
+       {
+        "do": "flag",
+        "id": "V473_POST_PLAZA"
+       },
+       {
+        "do": "sfx",
+        "id": "page"
+       }
+      ],
+      "when": {
+       "notFlags": [
+        "V473_POST_PLAZA"
+       ]
+      }
+     },
+     {
+      "id": "v473_post_cafe",
+      "area": "cafe",
+      "x": 425,
+      "y": 350,
+      "r": 105,
+      "label": "Kenangan kecil setelah petualangan",
+      "actions": [
+       {
+        "do": "scene",
+        "id": "V473-EPI-POST-CAFE"
+       },
+       {
+        "do": "flag",
+        "id": "V473_POST_CAFE"
+       },
+       {
+        "do": "sfx",
+        "id": "page"
+       }
+      ],
+      "when": {
+       "notFlags": [
+        "V473_POST_CAFE"
+       ]
+      }
+     },
+     {
+      "id": "v473_post_lake",
+      "area": "riverside",
+      "x": 1125,
+      "y": 900,
+      "r": 105,
+      "label": "Kenangan kecil setelah petualangan",
+      "actions": [
+       {
+        "do": "scene",
+        "id": "V473-EPI-POST-LAKE"
+       },
+       {
+        "do": "flag",
+        "id": "V473_POST_LAKE"
+       },
+       {
+        "do": "sfx",
+        "id": "page"
+       }
+      ],
+      "when": {
+       "notFlags": [
+        "V473_POST_LAKE"
+       ]
+      }
+     },
+     {
+      "id": "v473_bonus_gate",
+      "area": "galeri_komunitas",
+      "x": 770,
+      "y": 510,
+      "r": 105,
+      "label": "Buka bonus dua surat (dua route tamat)",
+      "actions": [
+       {
+        "do": "music",
+        "id": "cinema_dual_letters_v473"
+       },
+       {
+        "do": "scene",
+        "id": "V473-EPI-BONUS-OPEN"
+       },
+       {
+        "do": "step",
+        "id": "V473_EPI_BONUS_ENTER"
+       },
+       {
+        "do": "warp",
+        "area": "ruang_dua_surat",
+        "x": 480,
+        "y": 510,
+        "dir": "up"
+       }
+      ],
+      "when": {
+       "bothRoutesCompleted": true,
+       "notFlags": [
+        "V473_BONUS_DONE"
+       ]
+      }
+     }
+    ]
+   },
+   "V469_C03_A_FRAME": {
+    "id": "V469_C03_A_FRAME",
+    "chapter": "C03",
+    "quest": "Q_V469_C03_MEMORIES",
+    "objective": {
+     "arland": "Susun foto dan perbaiki bingkai di meja Arland",
+     "sofia": "Aktivitas pribadi Arland (route lain)"
+    },
+    "interactables": [
+     {
+      "id": "v469_frame",
+      "area": "arland_room",
+      "x": 356,
+      "y": 194,
+      "r": 40,
+      "label": "Rapikan bingkai foto",
+      "actions": [
+       {
+        "do": "scene",
+        "id": "V469-C03-A-FRAME-BEGIN"
+       },
+       {
+        "do": "minigame",
+        "id": "scrapbook"
+       },
+       {
+        "do": "scene",
+        "id": "V469-C03-A-FRAME-DONE"
+       },
+       {
+        "do": "scene",
+        "id": "C03-FREE@$ROUTE"
+       },
+       {
+        "do": "item",
+        "id": "v469_frame"
+       },
+       {
+        "do": "step",
+        "id": "C03_FREE"
+       }
+      ],
+      "route": "arland"
+     }
+    ]
+   },
+   "V469_C03_S_SCRAP": {
+    "id": "V469_C03_S_SCRAP",
+    "chapter": "C03",
+    "quest": "Q_V469_C03_MEMORIES",
+    "objective": {
+     "arland": "Aktivitas pribadi Sofia (route lain)",
+     "sofia": "Susun halaman scrapbook secara interaktif"
+    },
+    "interactables": [
+     {
+      "id": "v469_scrap",
+      "area": "sofia_room",
+      "x": 252,
+      "y": 343,
+      "r": 40,
+      "label": "Susun halaman kenangan",
+      "actions": [
+       {
+        "do": "scene",
+        "id": "V469-C03-S-SCRAP-BEGIN"
+       },
+       {
+        "do": "minigame",
+        "id": "scrapbook"
+       },
+       {
+        "do": "scene",
+        "id": "V469-C03-S-SCRAP-DONE"
+       },
+       {
+        "do": "scene",
+        "id": "C03-FREE@$ROUTE"
+       },
+       {
+        "do": "item",
+        "id": "v469_scrapbook"
+       },
+       {
+        "do": "step",
+        "id": "C03_FREE"
+       }
+      ],
+      "route": "sofia"
+     }
+    ]
+   },
+   "C03_V464_GALLERY_PREP": {
+    "id": "C03_V464_GALLERY_PREP",
+    "chapter": "C03",
+    "quest": "Q_C03_V464_GALLERY_PREP",
+    "objective": {
+     "arland": "Tata kursi, catat undangan, dan periksa proyektor di Galeri Komunitas (0/3)",
+     "sofia": "Tata kursi, siapkan karya, dan catat undangan galeri (0/3)"
+    },
+    "interactables": [
+     {
+      "id": "gallery_seat",
+      "area": "galeri_komunitas",
+      "x": 290,
+      "y": 410,
+      "r": 110,
+      "label": "Siapkan kursi untuk Arland",
+      "actions": [
+       {
+        "do": "music",
+        "id": "v50_cafe_highlight",
+        "v50Cinematic": true
+       },
+       {
+        "do": "cine",
+        "cmds": [
+         {
+          "c": "bars",
+          "on": true,
+          "t": 0.5
+         },
+         {
+          "c": "mood",
+          "id": "warm",
+          "t": 1.6
+         },
+         {
+          "c": "fx",
+          "kind": "mist",
+          "on": "player",
+          "t": 4.6,
+          "n": 32
+         },
+         {
+          "c": "sfx",
+          "id": "v50_memory_shimmer"
+         },
+         {
+          "c": "shot",
+          "focus": "player",
+          "zoom": 1.2,
+          "t": 0,
+          "bars": false
+         },
+         {
+          "c": "crane",
+          "t": 3.6,
+          "zoom": 1.2,
+          "block": true
+         },
+         {
+          "c": "fx",
+          "kind": "fireflies",
+          "on": "player",
+          "t": 14.0,
+          "n": 36
+         },
+         {
+          "c": "orbit",
+          "deg": -10,
+          "t": 12.0
+         },
+         {
+          "c": "dof",
+          "a": 0.8,
+          "t": 1.5
+         },
+         {
+          "c": "say",
+          "scene": "V464-C03-SEAT"
+         },
+         {
+          "c": "shot",
+          "focus": "player",
+          "zoom": 1.3599999999999999,
+          "t": 1.6,
+          "bars": false,
+          "async": true
+         },
+         {
+          "c": "emote",
+          "who": "player",
+          "e": "heart",
+          "t": 1.6
+         },
+         {
+          "c": "emote",
+          "who": "partner",
+          "e": "heart",
+          "t": 1.6
+         },
+         {
+          "c": "fx",
+          "kind": "glow",
+          "on": "player",
+          "t": 2.6,
+          "block": true
+         },
+         {
+          "c": "wait",
+          "t": 0.6
+         },
+         {
+          "c": "angle",
+          "yaw": 0,
+          "t": 1.0
+         },
+         {
+          "c": "dof",
+          "a": 0.35,
+          "t": 0.8
+         },
+         {
+          "c": "bars",
+          "on": false,
+          "t": 0.6
+         }
+        ],
+        "made": "story_cines",
+        "orig": [
+         {
+          "do": "cine",
+          "cmds": [
+           {
+            "c": "bars",
+            "on": true,
+            "t": 0.55
+           },
+           {
+            "c": "shot",
+            "focus": "player",
+            "zoom": 1.2,
+            "t": 0.9
+           },
+           {
+            "c": "fx",
+            "kind": "mist",
+            "on": "player",
+            "t": 4.6,
+            "n": 32
+           },
+           {
+            "c": "sfx",
+            "id": "v50_memory_shimmer"
+           },
+           {
+            "c": "wait",
+            "t": 0.5
+           },
+           {
+            "c": "bars",
+            "on": false,
+            "t": 0.55
+           }
+          ],
+          "v50Cinematic": true
+         },
+         {
+          "do": "scene",
+          "id": "V464-C03-SEAT"
+         }
+        ]
+       },
+       {
+        "do": "flag",
+        "id": "V464_PREP_SEAT_DONE"
+       },
+       {
+        "do": "count",
+        "id": "v464_gallery_prep",
+        "add": 1
+       }
+      ],
+      "when": {
+       "notFlags": [
+        "V464_PREP_SEAT_DONE"
+       ]
+      }
+     },
+     {
+      "id": "gallery_projector",
+      "area": "galeri_komunitas",
+      "x": 705,
+      "y": 405,
+      "r": 110,
+      "label": "Periksa sudut proyektor",
+      "actions": [
+       {
+        "do": "if",
+        "when": {
+         "route": "arland"
+        },
+        "then": [
+         {
+          "do": "scene",
+          "id": "V464-C03-PROJECTOR"
+         },
+         {
+          "do": "scene",
+          "id": "V469-C03-PROJECTOR-REFLECT"
+         }
+        ],
+        "else": [
+         {
+          "do": "scene",
+          "id": "V464-C03-SKETCH"
+         },
+         {
+          "do": "scene",
+          "id": "V469-C03-SKETCH-REFLECT"
+         }
+        ]
+       },
+       {
+        "do": "flag",
+        "id": "V464_PREP_ART_DONE"
+       },
+       {
+        "do": "count",
+        "id": "v464_gallery_prep",
+        "add": 1
+       }
+      ],
+      "when": {
+       "notFlags": [
+        "V464_PREP_ART_DONE"
+       ]
+      }
+     },
+     {
+      "id": "v469_gallery_card",
+      "area": "galeri_komunitas",
+      "x": 480,
+      "y": 320,
+      "r": 115,
+      "label": "Atur undangan dan jadwal galeri",
+      "actions": [
+       {
+        "do": "scene",
+        "id": "V469-C03-GALLERY-CARD"
+       },
+       {
+        "do": "item",
+        "id": "v469_gallery_invitation"
+       },
+       {
+        "do": "flag",
+        "id": "V469_GALLERY_INVITE_DONE"
+       },
+       {
+        "do": "count",
+        "id": "v464_gallery_prep",
+        "add": 1
+       }
+      ],
+      "when": {
+       "notFlags": [
+        "V469_GALLERY_INVITE_DONE"
+       ]
+      }
+     }
+    ],
+    "complete": {
+     "counter": "v464_gallery_prep",
+     "count": 3,
+     "actions": [
+      {
+       "do": "music",
+       "id": "cinema_gallery_promise_v469"
+      },
+      {
+       "do": "cine",
+       "cmds": [
+        {
+         "c": "bars",
+         "on": true,
+         "t": 0.5
+        },
+        {
+         "c": "mood",
+         "id": "warm",
+         "t": 1.6
+        },
+        {
+         "c": "fx",
+         "id": "book",
+         "x": 480,
+         "y": 320,
+         "t": 1.6
+        },
+        {
+         "c": "shot",
+         "focus": "couple",
+         "zoom": 1.2,
+         "t": 0,
+         "bars": false
+        },
+        {
+         "c": "crane",
+         "t": 3.6,
+         "zoom": 1.2,
+         "block": true
+        },
+        {
+         "c": "fx",
+         "kind": "fireflies",
+         "on": "player",
+         "t": 14.0,
+         "n": 36
+        },
+        {
+         "c": "orbit",
+         "deg": 10,
+         "t": 12.0
+        },
+        {
+         "c": "dof",
+         "a": 0.8,
+         "t": 1.5
+        },
+        {
+         "c": "say",
+         "scene": "V469-C03-GALLERY-FORESHADOW"
+        },
+        {
+         "c": "say",
+         "scene": "V464-C03-END"
+        },
+        {
+         "c": "shot",
+         "focus": "couple",
+         "zoom": 1.3599999999999999,
+         "t": 1.6,
+         "bars": false,
+         "async": true
+        },
+        {
+         "c": "emote",
+         "who": "player",
+         "e": "heart",
+         "t": 1.6
+        },
+        {
+         "c": "emote",
+         "who": "partner",
+         "e": "heart",
+         "t": 1.6
+        },
+        {
+         "c": "fx",
+         "kind": "glow",
+         "on": "player",
+         "t": 2.6,
+         "block": true
+        },
+        {
+         "c": "wait",
+         "t": 0.6
+        },
+        {
+         "c": "angle",
+         "yaw": 0,
+         "t": 1.0
+        },
+        {
+         "c": "dof",
+         "a": 0.35,
+         "t": 0.8
+        },
+        {
+         "c": "bars",
+         "on": false,
+         "t": 0.6
+        }
+       ],
+       "made": "story_cines",
+       "orig": [
+        {
+         "do": "cine",
+         "cmds": [
+          {
+           "c": "bars",
+           "on": true,
+           "t": 0.45
+          },
+          {
+           "c": "shot",
+           "type": "wide",
+           "x": 480,
+           "y": 335,
+           "zoom": 1.16,
+           "t": 1.2
+          },
+          {
+           "c": "fx",
+           "id": "book",
+           "x": 480,
+           "y": 320,
+           "t": 1.6
+          },
+          {
+           "c": "wait",
+           "t": 0.9
+          },
+          {
+           "c": "bars",
+           "on": false,
+           "t": 0.45
+          }
+         ]
+        },
+        {
+         "do": "scene",
+         "id": "V469-C03-GALLERY-FORESHADOW"
+        },
+        {
+         "do": "scene",
+         "id": "V464-C03-END"
+        }
+       ]
+      },
+      {
+       "do": "chapterEnd",
+       "chapter": "C03"
+      },
+      {
+       "do": "companion",
+       "on": false
+      },
+      {
+       "do": "warp",
+       "area": "$ROOM",
+       "x": 243,
+       "y": 217,
+       "dir": "down"
+      },
+      {
+       "do": "chapterCard",
+       "chapter": "C04"
+      },
+      {
+       "do": "if",
+       "when": {
+        "route": "arland"
+       },
+       "then": [
+        {
+         "do": "step",
+         "id": "C04_A_WAKE"
+        }
+       ],
+       "else": [
+        {
+         "do": "step",
+         "id": "C04_S_WAKE"
+        }
+       ]
+      }
+     ]
+    }
+   },
+   "V471_C05_CLOCK_PUZZLE_A": {
+    "id": "V471_C05_CLOCK_PUZZLE_A",
+    "chapter": "C05",
+    "quest": "Q_V471_C05",
+    "objective": {
+     "arland": "Selesaikan puzzle jam yang boleh dibatalkan dan dicoba ulang",
+     "sofia": "Selesaikan puzzle jam yang boleh dibatalkan dan dicoba ulang"
+    },
+    "interactables": [
+     {
+      "id": "v471_clock_puzzle_a",
+      "area": "clockwork_station",
+      "x": 960,
+      "y": 870,
+      "r": 95,
+      "label": "Susun ulang bagian jam",
+      "actions": [
+       {
+        "do": "minigame",
+        "id": "v26_night_compass"
+       },
+       {
+        "do": "flag",
+        "id": "V471_CLOCK_A_DONE"
+       },
+       {
+        "do": "item",
+        "id": "v471_clock_piece"
+       },
+       {
+        "do": "step",
+        "id": "V471_C05_CLOCK_SWITCHES"
+       }
+      ],
+      "route": "arland",
+      "sprite": {
+       "image": "items/v471_c05_clock.png",
+       "x": 960,
+       "y": 854,
+       "bob": true
+      }
+     }
+    ]
+   },
+   "V471_C05_CLOCK_PUZZLE_S": {
+    "id": "V471_C05_CLOCK_PUZZLE_S",
+    "chapter": "C05",
+    "quest": "Q_V471_C05",
+    "objective": {
+     "arland": "Selesaikan puzzle jam yang boleh dibatalkan dan dicoba ulang",
+     "sofia": "Selesaikan puzzle jam yang boleh dibatalkan dan dicoba ulang"
+    },
+    "interactables": [
+     {
+      "id": "v471_clock_puzzle_s",
+      "area": "clockwork_station",
+      "x": 960,
+      "y": 870,
+      "r": 95,
+      "label": "Susun ulang bagian jam",
+      "actions": [
+       {
+        "do": "minigame",
+        "id": "v26_night_pages"
+       },
+       {
+        "do": "flag",
+        "id": "V471_CLOCK_S_DONE"
+       },
+       {
+        "do": "item",
+        "id": "v471_clock_piece"
+       },
+       {
+        "do": "step",
+        "id": "V471_C05_CLOCK_SWITCHES"
+       }
+      ],
+      "route": "sofia",
+      "sprite": {
+       "image": "items/v471_c05_clock.png",
+       "x": 960,
+       "y": 854,
+       "bob": true
+      }
+     }
+    ]
+   },
+   "V471_C05_BRIDGE_PUZZLE": {
+    "id": "V471_C05_BRIDGE_PUZZLE",
+    "chapter": "C05",
+    "quest": "Q_V471_C05",
+    "objective": {
+     "arland": "Selesaikan puzzle urutan kenangan di jembatan (boleh dicoba ulang)",
+     "sofia": "Selesaikan puzzle urutan kenangan di jembatan (boleh dicoba ulang)"
+    },
+    "interactables": [
+     {
+      "id": "v471_bridge_alignment",
+      "area": "memory_bridge",
+      "x": 960,
+      "y": 690,
+      "r": 95,
+      "label": "Selaraskan dua urutan kisah",
+      "actions": [
+       {
+        "do": "minigame",
+        "id": "starmap_bukit"
+       },
+       {
+        "do": "flag",
+        "id": "V471_BRIDGE_ALIGNED"
+       },
+       {
+        "do": "step",
+        "id": "V471_C05_QUIET_TRUTH"
+       }
+      ],
+      "sprite": {
+       "image": "items/v471_c05_book.png",
+       "x": 960,
+       "y": 674,
+       "bob": true
+      }
+     }
+    ]
+   }
+  },
+  "npcs": {
+   "sari": {
+    "id": "sari",
+    "name": "Nenek Sari",
+    "sprite": "sari",
+    "area": "plaza",
+    "x": 1775,
+    "y": 762,
+    "dir": "left",
+    "when": {
+     "notSteps": [
+      "PRO_MEET",
+      "PRO_BOOK"
+     ]
+    },
+    "dialogs": [
+     {
+      "when": {
+       "flags": [
+        "SQ_POS_START"
+       ],
+       "notFlags": [
+        "SQ_POS_SARI"
+       ]
+      },
+      "actions": [
+       {
+        "do": "scene",
+        "id": "SQ-POS-SARI"
+       },
+       {
+        "do": "flag",
+        "id": "SQ_POS_SARI"
+       },
+       {
+        "do": "count",
+        "id": "surat",
+        "add": 1
+       },
+       {
+        "do": "sfx",
+        "id": "page"
+       },
+       {
+        "do": "if",
+        "when": {
+         "count": {
+          "surat": 5
+         }
+        },
+        "then": [
+         {
+          "do": "removeItem",
+          "id": "tas_surat"
+         },
+         {
+          "do": "toast",
+          "text": "Semua surat terantar! Kembali ke Pak Pos."
+         }
+        ],
+        "else": []
+       }
+      ]
+     },
+     {
+      "when": {
+       "count": {
+        "halaman": 20
+       },
+       "notFlags": [
+        "SQ_HALAMAN_DONE"
+       ]
+      },
+      "actions": [
+       {
+        "do": "scene",
+        "id": "SQ-HALAMAN"
+       },
+       {
+        "do": "flag",
+        "id": "SQ_HALAMAN_DONE"
+       },
+       {
+        "do": "item",
+        "id": "halaman_lama"
+       },
+       {
+        "do": "sfx",
+        "id": "sparkle"
+       }
+      ]
+     },
+     {
+      "when": {
+       "flags": [
+        "SQ_BUNGA_START"
+       ],
+       "notFlags": [
+        "SQ_BUNGA_SARI"
+       ]
+      },
+      "actions": [
+       {
+        "do": "scene",
+        "id": "SQ-BUNGA-SARI"
+       },
+       {
+        "do": "flag",
+        "id": "SQ_BUNGA_SARI"
+       },
+       {
+        "do": "count",
+        "id": "antar",
+        "add": 1
+       },
+       {
+        "do": "sfx",
+        "id": "sparkle"
+       }
+      ]
+     },
+     {
+      "when": {
+       "flags": [
+        "C01_ARCHIVE_DONE"
+       ],
+       "notFlags": [
+        "SARI_ARC_TALK"
+       ]
+      },
+      "actions": [
+       {
+        "do": "scene",
+        "id": "NPC-SARI-ARC@$ROUTE"
+       },
+       {
+        "do": "flag",
+        "id": "SARI_ARC_TALK"
+       }
+      ]
+     },
+     {
+      "when": {
+       "anyFlags": [
+        "C04_LETTER_WIRA",
+        "C04_LETTER_SARI"
+       ],
+       "minChapter": "C05",
+       "notFlags": [
+        "SARI_LETTER_TALK"
+       ]
+      },
+      "actions": [
+       {
+        "do": "scene",
+        "id": "NPC-SARI-LETTERS"
+       },
+       {
+        "do": "flag",
+        "id": "SARI_LETTER_TALK"
+       }
+      ]
+     },
+     {
+      "when": {
+       "flags": [
+        "SQ_MOCHI_3"
+       ],
+       "notFlags": [
+        "SQ_MOCHI_DONE"
+       ]
+      },
+      "actions": [
+       {
+        "do": "scene",
+        "id": "SQ-MOCHI-5"
+       },
+       {
+        "do": "flag",
+        "id": "SQ_MOCHI_DONE"
+       },
+       {
+        "do": "removeItem",
+        "id": "mochi_digendong"
+       },
+       {
+        "do": "item",
+        "id": "foto_mochi"
+       },
+       {
+        "do": "sfx",
+        "id": "sparkle"
+       }
+      ]
+     },
+     {
+      "when": {
+       "minChapter": "C02",
+       "notFlags": [
+        "SQ_MOCHI_START"
+       ]
+      },
+      "actions": [
+       {
+        "do": "scene",
+        "id": "SQ-MOCHI-1"
+       },
+       {
+        "do": "flag",
+        "id": "SQ_MOCHI_START"
+       },
+       {
+        "do": "toast",
+        "text": "Misi sampingan: Mochi Hilang"
+       }
+      ]
+     },
+     {
+      "when": {
+       "steps": [
+        "C03_A_INGREDIENTS"
+       ],
+       "route": "arland",
+       "notFlags": [
+        "C03_GOT_HONEY"
+       ]
+      },
+      "actions": [
+       {
+        "do": "lines",
+        "lines": [
+         {
+          "s": "sari",
+          "e": "senyum",
+          "t": "Cari madu? Ayo, dekati Nenek."
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "when": {
+       "hours": [
+        "06:00",
+        "09:00"
+       ],
+       "weatherIs": [
+        "cerah",
+        "berangin",
+        "berawan"
+       ]
+      },
+      "actions": [
+       {
+        "do": "lines",
+        "lines": [
+         {
+          "s": "sari",
+          "e": "tertawa",
+          "t": "Senam pagi, Nak. Lutut Nenek sudah tua, tapi semangatnya belum."
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "when": {
+       "hours": [
+        "16:30",
+        "19:30"
+       ]
+      },
+      "actions": [
+       {
+        "do": "lines",
+        "lines": [
+         {
+          "s": "sari",
+          "e": "senyum",
+          "t": "Duduk di sini sore-sore, Nenek bisa lihat semua jendela menyala satu per satu."
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "when": {
+       "chapters": [
+        "PRO",
+        "C01"
+       ]
+      },
+      "actions": [
+       {
+        "do": "lines",
+        "lines": [
+         {
+          "s": "sari",
+          "e": "neutral",
+          "t": "Dulu ada cerita tentang buku yang mencatat kenangan orang yang saling peduli. Nenek kira itu dongeng."
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "when": {
+       "chapters": [
+        "C04"
+       ]
+      },
+      "actions": [
+       {
+        "do": "lines",
+        "lines": [
+         {
+          "s": "sari",
+          "e": "neutral",
+          "t": "Bertengkar itu wajar, Nak. Yang penting siapa yang mau mendengar duluan."
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "when": {
+       "chapters": [
+        "C05",
+        "C06"
+       ]
+      },
+      "actions": [
+       {
+        "do": "lines",
+        "lines": [
+         {
+          "s": "sari",
+          "e": "senyum",
+          "t": "Malam secerah ini, kakek dulu suka menghitung bintang sampai tertidur."
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "when": {},
+      "actions": [
+       {
+        "do": "lines",
+        "lines": [
+         {
+          "s": "sari",
+          "e": "senyum",
+          "t": "Nenek senang melihat anak muda saling menjaga. Kota ini jadi terasa muda lagi."
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "schedule": [
+     {
+      "at": "06:00",
+      "area": "taman_kota",
+      "x": 701,
+      "y": 574,
+      "dir": "down",
+      "wander": 40
+     },
+     {
+      "at": "06:00",
+      "area": "plaza",
+      "x": 1774,
+      "y": 761,
+      "dir": "left",
+      "wander": 30,
+      "weather": [
+       "hujan"
+      ]
+     },
+     {
+      "at": "09:00",
+      "area": "plaza",
+      "x": 1774,
+      "y": 761,
+      "dir": "left",
+      "wander": 50
+     },
+     {
+      "at": "16:30",
+      "area": "perumahan",
+      "x": 517,
+      "y": 571,
+      "dir": "down",
+      "wander": 30
+     },
+     {
+      "at": "16:30",
+      "hidden": true,
+      "weather": [
+       "hujan"
+      ]
+     },
+     {
+      "at": "19:30",
+      "hidden": true
+     }
+    ],
+    "wander": 0
+   }
+  }
+ },
+ "story": {
+  "scenes": {
+   "C03-A00": {
+    "title": "Rencana Piknik",
+    "route": "arland",
+    "chapter": "C03",
+    "location": "",
+    "trigger": "",
+    "lines": [
+     {
+      "s": "narrator",
+      "e": "neutral",
+      "t": "Beberapa hari kemudian. Foto photobooth tertempel di sudut meja Arland."
+     },
+     {
+      "s": "arland",
+      "e": "senyum",
+      "t": "Sofia bilang dia suka masakan rumahan."
+     },
+     {
+      "s": "arland",
+      "e": "penasaran",
+      "t": "Kak Raka menawarkan dapur kafe untuk dipakai..."
+     },
+     {
+      "s": "arland",
+      "e": "neutral",
+      "t": "Roti lapis stroberi madu dengan daun mint. Kedengarannya gampang."
+     },
+     {
+      "s": "arland",
+      "e": "bingung",
+      "t": "Kedengarannya."
+     },
+     {
+      "s": "arland",
+      "e": "senyum",
+      "t": "Butuh stroberi, madu, dan daun mint. Ayo cari."
+     }
+    ],
+    "flags": [],
+    "note": "",
+    "choices": []
+   },
+   "C04-X02": {
+    "title": "Lumi",
+    "route": "shared",
+    "chapter": "C04",
+    "location": "rain_garden",
+    "trigger": "",
+    "lines": [
+     {
+      "s": "narrator",
+      "e": "neutral",
+      "t": "Padang luas dengan lentera-lentera padam. Udara dingin dan sunyi."
+     },
+     {
+      "s": "lumi",
+      "e": "sedih",
+      "t": "Akhirnya kalian datang..."
+     },
+     {
+      "s": "sofia",
+      "e": "kaget",
+      "t": "Siapa itu? Lentera kecil... bisa bicara?"
+     },
+     {
+      "s": "lumi",
+      "e": "senyum",
+      "t": "Aku Lumi. Aku lahir dari halaman pertama buku kalian, di plaza, waktu dua hadiah kecil berpindah tangan."
+     },
+     {
+      "s": "arland",
+      "e": "penasaran",
+      "t": "Kenapa lentera di sini padam semua?"
+     },
+     {
+      "s": "lumi",
+      "e": "sedih",
+      "t": "Ini Rain Garden. Lentera di sini menyala dari kata-kata yang saling didengar."
+     },
+     {
+      "s": "lumi",
+      "e": "serius",
+      "t": "Kalau dua orang berhenti saling mendengar, Kabut Lupa datang dan memadamkannya satu per satu."
+     },
+     {
+      "s": "sofia",
+      "e": "sedih",
+      "t": "Jadi karena kemarin..."
+     },
+     {
+      "s": "lumi",
+      "e": "senyum",
+      "t": "Jangan sedih. Kabut itu bukan hukuman. Ia cuma tanda bahwa ada yang perlu dibicarakan."
+     },
+     {
+      "s": "lumi",
+      "e": "serius",
+      "t": "Temukan dua cahaya yang tersisa: Cahaya Mendengar dan Cahaya Jujur. Lalu bawa ke altar lentera."
+     }
+    ],
+    "flags": [],
+    "note": "",
+    "choices": []
+   },
+   "C04-X03": {
+    "title": "Pelangi",
+    "route": "shared",
+    "chapter": "C04",
+    "location": "",
+    "trigger": "",
+    "lines": [
+     {
+      "s": "narrator",
+      "e": "neutral",
+      "t": "Hujan reda. Di permukaan kolam, pantulan dua orang itu belum sepenuhnya jelas."
+     },
+     {
+      "s": "sofia",
+      "e": "sedih",
+      "t": "Aku masih sedih kalau inget kursi itu."
+     },
+     {
+      "s": "arland",
+      "e": "serius",
+      "t": "Aku ngerti. Kita nggak harus pura-pura udah baik-baik aja."
+     },
+     {
+      "s": "lumi",
+      "e": "serius",
+      "t": "Memulihkan cahaya bukan berarti menghapus hari yang menyakitkan."
+     },
+     {
+      "s": "narrator",
+      "e": "neutral",
+      "t": "Sebuah lentera kecil menyala untuk pertama kalinya. Yang lain masih menunggu percakapan berikutnya."
+     }
+    ],
+    "flags": [],
+    "note": "Story Overhaul 3.0 revised dialogue; canon preserved.",
+    "choices": []
+   },
+   "C04-A02": {
+    "title": "Kata Kak Raka",
+    "route": "arland",
+    "chapter": "C04",
+    "location": "",
+    "trigger": "",
+    "lines": [
+     {
+      "s": "raka",
+      "e": "neutral",
+      "t": "Sofia sudah selesai presentasi. Tadi dia sempat lihat ke pintu beberapa kali."
+     },
+     {
+      "s": "arland",
+      "e": "sedih",
+      "t": "Aku datang telat, Kak."
+     },
+     {
+      "s": "raka",
+      "e": "sedih",
+      "t": "Kalau kamu minta maaf, coba dengerin dulu apa yang dia rasakan, ya."
+     }
+    ],
+    "flags": [],
+    "note": "Story Overhaul 3.0 revised dialogue; canon preserved.",
+    "choices": []
+   },
+   "C04-S-LIBRARY": {
+    "title": "Perpustakaan di Hari Hujan",
+    "route": "sofia",
+    "chapter": "C04",
+    "location": "",
+    "trigger": "",
+    "lines": [
+     {
+      "s": "laras",
+      "e": "khawatir",
+      "t": "Kadang sebuah surat terasa berat karena penulisnya takut tidak dimengerti."
+     },
+     {
+      "s": "sofia",
+      "e": "sedih",
+      "t": "Aku cuma pengen bisa bilang aku kecewa tanpa takut menyakiti dia."
+     },
+     {
+      "s": "laras",
+      "e": "serius",
+      "t": "Berkata jujur dengan lembut juga bentuk keberanian, Sofia."
+     }
+    ],
+    "flags": [],
+    "note": "Story Overhaul 3.0 revised dialogue; canon preserved.",
+    "choices": []
+   },
+   "V471-C05-QUIET-REVEAL": {
+    "title": "The Quiet: Bukan Musuh",
+    "chapter": "C05",
+    "route": "shared",
+    "location": "memory_bridge",
+    "trigger": "v4.7.1 playable chapter5 original",
+    "lines": [
+     {
+      "s": "narrator",
+      "t": "Di atas jurang, foto dari hari galeri terbelah menjadi dua: proyektor yang akhirnya menyala dan kursi yang tetap kosong.",
+      "e": "neutral"
+     },
+     {
+      "s": "lumi",
+      "t": "The Quiet tidak menciptakan luka kalian. Ia terlihat saat satu bagian cerita terus dibiarkan tak terdengar.",
+      "e": "neutral"
+     },
+     {
+      "s": "sofia",
+      "t": "Jadi kenanganku tidak salah hanya karena Arland mengingat hari itu dengan cara lain?",
+      "e": "penasaran"
+     },
+     {
+      "s": "lumi",
+      "t": "Tidak. Dan niat Arland tidak menghapus dampak tindakannya.",
+      "e": "neutral"
+     },
+     {
+      "s": "sofia",
+      "e": "serius",
+      "t": "Berarti The Quiet bukan suara yang harus kita bungkam?"
+     },
+     {
+      "s": "arland",
+      "e": "lega",
+      "t": "Mungkin dia mengingatkan kita pada percakapan yang belum sempat selesai."
+     },
+     {
+      "s": "arland",
+      "t": "Kalau begitu, biarkan kedua sisinya tetap ada. Aku tidak ingin menghilangkan yang pernah Sofia rasakan.",
+      "e": "neutral"
+     }
+    ],
+    "flags": [],
+    "choices": [
+     {
+      "text": "Kita dengarkan kedua kenangan sampai selesai",
+      "flags": [
+       "V471_QUIET_LISTEN"
+      ],
+      "byRoute": {
+       "arland": [
+        {
+         "s": "sofia",
+         "t": "Aku mau kita mendengar dua-duanya, bukan memilih satu yang paling mudah.",
+         "e": "serius"
+        }
+       ],
+       "sofia": [
+        {
+         "s": "sofia",
+         "t": "Aku mau kita mendengar dua-duanya, bukan memilih satu yang paling mudah.",
+         "e": "serius"
+        }
+       ]
+      }
+     },
+     {
+      "text": "Kita simpan luka dan perubahan yang sudah terjadi",
+      "flags": [
+       "V471_QUIET_REMEMBER"
+      ],
+      "byRoute": {
+       "arland": [
+        {
+         "s": "arland",
+         "t": "Kita nggak perlu menutupi yang terjadi untuk melanjutkan cerita.",
+         "e": "senyum"
+        }
+       ],
+       "sofia": [
+        {
+         "s": "arland",
+         "t": "Kita nggak perlu menutupi yang terjadi untuk melanjutkan cerita.",
+         "e": "senyum"
+        }
+       ]
+      }
+     },
+     {
+      "text": "Kita berani melangkah tanpa tahu semuanya",
+      "flags": [
+       "V471_QUIET_FUTURE"
+      ],
+      "byRoute": {
+       "arland": [
+        {
+         "s": "sofia",
+         "t": "Kalau nanti salah lagi, kita boleh belajar lagi. Nggak harus sempurna.",
+         "e": "serius"
+        }
+       ],
+       "sofia": [
+        {
+         "s": "sofia",
+         "t": "Kalau nanti salah lagi, kita boleh belajar lagi. Nggak harus sempurna.",
+         "e": "serius"
+        }
+       ]
+      }
+     }
+    ],
+    "v50DialogueExpanded": true
+   },
+   "Q-C06-REVEAL@arland": {
+    "title": "Apa Itu The Quiet?",
+    "route": "arland",
+    "chapter": "C06",
+    "location": "",
+    "trigger": "",
+    "lines": [
+     {
+      "s": "narrator",
+      "e": "neutral",
+      "t": "Dari celah Pohon Harapan, selembar halaman hampir transparan terangkat oleh cahaya."
+     },
+     {
+      "s": "sofia",
+      "e": "kaget",
+      "t": "Tulisannya kembali muncul! Ada nama Pak Wira di bawahnya."
+     },
+     {
+      "s": "arland",
+      "e": "penasaran",
+      "t": "\"The Quiet\"... Ini bukan nama monster atau penjaga kebun."
+     },
+     {
+      "s": "narrator",
+      "e": "neutral",
+      "t": "Di halaman itu terbaca: \"Aku menamai sunyi yang membesar saat kenangan tidak lagi kita ceritakan: The Quiet.\""
+     },
+     {
+      "s": "sofia",
+      "e": "sedih",
+      "t": "Jadi bukan kenangannya yang hilang. Kita kehilangan keberanian atau kesempatan untuk membaginya."
+     },
+     {
+      "s": "arland",
+      "e": "serius",
+      "t": "Dan kita tidak bisa memaksa orang bercerita hanya agar halaman kembali terang."
+     },
+     {
+      "s": "sofia",
+      "e": "senyum",
+      "t": "Kita bisa hadir, mendengarkan, dan menjaga cerita yang mereka percayakan."
+     },
+     {
+      "s": "arland",
+      "e": "senyum",
+      "t": "Pak Wira meninggalkan petunjuk bukan untuk mencari siapa yang salah."
+     },
+     {
+      "s": "sofia",
+      "e": "neutral",
+      "t": "Tapi untuk mengingatkan bahwa hubungan perlu diberi ruang, bahkan ketika salah satu sedang diam."
+     },
+     {
+      "s": "narrator",
+      "e": "neutral",
+      "t": "Halaman itu berhenti memudar. Dua nama muncul di bawah tinta lama: Wira dan Sari."
+     }
+    ],
+    "flags": [],
+    "note": "",
+    "choices": [
+     {
+      "text": "Aku ingin mendengarkan ceritanya nanti.",
+      "flags": [
+       "Q_CHOICE_LISTEN"
+      ],
+      "byRoute": {
+       "arland": [
+        {
+         "s": "arland",
+         "e": "serius",
+         "t": "Kita tanya Nenek Sari dulu. Bila beliau ingin bercerita, aku akan mendengar sampai selesai."
+        }
+       ],
+       "sofia": [
+        {
+         "s": "sofia",
+         "e": "serius",
+         "t": "Kita beri Nenek Sari waktu memilih. Aku ingin mendengar ceritanya tanpa mendesak."
+        }
+       ]
+      }
+     },
+     {
+      "text": "Aku ingin menjaga halaman ini bersamanya.",
+      "flags": [
+       "Q_CHOICE_KEEP"
+      ],
+      "byRoute": {
+       "arland": [
+        {
+         "s": "arland",
+         "e": "senyum",
+         "t": "Kita bisa menjaga halaman ini, lalu menyerahkannya dengan pelan."
+        }
+       ],
+       "sofia": [
+        {
+         "s": "sofia",
+         "e": "senyum",
+         "t": "Kita simpan dulu sampai beliau siap menerimanya."
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "Q-C06-REVEAL@sofia": {
+    "title": "Apa Itu The Quiet?",
+    "route": "sofia",
+    "chapter": "C06",
+    "location": "",
+    "trigger": "",
+    "lines": [
+     {
+      "s": "narrator",
+      "e": "neutral",
+      "t": "Dari celah Pohon Harapan, selembar halaman hampir transparan terangkat oleh cahaya."
+     },
+     {
+      "s": "arland",
+      "e": "kaget",
+      "t": "Tulisannya kembali muncul! Ada nama Pak Wira di bawahnya."
+     },
+     {
+      "s": "sofia",
+      "e": "penasaran",
+      "t": "\"The Quiet\"... Ini bukan nama monster atau penjaga kebun."
+     },
+     {
+      "s": "narrator",
+      "e": "neutral",
+      "t": "Di halaman itu terbaca: \"Aku menamai sunyi yang membesar saat kenangan tidak lagi kita ceritakan: The Quiet.\""
+     },
+     {
+      "s": "arland",
+      "e": "sedih",
+      "t": "Jadi bukan kenangannya yang hilang. Kita kehilangan keberanian atau kesempatan untuk membaginya."
+     },
+     {
+      "s": "sofia",
+      "e": "serius",
+      "t": "Dan kita tidak bisa memaksa orang bercerita hanya agar halaman kembali terang."
+     },
+     {
+      "s": "arland",
+      "e": "senyum",
+      "t": "Kita bisa hadir, mendengarkan, dan menjaga cerita yang mereka percayakan."
+     },
+     {
+      "s": "sofia",
+      "e": "senyum",
+      "t": "Pak Wira meninggalkan petunjuk bukan untuk mencari siapa yang salah."
+     },
+     {
+      "s": "arland",
+      "e": "neutral",
+      "t": "Tapi untuk mengingatkan bahwa hubungan perlu diberi ruang, bahkan ketika salah satu sedang diam."
+     },
+     {
+      "s": "narrator",
+      "e": "neutral",
+      "t": "Halaman itu berhenti memudar. Dua nama muncul di bawah tinta lama: Wira dan Sari."
+     }
+    ],
+    "flags": [],
+    "note": "",
+    "choices": [
+     {
+      "text": "Aku ingin mendengarkan ceritanya nanti.",
+      "flags": [
+       "Q_CHOICE_LISTEN"
+      ],
+      "byRoute": {
+       "arland": [
+        {
+         "s": "arland",
+         "e": "serius",
+         "t": "Kita tanya Nenek Sari dulu. Bila beliau ingin bercerita, aku akan mendengar sampai selesai."
+        }
+       ],
+       "sofia": [
+        {
+         "s": "sofia",
+         "e": "serius",
+         "t": "Kita beri Nenek Sari waktu memilih. Aku ingin mendengar ceritanya tanpa mendesak."
+        }
+       ]
+      }
+     },
+     {
+      "text": "Aku ingin menjaga halaman ini bersamanya.",
+      "flags": [
+       "Q_CHOICE_KEEP"
+      ],
+      "byRoute": {
+       "arland": [
+        {
+         "s": "arland",
+         "e": "senyum",
+         "t": "Kita bisa menjaga halaman ini, lalu menyerahkannya dengan pelan."
+        }
+       ],
+       "sofia": [
+        {
+         "s": "sofia",
+         "e": "senyum",
+         "t": "Kita simpan dulu sampai beliau siap menerimanya."
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "V468-C02-A-REPLY": {
+    "title": "Jawaban yang Dihargai",
+    "route": "arland",
+    "chapter": "C02",
+    "location": "arland_room",
+    "trigger": "V468 interactive story",
+    "lines": [
+     {
+      "s": "narrator",
+      "t": "Sofia membalas pesan. Ia mengatakan bahwa ia bisa bertemu sebentar hari ini.",
+      "e": "neutral"
+     },
+     {
+      "s": "sofia",
+      "t": "Aku bisa sore ini, Land. Tapi kita jalan santai aja, ya.",
+      "e": "senyum"
+     },
+     {
+      "s": "arland",
+      "t": "Boleh. Kamu juga boleh bilang kalau tiba-tiba butuh istirahat.",
+      "e": "senyum"
+     },
+     {
+      "s": "narrator",
+      "t": "Arland menyimpan ponsel. Ajakan yang baik tidak mengikat siapa pun.",
+      "e": "neutral"
+     }
+    ],
+    "choices": [],
+    "flags": [],
+    "note": "Draft Chapter 2 Overhaul: not new canon ending."
+   },
+   "V469-C03-HALF-A": {
+    "title": "Di Balik Catatan Resep",
+    "chapter": "C03",
+    "route": "arland",
+    "location": "dapur",
+    "lines": [
+     {
+      "s": "narrator",
+      "t": "Di balik kertas resep ada separuh surat. Tinta pada kata terakhir pudar, seolah terhapus udara.",
+      "e": "neutral"
+     },
+     {
+      "s": "arland",
+      "t": "\"Aku nggak butuh sesuatu yang besar...\" Sisanya hilang.",
+      "e": "neutral"
+     },
+     {
+      "s": "arland",
+      "t": "Apa aku terlalu sering berpikir bahwa melakukan banyak hal selalu berarti hadir?",
+      "e": "penasaran"
+     },
+     {
+      "s": "narrator",
+      "t": "Pemain memilih cara Arland menyimpan kalimat yang belum selesai, bukan menebak isi surat.",
+      "e": "neutral"
+     }
+    ],
+    "choices": [
+     {
+      "text": "Simpan surat dan tanyakan ketika Sofia siap",
+      "flags": [
+       "V469_A_LETTER_ASK"
+      ],
+      "byRoute": {
+       "arland": [
+        {
+         "s": "arland",
+         "t": "Aku bakal tanya langsung saat waktunya tepat. Bukan menyimpulkan sendiri.",
+         "e": "serius"
+        }
+       ],
+       "sofia": [
+        {
+         "s": "arland",
+         "t": "Aku akan denger dulu sebelum menebak.",
+         "e": "neutral"
+        }
+       ]
+      }
+     },
+     {
+      "text": "Tulis pertanyaan di belakang resep",
+      "flags": [
+       "V469_A_LETTER_NOTE"
+      ],
+      "byRoute": {
+       "arland": [
+        {
+         "s": "arland",
+         "t": "Kalimat yang nggak selesai tetap harus punya tempat untuk dijawab.",
+         "e": "senyum"
+        }
+       ],
+       "sofia": [
+        {
+         "s": "arland",
+         "t": "Aku tidak ingin melupakan pertanyaan penting ini.",
+         "e": "neutral"
+        }
+       ]
+      }
+     }
+    ],
+    "flags": [
+     "HALF_LETTER_FOUND"
+    ],
+    "trigger": "Chapter 3 narrative quest v4.6.9 local draft"
+   }
+  }
+ },
+ "maps": {
+  "areas": {
+   "perumahan": {
+    "name": "Distrik Perumahan",
+    "image": "maps/perumahan.png",
+    "w": 1200,
+    "h": 896,
+    "music": "town",
+    "ambient": "petals",
+    "spawn": [
+     65,
+     525
+    ],
+    "walls": [
+     [
+      0,
+      0,
+      1200,
+      309
+     ],
+     [
+      0,
+      575,
+      1200,
+      321
+     ],
+     [
+      0,
+      309,
+      25,
+      166
+     ],
+     [
+      1175,
+      309,
+      25,
+      266
+     ]
+    ],
+    "ellipses": [],
+    "props": [
+     {
+      "type": "hd_house_mint",
+      "x": 190,
+      "y": 252
+     },
+     {
+      "type": "hd_library",
+      "x": 678,
+      "y": 304
+     },
+     {
+      "type": "hd_house_redbrick",
+      "x": 1020,
+      "y": 252
+     },
+     {
+      "type": "hd_house_pink",
+      "x": 205,
+      "y": 862
+     },
+     {
+      "type": "hd_house_butter",
+      "x": 600,
+      "y": 870
+     },
+     {
+      "type": "hd_house_violet",
+      "x": 1000,
+      "y": 862
+     },
+     {
+      "type": "hd_fence_picket",
+      "x": 74,
+      "y": 307
+     },
+     {
+      "type": "hd_fence_picket_b",
+      "x": 111,
+      "y": 307
+     },
+     {
+      "type": "hd_fence_picket",
+      "x": 269,
+      "y": 307
+     },
+     {
+      "type": "hd_fence_picket_b",
+      "x": 367,
+      "y": 307
+     },
+     {
+      "type": "hd_fence_picket",
+      "x": 465,
+      "y": 307
+     },
+     {
+      "type": "hd_fence_picket",
+      "x": 887,
+      "y": 307
+     },
+     {
+      "type": "hd_fence_picket_b",
+      "x": 941,
+      "y": 307
+     },
+     {
+      "type": "hd_fence_picket",
+      "x": 1099,
+      "y": 307
+     },
+     {
+      "type": "hd_fence_picket_b",
+      "x": 1126,
+      "y": 307
+     },
+     {
+      "type": "hd_fence_picket_b",
+      "x": 89,
+      "y": 590
+     },
+     {
+      "type": "hd_fence_picket",
+      "x": 126,
+      "y": 590
+     },
+     {
+      "type": "hd_fence_picket_b",
+      "x": 284,
+      "y": 590
+     },
+     {
+      "type": "hd_fence_picket",
+      "x": 382,
+      "y": 590
+     },
+     {
+      "type": "hd_fence_picket_b",
+      "x": 480,
+      "y": 590
+     },
+     {
+      "type": "hd_fence_picket",
+      "x": 521,
+      "y": 590
+     },
+     {
+      "type": "hd_fence_picket_b",
+      "x": 679,
+      "y": 590
+     },
+     {
+      "type": "hd_fence_picket",
+      "x": 777,
+      "y": 590
+     },
+     {
+      "type": "hd_fence_picket_b",
+      "x": 875,
+      "y": 590
+     },
+     {
+      "type": "hd_fence_picket",
+      "x": 921,
+      "y": 590
+     },
+     {
+      "type": "hd_fence_picket_b",
+      "x": 1079,
+      "y": 590
+     },
+     {
+      "type": "hd_fence_picket",
+      "x": 1126,
+      "y": 590
+     },
+     {
+      "type": "hd_bush_a",
+      "x": 117,
+      "y": 275
+     },
+     {
+      "type": "hd_bush_a",
+      "x": 397,
+      "y": 285
+     },
+     {
+      "type": "hd_flowers_pink",
+      "x": 106,
+      "y": 287
+     },
+     {
+      "type": "hd_bush_a",
+      "x": 381,
+      "y": 295
+     },
+     {
+      "type": "hd_flowers_yellow",
+      "x": 116,
+      "y": 274
+     },
+     {
+      "type": "hd_bush_a",
+      "x": 465,
+      "y": 291
+     },
+     {
+      "type": "hd_flowers_yellow",
+      "x": 284,
+      "y": 290
+     },
+     {
+      "type": "hd_flowers_pink",
+      "x": 102,
+      "y": 292
+     },
+     {
+      "type": "hd_flowers_yellow",
+      "x": 85,
+      "y": 285
+     },
+     {
+      "type": "hd_bush_rose",
+      "x": 250,
+      "y": 262
+     },
+     {
+      "type": "hd_flowers_white",
+      "x": 344,
+      "y": 274
+     },
+     {
+      "type": "hd_flowers_pink",
+      "x": 943,
+      "y": 263
+     },
+     {
+      "type": "hd_bush_a",
+      "x": 966,
+      "y": 296
+     },
+     {
+      "type": "hd_bush_rose",
+      "x": 864,
+      "y": 267
+     },
+     {
+      "type": "hd_flowers_pink",
+      "x": 1156,
+      "y": 268
+     },
+     {
+      "type": "hd_flowers_pink",
+      "x": 940,
+      "y": 267
+     },
+     {
+      "type": "hd_flowers_pink",
+      "x": 949,
+      "y": 291
+     },
+     {
+      "type": "hd_flowers_yellow",
+      "x": 935,
+      "y": 279
+     },
+     {
+      "type": "hd_flowers_yellow",
+      "x": 1074,
+      "y": 276
+     },
+     {
+      "type": "hd_flowers_white",
+      "x": 845,
+      "y": 281
+     },
+     {
+      "type": "hd_flowers_pink",
+      "x": 952,
+      "y": 280
+     },
+     {
+      "type": "hd_flowers_pink",
+      "x": 937,
+      "y": 285
+     },
+     {
+      "type": "hd_flowers_yellow",
+      "x": 1090,
+      "y": 296
+     },
+     {
+      "type": "hd_tree_oak_a",
+      "x": 450,
+      "y": 250
+     },
+     {
+      "type": "hd_tree_cherry_a",
+      "x": 520,
+      "y": 236
+     },
+     {
+      "type": "hd_tree_oak_b",
+      "x": 860,
+      "y": 240
+     },
+     {
+      "type": "hd_tree_big_a",
+      "x": 1170,
+      "y": 230
+     },
+     {
+      "type": "hd_tree_oak_c",
+      "x": 30,
+      "y": 240
+     },
+     {
+      "type": "hd_bicycle",
+      "x": 300,
+      "y": 290
+     },
+     {
+      "type": "hd_bush_yellow",
+      "x": 520,
+      "y": 296
+     },
+     {
+      "type": "hd_bush_b",
+      "x": 836,
+      "y": 296
+     },
+     {
+      "type": "hd_garden_plot",
+      "x": 355,
+      "y": 655
+     },
+     {
+      "type": "hd_garden_plot",
+      "x": 355,
+      "y": 700
+     },
+     {
+      "type": "hd_birdbath",
+      "x": 800,
+      "y": 660
+     },
+     {
+      "type": "hd_bush_berry",
+      "x": 440,
+      "y": 620
+     },
+     {
+      "type": "hd_flowerbed",
+      "x": 760,
+      "y": 625
+     },
+     {
+      "type": "hd_bench",
+      "x": 1120,
+      "y": 640
+     },
+     {
+      "type": "hd_tree_blossom",
+      "x": 30,
+      "y": 766
+     },
+     {
+      "type": "hd_tree_cherry_b",
+      "x": 420,
+      "y": 766
+     },
+     {
+      "type": "hd_tree_cherry_b",
+      "x": 780,
+      "y": 767
+     },
+     {
+      "type": "hd_tree_cherry_b",
+      "x": 1180,
+      "y": 746
+     },
+     {
+      "type": "hd_flowers_violet",
+      "x": 269,
+      "y": 684
+     },
+     {
+      "type": "hd_bush_a",
+      "x": 1153,
+      "y": 649
+     },
+     {
+      "type": "hd_flowers_yellow",
+      "x": 684,
+      "y": 621
+     },
+     {
+      "type": "hd_flowers_violet",
+      "x": 808,
+      "y": 650
+     },
+     {
+      "type": "hd_bush_a",
+      "x": 886,
+      "y": 614
+     },
+     {
+      "type": "hd_flowers_yellow",
+      "x": 273,
+      "y": 693
+     },
+     {
+      "type": "hd_grass_tall",
+      "x": 303,
+      "y": 614
+     },
+     {
+      "type": "hd_bush_a",
+      "x": 444,
+      "y": 631
+     },
+     {
+      "type": "hd_bush_a",
+      "x": 816,
+      "y": 671
+     },
+     {
+      "type": "hd_grass_tall",
+      "x": 161,
+      "y": 695
+     },
+     {
+      "type": "hd_flowers_violet",
+      "x": 128,
+      "y": 632
+     },
+     {
+      "type": "hd_flowers_violet",
+      "x": 861,
+      "y": 620
+     },
+     {
+      "type": "hd_flowers_pink",
+      "x": 891,
+      "y": 600
+     },
+     {
+      "type": "hd_flowers_pink",
+      "x": 529,
+      "y": 655
+     },
+     {
+      "type": "hd_bush_a",
+      "x": 438,
+      "y": 600
+     },
+     {
+      "type": "hd_flowers_pink",
+      "x": 46,
+      "y": 609
+     },
+     {
+      "type": "hd_bush_a",
+      "x": 894,
+      "y": 604
+     },
+     {
+      "type": "hd_flowers_violet",
+      "x": 153,
+      "y": 684
+     },
+     {
+      "type": "hd_flowers_pink",
+      "x": 65,
+      "y": 699
+     },
+     {
+      "type": "hd_bush_a",
+      "x": 135,
+      "y": 637
+     },
+     {
+      "type": "hd_flowers_yellow",
+      "x": 1111,
+      "y": 677
+     },
+     {
+      "type": "hd_flowers_violet",
+      "x": 817,
+      "y": 629
+     },
+     {
+      "type": "hd_bush_a",
+      "x": 29,
+      "y": 679
+     },
+     {
+      "type": "hd_flowers_violet",
+      "x": 348,
+      "y": 623
+     },
+     {
+      "type": "hd_flowers_violet",
+      "x": 1041,
+      "y": 652
+     },
+     {
+      "type": "hd_flowers_pink",
+      "x": 469,
+      "y": 662
+     },
+     {
+      "type": "hd_flowers_violet",
+      "x": 427,
+      "y": 602
+     },
+     {
+      "type": "hd_flowers_yellow",
+      "x": 106,
+      "y": 692
+     },
+     {
+      "type": "hd_flowers_yellow",
+      "x": 358,
+      "y": 638
+     },
+     {
+      "type": "hd_flowers_pink",
+      "x": 561,
+      "y": 612
+     },
+     {
+      "type": "hd_flowers_yellow",
+      "x": 263,
+      "y": 639
+     },
+     {
+      "type": "hd_lamp_gold",
+      "x": 130,
+      "y": 362
+     },
+     {
+      "type": "hd_lamp_gold",
+      "x": 430,
+      "y": 362
+     },
+     {
+      "type": "hd_lamp_gold",
+      "x": 930,
+      "y": 362
+     },
+     {
+      "type": "hd_lamp_gold",
+      "x": 1130,
+      "y": 362
+     },
+     {
+      "type": "hd_lamp_gold",
+      "x": 300,
+      "y": 534
+     },
+     {
+      "type": "hd_lamp_gold",
+      "x": 600,
+      "y": 534
+     },
+     {
+      "type": "hd_lamp_gold",
+      "x": 860,
+      "y": 534
+     },
+     {
+      "type": "hd_lamp_gold",
+      "x": 1080,
+      "y": 534
+     },
+     {
+      "type": "hd_signpost_res",
+      "x": 70,
+      "y": 362
+     },
+     {
+      "type": "hd_mailbox",
+      "x": 140,
+      "y": 572
+     },
+     {
+      "type": "hd_mailbox",
+      "x": 690,
+      "y": 588
+     },
+     {
+      "type": "hd_bench",
+      "x": 800,
+      "y": 580
+     },
+     {
+      "type": "hd_bin",
+      "x": 420,
+      "y": 572
+     },
+     {
+      "type": "hd_bicycle",
+      "x": 950,
+      "y": 570
+     },
+     {
+      "type": "hd_planter_pink",
+      "x": 1160,
+      "y": 568
+     },
+     {
+      "type": "hd_bench",
+      "x": 560,
+      "y": 330
+     },
+     {
+      "type": "hd_planter_violet",
+      "x": 800,
+      "y": 330
+     },
+     {
+      "type": "hd_bin",
+      "x": 870,
+      "y": 330
+     },
+     {
+      "type": "hd_car_red",
+      "x": 200,
+      "y": 400
+     },
+     {
+      "type": "hd_car_green",
+      "x": 1080,
+      "y": 498
+     }
+    ],
+    "doors": [
+     {
+      "id": "res_to_street",
+      "rect": [
+       0,
+       475,
+       36,
+       87
+      ],
+      "label": "Ke Jalan Kota",
+      "to": "jalan_kota",
+      "tx": 1148,
+      "ty": 551,
+      "dir": "left"
+     },
+     {
+      "id": "door_library",
+      "rect": [
+       640,
+       304,
+       76,
+       40
+      ],
+      "label": "Perpustakaan Kota",
+      "to": "perpustakaan",
+      "tx": 601,
+      "ty": 780,
+      "dir": "down"
+     }
+    ],
+    "examine": [
+     {
+      "id": "res_garden",
+      "x": 220,
+      "y": 553,
+      "label": "Kebun warga",
+      "r": 56,
+      "lines": {
+       "arland": [
+        {
+         "s": "arland",
+         "e": "neutral",
+         "t": "Kebun kecil warga. Tomatnya hampir merah."
+        }
+       ],
+       "sofia": [
+        {
+         "s": "sofia",
+         "e": "senyum",
+         "t": "Ada yang menanam melati di sela sayuran. Manis sekali."
+        }
+       ]
+      }
+     },
+     {
+      "id": "res_house_c",
+      "x": 205,
+      "y": 548,
+      "label": "Rumah merah muda",
+      "r": 56,
+      "lines": {
+       "arland": [
+        {
+         "s": "narrator",
+         "e": "neutral",
+         "t": "Di jendela ada tulisan tangan anak kecil: \"Rumah Dito!\" Lengkap dengan gambar bintang."
+        }
+       ],
+       "sofia": [
+        {
+         "s": "narrator",
+         "e": "neutral",
+         "t": "Di jendela ada tulisan tangan anak kecil: \"Rumah Dito!\" Lengkap dengan gambar bintang."
+        }
+       ]
+      }
+     },
+     {
+      "id": "res_bench",
+      "x": 728,
+      "y": 554,
+      "label": "Bangku halte",
+      "r": 56,
+      "lines": {
+       "arland": [
+        {
+         "s": "arland",
+         "e": "neutral",
+         "t": "Bangku ini menghadap jalan. Enak buat menunggu, atau melamun."
+        }
+       ],
+       "sofia": [
+        {
+         "s": "sofia",
+         "e": "neutral",
+         "t": "Dulu aku sering menunggu bus di sini sambil membaca."
+        }
+       ]
+      }
+     }
+    ],
+    "water": [],
+    "gates": [],
+    "indoor": false,
+    "animals": [
+     {
+      "type": "cat_calico",
+      "n": 1,
+      "region": [
+       125,
+       339,
+       960,
+       220
+      ],
+      "day": false
+     },
+     {
+      "type": "chicken",
+      "n": 3,
+      "region": [
+       250,
+       337,
+       330,
+       190
+      ]
+     },
+     {
+      "type": "cat_orange",
+      "n": 1,
+      "region": [
+       650,
+       332,
+       280,
+       215
+      ],
+      "day": false
+     },
+     {
+      "type": "bird",
+      "n": 3,
+      "region": [
+       125,
+       339,
+       960,
+       220
+      ]
+     }
+    ],
+    "v4Layout": "handcrafted_16bit",
+    "v4SourceOriginalFilename": "03_perpustakaan.png",
+    "elevationPlatforms": [],
+    "visualStyle": "godot_hd_dense",
+    "visualUpdate": "godot_perumahan_hd",
+    "stairs": [],
+    "v6Layout": {
+     "version": 3,
+     "generator": "tools/worldgen/perumahan_hd.py",
+     "hd": true
+    },
+    "tiles": [
+     {
+      "image": "maps/hd/perumahan_0_0@2x.png",
+      "x": 0,
+      "y": 0,
+      "w": 1024,
+      "h": 896
+     },
+     {
+      "image": "maps/hd/perumahan_0_1@2x.png",
+      "x": 1024,
+      "y": 0,
+      "w": 176,
+      "h": 896
+     }
+    ],
+    "surface": {
+     "cell": 8,
+     "rows": [
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g150",
+      "g21s6g97s6g20",
+      "g21s6g97s6g20",
+      "g21s6g97s6g20",
+      "g21s6g97s6g20",
+      "g21s6g97s6g20",
+      "g21s6g97s6g20",
+      "g21s6g39s37g21s6g20",
+      "g21s6g39s37g21s6g20",
+      "g3s144g3",
+      "g3s144g3",
+      "g3s144g3",
+      "g3s144g3",
+      "g3s144g3",
+      "g3s144g3",
+      "g3s144g3",
+      "s150",
+      "s150",
+      "s150",
+      "s150",
+      "s150",
+      "s150",
+      "s150",
+      "s150",
+      "s150",
+      "s150",
+      "s150",
+      "s150",
+      "s150",
+      "s150",
+      "s150",
+      "s150",
+      "s150",
+      "g3s144g3",
+      "g3s144g3",
+      "g3s144g3",
+      "g3s144g3",
+      "g3s144g3",
+      "g3s144g3",
+      "g3s144g3",
+      "g3s144g3",
+      "g3s144g3",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g8r14g21s6g44s6g22",
+      "g23s6g8r14g21s6g44s6g22",
+      "g23s6g8r14g21s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g8r14g21s6g44s6g22",
+      "g23s6g8r14g21s6g44s6g22",
+      "g23s6g8r14g21s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g8r14g21s6g44s6g22",
+      "g23s6g8r14g21s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g23s6g43s6g44s6g22",
+      "g72s6g72",
+      "g150",
+      "g150",
+      "g150"
+     ]
+    }
+   }
+  }
+ }
+}

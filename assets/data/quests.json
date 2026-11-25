@@ -1933,12 +1933,20 @@
                 {
                   "do": "scene",
                   "id": "V474-P-PORTAL-A"
+                },
+                {
+                  "do": "scene",
+                  "id": "V7-P-LUMI"
                 }
               ],
               "else": [
                 {
                   "do": "scene",
                   "id": "V474-P-PORTAL-S"
+                },
+                {
+                  "do": "scene",
+                  "id": "V7-P-LUMI"
                 }
               ]
             },
@@ -3975,6 +3983,10 @@
               "id": "C02-FREE@$ROUTE"
             },
             {
+              "do": "scene",
+              "id": "V7-C02-PLAN@$ROUTE"
+            },
+            {
               "do": "step",
               "id": "C02_FREE"
             }
@@ -4000,6 +4012,10 @@
             {
               "do": "scene",
               "id": "C02-S00"
+            },
+            {
+              "do": "scene",
+              "id": "V7-C02-PLAN@$ROUTE"
             },
             {
               "do": "step",
@@ -5623,6 +5639,14 @@
               ]
             },
             {
+              "do": "scene",
+              "id": "V7-C02-CONFESS@$ROUTE"
+            },
+            {
+              "do": "scene",
+              "id": "V7-C02-AFTER"
+            },
+            {
               "do": "if",
               "when": {
                 "route": "arland"
@@ -5697,7 +5721,7 @@
       "quest": "Q_V469_C03_MEMORIES",
       "objective": {
         "arland": "Susun foto dan perbaiki bingkai di meja Arland",
-        "sofia": "Aktivitas pribadi Arland (route lain)"
+        "sofia": "Susun foto dan perbaiki bingkai di meja Arland"
       },
       "interactables": [
         {
@@ -5742,7 +5766,7 @@
       "chapter": "C03",
       "quest": "Q_V469_C03_MEMORIES",
       "objective": {
-        "arland": "Aktivitas pribadi Sofia (route lain)",
+        "arland": "Susun halaman scrapbook",
         "sofia": "Susun halaman scrapbook secara interaktif"
       },
       "interactables": [
@@ -5810,7 +5834,7 @@
             },
             {
               "do": "step",
-              "id": "C03_A_INGREDIENTS"
+              "id": "V7_C03_SARI_VISIT"
             }
           ],
           "route": "arland"
@@ -5833,7 +5857,7 @@
             },
             {
               "do": "step",
-              "id": "C03_S_DECOR"
+              "id": "V7_C03_SARI_VISIT"
             }
           ],
           "route": "sofia"
@@ -5933,6 +5957,14 @@
             {
               "do": "scene",
               "id": "C03-A00"
+            },
+            {
+              "do": "scene",
+              "id": "V7-C03-A-PROJECTOR"
+            },
+            {
+              "do": "item",
+              "id": "v7_proyektor"
             },
             {
               "do": "if",
@@ -6315,6 +6347,10 @@
             {
               "do": "scene",
               "id": "C03-S01"
+            },
+            {
+              "do": "scene",
+              "id": "V7-C03-S-MIRROR"
             },
             {
               "do": "if",
@@ -7018,6 +7054,10 @@
               "id": "V464-C03-PROMISE"
             },
             {
+              "do": "scene",
+              "id": "V7-C03-UNSAID@$ROUTE"
+            },
+            {
               "do": "warp",
               "area": "galeri_komunitas",
               "x": 480,
@@ -7472,6 +7512,10 @@
             {
               "do": "scene",
               "id": "V464-C04-S-MORNING"
+            },
+            {
+              "do": "scene",
+              "id": "V7-C04-S-DRAFT"
             },
             {
               "do": "warp",
@@ -8514,13 +8558,13 @@
               "then": [
                 {
                   "do": "step",
-                  "id": "C04_V465_A_REFLECT"
+                  "id": "V470_C04_A_PROOF"
                 }
               ],
               "else": [
                 {
                   "do": "step",
-                  "id": "C04_V465_S_REFLECT"
+                  "id": "V470_C04_S_PROOF"
                 }
               ]
             }
@@ -8897,29 +8941,12 @@
             "text": "Matahari terbenam... malam ini terasa istimewa."
           },
           {
-            "do": "warp",
-            "area": "$ROOM",
-            "x": 243,
-            "y": 217,
-            "dir": "down"
+            "do": "toast",
+            "text": "Nenek Sari tidak datang hari ini..."
           },
           {
-            "do": "if",
-            "when": {
-              "route": "arland"
-            },
-            "then": [
-              {
-                "do": "step",
-                "id": "C05_A_START"
-              }
-            ],
-            "else": [
-              {
-                "do": "step",
-                "id": "C05_S_START"
-              }
-            ]
+            "do": "step",
+            "id": "V7_C05_SARI_FADING"
           }
         ]
       },
@@ -10344,7 +10371,7 @@
             },
             {
               "do": "step",
-              "id": "V471_C05_CLOCK_ENTRY"
+              "id": "V7_C05_ARCHIVE_ENTRY"
             }
           ]
         }
@@ -12087,6 +12114,10 @@
               ]
             },
             {
+              "do": "scene",
+              "id": "V7-EPI-SARI-REMEMBER"
+            },
+            {
               "do": "if",
               "when": {
                 "route": "arland"
@@ -12572,6 +12603,129 @@
             "notFlags": [
               "V473_BONUS_DONE"
             ]
+          }
+        },
+        {
+          "id": "v7_epi_frame",
+          "area": "rumah_sari",
+          "x": 470,
+          "y": 160,
+          "r": 80,
+          "label": "Pasang foto di bingkai Nenek Sari",
+          "actions": [
+            {
+              "do": "music",
+              "id": "score_lake_coda_v480"
+            },
+            {
+              "do": "cine",
+              "cmds": [
+                {
+                  "c": "bars",
+                  "on": true,
+                  "t": 0.5
+                },
+                {
+                  "c": "mood",
+                  "id": "memory",
+                  "t": 1.6
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.2,
+                  "t": 0,
+                  "bars": false
+                },
+                {
+                  "c": "crane",
+                  "t": 3.6,
+                  "zoom": 1.2,
+                  "block": true
+                },
+                {
+                  "c": "fx",
+                  "kind": "fireflies",
+                  "on": "player",
+                  "t": 14.0,
+                  "n": 36
+                },
+                {
+                  "c": "orbit",
+                  "deg": 8,
+                  "t": 12.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.8,
+                  "t": 1.5
+                },
+                {
+                  "c": "say",
+                  "scene": "V7-EPI-FRAME"
+                },
+                {
+                  "c": "mood",
+                  "id": "warm",
+                  "t": 2.0
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.3599999999999999,
+                  "t": 1.6,
+                  "bars": false,
+                  "async": true
+                },
+                {
+                  "c": "pair",
+                  "kind": "lean",
+                  "t": 2.4
+                },
+                {
+                  "c": "fx",
+                  "kind": "glow",
+                  "on": "player",
+                  "t": 2.6,
+                  "block": true
+                },
+                {
+                  "c": "wait",
+                  "t": 0.6
+                },
+                {
+                  "c": "angle",
+                  "yaw": 0,
+                  "t": 1.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.35,
+                  "t": 0.8
+                },
+                {
+                  "c": "bars",
+                  "on": false,
+                  "t": 0.6
+                }
+              ],
+              "v7": true
+            },
+            {
+              "do": "removeItem",
+              "id": "v7_foto_wira"
+            }
+          ],
+          "when": {
+            "notFlags": [
+              "V7_EPI_FRAME"
+            ]
+          },
+          "sprite": {
+            "image": "items/photo_small.png",
+            "x": 470,
+            "y": 144,
+            "bob": true
           }
         }
       ]
@@ -13095,8 +13249,8 @@
       "chapter": "C03",
       "quest": "Q_C03_V464_GALLERY_PREP",
       "objective": {
-        "arland": "Tata kursi, catat undangan, dan periksa proyektor di Galeri Komunitas (0/3)",
-        "sofia": "Tata kursi, siapkan karya, dan catat undangan galeri (0/3)"
+        "arland": "Tata kursi, catat undangan, dan periksa proyektor di Galeri Komunitas",
+        "sofia": "Tata kursi, siapkan karya, dan catat undangan galeri"
       },
       "interactables": [
         {
@@ -14128,6 +14282,10 @@
               "id": "V464-C04-S-PRESENT"
             },
             {
+              "do": "scene",
+              "id": "V7-C04-S-STAGE"
+            },
+            {
               "do": "if",
               "when": {
                 "flags": [
@@ -14451,6 +14609,10 @@
             {
               "do": "scene",
               "id": "V465-C04-SECOND-TALK"
+            },
+            {
+              "do": "scene",
+              "id": "V7-C04-SHARED-FAULT"
             },
             {
               "do": "scene",
@@ -15542,8 +15704,8 @@
       "chapter": "C05",
       "quest": "Q_V471_C05",
       "objective": {
-        "arland": "Selesaikan puzzle jam yang boleh dibatalkan dan dicoba ulang",
-        "sofia": "Selesaikan puzzle jam yang boleh dibatalkan dan dicoba ulang"
+        "arland": "Selesaikan puzzle jam",
+        "sofia": "Selesaikan puzzle jam"
       },
       "interactables": [
         {
@@ -15718,8 +15880,8 @@
       "chapter": "C05",
       "quest": "Q_V471_C05",
       "objective": {
-        "arland": "Selesaikan puzzle jam yang boleh dibatalkan dan dicoba ulang",
-        "sofia": "Selesaikan puzzle jam yang boleh dibatalkan dan dicoba ulang"
+        "arland": "Selesaikan puzzle jam",
+        "sofia": "Selesaikan puzzle jam"
       },
       "interactables": [
         {
@@ -16803,8 +16965,8 @@
       "chapter": "C05",
       "quest": "Q_V471_C05",
       "objective": {
-        "arland": "Selesaikan puzzle urutan kenangan di jembatan (boleh dicoba ulang)",
-        "sofia": "Selesaikan puzzle urutan kenangan di jembatan (boleh dicoba ulang)"
+        "arland": "Selesaikan puzzle urutan kenangan di jembatan",
+        "sofia": "Selesaikan puzzle urutan kenangan di jembatan"
       },
       "interactables": [
         {
@@ -17530,6 +17692,55 @@
             "id": "V472-C06-THREE-FUTURES"
           },
           {
+            "do": "scene",
+            "id": "V7-C06-ERASE"
+          },
+          {
+            "do": "if",
+            "when": {
+              "flags": [
+                "V7_S_STAGE_CONTINUE"
+              ]
+            },
+            "then": [
+              {
+                "do": "scene",
+                "id": "V7-C06-STAGE-CONTINUE"
+              }
+            ],
+            "else": []
+          },
+          {
+            "do": "if",
+            "when": {
+              "flags": [
+                "V7_S_STAGE_SHORT"
+              ]
+            },
+            "then": [
+              {
+                "do": "scene",
+                "id": "V7-C06-STAGE-SHORT"
+              }
+            ],
+            "else": []
+          },
+          {
+            "do": "if",
+            "when": {
+              "flags": [
+                "V7_S_STAGE_CHAIR"
+              ]
+            },
+            "then": [
+              {
+                "do": "scene",
+                "id": "V7-C06-STAGE-CHAIR"
+              }
+            ],
+            "else": []
+          },
+          {
             "do": "music",
             "id": "cinema_unwritten_v472"
           },
@@ -18162,7 +18373,7 @@
           "x": 1370,
           "y": 970,
           "r": 100,
-          "label": "Kembali ke Pohon Harapan",
+          "label": "Ikuti halaman Wira dan Sari",
           "actions": [
             {
               "do": "music",
@@ -18247,14 +18458,14 @@
             },
             {
               "do": "warp",
-              "area": "eternal_garden",
-              "x": 1200,
-              "y": 888,
+              "area": "kenangan_gazebo",
+              "x": 800,
+              "y": 1000,
               "dir": "up"
             },
             {
               "do": "step",
-              "id": "C06_LETTER"
+              "id": "V7_C06_GAZEBO_BENCH"
             }
           ],
           "when": {
@@ -19820,6 +20031,1030 @@
           }
         }
       ]
+    },
+    {
+      "id": "V7_C03_SARI_VISIT",
+      "chapter": "C03",
+      "quest": "Q_V469_C03_MEMORIES",
+      "objective": {
+        "arland": "Minta madu ke rumah Nenek Sari (rumah bata merah, Distrik Perumahan)",
+        "sofia": "Minta bunga kering ke rumah Nenek Sari (rumah bata merah, Distrik Perumahan)"
+      },
+      "interactables": [
+        {
+          "id": "v7_sari_home",
+          "area": "rumah_sari",
+          "x": 430,
+          "y": 260,
+          "r": 70,
+          "label": "Bicara dengan Nenek Sari",
+          "actions": [
+            {
+              "do": "cine",
+              "cmds": [
+                {
+                  "c": "bars",
+                  "on": true,
+                  "t": 0.4
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.3,
+                  "t": 1.2
+                },
+                {
+                  "c": "caption",
+                  "text": "Rumah Nenek Sari",
+                  "sub": "Distrik Perumahan",
+                  "t": 3.0
+                },
+                {
+                  "c": "bars",
+                  "on": false,
+                  "t": 0.5
+                }
+              ],
+              "v7": true
+            },
+            {
+              "do": "scene",
+              "id": "V7-C03-SARI-HOME@$ROUTE"
+            },
+            {
+              "do": "step",
+              "id": "V7_C03_SARI_SHELF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "V7_C03_SARI_SHELF",
+      "chapter": "C03",
+      "quest": "Q_V469_C03_MEMORIES",
+      "objective": {
+        "arland": "Sambil menunggu, lihat-lihat rumah Nenek Sari",
+        "sofia": "Sambil menunggu, lihat-lihat rumah Nenek Sari"
+      },
+      "interactables": [
+        {
+          "id": "v7_shelf_frame",
+          "area": "rumah_sari",
+          "x": 470,
+          "y": 160,
+          "r": 70,
+          "label": "Bingkai kosong di rak",
+          "actions": [
+            {
+              "do": "scene",
+              "id": "V7-C03-FRAME@$ROUTE"
+            },
+            {
+              "do": "flag",
+              "id": "V7_C03_SAW_FRAME"
+            },
+            {
+              "do": "count",
+              "id": "v7_sari_shelf",
+              "add": 1
+            }
+          ],
+          "hideIfFlag": "V7_C03_SAW_FRAME"
+        },
+        {
+          "id": "v7_shelf_umbrella",
+          "area": "rumah_sari",
+          "x": 140,
+          "y": 320,
+          "r": 70,
+          "label": "Payung tua di pojok",
+          "actions": [
+            {
+              "do": "scene",
+              "id": "V7-C03-UMBRELLA@$ROUTE"
+            },
+            {
+              "do": "flag",
+              "id": "V7_C03_SAW_UMBRELLA"
+            },
+            {
+              "do": "count",
+              "id": "v7_sari_shelf",
+              "add": 1
+            }
+          ],
+          "hideIfFlag": "V7_C03_SAW_UMBRELLA"
+        }
+      ],
+      "counter": "v7_sari_shelf",
+      "counterMax": 2,
+      "complete": {
+        "counter": "v7_sari_shelf",
+        "count": 2,
+        "actions": [
+          {
+            "do": "scene",
+            "id": "V7-C03-SARI-BYE@$ROUTE"
+          },
+          {
+            "do": "if",
+            "when": {
+              "route": "arland"
+            },
+            "then": [
+              {
+                "do": "item",
+                "id": "stroberi"
+              },
+              {
+                "do": "item",
+                "id": "madu"
+              },
+              {
+                "do": "item",
+                "id": "daun_mint"
+              },
+              {
+                "do": "toast",
+                "text": "Bahan lengkap. Ke dapur Kafe Senja."
+              },
+              {
+                "do": "step",
+                "id": "C03_A_KITCHEN"
+              }
+            ],
+            "else": [
+              {
+                "do": "item",
+                "id": "bunga_kering"
+              },
+              {
+                "do": "item",
+                "id": "lampu_tumbler"
+              },
+              {
+                "do": "item",
+                "id": "bingkai_bintang"
+              },
+              {
+                "do": "toast",
+                "text": "Dekorasi lengkap. Pulang dan tata sudut kenangan."
+              },
+              {
+                "do": "step",
+                "id": "C03_S_ARRANGE"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "V7_C05_SARI_FADING",
+      "chapter": "C05",
+      "quest": "Q_C05_FREE",
+      "objective": {
+        "arland": "Nenek Sari tidak datang. Jenguk dia di rumahnya (Distrik Perumahan)",
+        "sofia": "Nenek Sari tidak datang. Jenguk dia di rumahnya (Distrik Perumahan)"
+      },
+      "interactables": [
+        {
+          "id": "v7_sari_fading",
+          "area": "rumah_sari",
+          "x": 430,
+          "y": 260,
+          "r": 70,
+          "label": "Nenek Sari",
+          "actions": [
+            {
+              "do": "music",
+              "id": "cinema_quiet"
+            },
+            {
+              "do": "cine",
+              "v7": true,
+              "cmds": [
+                {
+                  "c": "bars",
+                  "on": true,
+                  "t": 0.5
+                },
+                {
+                  "c": "mood",
+                  "id": "cool",
+                  "t": 1.4
+                },
+                {
+                  "c": "shot",
+                  "focus": "player",
+                  "zoom": 1.35,
+                  "t": 1.4
+                }
+              ]
+            },
+            {
+              "do": "scene",
+              "id": "V7-C05-SARI-FADING@$ROUTE"
+            },
+            {
+              "do": "cine",
+              "v7": true,
+              "cmds": [
+                {
+                  "c": "fx",
+                  "kind": "mist",
+                  "on": "player",
+                  "t": 2.4,
+                  "n": 24,
+                  "block": true
+                },
+                {
+                  "c": "bars",
+                  "on": false,
+                  "t": 0.5
+                }
+              ]
+            },
+            {
+              "do": "item",
+              "id": "v7_halaman_wira"
+            },
+            {
+              "do": "warp",
+              "area": "$ROOM",
+              "x": 243,
+              "y": 217,
+              "dir": "down"
+            },
+            {
+              "do": "if",
+              "when": {
+                "route": "arland"
+              },
+              "then": [
+                {
+                  "do": "step",
+                  "id": "C05_A_START"
+                }
+              ],
+              "else": [
+                {
+                  "do": "step",
+                  "id": "C05_S_START"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tint": "#ff9a5a",
+      "tintAlpha": 0.1
+    },
+    {
+      "id": "V7_C05_ARCHIVE_ENTRY",
+      "chapter": "C05",
+      "quest": "Q_V471_C05",
+      "objective": {
+        "arland": "Ikuti halaman abu-abu ke timur Starfall Village",
+        "sofia": "Ikuti halaman abu-abu ke timur Starfall Village"
+      },
+      "interactables": [
+        {
+          "id": "v7_archive_gate",
+          "area": "starfall_village",
+          "x": 1788,
+          "y": 1112,
+          "r": 95,
+          "label": "Ikuti halaman abu-abu",
+          "actions": [
+            {
+              "do": "music",
+              "id": "archive_mystery"
+            },
+            {
+              "do": "scene",
+              "id": "V7-C05-ARCHIVE-OPEN"
+            },
+            {
+              "do": "warp",
+              "area": "arsip_memudar",
+              "x": 800,
+              "y": 1000,
+              "dir": "up"
+            },
+            {
+              "do": "companion",
+              "on": true
+            },
+            {
+              "do": "step",
+              "id": "V7_C05_ARCHIVE_ECHOES"
+            }
+          ],
+          "sprite": {
+            "image": "items/memory_page.png",
+            "x": 1788,
+            "y": 1096,
+            "bob": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "V7_C05_ARCHIVE_ECHOES",
+      "chapter": "C05",
+      "quest": "Q_V471_C05",
+      "objective": {
+        "arland": "Dengarkan tiga gema Wira dan Sari, lalu jawab dengan jujur",
+        "sofia": "Dengarkan tiga gema Wira dan Sari, lalu jawab dengan jujur"
+      },
+      "interactables": [
+        {
+          "id": "v7_echo_a",
+          "area": "arsip_memudar",
+          "x": 360,
+          "y": 700,
+          "r": 95,
+          "label": "Gema: kartu perpustakaan",
+          "actions": [
+            {
+              "do": "unflag",
+              "id": "V7_ECHO_MISS"
+            },
+            {
+              "do": "scene",
+              "id": "V7-C05-ECHO-A"
+            },
+            {
+              "do": "if",
+              "when": {
+                "flags": [
+                  "V7_ECHO_A_OK"
+                ]
+              },
+              "then": [
+                {
+                  "do": "flag",
+                  "id": "V7_ECHO_A_DONE"
+                },
+                {
+                  "do": "sfx",
+                  "id": "v471_memory_chime"
+                },
+                {
+                  "do": "count",
+                  "id": "v7_echoes",
+                  "add": 1
+                }
+              ],
+              "else": [
+                {
+                  "do": "sfx",
+                  "id": "soft_wrong"
+                },
+                {
+                  "do": "toast",
+                  "text": "Dengarkan lagi kedua suaranya."
+                }
+              ]
+            }
+          ],
+          "hideIfFlag": "V7_ECHO_A_DONE",
+          "sprite": {
+            "image": "items/memory_page.png",
+            "x": 360,
+            "y": 684,
+            "bob": true
+          }
+        },
+        {
+          "id": "v7_echo_b",
+          "area": "arsip_memudar",
+          "x": 800,
+          "y": 520,
+          "r": 95,
+          "label": "Gema: gazebo hujan",
+          "actions": [
+            {
+              "do": "unflag",
+              "id": "V7_ECHO_MISS"
+            },
+            {
+              "do": "scene",
+              "id": "V7-C05-ECHO-B"
+            },
+            {
+              "do": "if",
+              "when": {
+                "flags": [
+                  "V7_ECHO_B_OK"
+                ]
+              },
+              "then": [
+                {
+                  "do": "flag",
+                  "id": "V7_ECHO_B_DONE"
+                },
+                {
+                  "do": "sfx",
+                  "id": "v471_memory_chime"
+                },
+                {
+                  "do": "count",
+                  "id": "v7_echoes",
+                  "add": 1
+                }
+              ],
+              "else": [
+                {
+                  "do": "sfx",
+                  "id": "soft_wrong"
+                },
+                {
+                  "do": "toast",
+                  "text": "Dengarkan lagi kedua suaranya."
+                }
+              ]
+            }
+          ],
+          "hideIfFlag": "V7_ECHO_B_DONE",
+          "sprite": {
+            "image": "items/memory_page.png",
+            "x": 800,
+            "y": 504,
+            "bob": true
+          }
+        },
+        {
+          "id": "v7_echo_c",
+          "area": "arsip_memudar",
+          "x": 1240,
+          "y": 700,
+          "r": 95,
+          "label": "Gema: surat yang disimpan",
+          "actions": [
+            {
+              "do": "unflag",
+              "id": "V7_ECHO_MISS"
+            },
+            {
+              "do": "scene",
+              "id": "V7-C05-ECHO-C"
+            },
+            {
+              "do": "if",
+              "when": {
+                "flags": [
+                  "V7_ECHO_C_OK"
+                ]
+              },
+              "then": [
+                {
+                  "do": "flag",
+                  "id": "V7_ECHO_C_DONE"
+                },
+                {
+                  "do": "sfx",
+                  "id": "v471_memory_chime"
+                },
+                {
+                  "do": "count",
+                  "id": "v7_echoes",
+                  "add": 1
+                }
+              ],
+              "else": [
+                {
+                  "do": "sfx",
+                  "id": "soft_wrong"
+                },
+                {
+                  "do": "toast",
+                  "text": "Dengarkan lagi kedua suaranya."
+                }
+              ]
+            }
+          ],
+          "hideIfFlag": "V7_ECHO_C_DONE",
+          "sprite": {
+            "image": "items/memory_page.png",
+            "x": 1240,
+            "y": 684,
+            "bob": true
+          }
+        }
+      ],
+      "counter": "v7_echoes",
+      "counterMax": 3,
+      "tint": "#8a8aa8",
+      "tintAlpha": 0.22,
+      "complete": {
+        "counter": "v7_echoes",
+        "count": 3,
+        "actions": [
+          {
+            "do": "music",
+            "id": "score_quiet_truth_v480"
+          },
+          {
+            "do": "cine",
+            "cmds": [
+              {
+                "c": "bars",
+                "on": true,
+                "t": 0.5
+              },
+              {
+                "c": "mood",
+                "id": "dream",
+                "t": 1.6
+              },
+              {
+                "c": "shot",
+                "focus": "couple",
+                "zoom": 1.2,
+                "t": 0,
+                "bars": false
+              },
+              {
+                "c": "crane",
+                "t": 3.6,
+                "zoom": 1.2,
+                "block": true
+              },
+              {
+                "c": "fx",
+                "kind": "sparkles",
+                "on": "player",
+                "t": 14.0,
+                "n": 36
+              },
+              {
+                "c": "orbit",
+                "deg": -12,
+                "t": 12.0
+              },
+              {
+                "c": "dof",
+                "a": 0.8,
+                "t": 1.5
+              },
+              {
+                "c": "say",
+                "scene": "V7-C05-ARCHIVE-QUIET"
+              },
+              {
+                "c": "say",
+                "scene": "V7-C05-ARCHIVE-VOW@$ROUTE"
+              },
+              {
+                "c": "shot",
+                "focus": "couple",
+                "zoom": 1.3599999999999999,
+                "t": 1.6,
+                "bars": false,
+                "async": true
+              },
+              {
+                "c": "fx",
+                "kind": "restore",
+                "on": "player",
+                "t": 2.6,
+                "block": true
+              },
+              {
+                "c": "wait",
+                "t": 0.6
+              },
+              {
+                "c": "angle",
+                "yaw": 0,
+                "t": 1.0
+              },
+              {
+                "c": "dof",
+                "a": 0.35,
+                "t": 0.8
+              },
+              {
+                "c": "bars",
+                "on": false,
+                "t": 0.6
+              }
+            ],
+            "v7": true
+          },
+          {
+            "do": "step",
+            "id": "V7_C05_ARCHIVE_PAGE"
+          }
+        ]
+      }
+    },
+    {
+      "id": "V7_C05_ARCHIVE_PAGE",
+      "chapter": "C05",
+      "quest": "Q_V471_C05",
+      "objective": {
+        "arland": "Ambil halaman Wira dan Sari di tengah arsip",
+        "sofia": "Ambil halaman Wira dan Sari di tengah arsip"
+      },
+      "interactables": [
+        {
+          "id": "v7_archive_page",
+          "area": "arsip_memudar",
+          "x": 800,
+          "y": 640,
+          "r": 95,
+          "label": "Halaman W & S",
+          "actions": [
+            {
+              "do": "scene",
+              "id": "V7-C05-ARCHIVE-PAGE"
+            },
+            {
+              "do": "item",
+              "id": "v471_reflection"
+            },
+            {
+              "do": "sfx",
+              "id": "v472_memory_glint"
+            },
+            {
+              "do": "warp",
+              "area": "memory_bridge",
+              "x": 180,
+              "y": 1090,
+              "dir": "up"
+            },
+            {
+              "do": "step",
+              "id": "V471_C05_BRIDGE_FRAGMENTS"
+            }
+          ],
+          "sprite": {
+            "image": "items/memory_page.png",
+            "x": 800,
+            "y": 624,
+            "bob": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "V7_C06_GAZEBO_BENCH",
+      "chapter": "C06",
+      "quest": "Q_V472_C06",
+      "objective": {
+        "arland": "Dekati bangku dekat gazebo",
+        "sofia": "Dekati bangku dekat gazebo"
+      },
+      "interactables": [
+        {
+          "id": "v7_gz_bench",
+          "area": "kenangan_gazebo",
+          "x": 560,
+          "y": 640,
+          "r": 90,
+          "label": "Bangku tempat Sari menunggu",
+          "actions": [
+            {
+              "do": "music",
+              "id": "rain_lullaby"
+            },
+            {
+              "do": "cine",
+              "cmds": [
+                {
+                  "c": "bars",
+                  "on": true,
+                  "t": 0.4
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.1,
+                  "t": 1.2
+                },
+                {
+                  "c": "caption",
+                  "text": "Empat Puluh Tahun Lalu",
+                  "sub": "Taman Kota, hari hujan",
+                  "t": 3.0
+                },
+                {
+                  "c": "bars",
+                  "on": false,
+                  "t": 0.5
+                }
+              ],
+              "v7": true
+            },
+            {
+              "do": "scene",
+              "id": "V7-C06-GAZEBO-ARRIVE"
+            },
+            {
+              "do": "scene",
+              "id": "V7-C06-GAZEBO-BENCH"
+            },
+            {
+              "do": "companion",
+              "on": true
+            },
+            {
+              "do": "step",
+              "id": "V7_C06_GAZEBO_PATH"
+            }
+          ],
+          "sprite": {
+            "image": "items/lantern_small.png",
+            "x": 560,
+            "y": 624,
+            "bob": true
+          }
+        }
+      ],
+      "weather": "rain",
+      "tint": "#d2b07a",
+      "tintAlpha": 0.2,
+      "enterArea": {
+        "area": "kenangan_gazebo",
+        "actions": [
+          {
+            "do": "companion",
+            "on": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "V7_C06_GAZEBO_PATH",
+      "chapter": "C06",
+      "quest": "Q_V472_C06",
+      "objective": {
+        "arland": "Lihat siapa yang berlari dari jalan setapak",
+        "sofia": "Lihat siapa yang berlari dari jalan setapak"
+      },
+      "interactables": [
+        {
+          "id": "v7_gz_path",
+          "area": "kenangan_gazebo",
+          "x": 1150,
+          "y": 820,
+          "r": 90,
+          "label": "Jalan setapak",
+          "actions": [
+            {
+              "do": "scene",
+              "id": "V7-C06-GAZEBO-PATH"
+            },
+            {
+              "do": "step",
+              "id": "V7_C06_GAZEBO_TELL"
+            }
+          ],
+          "sprite": {
+            "image": "items/lantern_small.png",
+            "x": 1150,
+            "y": 804,
+            "bob": true
+          }
+        }
+      ],
+      "weather": "rain",
+      "tint": "#d2b07a",
+      "tintAlpha": 0.2
+    },
+    {
+      "id": "V7_C06_GAZEBO_TELL",
+      "chapter": "C06",
+      "quest": "Q_V472_C06",
+      "objective": {
+        "arland": "Ceritakan kisah kalian di gazebo untuk Wira dan Sari",
+        "sofia": "Ceritakan kisah kalian di gazebo untuk Wira dan Sari"
+      },
+      "interactables": [
+        {
+          "id": "v7_gz_tell",
+          "area": "kenangan_gazebo",
+          "x": 800,
+          "y": 600,
+          "r": 100,
+          "label": "Gazebo",
+          "actions": [
+            {
+              "do": "music",
+              "id": "score_open_page_v480"
+            },
+            {
+              "do": "cine",
+              "cmds": [
+                {
+                  "c": "bars",
+                  "on": true,
+                  "t": 0.5
+                },
+                {
+                  "c": "mood",
+                  "id": "cool",
+                  "t": 1.6
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.15,
+                  "t": 0,
+                  "bars": false
+                },
+                {
+                  "c": "crane",
+                  "t": 3.6,
+                  "zoom": 1.15,
+                  "block": true
+                },
+                {
+                  "c": "fx",
+                  "kind": "rainlight",
+                  "on": "player",
+                  "t": 14.0,
+                  "n": 36
+                },
+                {
+                  "c": "orbit",
+                  "deg": 10,
+                  "t": 12.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.8,
+                  "t": 1.5
+                },
+                {
+                  "c": "say",
+                  "scene": "V7-C06-TELL"
+                },
+                {
+                  "c": "mood",
+                  "id": "dream",
+                  "t": 2.0
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.3099999999999998,
+                  "t": 1.6,
+                  "bars": false,
+                  "async": true
+                },
+                {
+                  "c": "wait",
+                  "t": 0.6
+                },
+                {
+                  "c": "angle",
+                  "yaw": 0,
+                  "t": 1.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.35,
+                  "t": 0.8
+                },
+                {
+                  "c": "bars",
+                  "on": false,
+                  "t": 0.6
+                }
+              ],
+              "v7": true
+            },
+            {
+              "do": "music",
+              "id": "eternal_promise"
+            },
+            {
+              "do": "cine",
+              "cmds": [
+                {
+                  "c": "bars",
+                  "on": true,
+                  "t": 0.5
+                },
+                {
+                  "c": "mood",
+                  "id": "dream",
+                  "t": 1.6
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.2,
+                  "t": 0,
+                  "bars": false
+                },
+                {
+                  "c": "crane",
+                  "t": 3.6,
+                  "zoom": 1.2,
+                  "block": true
+                },
+                {
+                  "c": "fx",
+                  "kind": "sparkles",
+                  "on": "player",
+                  "t": 14.0,
+                  "n": 36
+                },
+                {
+                  "c": "orbit",
+                  "deg": -14,
+                  "t": 12.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.8,
+                  "t": 1.5
+                },
+                {
+                  "c": "say",
+                  "scene": "V7-C06-PAGE-SAVED"
+                },
+                {
+                  "c": "mood",
+                  "id": "warm",
+                  "t": 2.0
+                },
+                {
+                  "c": "shot",
+                  "focus": "couple",
+                  "zoom": 1.3599999999999999,
+                  "t": 1.6,
+                  "bars": false,
+                  "async": true
+                },
+                {
+                  "c": "pair",
+                  "kind": "hug",
+                  "t": 2.4
+                },
+                {
+                  "c": "fx",
+                  "kind": "restore",
+                  "on": "player",
+                  "t": 2.6,
+                  "block": true
+                },
+                {
+                  "c": "wait",
+                  "t": 0.6
+                },
+                {
+                  "c": "angle",
+                  "yaw": 0,
+                  "t": 1.0
+                },
+                {
+                  "c": "dof",
+                  "a": 0.35,
+                  "t": 0.8
+                },
+                {
+                  "c": "bars",
+                  "on": false,
+                  "t": 0.6
+                }
+              ],
+              "v7": true
+            },
+            {
+              "do": "item",
+              "id": "v7_foto_wira"
+            },
+            {
+              "do": "warp",
+              "area": "eternal_garden",
+              "x": 1200,
+              "y": 888,
+              "dir": "up"
+            },
+            {
+              "do": "step",
+              "id": "C06_LETTER"
+            }
+          ],
+          "sprite": {
+            "image": "items/memory_page.png",
+            "x": 800,
+            "y": 584,
+            "bob": true
+          }
+        }
+      ],
+      "weather": "rain",
+      "tint": "#d2b07a",
+      "tintAlpha": 0.2
     }
   ],
   "side": [
@@ -32947,6 +34182,104 @@
           "text": "Panorama: Mezanin Galeri tersimpan."
         }
       ]
+    },
+    {
+      "id": "v7_kaset_start",
+      "area": "rumah_sari",
+      "x": 520,
+      "y": 300,
+      "r": 56,
+      "label": "Radio kayu",
+      "actions": [
+        {
+          "do": "scene",
+          "id": "V7-SQ-KASET-1"
+        },
+        {
+          "do": "flag",
+          "id": "SQ_V7_KASET_START"
+        },
+        {
+          "do": "toast",
+          "text": "Misi sampingan: Lagu Hujan"
+        }
+      ],
+      "when": {
+        "flags": [
+          "V7_C03_SARI_VISITED"
+        ],
+        "notFlags": [
+          "SQ_V7_KASET_START"
+        ]
+      }
+    },
+    {
+      "id": "v7_kaset_fix",
+      "area": "arcade",
+      "x": 350,
+      "y": 410,
+      "r": 60,
+      "label": "Minta Bang Juna memperbaiki kaset",
+      "actions": [
+        {
+          "do": "scene",
+          "id": "V7-SQ-KASET-2"
+        },
+        {
+          "do": "item",
+          "id": "v7_kaset"
+        },
+        {
+          "do": "flag",
+          "id": "SQ_V7_KASET_FIXED"
+        },
+        {
+          "do": "sfx",
+          "id": "sparkle"
+        }
+      ],
+      "when": {
+        "flags": [
+          "SQ_V7_KASET_START"
+        ],
+        "notFlags": [
+          "SQ_V7_KASET_FIXED"
+        ]
+      }
+    },
+    {
+      "id": "v7_kaset_play",
+      "area": "rumah_sari",
+      "x": 520,
+      "y": 300,
+      "r": 56,
+      "label": "Putar kaset di radio",
+      "actions": [
+        {
+          "do": "music",
+          "id": "rain_lullaby"
+        },
+        {
+          "do": "scene",
+          "id": "V7-SQ-KASET-3"
+        },
+        {
+          "do": "removeItem",
+          "id": "v7_kaset"
+        },
+        {
+          "do": "sfx",
+          "id": "quest_complete"
+        }
+      ],
+      "when": {
+        "items": [
+          "v7_kaset"
+        ],
+        "notFlags": [
+          "SQ_V7_KASET_DONE"
+        ]
+      }
     }
   ],
   "townNpcs": [
@@ -34289,7 +35622,27 @@
         },
         {
           "at": "19:30",
-          "hidden": true
+          "area": "rumah_sari",
+          "x": 430,
+          "y": 236,
+          "dir": "down",
+          "wander": 20
+        },
+        {
+          "at": "00:00",
+          "area": "rumah_sari",
+          "x": 430,
+          "y": 236,
+          "dir": "down",
+          "wander": 0,
+          "when": {
+            "steps": [
+              "V7_C03_SARI_VISIT",
+              "V7_C03_SARI_SHELF",
+              "V7_C05_SARI_FADING",
+              "EPI_FREE"
+            ]
+          }
         }
       ],
       "wander": 0
@@ -37983,6 +39336,14 @@
       "startFlag": "SQ_HEWAN_START",
       "doneFlag": "SQ_HEWAN_DONE",
       "chapter": "C02"
+    },
+    {
+      "id": "SQ_V7_KASET",
+      "title": "Lagu Hujan",
+      "desc": "Kaset keroncong di radio Nenek Sari kusut. Minta Bang Juna di Arcade Bintang memperbaikinya, lalu putar lagi di rumah Nenek Sari.",
+      "startFlag": "SQ_V7_KASET_START",
+      "doneFlag": "SQ_V7_KASET_DONE",
+      "chapter": "C03"
     }
   ],
   "talks": [

@@ -4,7 +4,7 @@ reachable before anything is written.
 
 Run:  python3 tools/worldgen/rooms_hd.py <area|all> [--preview DIR] [--apply]
 """
-import sys, json, hashlib
+import sys, json, hashlib, math
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -432,6 +432,62 @@ def ruang_dua_surat(r):
     for x, y in ((160, 600), (800, 600)):
         r.block.append(r.plant_big(x, y, 'leafy', 0.9))
     r.glow(480, 300, 320, 200, '#c4b2f2', 0.06)
+
+
+@room
+def rumah_sari(r):
+    """Nenek Sari's house (story v7): jasmine, tea, an old radio, the empty frame and Wira's umbrella."""
+    W, H = 600, 448
+    r.shell(W, H, floor='planks', wall='#f2e4c8', wainscot='#a8784e', trim='#fbf1dc', pattern='stripe',
+            floor_pal=('#9a6a46', '#a3724c', '#ad7c54', '#94643f'), door=(274, 52))
+    r.window(96, 20, 64, 46, curtain='#e8d4a8')
+    r.window(250, 20, 64, 46, curtain='#e8d4a8')
+    r.clock(352, 46, 9, '#7a5234')
+    r.frame(372, 26, 18, 22, 2); r.frame(560, 30, 16, 20, 0)
+    r.hanging_plant(40, 10, 30)
+    # the shelf of family photos with the one empty frame (quest point 470,160)
+    r.block.append(r.bookshelf(410, 98, 120, 48, '#7a5234', rows=2, deco=False))
+    for i, x in enumerate((418, 438, 458, 500, 516)):
+        r.rect(x, 100, 14, 12, '#d9b48a'); r.rect(x + 2, 102, 10, 8, ('#9fc4e0', '#e8c0a8', '#b8d8a8', '#e0b8c8', '#c8c0e8')[i])
+    r.rect(474, 96, 20, 18, '#8c5a34'); r.rect(477, 99, 14, 12, '#f4ecdc')      # the empty frame
+    r.rect(478, 100, 3, 1, '#ffffff')
+    # Sari's armchair and tea table (Sari stands at 430,236)
+    r.rug(214, 254, 52, 26, '#c89a6a', '#f0dcc0', round_=False)
+    r.block.append(r.sofa(320, 170, 84, 40, '#b8746a', ('#f4e2c0', '#d8c8e8')))
+    r.block.append(r.table(186, 232, 58, 38, '#8c5a34', cloth='#f6efe0', round_=True, chairs=2, chair_c='#7a5234', items=('vase',)))
+    r.rect(204, 238, 8, 6, '#ffffff'); r.rect(224, 240, 8, 6, '#ffffff')    # tea cups
+    # jasmine by the window
+    r.pot(210, 140, 1.0, kind='flower'); r.block.append([196, 116, 28, 26])
+    r.pot(140, 140, 0.8, kind='leafy'); r.block.append([128, 120, 24, 22])
+    # old radio on a cabinet (examine 520,300)
+    r.block.append(r.cabinet(492, 236, 64, 46, '#7a5234', drawers=2))
+    r.rect(500, 226, 48, 14, '#5a3a24'); r.rect(504, 229, 26, 8, '#d9b48a'); r.rect(534, 229, 10, 8, '#2a1a12')
+    # Wira's umbrella leaning in the corner (quest point 140,320): hooked handle, folded canopy, tip
+    for a in range(0, 180, 12):
+        r.rect(int(66 + 5 * math.cos(math.radians(a))), int(262 - 5 * math.sin(math.radians(a))), 2, 2, '#3a2a1e')
+    r.rect(70, 262, 2, 10, '#3a2a1e')
+    for i in range(44):
+        w = max(1, int(8 * math.sin(math.pi * min(1.0, i / 40.0)) ** 0.7))
+        r.rect(70 - w // 2, 272 + i, w + 1, 1, '#24202a' if i % 9 else '#3a3444')
+    r.rect(70, 316, 1, 4, '#9a9aa8')
+    r.rect(68, 274, 5, 3, '#e8e0c8')                                         # jasmine ribbon on the handle
+    r.block.append([52, 258, 34, 62])
+    # Mochi the orange cat asleep on a cushion by the armchair
+    r.cushion(292, 214, 1.1, '#d8c8e8')
+    r.fill(r.E(292, 210, 9, 6), '#e8954a'); r.fill(r.E(299, 206, 4, 4), '#e8954a')
+    r.rect(296, 202, 2, 2, '#e8954a'); r.rect(301, 202, 2, 2, '#e8954a'); r.rect(284, 212, 6, 2, '#c87a36')
+    # tea sideboard on the right wall, more photos
+    r.block.append(r.cabinet(540, 120, 40, 60, '#8c5a34', drawers=3))
+    r.rect(544, 112, 10, 8, '#ffffff'); r.rect(558, 114, 8, 6, '#f4ecdc'); r.rect(568, 112, 6, 8, '#e8c0a8')
+    r.frame(400, 30, 16, 20, 1)
+    # cosy clutter
+    r.rug(300, 320, 90, 44, '#b8746a', '#e8c8a0')
+    r.doormat(279, 404, 42, 14, '#8c5a34')
+    r.block.append(r.floor_lamp(560, 380, '#f4dcb0'))
+    r.block.append(r.basket(36, 380, 24, 20, '#c9a46a', laundry=False))
+    r.pot(116, 410, 0.7, kind='leafy'); r.block.append([104, 392, 24, 20])
+    r.glow(300, 300, 170, 100, '#ffe2b0', 0.1)
+    r.glow(210, 150, 40, 30, '#fff4d8', 0.12)
 
 
 def build(area, apply=False, preview=None):

@@ -4,7 +4,8 @@ extends Node
 ##   -- --shot  <route> <area> <x> <y> <frames> <out.png> [x:y;x:y waypoints]   free exploration
 ##   -- --story <route> <out_prefix> <frame,frame,...>                           new game, the story runs
 ##        by itself (dialogue advances every 50 frames, first choice taken) and a screenshot is saved
-##        at each listed frame.
+##        at each listed frame. Env STORY_STEP/STORY_AREA[/STORY_FLAGS/STORY_COMPANION] start it at a
+##        later step; STORY_ROTATE=1 rotates through choices instead of always taking the first.
 ##   -- --cine  <route> <step> [x:y]   jumps to a step, walks up to its first marker and plays its
 ##        cutscene with dialogue auto-advancing, then quits. Pair with --write-movie out.avi.
 
@@ -17,6 +18,7 @@ var _wps: Array = []
 var _shots: Array = []
 var _dlg := 0
 var _idle := 0
+var _rot := 0
 
 
 func _ready() -> void:
@@ -71,7 +73,18 @@ func _ready() -> void:
 		_args = args.slice(j + 1)
 		for f in _args[2].split(",", false):
 			_shots.append(int(f))
-		_start(Progress.new_game(_args[0], 1, Data.first_step, Data.area(Routes.room(_args[0]))), true)
+		var sp := OS.get_environment("STORY_STEP")       # QA: start the autopilot at a later step
+		if sp == "":
+			_start(Progress.new_game(_args[0], 1, Data.first_step, Data.area(Routes.room(_args[0]))), true)
+		else:
+			var area: String = Routes.resolve(OS.get_environment("STORY_AREA"), _args[0])
+			var p := Progress.new_game(_args[0], 1, sp, Data.area(area))
+			p.step = sp; p.area = area; p.companion = OS.get_environment("STORY_COMPANION") == "1"
+			if OS.get_environment("SHOT_MINUTE") != "":
+				p.minute = int(OS.get_environment("SHOT_MINUTE"))
+			for f in OS.get_environment("STORY_FLAGS").split(",", false):
+				p.add_flag(f)
+			_start(p, false)
 	else:
 		_title()
 
@@ -233,7 +246,9 @@ func _process(_delta: float) -> void:
 		_autoplay()
 		if _frame % 50 == 0:
 			if game.dialog.choosing():
-				game.dialog.choose(0)
+				# first choice, or rotate through them so a wrong answer is retried with the next one
+				game.dialog.choose(0 if OS.get_environment("STORY_ROTATE") != "1" else _rot % game.dialog._choices.size())
+				_rot += 1
 			elif game.dialog.active:
 				game.dialog.advance()
 				game.dialog.advance()

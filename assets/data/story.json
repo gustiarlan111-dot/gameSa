@@ -29,7 +29,8 @@
     "visualAudioPolishVersion": "4.8.0",
     "cinematicVerticalWorldVersion": "5.0.0",
     "v50EmotionalNarrative": "19 established scenes with extra emotional beats; no choices/flags or canon modified",
-    "storyV6": "v6.0 story pass: per-location panorama + world-trace text, expression pass"
+    "storyV6": "v6.0 story pass: per-location panorama + world-trace text, expression pass",
+    "storyV7": "v7.0: jadian di Bab 2, rahasia proyektor, Rumah Nenek Sari, andil Sofia, Arsip yang Memudar, Gazebo 40 tahun lalu"
   },
   "speakers": {
     "narrator": {
@@ -191,6 +192,16 @@
       "portrait": null,
       "style": "npc",
       "sprite": "tigor"
+    },
+    "wira": {
+      "name": "Wira (kenangan)",
+      "portrait": null,
+      "style": "npc"
+    },
+    "sari_muda": {
+      "name": "Sari (kenangan)",
+      "portrait": null,
+      "style": "npc"
     }
   },
   "emotions": {
@@ -2097,8 +2108,8 @@
         },
         {
           "s": "arland",
-          "e": "senyum",
-          "t": "Butuh stroberi, madu, dan daun mint. Ayo cari."
+          "t": "Stroberi sama mint bisa dibeli di Pasar Minggu. Madunya... Nenek Sari punya madu paling enak.",
+          "e": "senang"
         }
       ],
       "flags": [],
@@ -2681,7 +2692,7 @@
         {
           "s": "raka",
           "e": "sedih",
-          "t": "Kalau kamu minta maaf, coba dengerin dulu apa yang dia rasakan, ya."
+          "t": "Dia keluar tanpa payung. Kalau mau nyusul, bawa ini."
         }
       ],
       "flags": [],
@@ -3051,7 +3062,7 @@
         {
           "s": "lumi",
           "e": "senyum",
-          "t": "Jangan sedih. Kabut itu bukan hukuman. Ia cuma tanda bahwa ada yang perlu dibicarakan."
+          "t": "Jangan sedih dulu. Lenteranya masih hangat. Artinya masih bisa dinyalakan."
         },
         {
           "s": "lumi",
@@ -3267,11 +3278,6 @@
           "s": "arland",
           "e": "serius",
           "t": "Aku ngerti. Kita nggak harus pura-pura udah baik-baik aja."
-        },
-        {
-          "s": "lumi",
-          "e": "serius",
-          "t": "Memulihkan cahaya bukan berarti menghapus hari yang menyakitkan."
         },
         {
           "s": "narrator",
@@ -10083,7 +10089,7 @@
         {
           "s": "laras",
           "e": "serius",
-          "t": "Berkata jujur dengan lembut juga bentuk keberanian, Sofia."
+          "t": "Kursi baca di pojok itu kosong. Duduklah dulu. Nanti Ibu bawakan teh."
         }
       ],
       "flags": [],
@@ -14672,16 +14678,6 @@
           "t": "Kita bisa hadir, mendengarkan, dan menjaga cerita yang mereka percayakan."
         },
         {
-          "s": "arland",
-          "e": "senyum",
-          "t": "Pak Wira meninggalkan petunjuk bukan untuk mencari siapa yang salah."
-        },
-        {
-          "s": "sofia",
-          "e": "neutral",
-          "t": "Tapi untuk mengingatkan bahwa hubungan perlu diberi ruang, bahkan ketika salah satu sedang diam."
-        },
-        {
           "s": "narrator",
           "e": "neutral",
           "t": "Halaman itu berhenti memudar. Dua nama muncul di bawah tinta lama: Wira dan Sari."
@@ -14777,16 +14773,6 @@
           "s": "arland",
           "e": "senyum",
           "t": "Kita bisa hadir, mendengarkan, dan menjaga cerita yang mereka percayakan."
-        },
-        {
-          "s": "sofia",
-          "e": "senyum",
-          "t": "Pak Wira meninggalkan petunjuk bukan untuk mencari siapa yang salah."
-        },
-        {
-          "s": "arland",
-          "e": "neutral",
-          "t": "Tapi untuk mengingatkan bahwa hubungan perlu diberi ruang, bahkan ketika salah satu sedang diam."
         },
         {
           "s": "narrator",
@@ -20113,7 +20099,7 @@
         },
         {
           "s": "narrator",
-          "t": "Arland menyimpan ponsel. Ajakan yang baik tidak mengikat siapa pun.",
+          "t": "Arland menyimpan ponsel, lalu mengambilnya lagi untuk mengecek jam.",
           "e": "neutral"
         }
       ],
@@ -21417,11 +21403,6 @@
           "s": "arland",
           "t": "Apa aku terlalu sering berpikir bahwa melakukan banyak hal selalu berarti hadir?",
           "e": "penasaran"
-        },
-        {
-          "s": "narrator",
-          "t": "Pemain memilih cara Arland menyimpan kalimat yang belum selesai, bukan menebak isi surat.",
-          "e": "neutral"
         }
       ],
       "choices": [
@@ -23979,7 +23960,7 @@
         },
         {
           "s": "lumi",
-          "t": "Tidak. Dan niat Arland tidak menghapus dampak tindakannya.",
+          "t": "Tidak. Dua-duanya benar-benar terjadi.",
           "e": "neutral"
         },
         {
@@ -33221,6 +33202,2195 @@
         }
       ],
       "flags": []
+    },
+    "V7-P-LUMI": {
+      "title": "Cahaya yang Bersembunyi",
+      "route": "shared",
+      "chapter": "PRO",
+      "location": "memory_garden",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Saat gerbang mulai menutup, sebutir cahaya seukuran kunang-kunang melayang di belakang mereka.",
+          "e": "neutral"
+        },
+        {
+          "s": "sofia",
+          "t": "Kamu lihat itu?",
+          "e": "penasaran"
+        },
+        {
+          "s": "arland",
+          "t": "Lihat apa?",
+          "e": "bingung"
+        },
+        {
+          "s": "narrator",
+          "t": "Cahaya itu sudah menyelinap ke sela halaman Memory Book.",
+          "e": "neutral"
+        },
+        {
+          "s": "narrator",
+          "t": "Di halaman paling belakang, sebaris tulisan tangan tua muncul sebentar, lalu hilang: \"Untuk S..., maaf aku...\"",
+          "e": "neutral"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-C02-PLAN@arland": {
+      "title": "Rencana Lima Belas Menit",
+      "route": "arland",
+      "chapter": "C02",
+      "location": "arland_room",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Arland membuka buku catatan dan menulis cepat.",
+          "e": "neutral"
+        },
+        {
+          "s": "arland",
+          "t": "15.00 kafe. 15.40 taman. 16.15 photobooth. 17.02 senja, tepat waktu matahari turun.",
+          "e": "serius"
+        },
+        {
+          "s": "arland",
+          "t": "Kalau semuanya pas, Sofia pasti senang.",
+          "e": "senang"
+        },
+        {
+          "s": "sofia_msg",
+          "t": "Land, kita cuma jalan sore, kan? Kok kamu kirim jadwal kayak rapat?",
+          "e": "tertawa"
+        },
+        {
+          "s": "arland",
+          "t": "Biar nggak ada yang meleset!",
+          "e": "malu"
+        },
+        {
+          "s": "sofia_msg",
+          "t": "Yang meleset juga boleh, kok. Aku cuma pengen jalan sama kamu.",
+          "e": "senyum"
+        },
+        {
+          "s": "narrator",
+          "t": "Arland membaca pesan itu dua kali. Lalu tetap menambahkan satu baris lagi di catatannya.",
+          "e": "neutral"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-C02-PLAN@sofia": {
+      "title": "Jadwal dari Arland",
+      "route": "sofia",
+      "chapter": "C02",
+      "location": "sofia_room",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "arland_msg",
+          "t": "15.00 kafe. 15.40 taman. 16.15 photobooth. 17.02 senja. Sudah kuhitung jam matahari terbenam!",
+          "e": "senang"
+        },
+        {
+          "s": "sofia",
+          "t": "Ya ampun. Dia ngitung jam matahari terbenam.",
+          "e": "tertawa"
+        },
+        {
+          "s": "sofia",
+          "t": "Lucu. Tapi aku jadi takut telat lima menit.",
+          "e": "khawatir"
+        },
+        {
+          "s": "sofia_msg",
+          "t": "Yang meleset juga boleh, kok. Aku cuma pengen jalan sama kamu.",
+          "e": "senyum"
+        },
+        {
+          "s": "arland_msg",
+          "t": "Siap! Tapi aku tetap bawa jadwalnya, ya.",
+          "e": "senang"
+        },
+        {
+          "s": "narrator",
+          "t": "Sofia menaruh ponsel dan tersenyum. Ada sesuatu yang ingin ia katakan nanti, tapi tidak lewat pesan.",
+          "e": "neutral"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-C02-CONFESS@arland": {
+      "title": "Pukul Lima Lewat Dua",
+      "route": "arland",
+      "chapter": "C02",
+      "location": "riverside",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Matahari turun tepat seperti yang Arland hitung. Tapi kalimat yang ia siapkan hilang semua.",
+          "e": "neutral"
+        },
+        {
+          "s": "arland",
+          "t": "Sof... jadwalku habis di sini. Nggak ada baris berikutnya.",
+          "e": "malu"
+        },
+        {
+          "s": "sofia",
+          "t": "Terus?",
+          "e": "penasaran"
+        },
+        {
+          "s": "arland",
+          "t": "Terus aku harus ngomong pakai kata-kataku sendiri.",
+          "e": "serius"
+        }
+      ],
+      "flags": [
+        "V7_JADIAN"
+      ],
+      "v7": true,
+      "choices": [
+        {
+          "text": "\"Aku suka kamu, Sof. Dari sebelum kita ketemu di plaza.\"",
+          "flags": [
+            "V7_CONFESS_A_LONG"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "sofia",
+                "t": "Dari sebelum plaza? Kok baru bilang sekarang?",
+                "e": "kaget"
+              },
+              {
+                "s": "arland",
+                "t": "Aku nunggu momen yang sempurna. Ternyata nggak ada. Jadi sekarang aja.",
+                "e": "malu"
+              },
+              {
+                "s": "sofia",
+                "t": "Aku juga suka kamu, Land. Jam 17.02 tepat, sesuai jadwalmu.",
+                "e": "jatuh_cinta"
+              }
+            ],
+            "sofia": []
+          }
+        },
+        {
+          "text": "\"Aku pengen kita lebih dari teman jalan sore.\"",
+          "flags": [
+            "V7_CONFESS_A_MORE"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "sofia",
+                "t": "Lebih dari teman jalan sore... maksudnya?",
+                "e": "malu"
+              },
+              {
+                "s": "arland",
+                "t": "Maksudnya, aku pengen jadi orang yang kamu kabari duluan.",
+                "e": "serius"
+              },
+              {
+                "s": "sofia",
+                "t": "Kamu udah jadi orang itu dari lama. Iya, Land. Aku mau.",
+                "e": "jatuh_cinta"
+              }
+            ],
+            "sofia": []
+          }
+        },
+        {
+          "text": "\"Boleh aku nemenin kamu lihat senja, nggak cuma hari ini?\"",
+          "flags": [
+            "V7_CONFESS_A_SUNSET"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "sofia",
+                "t": "Nggak cuma hari ini?",
+                "e": "penasaran"
+              },
+              {
+                "s": "arland",
+                "t": "Besok, minggu depan, waktu hujan juga. Kalau kamu mau.",
+                "e": "malu"
+              },
+              {
+                "s": "sofia",
+                "t": "Aku mau. Tapi waktu hujan kamu yang bawa payung.",
+                "e": "jatuh_cinta"
+              }
+            ],
+            "sofia": []
+          }
+        }
+      ]
+    },
+    "V7-C02-CONFESS@sofia": {
+      "title": "Pukul Lima Lewat Dua",
+      "route": "sofia",
+      "chapter": "C02",
+      "location": "riverside",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Arland melirik jam di ponselnya. 17.02. Senja datang tepat waktu, sesuai jadwalnya.",
+          "e": "neutral"
+        },
+        {
+          "s": "arland",
+          "t": "Nah. Tepat! Sekarang aku mau ngomong sesuatu yang penting, Sof...",
+          "e": "serius"
+        },
+        {
+          "s": "sofia",
+          "t": "Tunggu. Kali ini biar aku duluan.",
+          "e": "malu"
+        }
+      ],
+      "flags": [
+        "V7_JADIAN"
+      ],
+      "v7": true,
+      "choices": [
+        {
+          "text": "\"Land, aku suka kamu. Nggak usah dijadwal dulu jawabannya.\"",
+          "flags": [
+            "V7_CONFESS_S_DIRECT"
+          ],
+          "byRoute": {
+            "arland": [],
+            "sofia": [
+              {
+                "s": "arland",
+                "t": "Eh... itu harusnya kalimatku. Aku udah latihan dari kemarin!",
+                "e": "kaget"
+              },
+              {
+                "s": "sofia",
+                "t": "Kelamaan. Senjanya keburu habis.",
+                "e": "tertawa"
+              },
+              {
+                "s": "arland",
+                "t": "Aku juga suka kamu, Sof. Banget.",
+                "e": "jatuh_cinta"
+              }
+            ]
+          }
+        },
+        {
+          "text": "\"Hari ini nggak sesuai jadwal. Tapi ini hari favoritku.\"",
+          "flags": [
+            "V7_CONFESS_S_FAVORITE"
+          ],
+          "byRoute": {
+            "arland": [],
+            "sofia": [
+              {
+                "s": "arland",
+                "t": "Karena fotonya lucu?",
+                "e": "bingung"
+              },
+              {
+                "s": "sofia",
+                "t": "Karena kamu. Aku pengen hari kayak gini lagi, sebagai pacarmu.",
+                "e": "malu"
+              },
+              {
+                "s": "arland",
+                "t": "Sebagai... iya. Iya! Aku mau.",
+                "e": "jatuh_cinta"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Tunjukkan gambar dua orang di dermaga yang Sofia buat semalam",
+          "flags": [
+            "V7_CONFESS_S_DRAWING"
+          ],
+          "byRoute": {
+            "arland": [],
+            "sofia": [
+              {
+                "s": "arland",
+                "t": "Ini... kita? Di dermaga ini?",
+                "e": "kaget"
+              },
+              {
+                "s": "sofia",
+                "t": "Aku gambar semalam. Aku nggak jago ngomong, jadi aku gambar.",
+                "e": "malu"
+              },
+              {
+                "s": "arland",
+                "t": "Gambarnya jelas banget, Sof. Aku juga suka kamu.",
+                "e": "jatuh_cinta"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "V7-C02-AFTER": {
+      "title": "Dua Orang di Dermaga",
+      "route": "shared",
+      "chapter": "C02",
+      "location": "riverside",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Untuk beberapa saat tidak ada yang bicara. Air danau memantulkan dua bayangan yang duduk lebih dekat dari tadi.",
+          "e": "neutral"
+        },
+        {
+          "s": "sofia",
+          "t": "Jadi sekarang kita...",
+          "e": "malu"
+        },
+        {
+          "s": "arland",
+          "t": "Iya. Kita.",
+          "e": "jatuh_cinta"
+        },
+        {
+          "s": "narrator",
+          "t": "Di Memory Book, halaman senja berubah jingga penuh. Hanya satu sudut kecil yang masih pudar.",
+          "e": "neutral"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-C03-A-PROJECTOR": {
+      "title": "Kotak di Bawah Meja",
+      "route": "arland",
+      "chapter": "C03",
+      "location": "arland_room",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Di bawah meja ada kardus berdebu. Di dalamnya, proyektor tua milik Ayah.",
+          "e": "neutral"
+        },
+        {
+          "s": "arland",
+          "t": "Galeri Sofia hari Sabtu. Kalau gambarnya diproyeksikan besar di dinding...",
+          "e": "penasaran"
+        },
+        {
+          "s": "arland",
+          "t": "Dia pasti kaget. Aku nggak bilang dulu. Biar jadi kejutan.",
+          "e": "senang"
+        },
+        {
+          "s": "narrator",
+          "t": "Arland mencolokkan kabelnya. Lampunya berkedip sekali, lalu mati. Ia tersenyum seperti baru menemukan tantangan.",
+          "e": "neutral"
+        }
+      ],
+      "flags": [
+        "V7_A_PROJECTOR_SECRET"
+      ],
+      "v7": true
+    },
+    "V7-C03-S-MIRROR": {
+      "title": "Latihan di Depan Cermin",
+      "route": "sofia",
+      "chapter": "C03",
+      "location": "sofia_room",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Sofia berdiri di depan cermin dengan undangan galeri di tangan.",
+          "e": "neutral"
+        },
+        {
+          "s": "sofia",
+          "t": "Land, di galeri nanti aku nggak butuh apa-apa. Aku cuma butuh kamu datang.",
+          "e": "serius"
+        },
+        {
+          "s": "sofia",
+          "t": "...Kedengarannya kayak nuntut, ya?",
+          "e": "khawatir"
+        },
+        {
+          "s": "sofia",
+          "t": "Land, kalau sempat, datang ya. Kalau nggak sempat juga nggak apa-apa.",
+          "e": "senyum"
+        },
+        {
+          "s": "sofia",
+          "t": "Bohong. Itu apa-apa.",
+          "e": "sedih"
+        },
+        {
+          "s": "narrator",
+          "t": "Ia melipat undangannya lagi. Kalimat pertama lebih jujur, tapi kalimat kedua yang terasa lebih aman.",
+          "e": "neutral"
+        }
+      ],
+      "flags": [
+        "V7_S_UNSAID"
+      ],
+      "v7": true
+    },
+    "V7-C03-SARI-HOME@arland": {
+      "title": "Rumah Bata Merah",
+      "route": "arland",
+      "chapter": "C03",
+      "location": "rumah_sari",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Rumah Nenek Sari wangi melati dan teh. Jam dindingnya berdetak pelan.",
+          "e": "neutral"
+        },
+        {
+          "s": "sari",
+          "t": "Arland! Pasti mau minta madu, ya. Kak Raka sudah cerita kamu mau masak.",
+          "e": "senang"
+        },
+        {
+          "s": "arland",
+          "t": "Ketahuan. Buat roti lapis, Nek. Buat Sofia.",
+          "e": "malu"
+        },
+        {
+          "s": "sari",
+          "t": "Buat Sofia. Pantas mukamu merah begitu.",
+          "e": "tertawa"
+        },
+        {
+          "s": "sari",
+          "t": "Duduk sebentar. Nenek ambilkan toplesnya. Jangan sentuh payung di pojok, ya. Itu sudah tua sekali.",
+          "e": "senyum"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-C03-SARI-HOME@sofia": {
+      "title": "Rumah Bata Merah",
+      "route": "sofia",
+      "chapter": "C03",
+      "location": "rumah_sari",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Rumah Nenek Sari wangi melati dan teh. Jam dindingnya berdetak pelan.",
+          "e": "neutral"
+        },
+        {
+          "s": "sari",
+          "t": "Sofia! Bu Laras bilang kamu sedang menata sudut kenangan.",
+          "e": "senang"
+        },
+        {
+          "s": "sofia",
+          "t": "Iya, Nek. Aku cari bunga kering. Kata Bu Melati, bunga melati Nenek yang paling awet.",
+          "e": "senyum"
+        },
+        {
+          "s": "sari",
+          "t": "Ada. Nenek keringkan sendiri. Duduk dulu, Nenek ambilkan di belakang.",
+          "e": "senyum"
+        },
+        {
+          "s": "sari",
+          "t": "Jangan sentuh payung di pojok, ya. Itu sudah tua sekali.",
+          "e": "neutral"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-C03-FRAME@arland": {
+      "title": "Bingkai Kosong",
+      "route": "arland",
+      "chapter": "C03",
+      "location": "rumah_sari",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Di rak, di antara foto cucu-cucu, ada satu bingkai kayu tanpa foto. Kacanya bersih, seperti rajin dilap.",
+          "e": "neutral"
+        },
+        {
+          "s": "arland",
+          "t": "Ada huruf W kecil di sudut bingkainya.",
+          "e": "penasaran"
+        },
+        {
+          "s": "arland",
+          "t": "W... Pak Wira? Yang namanya ada di catatan Arsip No. 7?",
+          "e": "kaget"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-C03-FRAME@sofia": {
+      "title": "Bingkai Kosong",
+      "route": "sofia",
+      "chapter": "C03",
+      "location": "rumah_sari",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Di rak, di antara foto cucu-cucu, ada satu bingkai kayu tanpa foto. Kacanya bersih, seperti rajin dilap.",
+          "e": "neutral"
+        },
+        {
+          "s": "sofia",
+          "t": "Bingkai kosong yang dirawat. Berarti fotonya pernah ada.",
+          "e": "penasaran"
+        },
+        {
+          "s": "sofia",
+          "t": "Huruf W di sudutnya... Pak Wira, dari Arsip No. 7.",
+          "e": "kaget"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-C03-UMBRELLA@arland": {
+      "title": "Payung di Pojok",
+      "route": "arland",
+      "chapter": "C03",
+      "location": "rumah_sari",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Payung hitam bersandar di pojok. Satu rujinya bengkok. Gagangnya dililit pita melati pudar.",
+          "e": "neutral"
+        },
+        {
+          "s": "arland",
+          "t": "Rusak, tapi disimpan rapi. Kayak tiket yang nggak tega dibuang.",
+          "e": "serius"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-C03-UMBRELLA@sofia": {
+      "title": "Payung di Pojok",
+      "route": "sofia",
+      "chapter": "C03",
+      "location": "rumah_sari",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Payung hitam bersandar di pojok. Satu rujinya bengkok. Gagangnya dililit pita melati pudar.",
+          "e": "neutral"
+        },
+        {
+          "s": "sofia",
+          "t": "Payung yang rusak tapi nggak dibuang. Pasti ada ceritanya.",
+          "e": "penasaran"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-C03-SARI-BYE@arland": {
+      "title": "Yang Tidak Diceritakan",
+      "route": "arland",
+      "chapter": "C03",
+      "location": "rumah_sari",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "sari",
+          "t": "Ini madunya. Stroberi dan mint sudah kamu beli di pasar, kan?",
+          "e": "senyum"
+        },
+        {
+          "s": "arland",
+          "t": "Sudah, Nek. Nek... bingkai yang kosong itu punya siapa?",
+          "e": "penasaran"
+        },
+        {
+          "s": "narrator",
+          "t": "Nenek Sari diam sebentar. Tangannya merapikan taplak yang sebenarnya sudah rapi.",
+          "e": "neutral"
+        },
+        {
+          "s": "sari",
+          "t": "Punya orang yang suka terlambat. Sudah, sana. Rotinya keburu nggak enak.",
+          "e": "tersenyum"
+        },
+        {
+          "s": "narrator",
+          "t": "Ia tidak menjawab. Tapi ia juga tidak marah. Seperti cerita yang terlalu lama disimpan sampai lupa cara membukanya.",
+          "e": "neutral"
+        }
+      ],
+      "flags": [
+        "V7_C03_SARI_VISITED"
+      ],
+      "v7": true
+    },
+    "V7-C03-SARI-BYE@sofia": {
+      "title": "Yang Tidak Diceritakan",
+      "route": "sofia",
+      "chapter": "C03",
+      "location": "rumah_sari",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "sari",
+          "t": "Ini bunga keringnya. Bawa juga lampu kecil dan bingkai bintang ini. Sudah lama cuma di laci.",
+          "e": "senyum"
+        },
+        {
+          "s": "sofia",
+          "t": "Nek, bingkai yang kosong di rak itu punya siapa?",
+          "e": "penasaran"
+        },
+        {
+          "s": "narrator",
+          "t": "Nenek Sari diam sebentar. Tangannya merapikan taplak yang sebenarnya sudah rapi.",
+          "e": "neutral"
+        },
+        {
+          "s": "sari",
+          "t": "Punya orang yang suka terlambat. Sudah, sudut kenanganmu menunggu.",
+          "e": "tersenyum"
+        },
+        {
+          "s": "narrator",
+          "t": "Ia tidak menjawab. Tapi ia juga tidak marah. Seperti cerita yang terlalu lama disimpan sampai lupa cara membukanya.",
+          "e": "neutral"
+        }
+      ],
+      "flags": [
+        "V7_C03_SARI_VISITED"
+      ],
+      "v7": true
+    },
+    "V7-C03-UNSAID@arland": {
+      "title": "Kalimat yang Terpotong",
+      "route": "arland",
+      "chapter": "C03",
+      "location": "taman_kota",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "sofia",
+          "t": "Land, soal Sabtu... aku cuma—",
+          "e": "serius"
+        },
+        {
+          "s": "arland",
+          "t": "Tenang! Pokoknya hari Sabtu aku punya kejutan. Kamu pasti suka.",
+          "e": "senang"
+        },
+        {
+          "s": "sofia",
+          "t": "...Oke.",
+          "e": "senyum"
+        },
+        {
+          "s": "narrator",
+          "t": "Arland tidak menyadari Sofia berhenti di tengah kalimat. Kepalanya sudah penuh kabel proyektor.",
+          "e": "neutral"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-C03-UNSAID@sofia": {
+      "title": "Kalimat yang Terpotong",
+      "route": "sofia",
+      "chapter": "C03",
+      "location": "taman_kota",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "sofia",
+          "t": "Land, soal Sabtu... aku cuma—",
+          "e": "serius"
+        },
+        {
+          "s": "arland",
+          "t": "Tenang! Pokoknya hari Sabtu aku punya kejutan. Kamu pasti suka.",
+          "e": "senang"
+        },
+        {
+          "s": "sofia",
+          "t": "...Oke.",
+          "e": "senyum"
+        },
+        {
+          "s": "narrator",
+          "t": "Kalimat yang ia latih di depan cermin kembali masuk ke saku. Nanti saja, pikirnya. Dia pasti datang.",
+          "e": "neutral"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-C04-S-DRAFT": {
+      "title": "Draf yang Menunggu",
+      "route": "sofia",
+      "chapter": "C04",
+      "location": "sofia_room",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Sofia menaruh ponselnya terbalik. Terlalu gugup untuk membaca pesan apa pun.",
+          "e": "neutral"
+        },
+        {
+          "s": "narrator",
+          "t": "Di layar yang tidak ia lihat, satu draf dari minggu lalu masih menunggu: \"Land, acaranya jam empat, ya. Kursimu di dekat jendela.\"",
+          "e": "neutral"
+        },
+        {
+          "s": "narrator",
+          "t": "Status: belum terkirim.",
+          "e": "neutral"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-C04-S-STAGE": {
+      "title": "Di Tengah Presentasi",
+      "route": "sofia",
+      "chapter": "C04",
+      "location": "galeri_komunitas",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Di tengah presentasi, mata Sofia kembali ke kursi dekat jendela. Masih kosong.",
+          "e": "neutral"
+        },
+        {
+          "s": "sofia",
+          "t": "Napas. Satu kalimat lagi.",
+          "e": "khawatir"
+        }
+      ],
+      "flags": [],
+      "v7": true,
+      "choices": [
+        {
+          "text": "Lanjutkan sesuai rencana, walau suaranya bergetar",
+          "flags": [
+            "V7_S_STAGE_CONTINUE"
+          ],
+          "byRoute": {
+            "arland": [],
+            "sofia": [
+              {
+                "s": "sofia",
+                "t": "Gambar berikutnya... aku buat waktu hujan pertama bulan ini.",
+                "e": "serius"
+              },
+              {
+                "s": "narrator",
+                "t": "Suaranya bergetar di kalimat pertama, lalu tenang di kalimat ketiga. Ia menyelesaikan semuanya.",
+                "e": "neutral"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Persingkat, lalu tutup lebih cepat",
+          "flags": [
+            "V7_S_STAGE_SHORT"
+          ],
+          "byRoute": {
+            "arland": [],
+            "sofia": [
+              {
+                "s": "sofia",
+                "t": "Sisanya bisa kalian lihat sendiri. Terima kasih sudah datang.",
+                "e": "senyum"
+              },
+              {
+                "s": "narrator",
+                "t": "Tepuk tangan tetap datang. Sofia turun dari panggung lebih cepat dari rencana, dan itu juga tidak apa-apa.",
+                "e": "neutral"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Ceritakan kursi kosong itu kepada pengunjung",
+          "flags": [
+            "V7_S_STAGE_CHAIR"
+          ],
+          "byRoute": {
+            "arland": [],
+            "sofia": [
+              {
+                "s": "sofia",
+                "t": "Kursi itu buat orang yang ngajarin aku kalau usaha kecil juga berarti. Dia belum datang.",
+                "e": "sedih"
+              },
+              {
+                "s": "sofia",
+                "t": "Tapi aku tetap mau cerita. Karena gambarnya juga tentang menunggu.",
+                "e": "serius"
+              },
+              {
+                "s": "narrator",
+                "t": "Ruangan jadi sunyi, lalu seseorang di belakang mulai bertepuk tangan paling keras.",
+                "e": "neutral"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "V7-C04-SHARED-FAULT": {
+      "title": "Pesan yang Tidak Terkirim",
+      "route": "shared",
+      "chapter": "C04",
+      "location": "taman_kota",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Sofia membuka ponsel untuk mencatat rencana mereka. Jempolnya berhenti di sebuah draf lama.",
+          "e": "neutral"
+        },
+        {
+          "s": "sofia",
+          "t": "Land... pesan jam acaranya nggak pernah terkirim. Aku janji ngingetin kamu pagi itu.",
+          "e": "kaget"
+        },
+        {
+          "s": "arland",
+          "t": "Sof, itu nggak bikin aku boleh telat. Aku tahu acaranya Sabtu. Aku yang milih benerin proyektor dulu.",
+          "e": "serius"
+        },
+        {
+          "s": "sofia",
+          "t": "Aku tahu. Aku cuma nggak mau pura-pura semuanya salah kamu. Aku juga sering nunggu kamu nebak.",
+          "e": "sedih"
+        },
+        {
+          "s": "arland",
+          "t": "Kalau gitu dua-duanya kita perbaiki. Kamu bilang, aku datang.",
+          "e": "senyum"
+        },
+        {
+          "s": "sofia",
+          "t": "Setuju. Tanpa kejutan proyektor.",
+          "e": "tertawa"
+        },
+        {
+          "s": "arland",
+          "t": "Proyektornya udah nyala, lho.",
+          "e": "malu"
+        },
+        {
+          "s": "sofia",
+          "t": "Simpan buat nonton film. Berdua.",
+          "e": "jatuh_cinta"
+        }
+      ],
+      "flags": [
+        "V7_SHARED_FAULT"
+      ],
+      "v7": true
+    },
+    "V7-C05-SARI-FADING@arland": {
+      "title": "Wajah yang Hilang",
+      "route": "arland",
+      "chapter": "C05",
+      "location": "rumah_sari",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Nenek Sari duduk di depan bingkai kosong. Tehnya sudah dingin.",
+          "e": "neutral"
+        },
+        {
+          "s": "arland",
+          "t": "Nek? Semua orang nyariin Nenek di persiapan festival.",
+          "e": "khawatir"
+        },
+        {
+          "s": "sari",
+          "t": "Arland... Nenek lagi mencoba mengingat wajahnya.",
+          "e": "sedih"
+        },
+        {
+          "s": "sari",
+          "t": "Empat puluh tahun Nenek ingat payungnya. Tapi pagi ini Nenek nggak bisa ingat suaranya.",
+          "e": "sedih"
+        },
+        {
+          "s": "arland",
+          "t": "Suara Pak Wira?",
+          "e": "kaget"
+        },
+        {
+          "s": "sari",
+          "t": "Nenek nggak pernah cerita tentang dia ke siapa pun. Mungkin cerita yang nggak pernah diucapkan memang pelan-pelan pergi.",
+          "e": "sedih"
+        },
+        {
+          "s": "narrator",
+          "t": "Di tas Arland, Memory Book bergetar. Sebuah halaman bertuliskan \"W & S\" berubah abu-abu di depan matanya.",
+          "e": "neutral"
+        },
+        {
+          "s": "arland",
+          "t": "The Quiet... nggak cuma ada di dunia mimpi.",
+          "e": "serius"
+        }
+      ],
+      "flags": [
+        "V7_C05_SARI_FADING"
+      ],
+      "v7": true
+    },
+    "V7-C05-SARI-FADING@sofia": {
+      "title": "Wajah yang Hilang",
+      "route": "sofia",
+      "chapter": "C05",
+      "location": "rumah_sari",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Nenek Sari duduk di depan bingkai kosong. Tehnya sudah dingin.",
+          "e": "neutral"
+        },
+        {
+          "s": "sofia",
+          "t": "Nek? Semua orang nyariin Nenek di persiapan festival.",
+          "e": "khawatir"
+        },
+        {
+          "s": "sari",
+          "t": "Sofia... Nenek lagi mencoba mengingat wajahnya.",
+          "e": "sedih"
+        },
+        {
+          "s": "sari",
+          "t": "Empat puluh tahun Nenek ingat payungnya. Tapi pagi ini Nenek nggak bisa ingat suaranya.",
+          "e": "sedih"
+        },
+        {
+          "s": "sofia",
+          "t": "Suara Pak Wira?",
+          "e": "kaget"
+        },
+        {
+          "s": "sari",
+          "t": "Nenek nggak pernah cerita tentang dia ke siapa pun. Mungkin cerita yang nggak pernah diucapkan memang pelan-pelan pergi.",
+          "e": "sedih"
+        },
+        {
+          "s": "narrator",
+          "t": "Di tas Sofia, Memory Book bergetar. Sebuah halaman bertuliskan \"W & S\" berubah abu-abu di depan matanya.",
+          "e": "neutral"
+        },
+        {
+          "s": "sofia",
+          "t": "The Quiet... nggak cuma ada di dunia mimpi.",
+          "e": "serius"
+        }
+      ],
+      "flags": [
+        "V7_C05_SARI_FADING"
+      ],
+      "v7": true
+    },
+    "V7-C05-ARCHIVE-OPEN": {
+      "title": "Halaman yang Terbang",
+      "route": "shared",
+      "chapter": "C05",
+      "location": "starfall_village",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Bintang jatuh terakhir tidak padam. Ia berubah menjadi selembar halaman abu-abu yang terbang ke timur desa.",
+          "e": "neutral"
+        },
+        {
+          "s": "sofia",
+          "t": "Itu halaman Nenek Sari! Yang ada tulisan W dan S.",
+          "e": "kaget"
+        },
+        {
+          "s": "arland",
+          "t": "Kita ikuti. Kalau halamannya hilang di sini, mungkin di dunia nyata juga.",
+          "e": "serius"
+        },
+        {
+          "s": "lumi",
+          "t": "Di sana ada arsip tempat cerita yang tidak pernah diucapkan menunggu. Dengarkan baik-baik. Jangan menebak.",
+          "e": "serius"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-C05-ECHO-A": {
+      "title": "Kartu Perpustakaan",
+      "route": "shared",
+      "chapter": "C05",
+      "location": "arsip_memudar",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Kabut membentuk perpustakaan kota, empat puluh tahun lalu. Dua suara terdengar dari dua sisi rak.",
+          "e": "neutral"
+        },
+        {
+          "s": "wira",
+          "t": "Aku pinjam buku bintang yang sama dengan dia. Biar ada bahan obrolan.",
+          "e": "neutral"
+        },
+        {
+          "s": "sari_muda",
+          "t": "Dia selalu pinjam buku yang kubaca. Aku pengen dengar buku yang dia suka sendiri.",
+          "e": "neutral"
+        },
+        {
+          "s": "lumi",
+          "t": "Apa yang sebenarnya Sari harapkan?",
+          "e": "serius"
+        }
+      ],
+      "flags": [],
+      "v7": true,
+      "choices": [
+        {
+          "text": "Wira meminjam buku yang sama dengannya",
+          "flags": [
+            "V7_ECHO_MISS"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "narrator",
+                "t": "Gema itu tetap abu-abu. Mungkin ada yang belum benar-benar didengar.",
+                "e": "neutral"
+              }
+            ],
+            "sofia": [
+              {
+                "s": "narrator",
+                "t": "Gema itu tetap abu-abu. Mungkin ada yang belum benar-benar didengar.",
+                "e": "neutral"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Wira bercerita tentang hal yang ia sukai sendiri",
+          "flags": [
+            "V7_ECHO_A_OK"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "narrator",
+                "t": "Warna kembali ke gema itu, pelan, seperti tinta yang baru ditulis.",
+                "e": "neutral"
+              }
+            ],
+            "sofia": [
+              {
+                "s": "narrator",
+                "t": "Warna kembali ke gema itu, pelan, seperti tinta yang baru ditulis.",
+                "e": "neutral"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Wira berhenti datang ke perpustakaan",
+          "flags": [
+            "V7_ECHO_MISS"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "narrator",
+                "t": "Gema itu tetap abu-abu. Mungkin ada yang belum benar-benar didengar.",
+                "e": "neutral"
+              }
+            ],
+            "sofia": [
+              {
+                "s": "narrator",
+                "t": "Gema itu tetap abu-abu. Mungkin ada yang belum benar-benar didengar.",
+                "e": "neutral"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "V7-C05-ECHO-B": {
+      "title": "Gazebo Hujan",
+      "route": "shared",
+      "chapter": "C05",
+      "location": "arsip_memudar",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Kabut membentuk gazebo taman. Hujan turun tanpa suara.",
+          "e": "neutral"
+        },
+        {
+          "s": "wira",
+          "t": "Aku telat karena mampir beli payung baru buat dia. Payungnya bagus.",
+          "e": "neutral"
+        },
+        {
+          "s": "sari_muda",
+          "t": "Waktu dia datang, aku sudah basah. Aku nggak butuh payung baru. Aku butuh dia ada sebelum hujan.",
+          "e": "neutral"
+        },
+        {
+          "s": "lumi",
+          "t": "Kenapa Sari sedih hari itu?",
+          "e": "serius"
+        }
+      ],
+      "flags": [],
+      "v7": true,
+      "choices": [
+        {
+          "text": "Payung barunya jelek",
+          "flags": [
+            "V7_ECHO_MISS"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "narrator",
+                "t": "Gema itu tetap abu-abu. Mungkin ada yang belum benar-benar didengar.",
+                "e": "neutral"
+              }
+            ],
+            "sofia": [
+              {
+                "s": "narrator",
+                "t": "Gema itu tetap abu-abu. Mungkin ada yang belum benar-benar didengar.",
+                "e": "neutral"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Wira datang terlambat, padahal sudah janji",
+          "flags": [
+            "V7_ECHO_B_OK"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "narrator",
+                "t": "Warna kembali ke gema itu, pelan, seperti tinta yang baru ditulis.",
+                "e": "neutral"
+              }
+            ],
+            "sofia": [
+              {
+                "s": "narrator",
+                "t": "Warna kembali ke gema itu, pelan, seperti tinta yang baru ditulis.",
+                "e": "neutral"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Hujannya terlalu deras",
+          "flags": [
+            "V7_ECHO_MISS"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "narrator",
+                "t": "Gema itu tetap abu-abu. Mungkin ada yang belum benar-benar didengar.",
+                "e": "neutral"
+              }
+            ],
+            "sofia": [
+              {
+                "s": "narrator",
+                "t": "Gema itu tetap abu-abu. Mungkin ada yang belum benar-benar didengar.",
+                "e": "neutral"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "V7-C05-ECHO-C": {
+      "title": "Surat yang Disimpan",
+      "route": "shared",
+      "chapter": "C05",
+      "location": "arsip_memudar",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Kabut membentuk meja arsip. Sepucuk amplop bertuliskan \"Untuk Sari\" tergeletak tanpa perangko.",
+          "e": "neutral"
+        },
+        {
+          "s": "wira",
+          "t": "Aku sudah tulis maafnya. Tapi kalau kukirim dan dia nggak mau baca... lebih baik kusimpan di arsip dulu.",
+          "e": "neutral"
+        },
+        {
+          "s": "sari_muda",
+          "t": "Bertahun-tahun aku menunggu dia bilang maaf. Ternyata dia menulisnya, lalu menyimpannya.",
+          "e": "neutral"
+        },
+        {
+          "s": "lumi",
+          "t": "Apa yang membuat The Quiet tumbuh?",
+          "e": "serius"
+        }
+      ],
+      "flags": [],
+      "v7": true,
+      "choices": [
+        {
+          "text": "Cerita yang ditulis tapi tidak pernah diucapkan",
+          "flags": [
+            "V7_ECHO_C_OK"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "narrator",
+                "t": "Warna kembali ke gema itu, pelan, seperti tinta yang baru ditulis.",
+                "e": "neutral"
+              }
+            ],
+            "sofia": [
+              {
+                "s": "narrator",
+                "t": "Warna kembali ke gema itu, pelan, seperti tinta yang baru ditulis.",
+                "e": "neutral"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Surat yang terlalu panjang",
+          "flags": [
+            "V7_ECHO_MISS"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "narrator",
+                "t": "Gema itu tetap abu-abu. Mungkin ada yang belum benar-benar didengar.",
+                "e": "neutral"
+              }
+            ],
+            "sofia": [
+              {
+                "s": "narrator",
+                "t": "Gema itu tetap abu-abu. Mungkin ada yang belum benar-benar didengar.",
+                "e": "neutral"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Arsip yang berdebu",
+          "flags": [
+            "V7_ECHO_MISS"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "narrator",
+                "t": "Gema itu tetap abu-abu. Mungkin ada yang belum benar-benar didengar.",
+                "e": "neutral"
+              }
+            ],
+            "sofia": [
+              {
+                "s": "narrator",
+                "t": "Gema itu tetap abu-abu. Mungkin ada yang belum benar-benar didengar.",
+                "e": "neutral"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "V7-C05-ARCHIVE-QUIET": {
+      "title": "The Quiet",
+      "route": "shared",
+      "chapter": "C05",
+      "location": "arsip_memudar",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Ketiga gema berwarna lagi. Di tengah arsip, kabut abu-abu mengumpul jadi sosok tanpa wajah.",
+          "e": "neutral"
+        },
+        {
+          "s": "lumi",
+          "t": "Itu The Quiet. Ia bukan monster. Ia adalah semua kalimat yang ditahan terlalu lama.",
+          "e": "serius"
+        },
+        {
+          "s": "sofia",
+          "t": "Kalimat kayak... \"aku cuma butuh kamu datang\"?",
+          "e": "sedih"
+        },
+        {
+          "s": "arland",
+          "t": "Atau \"maaf, aku lebih sibuk sama kejutanku sendiri\".",
+          "e": "serius"
+        },
+        {
+          "s": "narrator",
+          "t": "Kabut itu tidak menyerang. Ia hanya menunggu, seperti kursi kosong di galeri.",
+          "e": "neutral"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-C05-ARCHIVE-VOW@arland": {
+      "title": "Kalimat Arland",
+      "route": "arland",
+      "chapter": "C05",
+      "location": "arsip_memudar",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "arland",
+          "t": "Aku nggak bisa mengulang hari galeri. Tapi aku bisa mengucapkan yang dulu kutahan.",
+          "e": "serius"
+        }
+      ],
+      "flags": [],
+      "v7": true,
+      "choices": [
+        {
+          "text": "Aku akan menepati waktu, sekalipun tanpa kejutan",
+          "flags": [
+            "V471_A_CHOOSE_TIME"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "arland",
+                "t": "Aku akan mencatat waktu dan benar-benar datang.",
+                "e": "neutral"
+              }
+            ],
+            "sofia": [
+              {
+                "s": "arland",
+                "t": "Aku akan mencatat waktu dan benar-benar datang.",
+                "e": "neutral"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Aku akan bertanya apa yang Sofia butuhkan",
+          "flags": [
+            "V471_A_CHOOSE_ASK"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "arland",
+                "t": "Aku ingin dengar jawabannya, meski berbeda dari bayanganku.",
+                "e": "serius"
+              }
+            ],
+            "sofia": [
+              {
+                "s": "arland",
+                "t": "Aku ingin dengar jawabannya, meski berbeda dari bayanganku.",
+                "e": "serius"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Aku akan berhenti menyelesaikan semuanya sendirian",
+          "flags": [
+            "V471_A_CHOOSE_HELP"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "arland",
+                "t": "Aku boleh meminta bantuan sebelum telanjur kehilangan momen.",
+                "e": "sedih"
+              }
+            ],
+            "sofia": [
+              {
+                "s": "arland",
+                "t": "Aku boleh meminta bantuan sebelum telanjur kehilangan momen.",
+                "e": "sedih"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "V7-C05-ARCHIVE-VOW@sofia": {
+      "title": "Kalimat Sofia",
+      "route": "sofia",
+      "chapter": "C05",
+      "location": "arsip_memudar",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "sofia",
+          "t": "Aku nggak mau lagi menyimpan kalimat di saku sampai jadi kabut.",
+          "e": "serius"
+        }
+      ],
+      "flags": [],
+      "v7": true,
+      "choices": [
+        {
+          "text": "Aku akan bilang saat butuh ditemani",
+          "flags": [
+            "V471_S_CHOOSE_PRESENT"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "sofia",
+                "t": "Aku boleh mengajak seseorang hadir untuk momen pentingku.",
+                "e": "neutral"
+              }
+            ],
+            "sofia": [
+              {
+                "s": "sofia",
+                "t": "Aku boleh mengajak seseorang hadir untuk momen pentingku.",
+                "e": "neutral"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Aku boleh meminta waktu untuk menenangkan diri",
+          "flags": [
+            "V471_S_CHOOSE_SPACE"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "sofia",
+                "t": "Menunggu sampai siap bicara juga bentuk kejujuran.",
+                "e": "neutral"
+              }
+            ],
+            "sofia": [
+              {
+                "s": "sofia",
+                "t": "Menunggu sampai siap bicara juga bentuk kejujuran.",
+                "e": "neutral"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Aku ingin kami belajar saling mendengar",
+          "flags": [
+            "V471_S_CHOOSE_LISTEN"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "sofia",
+                "t": "Aku ingin jujur tanpa harus mengubah siapa pun jadi sempurna.",
+                "e": "serius"
+              }
+            ],
+            "sofia": [
+              {
+                "s": "sofia",
+                "t": "Aku ingin jujur tanpa harus mengubah siapa pun jadi sempurna.",
+                "e": "serius"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "V7-C05-ARCHIVE-PAGE": {
+      "title": "Halaman yang Belum Selesai",
+      "route": "shared",
+      "chapter": "C05",
+      "location": "arsip_memudar",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Kabut menipis. Halaman \"W & S\" melayang turun ke tangan mereka. Sebagian tulisannya kembali, sebagian masih abu-abu.",
+          "e": "neutral"
+        },
+        {
+          "s": "lumi",
+          "t": "Separuhnya sudah pulang. Separuhnya lagi hanya bisa diselesaikan oleh orang yang mau bercerita.",
+          "e": "senyum"
+        },
+        {
+          "s": "sofia",
+          "t": "Kita bawa ke Nenek Sari?",
+          "e": "penasaran"
+        },
+        {
+          "s": "lumi",
+          "t": "Nanti. Jembatan kenangan kalian sendiri juga masih retak. Pulihkan dulu, lalu ikuti halamannya.",
+          "e": "serius"
+        }
+      ],
+      "flags": [
+        "V7_C05_ARCHIVE_DONE"
+      ],
+      "v7": true
+    },
+    "V7-C06-ERASE": {
+      "title": "Cermin Keempat",
+      "route": "shared",
+      "chapter": "C06",
+      "location": "hall_of_tomorrow",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Saat tiga cermin padam, cermin keempat menyala sendiri. Di dalamnya: galeri, tepuk tangan, dan Arland duduk di kursi dekat jendela.",
+          "e": "neutral"
+        },
+        {
+          "s": "lumi",
+          "t": "Balai ini bisa mengganti satu halaman. Kursi itu bisa terisi. Hari hujan itu tidak perlu terjadi.",
+          "e": "serius"
+        },
+        {
+          "s": "arland",
+          "t": "Jadi aku nggak pernah telat...",
+          "e": "sedih"
+        },
+        {
+          "s": "sofia",
+          "t": "Dan aku nggak pernah belajar bilang apa yang aku butuhkan.",
+          "e": "serius"
+        }
+      ],
+      "flags": [
+        "V7_ERASE_REFUSED"
+      ],
+      "v7": true,
+      "choices": [
+        {
+          "text": "\"Hari itu milik kami. Jangan diganti.\"",
+          "flags": [
+            "V7_ERASE_REFUSE_OURS"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "arland",
+                "t": "Itu hari terburukku. Tapi itu juga hari aku mulai benar-benar mendengar.",
+                "e": "serius"
+              },
+              {
+                "s": "sofia",
+                "t": "Jangan diganti. Biar kursinya tetap kosong di halaman itu.",
+                "e": "senyum"
+              }
+            ],
+            "sofia": [
+              {
+                "s": "arland",
+                "t": "Itu hari terburukku. Tapi itu juga hari aku mulai benar-benar mendengar.",
+                "e": "serius"
+              },
+              {
+                "s": "sofia",
+                "t": "Jangan diganti. Biar kursinya tetap kosong di halaman itu.",
+                "e": "senyum"
+              }
+            ]
+          }
+        },
+        {
+          "text": "\"Kalau dihapus, kami lupa caranya belajar.\"",
+          "flags": [
+            "V7_ERASE_REFUSE_LEARN"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "sofia",
+                "t": "Kita jadi orang yang sekarang karena hari itu.",
+                "e": "serius"
+              },
+              {
+                "s": "arland",
+                "t": "Aku nggak mau versi aku yang nggak pernah salah. Dia nggak akan pernah belajar.",
+                "e": "serius"
+              }
+            ],
+            "sofia": [
+              {
+                "s": "sofia",
+                "t": "Kita jadi orang yang sekarang karena hari itu.",
+                "e": "serius"
+              },
+              {
+                "s": "arland",
+                "t": "Aku nggak mau versi aku yang nggak pernah salah. Dia nggak akan pernah belajar.",
+                "e": "serius"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Tutup cermin itu bersama, tanpa kata-kata",
+          "flags": [
+            "V7_ERASE_REFUSE_TOGETHER"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "narrator",
+                "t": "Dua tangan menutup cermin itu bersamaan. Pantulan kursi yang terisi memudar.",
+                "e": "neutral"
+              },
+              {
+                "s": "sofia",
+                "t": "Sudah.",
+                "e": "lega"
+              },
+              {
+                "s": "arland",
+                "t": "Sudah.",
+                "e": "lega"
+              }
+            ],
+            "sofia": [
+              {
+                "s": "narrator",
+                "t": "Dua tangan menutup cermin itu bersamaan. Pantulan kursi yang terisi memudar.",
+                "e": "neutral"
+              },
+              {
+                "s": "sofia",
+                "t": "Sudah.",
+                "e": "lega"
+              },
+              {
+                "s": "arland",
+                "t": "Sudah.",
+                "e": "lega"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "V7-C06-STAGE-CONTINUE": {
+      "title": "Suara yang Bergetar",
+      "route": "sofia",
+      "chapter": "C06",
+      "location": "hall_of_tomorrow",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "sofia",
+          "t": "Di cermin itu aku nggak gemetar sama sekali. Tapi aku lebih bangga sama aku yang gemetar dan tetap selesai.",
+          "e": "senyum"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-C06-STAGE-SHORT": {
+      "title": "Turun Lebih Cepat",
+      "route": "sofia",
+      "chapter": "C06",
+      "location": "hall_of_tomorrow",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "sofia",
+          "t": "Di cermin itu presentasiku panjang dan sempurna. Padahal berhenti lebih cepat juga boleh.",
+          "e": "senyum"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-C06-STAGE-CHAIR": {
+      "title": "Kursi yang Diceritakan",
+      "route": "sofia",
+      "chapter": "C06",
+      "location": "hall_of_tomorrow",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "sofia",
+          "t": "Kalau hari itu dihapus, cerita yang paling jujur yang pernah aku ucapkan di depan orang juga ikut hilang.",
+          "e": "serius"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-C06-GAZEBO-ARRIVE": {
+      "title": "Hujan yang Sama",
+      "route": "shared",
+      "chapter": "C06",
+      "location": "kenangan_gazebo",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Halaman abu-abu menarik mereka ke sebuah taman yang mereka kenal, tapi lebih muda. Lampunya kuning. Hujan turun.",
+          "e": "neutral"
+        },
+        {
+          "s": "sofia",
+          "t": "Ini Taman Kota... empat puluh tahun lalu.",
+          "e": "kaget"
+        },
+        {
+          "s": "arland",
+          "t": "Gazebonya sama. Bangkunya sama. Bahkan hujannya kerasa sama.",
+          "e": "serius"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-C06-GAZEBO-BENCH": {
+      "title": "Sari Menunggu",
+      "route": "shared",
+      "chapter": "C06",
+      "location": "kenangan_gazebo",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Di bangku dekat gazebo, bayangan cahaya seorang gadis duduk memeluk tas. Rambutnya basah.",
+          "e": "neutral"
+        },
+        {
+          "s": "sari_muda",
+          "t": "Dia bilang jam empat. Ini sudah jam lima.",
+          "e": "neutral"
+        },
+        {
+          "s": "sari_muda",
+          "t": "Kalau dia datang, aku harus bilang apa? Marah? Pura-pura nggak apa-apa?",
+          "e": "neutral"
+        },
+        {
+          "s": "sofia",
+          "t": "Dia persis aku di galeri. Lihat pintu terus. Nyiapin kalimat yang nggak jadi diucapkan.",
+          "e": "sedih"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-C06-GAZEBO-PATH": {
+      "title": "Wira Berlari",
+      "route": "shared",
+      "chapter": "C06",
+      "location": "kenangan_gazebo",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Dari jalan setapak, bayangan seorang pemuda berlari membawa payung baru yang masih berlabel harga.",
+          "e": "neutral"
+        },
+        {
+          "s": "wira",
+          "t": "Payungnya harus yang paling bagus. Biar dia tahu aku serius.",
+          "e": "neutral"
+        },
+        {
+          "s": "wira",
+          "t": "Telat sejam... nggak apa-apa, kan? Yang penting payungnya bagus.",
+          "e": "neutral"
+        },
+        {
+          "s": "arland",
+          "t": "Itu aku. Itu persis aku sama proyektornya.",
+          "e": "sedih"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-C06-TELL": {
+      "title": "Dua Sisi, Diucapkan",
+      "route": "shared",
+      "chapter": "C06",
+      "location": "kenangan_gazebo",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Di gazebo, dua bayangan berdiri berhadapan dan tidak bicara. Halaman \"W & S\" di tangan mereka bergetar.",
+          "e": "neutral"
+        },
+        {
+          "s": "lumi",
+          "t": "Mereka tidak pernah menyelesaikan percakapan ini. Kalian bisa menceritakan kisah kalian sendiri, supaya mereka mendengar jalan keluarnya.",
+          "e": "serius"
+        },
+        {
+          "s": "arland",
+          "t": "Aku pernah telat juga. Karena kejutan. Aku pikir itu bukti sayang.",
+          "e": "serius"
+        },
+        {
+          "s": "sofia",
+          "t": "Dan aku pernah diam. Karena takut kalimatku kedengaran menuntut.",
+          "e": "serius"
+        }
+      ],
+      "flags": [],
+      "v7": true,
+      "choices": [
+        {
+          "text": "\"Yang dia butuhkan bukan payungnya. Tapi kamu, sebelum hujan.\"",
+          "flags": [
+            "V7_TELL_PRESENCE"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "arland",
+                "t": "Datang dulu. Kejutannya belakangan. Atau nggak usah sama sekali.",
+                "e": "serius"
+              }
+            ],
+            "sofia": [
+              {
+                "s": "arland",
+                "t": "Datang dulu. Kejutannya belakangan. Atau nggak usah sama sekali.",
+                "e": "serius"
+              }
+            ]
+          }
+        },
+        {
+          "text": "\"Bilang aja, walaupun kedengarannya menuntut.\"",
+          "flags": [
+            "V7_TELL_VOICE"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "sofia",
+                "t": "Kalimat yang ditahan nggak bikin dia ngerti. Cuma bikin dia nebak.",
+                "e": "serius"
+              }
+            ],
+            "sofia": [
+              {
+                "s": "sofia",
+                "t": "Kalimat yang ditahan nggak bikin dia ngerti. Cuma bikin dia nebak.",
+                "e": "serius"
+              }
+            ]
+          }
+        },
+        {
+          "text": "\"Kalian masih bisa duduk di bangku yang sama.\"",
+          "flags": [
+            "V7_TELL_SIT"
+          ],
+          "byRoute": {
+            "arland": [
+              {
+                "s": "arland",
+                "t": "Nggak usah langsung baikan. Duduk dulu aja. Berdua.",
+                "e": "senyum"
+              },
+              {
+                "s": "sofia",
+                "t": "Kami juga mulai dari situ.",
+                "e": "senyum"
+              }
+            ],
+            "sofia": [
+              {
+                "s": "arland",
+                "t": "Nggak usah langsung baikan. Duduk dulu aja. Berdua.",
+                "e": "senyum"
+              },
+              {
+                "s": "sofia",
+                "t": "Kami juga mulai dari situ.",
+                "e": "senyum"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "V7-C06-PAGE-SAVED": {
+      "title": "Halaman yang Pulang",
+      "route": "shared",
+      "chapter": "C06",
+      "location": "kenangan_gazebo",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Bayangan pemuda itu menurunkan payungnya. Label harganya jatuh ke genangan.",
+          "e": "neutral"
+        },
+        {
+          "s": "wira",
+          "t": "Sari, maaf. Aku telat karena sibuk dengan caraku sendiri. Aku di sini sekarang.",
+          "e": "neutral"
+        },
+        {
+          "s": "sari_muda",
+          "t": "Kamu basah.",
+          "e": "neutral"
+        },
+        {
+          "s": "wira",
+          "t": "Kamu juga. Mau basah bareng sampai rumah?",
+          "e": "neutral"
+        },
+        {
+          "s": "narrator",
+          "t": "Dua bayangan berjalan di bawah satu payung yang kebesaran. Hujan berhenti. Halaman \"W & S\" kembali berwarna penuh.",
+          "e": "neutral"
+        },
+        {
+          "s": "narrator",
+          "t": "Di sudut halaman, sebuah foto kecil muncul: dua orang muda di gazebo, basah, tertawa.",
+          "e": "neutral"
+        },
+        {
+          "s": "sofia",
+          "t": "Ini foto yang hilang dari bingkai Nenek Sari.",
+          "e": "jatuh_cinta"
+        },
+        {
+          "s": "arland",
+          "t": "Kita bawa pulang. Nenek Sari harus dengar ceritanya dari awal.",
+          "e": "senyum"
+        }
+      ],
+      "flags": [
+        "V7_WIRA_PAGE_SAVED"
+      ],
+      "v7": true
+    },
+    "V7-EPI-SARI-REMEMBER": {
+      "title": "Suaranya",
+      "route": "shared",
+      "chapter": "EPI",
+      "location": "taman_kota",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Arland dan Sofia menyerahkan foto kecil dari halaman itu. Nenek Sari memandanginya lama sekali.",
+          "e": "neutral"
+        },
+        {
+          "s": "sari",
+          "t": "Payungnya kebesaran. Dia beli yang paling mahal, lalu kami tetap basah.",
+          "e": "tertawa"
+        },
+        {
+          "s": "sari",
+          "t": "Nenek ingat suaranya sekarang. Dia nyanyi keroncong sepanjang jalan pulang, fals sekali.",
+          "e": "senang"
+        },
+        {
+          "s": "sari",
+          "t": "Mampir ke rumah, ya. Bingkai itu sudah terlalu lama kosong.",
+          "e": "senyum"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-EPI-FRAME": {
+      "title": "Bingkai yang Terisi",
+      "route": "shared",
+      "chapter": "EPI",
+      "location": "rumah_sari",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Nenek Sari memasukkan foto kecil itu ke bingkai kayu. Ukurannya pas, seolah bingkainya dibuat untuk menunggu foto ini.",
+          "e": "neutral"
+        },
+        {
+          "s": "sari",
+          "t": "Wira, ini Arland dan Sofia. Mereka yang membawamu pulang.",
+          "e": "senyum"
+        },
+        {
+          "s": "sofia",
+          "t": "Nek, ceritain lagi soal payungnya. Dari awal.",
+          "e": "senang"
+        },
+        {
+          "s": "sari",
+          "t": "Dari awal? Wah, itu panjang. Duduk, Nenek buatkan teh melati.",
+          "e": "tertawa"
+        },
+        {
+          "s": "narrator",
+          "t": "Sore itu tidak ada yang terburu-buru. Radio kayu memutar lagu hujan, dan tiga orang bergantian bercerita.",
+          "e": "neutral"
+        }
+      ],
+      "flags": [
+        "V7_EPI_FRAME"
+      ],
+      "v7": true
+    },
+    "V7-SQ-KASET-1": {
+      "title": "Radio yang Tersendat",
+      "route": "shared",
+      "chapter": "SIDE",
+      "location": "rumah_sari",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Radio kayu berbunyi \"krrk\", lalu diam. Pita kaset di dalamnya kusut.",
+          "e": "neutral"
+        },
+        {
+          "s": "sari",
+          "t": "Ah, kasetnya macet lagi. Itu lagu kesukaan... seseorang.",
+          "e": "sedih"
+        },
+        {
+          "s": "sari",
+          "t": "Bang Juna di arcade pintar membetulkan mesin. Tapi Nenek nggak enak merepotkan.",
+          "e": "senyum"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-SQ-KASET-2": {
+      "title": "Tangan Bang Juna",
+      "route": "shared",
+      "chapter": "SIDE",
+      "location": "arcade",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "juna",
+          "t": "Kaset tahun delapan puluhan? Wah, barang langka. Sini, gulung pakai pensil, kayak zaman dulu.",
+          "e": "senang"
+        },
+        {
+          "s": "narrator",
+          "t": "Bang Juna memutar pita dengan pensil, pelan dan sabar, sampai rapi kembali.",
+          "e": "neutral"
+        },
+        {
+          "s": "juna",
+          "t": "Beres. Bilang ke Nenek Sari, jangan diputar pas hujan petir. Radionya sudah tua.",
+          "e": "tertawa"
+        }
+      ],
+      "flags": [],
+      "v7": true
+    },
+    "V7-SQ-KASET-3": {
+      "title": "Lagu Hujan",
+      "route": "shared",
+      "chapter": "SIDE",
+      "location": "rumah_sari",
+      "trigger": "",
+      "lines": [
+        {
+          "s": "narrator",
+          "t": "Radio berdesis sebentar, lalu suara keroncong mengisi ruangan. Suaranya agak fals di nada tinggi.",
+          "e": "neutral"
+        },
+        {
+          "s": "sari",
+          "t": "Itu bukan penyanyinya. Itu dia. Dia merekam dirinya sendiri waktu muda.",
+          "e": "kaget"
+        },
+        {
+          "s": "sari",
+          "t": "Nenek sampai lupa kalau suaranya pernah disimpan di sini.",
+          "e": "senang"
+        },
+        {
+          "s": "narrator",
+          "t": "Mochi bangun dari bantalnya dan duduk di dekat radio, seperti ikut mendengarkan.",
+          "e": "neutral"
+        }
+      ],
+      "flags": [
+        "SQ_V7_KASET_DONE"
+      ],
+      "v7": true
     }
   }
 }

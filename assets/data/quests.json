@@ -23704,8 +23704,8 @@
     {
       "id": "WE27_PERPUSTAKAAN_SENYAP",
       "area": "perpustakaan",
-      "x": 525,
-      "y": 833,
+      "x": 540,
+      "y": 805,
       "r": 69,
       "label": "Buku yang Dipinjamkan",
       "actions": [
@@ -37443,8 +37443,8 @@
       "id": "perpustakaan_senyap",
       "title": "Buku yang Dipinjamkan",
       "area": "perpustakaan",
-      "x": 525,
-      "y": 833,
+      "x": 540,
+      "y": 805,
       "hours": [
         "09:00",
         "17:00"

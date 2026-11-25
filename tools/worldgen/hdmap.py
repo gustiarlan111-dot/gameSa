@@ -118,6 +118,27 @@ class HDMap:
         small = water.reshape(self.H, K, self.W, K).any(axis=(1, 3))
         return common.mask_to_walls(small, step=8)
 
+    SOUND = {GRASS: 'g', BED: 'g', PATH: 'r', SAND: 'r', SOIL: 'r', STONE: 's', DECK: 'w', WATER: 's', 11: 's'}
+
+    def surface(self, cell=8):
+        """Footstep surface grid: one letter per cell (g grass, r gravel/dirt, s stone, w wood),
+        run-length encoded per row, e.g. 'g40s12'. The game picks the step sound from it."""
+        mat = self.c.mat[cell * K // 2::cell * K, cell * K // 2::cell * K]
+        rows = []
+        for r in mat:
+            out, prev, n = [], None, 0
+            for v in r:
+                ch = self.SOUND.get(int(v), 'g')
+                if ch == prev:
+                    n += 1
+                else:
+                    if prev:
+                        out.append('%s%d' % (prev, n))
+                    prev, n = ch, 1
+            out.append('%s%d' % (prev, n))
+            rows.append(''.join(out))
+        return dict(cell=cell, rows=rows)
+
     def write(self, base_entry, extra, P, Q, apply=False, preview=None, checks=True):
         c = self.c
         img = np.clip(c.img, 0, 255).astype(np.uint8)
@@ -133,6 +154,7 @@ class HDMap:
                 tiles.append(dict(image='maps/hd/%s_%d_%d@2x.png' % (self.area, ty // TILE, tx // TILE),
                                   x=tx // K, y=ty // K, w=min(TILE, c.w - tx) // K, h=min(TILE, c.h - ty) // K))
         a['tiles'] = tiles
+        a['surface'] = self.surface()
         pts = [(m[0], m[3], m[4], m[5]) for m in common.migrate_quests(json.loads(json.dumps(Q)), self.area, lambda x, y: (x, y))]
         pts += [('examine ' + e['id'], e['x'], e['y'], e.get('r')) for e in a.get('examine', [])]
         M = json.loads((A / 'data/maps.json').read_text(encoding='utf-8'))

@@ -327,6 +327,20 @@ def furnish(m, P, old):
         pr('hd_bench', x, 470 + 70)
     pr('hd_bike_rack', 230, 560)
     pr('hd_bin', 610, 560); pr('hd_bin', 1770, 560)
+    # fences along the streets: picket fence between the boulevard and the lawn (gap at the
+    # market entrance and the open terrace side), iron railings on both canal banks
+    def fence_run(pid, x0, x1, y):
+        n = int((x1 - x0) // 96)
+        start = x0 + ((x1 - x0) - n * 96) / 2
+        for i in range(n):
+            pr(pid if pid != 'picket' else ('hd_fence_picket', 'hd_fence_picket_b')[i % 2], start + 48 + i * 96, y)
+    for x0, x1 in ((40, 440), (584, 776), (2132, 2360)):
+        fence_run('picket', x0, x1, 712)
+    gaps = [(bx - 6, bx + bw + 6) for bx, bw in BRIDGES]
+    edges = [20] + [v for g in gaps for v in g] + [2380]
+    for i in range(0, len(edges), 2):
+        fence_run('hd_railing_iron', edges[i], edges[i + 1], 1322)
+        fence_run('hd_railing_iron', edges[i], edges[i + 1], 1440)
     # flower beds under the terrace wall: real flower clumps instead of painted dots
     for x0, x1 in BEDS:
         for k, x in enumerate(range(int(x0) + 14, int(x1) - 8, 26)):

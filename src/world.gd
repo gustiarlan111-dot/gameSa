@@ -32,6 +32,10 @@ var _floor: Node2D
 var _sorted: Node2D
 var _ground: Node2D
 var _trail: Array[Vector2] = []
+var _surface := PackedByteArray()  # footstep surface letters per cell (see tools/worldgen/hdmap.py)
+var _surf_cell := 8
+var _surf_w := 0
+var foliage: Array = []           # [{node, pos, r, kind: "grass"|"bush", t}] rustle when walked through
 
 
 func _ready() -> void:
@@ -67,6 +71,7 @@ func enter_area(area_id: String, pos: Vector2, facing := "down") -> void:
 	npc_brain.clear()
 	_build_ground()
 	_build_props()
+	_load_surface()
 	if player.get_parent() == null:
 		_sorted.add_child(player); _sorted.add_child(partner)
 	player.position = nearest_open(pos)
@@ -105,6 +110,7 @@ func _build_ground() -> void:
 
 func _build_props() -> void:
 	light_spots.clear()
+	foliage.clear()
 	for p in area.get("props", []):
 		var d: Dictionary = Data.props.get(p.get("type", ""), {})
 		if d.is_empty():
@@ -126,6 +132,10 @@ func _build_props() -> void:
 		var sway := _sway_for(img)
 		if sway:
 			s.material = sway
+		var fk := _foliage_kind(img)
+		if fk != "":
+			var r := tex.get_width() * k * (0.42 if fk == "grass" else 0.55)
+			foliage.append({"node": holder, "pos": holder.position, "r": r, "kind": fk, "t": 0.0})
 		if img.contains("lamp") or img.contains("lantern_post") or img.contains("lantern_on") or img.contains("crystal"):
 			var kind := "crystal" if img.contains("crystal") else "lamp"
 			var hgt := tex.get_height() * k
@@ -134,6 +144,70 @@ func _build_props() -> void:
 			_floor.add_child(holder)
 		else:
 			_sorted.add_child(holder)
+
+
+func _foliage_kind(img: String) -> String:
+	if img.contains("grass") or img.contains("reeds") or img.contains("fern") or img.contains("flowers") or img.contains("wildflowers"):
+		return "grass"
+	if img.contains("bush") or img.contains("hedge"):
+		return "bush"
+	return ""
+
+
+func _load_surface() -> void:
+	_surface = PackedByteArray()
+	_surf_w = 0
+	var sf: Dictionary = area.get("surface", {})
+	if sf.is_empty():
+		return
+	_surf_cell = int(sf.get("cell", 8))
+	var rows: Array = sf.get("rows", [])
+	var re := RegEx.new()
+	re.compile("([a-z])(\\d+)")
+	for row in rows:
+		for m in re.search_all(String(row)):
+			var ch := m.get_string(1).unicode_at(0)
+			for i in int(m.get_string(2)):
+				_surface.append(ch)
+		if _surf_w == 0:
+			_surf_w = _surface.size()
+
+
+## Footstep sound for the ground under a point, or "" when the area has no surface map.
+func step_sound(p: Vector2) -> String:
+	if _surface.is_empty():
+		return ""
+	var i := int(p.x / _surf_cell)
+	var j := int(p.y / _surf_cell)
+	var idx := j * _surf_w + i
+	if i < 0 or i >= _surf_w or idx < 0 or idx >= _surface.size():
+		return ""
+	match char(_surface[idx]):
+		"g": return "step_grass"
+		"r": return "step_gravel"
+		"w": return "step_wood"
+	return "step_stone"
+
+
+## Walking into tall grass, flowers or against a bush rustles it: a sound and a little shake.
+func rustle(p: Vector2, delta: float) -> String:
+	var hit := ""
+	for f in foliage:
+		f.t = maxf(0.0, float(f.t) - delta)
+		var d: Vector2 = p - f.pos
+		var rr: float = f.r
+		var inside: bool = absf(d.x) < rr and d.y > -rr * 0.5 and d.y < 14.0
+		if inside and f.t <= 0.0:
+			f.t = 0.7
+			hit = f.kind
+			var n: Node2D = f.node
+			if is_instance_valid(n):
+				var tw := n.create_tween()
+				var base := n.skew
+				tw.tween_property(n, "skew", base + (0.12 if d.x < 0 else -0.12), 0.08)
+				tw.tween_property(n, "skew", base - 0.06, 0.12)
+				tw.tween_property(n, "skew", base, 0.18)
+	return hit
 
 
 const SWAY_SHADER := preload("res://src/fx/sway.gdshader")

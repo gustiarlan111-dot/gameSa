@@ -971,3 +971,49 @@ def column_stone(W=88, H=210):
             sp.put(sp.ellipse(x + 3, y - 2, 2.4, 2.4), FLOWERS[3][2])
     outline(sp, STONE[0], width=2)
     return sp
+
+
+# ----------------------------------------------------------------------------- fences along roads
+
+def railing_iron(W=196, H=72):
+    """Wrought-iron railing segment (96 world wide + overlap) for canal banks and terraces."""
+    sp = Sprite(W, H)
+    iron = ramp('#15181d', '#22272e', '#323941', '#46505a', '#5e6a75')
+    ground_shadow(sp, W / 2, H - 4, W / 2, 5, 0.25)
+    for x in (4, W - 12):                                  # stone-capped posts
+        sp.put(sp.rect(x, 18, 10, H - 24), quant(hgrad(sp, x, x + 10, 0.85, 0.3), iron))
+        sp.put(sp.ellipse(x + 5, 16, 6, 6), GOLD[3])
+    sp.put(sp.rect(4, 22, W - 8, 4), iron[3])              # top rail
+    sp.put(sp.rect(4, 22, W - 8, 1), iron[4])
+    sp.put(sp.rect(4, H - 16, W - 8, 4), iron[2])          # bottom rail
+    for x in range(16, W - 14, 10):                        # bars with little spear tips
+        sp.put(sp.rect(x, 22, 3, H - 36), iron[2])
+        sp.put(sp.poly([(x - 1, 22), (x + 4, 22), (x + 1.5, 15)]), iron[3])
+    for x in range(26, W - 20, 40):                        # scroll rings
+        sp.put(sp.ellipse(x, 40, 7, 7) & ~sp.ellipse(x, 40, 4.5, 4.5), iron[3])
+    outline(sp, hexrgb('#0c0e11'), inner=False, width=1)
+    return sp
+
+
+def fence_picket(W=196, H=70, seed=0):
+    """Low white picket fence segment (96 world wide) for the edge of streets and gardens."""
+    sp = Sprite(W, H)
+    dith = bayer(H, W)
+    ground_shadow(sp, W / 2, H - 4, W / 2, 6, 0.28)
+    rng = np.random.default_rng(seed)
+    for y in (30, H - 22):
+        sp.put(sp.rect(0, y, W, 7), quant(vgrad(sp, y, y + 7, 0.8, 0.45), TRIM, dith))
+    for i, x in enumerate(range(3, W - 8, 14)):
+        h = rng.integers(0, 3)
+        top = 14 + h
+        pk = sp.rect(x, top + 6, 10, H - 10 - top - 6) | sp.poly([(x, top + 7), (x + 10, top + 7), (x + 5, top)])
+        sp.put(pk, quant(hgrad(sp, x, x + 10, 0.95, 0.5) + (noise(H, W, 3, seed + i) - 0.5) * 0.12, TRIM, dith))
+        darken(sp, pk & (sp.yy > H - 16), 0.85)
+    # a few vines and flowers growing through
+    for k in range(14):
+        x = rng.uniform(0, W); y = rng.uniform(H - 22, H - 8)
+        sp.put(sp.ellipse(x, y, 5, 4), LEAF[rng.integers(2, 6)])
+        if k % 4 == 0:
+            sp.put(sp.ellipse(x, y - 3, 2.4, 2.4), FLOWERS[k % 5][2])
+    outline(sp, TRIM[0] * 0.8, width=1)
+    return sp

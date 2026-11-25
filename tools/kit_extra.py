@@ -457,7 +457,7 @@ KIT = {
     'hd_barrel': (lambda: barrel(121), 22, 9, 'sort'),
     'hd_umbrella_table': (lambda: umbrella_table(), 60, 14, 'sort'),
     'hd_flowerbed': (lambda: flowerbed(131), 60, 10, 'sort'),
-    'hd_bush_berry': (lambda: nature.bush(19, flowers=FLOWERS[0]), 36, 10, 'sort'),
+    'hd_bush_berry': (lambda: nature.bush(19, flowers=FLOWERS[0]), 0, 0, 'sort'),  # walk-through, rustles
     'hd_fern_a': (lambda: fern(201), 0, 0, 'sort'),
     'hd_fern_b': (lambda: fern(203, R=LEAF_DARK), 0, 0, 'sort'),
     'hd_grass_tall': (lambda: tall_grass(211), 0, 0, 'sort'),
@@ -497,6 +497,9 @@ KIT = {
     'hd_flower_buckets_b': (lambda: lm.flower_buckets(1), 70, 14, 'sort'),
     'hd_flower_buckets_c': (lambda: lm.flower_buckets(2), 70, 14, 'sort'),
     'hd_column_stone': (lambda: lm.column_stone(), 14, 10, 'sort'),
+    'hd_railing_iron': (lambda: lm.railing_iron(), 98, 8, 'sort'),
+    'hd_fence_picket': (lambda: lm.fence_picket(), 98, 8, 'sort'),
+    'hd_fence_picket_b': (lambda: lm.fence_picket(seed=5), 98, 8, 'sort'),
 }
 
 

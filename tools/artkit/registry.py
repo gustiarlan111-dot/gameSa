@@ -26,10 +26,10 @@ KIT = {
     'hd_tree_autumn_b': (lambda: nature.broadleaf(kit.AUTUMN, 13), 16, 9, 'sort'),
     'hd_tree_pine_a': (lambda: nature.pine(5), 14, 8, 'sort'),
     'hd_tree_pine_b': (lambda: nature.pine(15), 14, 8, 'sort'),
-    'hd_bush_a': (lambda: nature.bush(6), 36, 10, 'sort'),
-    'hd_bush_b': (lambda: nature.bush(16), 36, 10, 'sort'),
-    'hd_bush_rose': (lambda: nature.bush(7, flowers=kit.FLOWERS[0]), 36, 10, 'sort'),
-    'hd_bush_yellow': (lambda: nature.bush(17, flowers=kit.FLOWERS[1]), 36, 10, 'sort'),
+    'hd_bush_a': (lambda: nature.bush(6), 0, 0, 'sort'),  # walk-through, rustles
+    'hd_bush_b': (lambda: nature.bush(16), 0, 0, 'sort'),  # walk-through, rustles
+    'hd_bush_rose': (lambda: nature.bush(7, flowers=kit.FLOWERS[0]), 0, 0, 'sort'),  # walk-through, rustles
+    'hd_bush_yellow': (lambda: nature.bush(17, flowers=kit.FLOWERS[1]), 0, 0, 'sort'),  # walk-through, rustles
     'hd_rock_a': (lambda: nature.rock(8), 26, 9, 'sort'),
     'hd_rock_b': (lambda: nature.rock(18, w=90, h=58), 38, 12, 'sort'),
     'hd_flowers_pink': (lambda: nature.flower_clump(0, 5), 0, 0, 'floor'),

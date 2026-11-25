@@ -234,8 +234,13 @@ var _step_t := 0.0
 func _footsteps(delta: float) -> void:
 	_step_t -= delta
 	var pl := world.player
+	if pl.walking:
+		var hit := world.rustle(pl.position, delta)
+		if hit != "":
+			Audio.sfx(("rustle_bush" if hit == "bush" else "rustle_grass") + ("_b" if randf() < 0.5 else ""), 0.5)
 	if pl.walking and _step_t <= 0:
-		Audio.sfx(Soundscape.footstep_for(p.area), 0.19)
+		var snd := world.step_sound(pl.position)
+		Audio.sfx(snd if snd != "" else Soundscape.footstep_for(p.area), 0.19)
 		_step_t = 0.22 if pl.sprinting else 0.35
 
 

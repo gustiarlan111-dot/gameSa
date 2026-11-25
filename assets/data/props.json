@@ -2169,26 +2169,26 @@
     },
     "hd_bush_a": {
       "image": "props/hd/hd_bush_a@2x.png",
-      "cw": 36,
-      "ch": 10,
+      "cw": 0,
+      "ch": 0,
       "layer": "sort"
     },
     "hd_bush_b": {
       "image": "props/hd/hd_bush_b@2x.png",
-      "cw": 36,
-      "ch": 10,
+      "cw": 0,
+      "ch": 0,
       "layer": "sort"
     },
     "hd_bush_rose": {
       "image": "props/hd/hd_bush_rose@2x.png",
-      "cw": 36,
-      "ch": 10,
+      "cw": 0,
+      "ch": 0,
       "layer": "sort"
     },
     "hd_bush_yellow": {
       "image": "props/hd/hd_bush_yellow@2x.png",
-      "cw": 36,
-      "ch": 10,
+      "cw": 0,
+      "ch": 0,
       "layer": "sort"
     },
     "hd_rock_a": {
@@ -2475,8 +2475,8 @@
     },
     "hd_bush_berry": {
       "image": "props/hd/hd_bush_berry@2x.png",
-      "cw": 36,
-      "ch": 10,
+      "cw": 0,
+      "ch": 0,
       "layer": "sort"
     },
     "hd_sacks": {
@@ -2705,6 +2705,24 @@
       "image": "props/hd/hd_flower_buckets_c@2x.png",
       "cw": 70,
       "ch": 14,
+      "layer": "sort"
+    },
+    "hd_railing_iron": {
+      "image": "props/hd/hd_railing_iron@2x.png",
+      "cw": 98,
+      "ch": 8,
+      "layer": "sort"
+    },
+    "hd_fence_picket": {
+      "image": "props/hd/hd_fence_picket@2x.png",
+      "cw": 98,
+      "ch": 8,
+      "layer": "sort"
+    },
+    "hd_fence_picket_b": {
+      "image": "props/hd/hd_fence_picket_b@2x.png",
+      "cw": 98,
+      "ch": 8,
       "layer": "sort"
     }
   }

@@ -184,6 +184,10 @@ class Room:
             self.rect(x + (side - 6 if x == 0 else 0), wy, 6, bottom - wy, '#5a4658')
         self.rect(0, bottom, W, H - bottom, '#3a2c3c')
         self.rect(0, bottom, W, 4, '#5a4658')
+        if door is None:
+            walls = [[0, 0, W, wall_h], [0, wall_h, side, bottom - wall_h], [W - side, wall_h, side, bottom - wall_h], [0, bottom, W, H - bottom]]
+            self.block += walls
+            return walls
         dx, dw = door
         self.rect(dx, bottom - 2, dw, H - bottom + 2, fl[int((bottom - 10) * K), int((dx + 10) * K)])
         dm = self.R(dx, bottom - 2, dw, H - bottom + 2)
@@ -729,6 +733,51 @@ class Room:
         self.rect(x + w / 2 - 8, y + 22, 16, 3, '#20222c')
         self.box(x + 6, y + 26, 18, 4, 4, '#ece8e0', '#bcb8b0', light=False)
         return [x, y + 22, w, h - 12]
+
+    def wall_door(self, x, bot, w=56, h=78, c='#a87443', glass=True, sign=None):
+        y = bot - h
+        self.rect(x - 5, y - 5, w + 10, h + 5, '#efe1d2'); self.outline(self.R(x - 5, y - 5, w + 10, h + 5), '#8c7466')
+        self.vgrad(x, y, w, h, shade(c, 1.1), shade(c, 0.85))
+        self.rect(x + w / 2 - 0.5, y, 1, h, shade(c, 0.6))
+        if glass:
+            for dx in (4, w / 2 + 3):
+                self.rect(x + dx, y + 6, w / 2 - 7, h * 0.38, '#bfe3f0'); self.rect(x + dx + 1, y + 7, 2, h * 0.3, '#ffffff', 0.5)
+        self.rect(x + w / 2 - 5, y + h * 0.55, 2, 6, '#e6c27a'); self.rect(x + w / 2 + 3, y + h * 0.55, 2, 6, '#e6c27a')
+        if sign:
+            self.rect(x + w / 2 - 16, y - 16, 32, 9, sign); self.outline(self.R(x + w / 2 - 16, y - 16, 32, 9), shade(sign, 0.5))
+
+    def upper_cabinets(self, x, y, w, h=28, c='#f3ece2'):
+        self.rect(x, y, w, h, c); self.outline(self.R(x, y, w, h), shade(c, 0.5))
+        n = max(1, int(w // 28))
+        dw = w / n
+        for i in range(n):
+            self.outline(self.R(x + i * dw + 3, y + 3, dw - 6, h - 6), shade(c, 0.72))
+            self.rect(x + i * dw + dw / 2 - 3, y + h - 7, 6, 1.5, '#c9a86a')
+        self.rect(x, y + h, w, 3, shade(c, 0.55))
+
+    def pot_rail(self, x, y, w):
+        self.rect(x, y, w, 2, '#8a8f99')
+        for i, px in enumerate(range(int(x + 6), int(x + w - 6), 16)):
+            self.rect(px + 3, y + 2, 1, 4, '#5a5e6c')
+            if i % 3 == 0:
+                self.fill(self.E(px + 4, y + 10, 5, 4), '#b87333')
+            elif i % 3 == 1:
+                self.rect(px + 2, y + 6, 4, 10, '#7a848e'); self.fill(self.E(px + 4, y + 16, 3, 2), '#7a848e')
+            else:
+                self.rect(px + 3, y + 6, 2, 9, '#a87443'); self.fill(self.E(px + 4, y + 16, 3, 2.5), '#a87443')
+
+    def chalkboard(self, x, y, w, h, lines=4):
+        self.rect(x, y, w, h, '#a87443'); self.rect(x + 3, y + 3, w - 6, h - 6, '#2e3d36')
+        for i in range(lines):
+            self.rect(x + 8, y + 9 + i * ((h - 16) / lines), (w - 20) * (0.5 + 0.4 * ((i * 37) % 10) / 10), 1.5, '#e8efe8')
+            self.rect(x + w - 18, y + 9 + i * ((h - 16) / lines), 8, 1.5, '#f2c46a')
+        self.rect(x + 8, y + 5, 14, 1.5, '#f2a0b8')
+
+    def pendant(self, cx, y, drop=30, c='#e8b04a'):
+        self.rect(cx - 0.5, y, 1, drop, '#3a2c2c')
+        m = self.R(cx - 7, y + drop, 14, 6) | self.E(cx, y + drop, 7, 4)
+        self.fill(m, c); self.outline(m, shade(c, 0.5))
+        self.glow(cx, y + drop + 20, 34, 24, '#ffe6a8', 0.12)
 
     def doormat(self, x, y, w=44, h=14, c='#c97a5a'):
         self.rect(x, y, w, h, c)

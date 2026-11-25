@@ -55,7 +55,7 @@ func _ready() -> void:
 	env.tonemap_exposure = 0.82
 	env.glow_enabled = true
 	env.glow_intensity = 0.4
-	env.glow_bloom = 0.06
+	env.glow_bloom = 0.0
 	env.glow_hdr_threshold = 1.05
 	env.fog_enabled = true
 	env.fog_density = 0.003
@@ -469,10 +469,11 @@ func _update_light(delta: float) -> void:
 	env.ambient_light_energy = lerpf(env.ambient_light_energy, amb_e, k)
 	var sky := Color(0.55, 0.72, 0.9).lerp(Color(0.95, 0.62, 0.48), clampf((1.0 - e) * 1.2, 0, 1)) * tint
 	if a.indoor or cave:
-		sky = Color(0.05, 0.04, 0.06)
+		sky = Color(0.008, 0.006, 0.012)
 	env.background_color = sky
 	env.fog_light_color = sky.lerp(Color(0.8, 0.85, 0.95) * tint, 0.4)
 	env.fog_density = 0.006 if rain else 0.002
+	env.fog_enabled = not _indoor
 	env.glow_enabled = not day or rain or e < 0.35
 	# sun by day (east in the morning, west at dusk), moon at night, a soft top light indoors
 	var az := lerpf(-70.0, 70.0, t)

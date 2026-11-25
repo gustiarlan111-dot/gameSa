@@ -4082,8 +4082,8 @@
         {
           "id": "f2_juna",
           "area": "arcade",
-          "x": 700,
-          "y": 737,
+          "x": 350,
+          "y": 368,
           "r": 70,
           "label": "Bicara dengan Bang Juna",
           "actions": [
@@ -4301,8 +4301,8 @@
         {
           "id": "florist",
           "area": "toko_bunga",
-          "x": 828,
-          "y": 460,
+          "x": 414,
+          "y": 230,
           "r": 70,
           "label": "Bicara dengan Bu Melati",
           "actions": [
@@ -4385,8 +4385,8 @@
         {
           "id": "juna_print",
           "area": "arcade",
-          "x": 700,
-          "y": 737,
+          "x": 350,
+          "y": 368,
           "r": 70,
           "label": "Bicara dengan Bang Juna",
           "actions": [
@@ -4704,8 +4704,8 @@
         {
           "id": "booth",
           "area": "arcade",
-          "x": 522,
-          "y": 391,
+          "x": 261,
+          "y": 196,
           "r": 64,
           "label": "Photobooth",
           "actions": [
@@ -4889,8 +4889,8 @@
         {
           "id": "v468_offer_repair",
           "area": "arcade",
-          "x": 525,
-          "y": 430,
+          "x": 262,
+          "y": 215,
           "r": 90,
           "label": "Periksa mesin yang macet",
           "actions": [
@@ -4913,8 +4913,8 @@
         {
           "id": "v468_offer_repair",
           "area": "arcade",
-          "x": 525,
-          "y": 430,
+          "x": 262,
+          "y": 215,
           "r": 90,
           "label": "Periksa mesin yang macet",
           "actions": [
@@ -5868,8 +5868,8 @@
         {
           "id": "dried",
           "area": "toko_bunga",
-          "x": 671,
-          "y": 352,
+          "x": 336,
+          "y": 176,
           "r": 70,
           "label": "Minta bunga kering",
           "actions": [
@@ -5934,8 +5934,8 @@
         {
           "id": "frame",
           "area": "arcade",
-          "x": 707,
-          "y": 738,
+          "x": 354,
+          "y": 369,
           "r": 70,
           "label": "Minta bingkai",
           "actions": [
@@ -7692,8 +7692,8 @@
         {
           "id": "f5_melati",
           "area": "toko_bunga",
-          "x": 828,
-          "y": 460,
+          "x": 414,
+          "y": 230,
           "r": 70,
           "label": "Bicara dengan Bu Melati",
           "actions": [
@@ -7931,8 +7931,8 @@
         {
           "id": "f5_melati_done",
           "area": "toko_bunga",
-          "x": 828,
-          "y": 460,
+          "x": 414,
+          "y": 230,
           "r": 70,
           "label": "Lapor ke Bu Melati",
           "actions": [
@@ -11225,8 +11225,8 @@
         {
           "id": "v464_solo",
           "area": "arcade",
-          "x": 520,
-          "y": 620,
+          "x": 260,
+          "y": 310,
           "r": 95,
           "label": "Selesaikan gambar Sofia",
           "actions": [
@@ -11534,8 +11534,8 @@
         {
           "id": "v468_photo_panel",
           "area": "arcade",
-          "x": 342,
-          "y": 400,
+          "x": 171,
+          "y": 200,
           "r": 90,
           "label": "Periksa sekring photobooth",
           "actions": [
@@ -17942,8 +17942,8 @@
     {
       "id": "claw",
       "area": "arcade",
-      "x": 519,
-      "y": 393,
+      "x": 260,
+      "y": 196,
       "r": 60,
       "label": "Mesin capit",
       "actions": [
@@ -18212,8 +18212,8 @@
     {
       "id": "route_s_2",
       "area": "toko_bunga",
-      "x": 600,
-      "y": 532,
+      "x": 300,
+      "y": 266,
       "r": 60,
       "label": "Potongan pesan bunga",
       "actions": [
@@ -18434,8 +18434,8 @@
     {
       "id": "color_s_2",
       "area": "toko_bunga",
-      "x": 904,
-      "y": 600,
+      "x": 452,
+      "y": 300,
       "r": 66,
       "label": "Warna bunga",
       "actions": [
@@ -18699,8 +18699,8 @@
     {
       "id": "v26_sqs_2",
       "area": "toko_bunga",
-      "x": 424,
-      "y": 808,
+      "x": 212,
+      "y": 404,
       "r": 66,
       "label": "Tulis kartu bunga",
       "actions": [
@@ -19854,8 +19854,8 @@
     {
       "id": "page17",
       "area": "toko_bunga",
-      "x": 1112,
-      "y": 680,
+      "x": 556,
+      "y": 340,
       "r": 48,
       "label": "Halaman lama",
       "actions": [
@@ -19890,8 +19890,8 @@
       ],
       "sprite": {
         "image": "props/old_page.png",
-        "x": 1112,
-        "y": 675,
+        "x": 556,
+        "y": 338,
         "bob": true
       },
       "when": {
@@ -19903,8 +19903,8 @@
     {
       "id": "page18",
       "area": "arcade",
-      "x": 138,
-      "y": 630,
+      "x": 69,
+      "y": 315,
       "r": 48,
       "label": "Halaman lama",
       "actions": [
@@ -19939,8 +19939,8 @@
       ],
       "sprite": {
         "image": "props/old_page.png",
-        "x": 138,
-        "y": 627,
+        "x": 69,
+        "y": 314,
         "bob": true
       },
       "when": {
@@ -23125,8 +23125,8 @@
     {
       "id": "lostbook5",
       "area": "toko_bunga",
-      "x": 404,
-      "y": 797,
+      "x": 202,
+      "y": 398,
       "r": 50,
       "label": "Buku tertinggal",
       "actions": [
@@ -23150,8 +23150,8 @@
       ],
       "sprite": {
         "image": "props/lost_book.png",
-        "x": 404,
-        "y": 791,
+        "x": 202,
+        "y": 396,
         "bob": true
       },
       "when": {
@@ -23398,8 +23398,8 @@
     {
       "id": "shop_melati",
       "area": "toko_bunga",
-      "x": 828,
-      "y": 460,
+      "x": 414,
+      "y": 230,
       "r": 84,
       "label": "Belanja Bunga",
       "actions": [
@@ -23415,8 +23415,8 @@
     {
       "id": "job_perangkai",
       "area": "toko_bunga",
-      "x": 600,
-      "y": 532,
+      "x": 300,
+      "y": 266,
       "r": 72,
       "label": "Rangkai bunga (+22 koin)",
       "actions": [
@@ -23747,8 +23747,8 @@
     {
       "id": "WE27_MELATI_MERANGKAI",
       "area": "toko_bunga",
-      "x": 828,
-      "y": 460,
+      "x": 414,
+      "y": 230,
       "r": 69,
       "label": "Belajar dari Bu Melati",
       "actions": [
@@ -23790,8 +23790,8 @@
     {
       "id": "WE27_ARCADE_TIKET",
       "area": "arcade",
-      "x": 225,
-      "y": 454,
+      "x": 112,
+      "y": 227,
       "r": 69,
       "label": "Tiket yang Tertinggal",
       "actions": [
@@ -25072,8 +25072,8 @@
     {
       "id": "V49_DISC_TOKO_BUNGA",
       "area": "toko_bunga",
-      "x": 272,
-      "y": 410,
+      "x": 136,
+      "y": 205,
       "r": 76,
       "label": "✧ Pita yang Tertinggal",
       "when": {
@@ -25168,8 +25168,8 @@
     {
       "id": "V49_DISC_ARCADE",
       "area": "arcade",
-      "x": 307,
-      "y": 246,
+      "x": 154,
+      "y": 123,
       "r": 76,
       "label": "✧ Tiket Keempat",
       "when": {
@@ -30063,8 +30063,8 @@
     {
       "id": "V50_VIEW_TOKO_BUNGA",
       "area": "toko_bunga",
-      "x": 812,
-      "y": 428,
+      "x": 406,
+      "y": 214,
       "r": 49,
       "label": "✦ Panorama: Panggung Bunga",
       "hideIfFlag": "V50_VIEW_TOKO_BUNGA_DONE",
@@ -30281,8 +30281,8 @@
     {
       "id": "V50_VIEW_ARCADE",
       "area": "arcade",
-      "x": 612,
-      "y": 356,
+      "x": 302,
+      "y": 172,
       "r": 49,
       "label": "✦ Panorama: Dek Lampu Arcade",
       "hideIfFlag": "V50_VIEW_ARCADE_DONE",
@@ -30914,8 +30914,8 @@
       "name": "Bu Melati",
       "sprite": "melati",
       "area": "toko_bunga",
-      "x": 828,
-      "y": 460,
+      "x": 414,
+      "y": 230,
       "dir": "down",
       "when": {},
       "dialogs": [
@@ -31169,8 +31169,8 @@
         {
           "at": "08:00",
           "area": "toko_bunga",
-          "x": 828,
-          "y": 460,
+          "x": 414,
+          "y": 230,
           "dir": "down",
           "wander": 0
         },
@@ -31185,8 +31185,8 @@
         {
           "at": "13:00",
           "area": "toko_bunga",
-          "x": 828,
-          "y": 460,
+          "x": 414,
+          "y": 230,
           "dir": "down",
           "wander": 0
         },
@@ -31203,15 +31203,15 @@
           "hidden": true
         }
       ],
-      "wander": 24
+      "wander": 12
     },
     {
       "id": "juna",
       "name": "Bang Juna",
       "sprite": "juna",
       "area": "arcade",
-      "x": 700,
-      "y": 737,
+      "x": 350,
+      "y": 368,
       "dir": "down",
       "when": {
         "notSteps": [
@@ -31405,8 +31405,8 @@
         {
           "at": "09:30",
           "area": "arcade",
-          "x": 700,
-          "y": 737,
+          "x": 350,
+          "y": 368,
           "dir": "down",
           "wander": 0
         },
@@ -31421,8 +31421,8 @@
         {
           "at": "18:30",
           "area": "arcade",
-          "x": 700,
-          "y": 737,
+          "x": 350,
+          "y": 368,
           "dir": "down",
           "wander": 0
         },
@@ -31431,7 +31431,7 @@
           "hidden": true
         }
       ],
-      "wander": 30
+      "wander": 15
     },
     {
       "id": "sari",
@@ -32143,10 +32143,10 @@
         {
           "at": "12:30",
           "area": "arcade",
-          "x": 591,
-          "y": 611,
+          "x": 254,
+          "y": 264,
           "dir": "up",
-          "wander": 50,
+          "wander": 25,
           "weather": [
             "hujan"
           ]
@@ -33996,10 +33996,10 @@
         {
           "at": "12:30",
           "area": "arcade",
-          "x": 733,
-          "y": 659,
+          "x": 366,
+          "y": 330,
           "dir": "up",
-          "wander": 40,
+          "wander": 20,
           "weather": [
             "hujan"
           ]
@@ -37465,8 +37465,8 @@
       "id": "melati_merangkai",
       "title": "Belajar dari Bu Melati",
       "area": "toko_bunga",
-      "x": 828,
-      "y": 460,
+      "x": 414,
+      "y": 230,
       "hours": [
         "10:00",
         "18:00"
@@ -37487,8 +37487,8 @@
       "id": "arcade_tiket",
       "title": "Tiket yang Tertinggal",
       "area": "arcade",
-      "x": 225,
-      "y": 454,
+      "x": 112,
+      "y": 227,
       "hours": [
         "15:00",
         "22:00"

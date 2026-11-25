@@ -4,7 +4,7 @@ extends RefCounted
 ## so saves written by the LibGDX build load here and the other way around.
 
 const SCHEMA := 8
-const MAP_LAYOUT_VERSION := 5      # MapLayoutV54.VERSION
+const MAP_LAYOUT_VERSION := 6      # 6: toko_bunga and arcade halved to the same scale as the other rooms
 const HISTORY_LIMIT := 72
 const HISTORY_TEXT_LIMIT := 480
 
@@ -174,6 +174,8 @@ static func from_dict(m: Dictionary) -> Progress:
 		if wh.size() == 2:
 			p.x = clampf(p.x * 1200.0 / wh[0], 12, 1187); p.y = clampf(p.y * 896.0 / wh[1], 12, 883)
 	if layout < 5 and p.area in ["arland_room", "sofia_room", "dapur", "ruang_arsip"]:   # MapLayoutV54.fromV4
+		p.x *= 0.5; p.y *= 0.5
+	if layout < 6 and p.area in ["toko_bunga", "arcade"]:
 		p.x *= 0.5; p.y *= 0.5
 	p.dir = str(m.get("dir", "down"))
 	for f in _strs(m, "flags"):

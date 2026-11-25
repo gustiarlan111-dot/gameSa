@@ -275,13 +275,15 @@
       "image": "props/maps_v4_arcade_central_cabinets.png",
       "cw": 0,
       "ch": 0,
-      "layer": "sort"
+      "layer": "sort",
+      "scale": 0.5
     },
     "maps_v4_toko_bunga_flower_table": {
       "image": "props/maps_v4_toko_bunga_flower_table.png",
       "cw": 0,
       "ch": 0,
-      "layer": "sort"
+      "layer": "sort",
+      "scale": 0.5
     },
     "maps_v4_arland_room_computer": {
       "image": "props/maps_v4_arland_room_computer.png",

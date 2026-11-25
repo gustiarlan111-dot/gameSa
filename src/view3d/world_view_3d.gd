@@ -92,8 +92,17 @@ static func at(x: float, y: float, h := 0.0) -> Vector3:
 
 
 ## A point `h` map pixels up a standing (tilted) sprite whose foot is at (x, y).
-static func stand(x: float, y: float, h: float) -> Vector3:
-	return Vector3(x * S, cos(TILT) * h * S, y * S + sin(TILT) * h * S)
+func stand(x: float, y: float, h: float) -> Vector3:
+	return Vector3(x * S, cos(_tilt) * h * S + _lift(y), y * S + sin(_tilt) * h * S)
+
+
+## Rooms are painted as one picture in the classic 3/4 view, walls included. Indoors the camera
+## looks straight down on that picture and everything lies flat on it, so the room keeps its painted
+## look; small height steps by map y keep the old front-to-back order. Outdoors sprites stand up.
+var _indoor := false
+var _tilt := TILT
+func _lift(y: float) -> float:
+	return 0.02 + y / 4000.0 if _indoor else 0.0
 
 
 # ------------------------------------------------------------------ static scene
@@ -105,6 +114,8 @@ func rebuild() -> void:
 		_mirrors[k].pivot.queue_free(); _mirrors[k].base.queue_free()
 	_mirrors.clear()
 	_rustle.clear(); _alts.clear(); _lamps.clear()
+	_indoor = bool(world.area.get("indoor", false))
+	_tilt = -PI / 2.0 if _indoor else TILT
 	_build_ground()
 	_build_props()
 	_build_lamps()
@@ -154,6 +165,7 @@ func _build_ground() -> void:
 	out.material_override = omat
 	out.position = at(w / 2.0, h / 2.0, -0.03)
 	out.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	out.visible = not world.area.get("indoor", false)
 	_static.add_child(out)
 
 
@@ -178,7 +190,7 @@ func _material(tex: Texture2D, img: String, standing: bool) -> StandardMaterial3
 
 
 func _prop_basis(w: float, h: float, standing: bool, skew := 0.0) -> Basis:
-	var rot := Basis(Vector3.RIGHT, TILT if standing else -PI / 2.0)
+	var rot := Basis(Vector3.RIGHT, _tilt if standing else -PI / 2.0)
 	var shear := Basis(Vector3(1, 0, 0), Vector3(-tan(skew), 1, 0), Vector3(0, 0, 1))
 	return rot * shear * Basis.from_scale(Vector3(w * S, h * S, 1.0))
 
@@ -198,8 +210,8 @@ func _build_props() -> void:
 		var h: float = s.texture.get_height() * s.scale.y
 		var building := false
 		for v in VOLUME:
-			building = building or ptype.begins_with(v)
-		var foot := at(holder.position.x, holder.position.y, 0.0 if standing else 0.012)
+			building = (building or ptype.begins_with(v)) and not _indoor
+		var foot := at(holder.position.x, holder.position.y, _lift(holder.position.y) if standing else 0.012)
 		if holder.has_meta("alt"):
 			var mi := MeshInstance3D.new()
 			mi.mesh = _quad
@@ -363,14 +375,15 @@ func _update_mirrors() -> void:
 		var id: int = r.get_instance_id()
 		seen[id] = true
 		if not _mirrors.has(id):
-			var pivot := Node3D.new(); pivot.rotation.x = TILT
+			var pivot := Node3D.new(); pivot.rotation.x = _tilt
 			var base := Node3D.new()
 			_dyn.add_child(base); _dyn.add_child(pivot)
 			_mirrors[id] = {"pivot": pivot, "base": base, "sprites": {}}
 		var m: Dictionary = _mirrors[id]
 		var foot := at(r.position.x, r.position.y)
-		m.pivot.position = foot
-		m.base.position = foot
+		m.pivot.rotation.x = _tilt
+		m.pivot.position = foot + Vector3(0, _lift(r.position.y) + 0.004, 0)
+		m.base.position = foot + Vector3(0, _lift(r.position.y), 0)
 		m.pivot.visible = r.visible
 		m.base.visible = r.visible
 		if r.visible:
@@ -480,7 +493,7 @@ func _update_light(delta: float) -> void:
 	sun.rotation_degrees = Vector3(-el, az + 180.0, 0)
 	sun.light_color = col
 	sun.light_energy = lerpf(sun.light_energy, energy, k)
-	sun.shadow_enabled = sun.light_energy > 0.08
+	sun.shadow_enabled = sun.light_energy > 0.08 and not _indoor
 	var lamp_on: float = a.lamp_on
 	for l in _lamps:
 		var flick := 1.0 + 0.06 * sin(a.time * 2.0 + float(l.x))
@@ -505,8 +518,8 @@ func _update_camera(delta: float) -> void:
 	var ah := float(world.area.get("h", 640))
 	var tgt: Vector2 = c2.position
 	tgt.x = aw / 2.0 if aw <= view_w else clampf(tgt.x, view_w / 2.0, aw - view_w / 2.0)
-	tgt.y = ah / 2.0 if ah <= view_h else clampf(tgt.y, view_h * 0.42, ah - view_h * 0.5)
-	var dist := (1.15 if world.area.get("indoor", false) else 1.3) * view_h * S * sin(PITCH) / (2.0 * tan(deg_to_rad(FOV) / 2.0))
+	tgt.y = ah / 2.0 if ah <= view_h else clampf(tgt.y, view_h * (0.5 if _indoor else 0.42), ah - view_h * 0.5)
+	var dist := 1.3 * view_h * S * sin(PITCH) / (2.0 * tan(deg_to_rad(FOV) / 2.0))
 	var want := at(tgt.x, tgt.y, 0.6)
 	var cine_cam := world.cine != null and world.cine.cam_active
 	if _snap or cine_cam:
@@ -514,8 +527,15 @@ func _update_camera(delta: float) -> void:
 		_snap = false
 	else:
 		_cam_target = _cam_target.lerp(want, 1.0 - exp(-delta * 7.0))
-	cam.position = _cam_target + Vector3(0, sin(PITCH) * dist, cos(PITCH) * dist)
-	cam.look_at(_cam_target, Vector3.UP)
+	if _indoor:
+		cam.projection = Camera3D.PROJECTION_ORTHOGONAL
+		cam.size = view_h * S
+		cam.position = _cam_target + Vector3(0, 40.0, 0)
+		cam.look_at(_cam_target, Vector3(0, 0, -1))
+	else:
+		cam.projection = Camera3D.PROJECTION_PERSPECTIVE
+		cam.position = _cam_target + Vector3(0, sin(PITCH) * dist, cos(PITCH) * dist)
+		cam.look_at(_cam_target, Vector3.UP)
 	# 2D overlay alignment: an affine map from map pixels to the screen, fitted around the view centre
 	var c := Vector2(_cam_target.x / S, _cam_target.z / S)
 	var p0 := cam.unproject_position(at(c.x, c.y))

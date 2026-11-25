@@ -250,6 +250,190 @@ def arcade(r):
     r.glow(261, 140, 50, 50, '#ffd0e0', 0.1)
 
 
+# ---------------------------------------------------------------------------------------- cafe wing
+@room
+def cafe(r):
+    W, H = 960, 640
+    r.shell(W, H, floor='planks', wall='#f4e6d2', wainscot='#a8744c', trim='#fff4e4', pattern='panel',
+            floor_pal=('#a87a52', '#b3845a', '#bd8e62', '#9e714b'), door=None, wall_h=228, side=14, bottom=628)
+    # back wall: two doors, windows, menu boards, cup shelves, pendants, fairy lights
+    r.wall_door(370, 226, 60, 86, '#8a5a3a', sign='#e8b04a')
+    r.wall_door(830, 226, 60, 86, '#8a5a3a', glass=False, sign='#9cc7b8')
+    r.window(60, 60, 110, 76, curtain='#e8b04a'); r.window(480, 60, 96, 76, curtain='#e8b04a')
+    r.chalkboard(200, 56, 120, 70, 5); r.chalkboard(640, 60, 90, 56, 4)
+    r.frame(270, 136, 40, 30, 1); r.clock(520, 168, 10, '#8a5a3a'); r.poster(752, 98, 36, 50, '#fbe9d4', '#e06a7a')
+    r.wall_shelf(200, 160, 120, ('jar', 'jar', 'plant', 'jar', 'jar')); r.wall_shelf(620, 150, 150, ('book', 'plant', 'jar', 'book'))
+    r.string_lights(20, 940, 22, sag=18, n=36)
+    for x in (120, 300, 560, 760):
+        r.pendant(x, 10, 26)
+    r.hanging_plant(30, 10, 60); r.hanging_plant(930, 10, 60)
+    # service counter (left) and cake display (examine 380,340)
+    r.block.append(r.counter(122, 292, 170, 48, '#e9dccb', '#7a4a32', items=('machine', 'register', 'cup' if False else 'jars', 'bread'), doors=True))
+    r.block.append(r.box(338, 292, 74, 18, 28, '#dff0f6', '#7a4a32'))
+    for k in range(5):
+        r.fill(r.E(348 + k * 13, 300, 5, 3.5), ['#f2a0b8', '#fbe3c0', '#c98b4a', '#f6d36a', '#e06a7a'][k])
+    r.rect(340, 294, 70, 2, '#ffffff', 0.6)
+    r.block.append(r.cabinet(40, 240, 60, 52, '#7a4a32', drawers=2)); r.pot(60, 240, 0.6, kind='flower')
+    # bookshelf corner (examine 700,324)
+    r.block.append(r.bookshelf(650, 246, 104, 56, '#8a5a3a', rows=2))
+    # symbol puzzle table on a round rug
+    r.rug(480, 486, 96, 52, '#c9793a', '#f2d5a8')
+    r.block.append(r.table(452, 448, 56, 34, '#7a4a32', cloth='#e8d4a8', round_=True, chairs=0))
+    for k, cc in enumerate(('#e06a7a', '#5a7ac4', '#e0b04a', '#6aa86a')):
+        r.fill(r.E(466 + k * 9, 460, 3, 2.5), cc)
+    # guest tables
+    for x, y, cl in ((136, 544, '#f6d3dc'), (776, 544, '#dfe8f4'), (756, 404, '#f6e2a8'), (596, 584, '#e8f0dc'), (276, 584, '#f6d3dc')):
+        r.block.append(r.table(x, y, 48, 32, '#8a5a3a', cloth=cl, round_=True, chairs=2, chair_c='#a87443', items=('cup', 'cake')))
+    # sofa nook with coffee table (right)
+    r.block.append(r.sofa(822, 436, 100, 44, '#9cc7b8', ('#f6d3dc', '#f6e2a8')))
+    r.rug(870, 520, 50, 18, '#9cc7b8', '#eef5f0', round_=False)
+    # gallery entrance on the left (door 80..150, 430..500)
+    r.portal_door(84, 432, 62, 60, '#f2d5a8')
+    r.rect(92, 420, 46, 10, '#7a4a32'); r.rect(96, 422, 38, 6, '#f6e2a8')
+    # plants and a bench
+    for x, y in ((40, 330), (920, 330), (40, 616), (920, 616)):
+        r.block.append(r.plant_big(x, y, 'tall' if x < 500 else 'leafy', 1.0))
+    r.block.append(r.bench(560, 360, 70, '#a87443')); r.pot(600, 360, 0.7, kind='flower')
+    r.glow(480, 420, 300, 140, '#ffe6b8', 0.07)
+
+
+@room
+def galeri_komunitas(r):
+    W, H = 960, 640
+    r.shell(W, H, floor='planks', wall='#f2eee8', wainscot='#c9c2d6', trim='#ffffff', pattern='panel',
+            floor_pal=('#d8c4a4', '#cfb998', '#e0ccae', '#c7b08e'), door=(375, 210), wall_h=84, side=80, bottom=614)
+    for x, w, art in ((100, 60, 0), (180, 44, 3), (240, 70, 1), (590, 70, 2), (680, 44, 4), (740, 60, 0), (820, 40, 3)):
+        r.frame(x, 20, w, 40, art, '#b08a5a')
+        r.glow(x + w / 2, 30, w, 30, '#fff4d8', 0.15)
+    r.rect(330, 16, 250, 26, '#f6e2c8'); r.rect(336, 20, 238, 18, '#e8b04a')
+    for i in range(10):
+        r.rect(346 + i * 23, 26, 14, 6, '#fff4e4')
+    r.string_lights(84, 876, 70, sag=10, n=30, colors=('#fff1c8', '#ffe0a8'))
+    for x in (140, 360, 600, 820):
+        r.pot(x, 200, 0.7, kind='flower'); r.block.append([x - 8, 182, 16, 18])
+    # plinths and display benches (old blocking spots kept)
+    r.block.append(r.plinth(160, 112, 40, 54, art='vase', tint='#f2a0b8'))
+    r.block.append(r.plinth(228, 112, 40, 54, art='bust'))
+    r.block.append(r.box(403, 104, 150, 14, 24, '#f6f0e6', '#c9c2d6'))
+    for k in range(4):
+        r.frame(412 + k * 36, 80, 28, 22, k + 1, '#8a6a4a')
+    r.block.append(r.plinth(676, 112, 40, 54, art='orb', tint='#9fd3f0'))
+    r.block.append(r.plinth(752, 112, 40, 54, art='vase', tint='#e8b04a'))
+    # easels along the side walls (sketch points stay in front)
+    for i, (x, y) in enumerate(((96, 210), (96, 330), (96, 450), (820, 220), (820, 340))):
+        r.block.append(r.easel(x, y, 40, 56, i))
+    # centre: bench and big rug
+    r.rug(480, 420, 150, 70, '#c9c2d6', '#f2eef8', round_=False)
+    r.block.append(r.bench(560, 560, 70, '#a87443'))
+    r.block.append(r.bench(330, 560, 70, '#a87443'))
+    # the sealed door to Ruang Dua Surat
+    r.portal_door(776, 458, 68, 60, '#c4b2f2', sealed=True)
+    for x, y in ((100, 600), (860, 600)):
+        r.block.append(r.plant_big(x, y, 'tall', 1.0))
+    r.glow(480, 300, 300, 160, '#fff4e0', 0.06)
+
+
+# ---------------------------------------------------------------------------------------- library wing
+@room
+def perpustakaan(r):
+    W, H = 1200, 896
+    r.shell(W, H, floor='planks', wall='#efe4cf', wainscot='#4f6a52', trim='#f6ecd8', pattern='stripe',
+            floor_pal=('#8a5e3e', '#946645', '#9e6f4c', '#80573a'), door=(555, 95), wall_h=195, side=38, bottom=845)
+    # built-in shelves and tall windows on the back wall
+    for x in (50, 230, 690, 870):
+        r.bookshelf(x, 22, 150, 138, '#6e4a30', rows=5, deco=False)
+    for x in (410, 560):
+        r.window(x + 8, 30, 70, 110, curtain='#7a9a6a')
+    r.clock(586, 156, 12, '#6e4a30')
+    r.bookshelf(1050, 22, 100, 138, '#6e4a30', rows=5, deco=False)
+    for x in (200, 520, 840):
+        r.pendant(x + 20, 4, 40, '#e8c46a')
+    # long carpet runner from the door to the reading hall
+    r.rug(602, 700, 50, 140, '#7a3a4a', '#a85060', round_=False)
+    # reading corner (globe 161,290 and sofa 154,365)
+    r.block.append(r.bookshelf(60, 206, 140, 50, '#6e4a30', rows=2))
+    r.block.append(r.globe(196, 306))
+    r.block.append(r.sofa(56, 330, 96, 44, '#7a3a4a', ('#e8c46a', '#f2d5a8')))
+    r.block.append(r.floor_lamp(46, 420, '#f2d5a8'))
+    r.rug(110, 420, 60, 26, '#4f6a52', '#a8c09a', round_=False)
+    # freestanding shelf rows
+    r.block.append(r.bookshelf(400, 418, 160, 54, '#6e4a30', rows=2))
+    r.block.append(r.bookshelf(110, 520, 150, 54, '#6e4a30', rows=2))
+    r.block.append(r.bookshelf(860, 474, 180, 56, '#6e4a30', rows=2))
+    r.block.append(r.bookshelf(860, 640, 180, 56, '#6e4a30', rows=2))
+    # reading tables with lamps
+    r.block.append(r.table(650, 440, 160, 50, '#6e4a30', chairs=2, chair_c='#7a3a4a'))
+    for x in (680, 760):
+        r.rect(x, 446, 2, 12, '#7a6a5a'); r.fill(r.E(x + 1, 446, 6, 3.5), '#4f6a52'); r.glow(x, 460, 30, 18, '#ffe6a8', 0.15)
+    r.rect(712, 452, 22, 14, '#fbf8f0'); r.rect(716, 454, 20, 12, '#f6ecd8')
+    r.block.append(r.table(100, 640, 110, 44, '#6e4a30', chairs=2, chair_c='#4f6a52', items=('cup', 'vase')))
+    # librarian's desk by the entrance
+    r.block.append(r.counter(370, 742, 130, 46, '#e9dccb', '#6e4a30', items=('books' if False else 'jars', 'register'), doors=False))
+    r.block.append(r.cabinet(240, 760, 50, 50, '#6e4a30', drawers=3))
+    # the old shelf that hides the archive (opens with LIB_SECRET_OPEN)
+    r.block.append(r.bookshelf(1066, 240, 74, 92, '#5a3a24', rows=4, deco=False))
+    r.rect(1066, 332, 74, 3, '#e8c46a', 0.6)
+    # plants, lamps, notice board
+    for x, y in ((60, 830), (1140, 830), (1140, 220), (700, 260)):
+        r.block.append(r.plant_big(x, y, 'tall', 1.0))
+    r.block.append(r.floor_lamp(840, 410, '#f2d5a8'))
+    r.block.append(r.bench(700, 760, 90, '#6e4a30'))
+    r.poster(300, 210, 40, 0 + 30, '#f6ecd8', '#4f6a52')
+    r.glow(600, 300, 360, 160, '#fff1c8', 0.06)
+
+
+@room
+def ruang_arsip(r):
+    W, H = 600, 448
+    r.shell(W, H, floor='stone', wall='#4a4a66', wainscot='#33334a', trim='#8a86a8', pattern='brick',
+            floor_pal=('#5a5a6c', '#4e4e60'), door=(271, 57), bottom=425,
+            brick_pal=('#4a4a62', '#52526c', '#5a5a74', '#444458'))
+    r.rect(24, 10, 552, 56, '#000000', 0.35)
+    for x in (60, 200, 340, 480):
+        r.glow(x + 30, 40, 40, 26, '#9ff0e0', 0.12)
+    r.block.append(r.jar_shelf(96, 94, 110, 74, '#9ff0e0'))
+    r.block.append(r.jar_shelf(236, 92, 128, 58, '#f6d36a'))
+    r.block.append(r.jar_shelf(386, 94, 110, 74, '#c4b2f2'))
+    # investigation desk with papers and a lamp (points 300-310, 283-352 stay in front)
+    r.block.append(r.desk(250, 222, 100, 44, '#5a4a3a', items=('papers', 'lamp', 'books'), chair=None))
+    r.rect(262, 214, 30, 1, '#e04a4a'); r.rect(290, 208, 1, 14, '#e04a4a')
+    r.block.append(r.cabinet(500, 196, 56, 70, '#5a5a6c', drawers=4))
+    r.block.append(r.cabinet(500, 290, 56, 56, '#5a5a6c', drawers=3))
+    r.block.append(r.bench(40, 370, 90, '#5a5a6c'))
+    r.block.append(r.plinth(36, 240, 40, 56, art='crystal', tint='#9ff0e0'))
+    r.block.append(r.plinth(470, 350, 40, 56, art='crystal', tint='#c4b2f2'))
+    for x, y in ((150, 300), (420, 330), (180, 410), (520, 140)):
+        r.fill(r.E(x, y, 4, 3), '#9ff0e0'); r.rect(x - 1, y + 2, 2, 4, '#e6f1f4'); r.glow(x, y, 16, 12, '#9ff0e0', 0.25)
+    r.rug(300, 340, 70, 30, '#3a3a5a', '#5a5a80', round_=False)
+    r.glow(300, 240, 120, 60, '#ffe6a8', 0.1)
+
+
+@room
+def ruang_dua_surat(r):
+    W, H = 960, 640
+    r.shell(W, H, floor='planks', wall='#2a3058', wainscot='#1e2244', trim='#c4b2f2', pattern='stars',
+            floor_pal=('#5a4a6a', '#644f74', '#6e587e', '#544364'), door=(430, 100), wall_h=64, side=55, bottom=616)
+    r.window(150, 10, 90, 40, lit=True, curtain='#8a7ac4'); r.window(720, 10, 90, 40, lit=True, curtain='#8a7ac4')
+    r.string_lights(60, 900, 54, sag=14, n=30, colors=('#fff1c8', '#c4b2f2'))
+    # two writing desks, one for each letter
+    for x, c in ((256, '#f2a0b8'), (606, '#9fd3f0')):
+        r.block.append(r.desk(x, 290, 92, 44, '#5a4a3a', items=('papers', 'lamp'), chair=None))
+        r.rect(x + 50, 296, 14, 10, '#fbf4e6'); r.rect(x + 52, 298, 10, 2, c)
+        r.glow(x + 46, 300, 70, 40, c, 0.12)
+    # memory pedestal in the middle
+    r.block.append(r.plinth(460, 226, 40, 56, art='orb', tint='#f6e7a8'))
+    r.rug(480, 470, 120, 60, '#4a3a6a', '#7a68a8', round_=True)
+    # shelves of letters along the side walls
+    for y in (120, 300, 470):
+        r.block.append(r.bookshelf(64, y, 70, 90, '#3a2c44', rows=3, deco=False))
+        r.block.append(r.bookshelf(826, y, 70, 90, '#3a2c44', rows=3, deco=False))
+    for x in (200, 760):
+        r.block.append(r.plinth(x - 20, 120, 40, 50, art='crystal', tint='#c4b2f2'))
+    for x, y in ((160, 600), (800, 600)):
+        r.block.append(r.plant_big(x, y, 'leafy', 0.9))
+    r.glow(480, 300, 320, 200, '#c4b2f2', 0.06)
+
+
 def build(area, apply=False, preview=None):
     P = json.loads((A / 'data/props.json').read_text(encoding='utf-8'))['props']
     Q = json.loads((A / 'data/quests.json').read_text(encoding='utf-8'))
@@ -261,7 +445,7 @@ def build(area, apply=False, preview=None):
     ROOMS[area](r)
     walls = [[int(round(v)) for v in b] for b in r.block]
     m.collision = lambda P_: walls
-    extra = dict(visualStyle='godot_hd_interior', visualUpdate='godot_rooms_hd', v4Layout=None,
+    extra = dict(visualStyle='godot_hd_interior', visualUpdate='godot_rooms_hd', v4Layout=None, indoor=True,
                  v6Layout=dict(version=3, generator='tools/worldgen/rooms_hd.py', hd=True))
     out = None
     if preview:

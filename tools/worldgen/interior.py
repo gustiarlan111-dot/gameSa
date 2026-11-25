@@ -124,7 +124,7 @@ class Room:
 
     # ------------------------------------------------------------------ room shell
     def shell(self, W, H, floor='planks', wall='#f1d9cf', wainscot='#d99a9a', trim='#fbeee4',
-              floor_pal=None, door=(274, 52), wall_h=96, side=24, pattern='stripe', bottom=424):
+              floor_pal=None, door=(274, 52), wall_h=96, side=24, pattern='stripe', bottom=424, brick_pal=None):
         """Back wall band (top), side walls, floor, bottom wall with a door gap. Returns the walls."""
         c = self.c
         self.img[:] = rgb('#140f1a')
@@ -139,6 +139,10 @@ class Room:
         elif floor == 'checker':
             a, b = floor_pal or ('#2f2a44', '#3c3658')
             fl = c.tiles(a, b, size=40, grout='#1e1a2c', salt=5)
+        elif floor == 'carpet':
+            a, b = floor_pal or ('#7a3a4a', '#6c3442')
+            fl = c.tiles(a, b, size=8, grout=b, salt=6)
+            fl = fl * 0.5 + col(a) * 0.5
         else:
             a, b = floor_pal or ('#7a7f8c', '#6c717e')
             fl = c.tiles(a, b, size=48, grout='#4f5360', salt=6)
@@ -162,8 +166,11 @@ class Room:
             sm = wm & ((c.xx // K) % 16 == 4) & ((c.yy // K) % 16 == 6)
             self.img[sm] = shade(wall, 0.82)
         elif pattern == 'brick':
-            bm = self.c.bricks(('#9e6649', '#a96f4f', '#b37a57', '#8f5b41'), bw=28, bh=12, mortar='#6e4a3a', salt=7)
+            bm = self.c.bricks(brick_pal or ('#9e6649', '#a96f4f', '#b37a57', '#8f5b41'), bw=28, bh=12, mortar='#6e4a3a' if not brick_pal else '#2a2a3a', salt=7)
             self.img[wm] = bm[wm]
+        elif pattern == 'panel':
+            sm = wm & ((((c.xx // K) - side) % 48 < 2) | (((c.yy // K) - wy) % 60 < 2))
+            self.img[sm] = shade(wall, 0.85)
         elif pattern == 'stars':
             sm = wm & (hash2(c.xx // 6, c.yy // 6, 3) > 0.985)
             self.img[sm] = rgb('#f6e7a8')
@@ -778,6 +785,65 @@ class Room:
         m = self.R(cx - 7, y + drop, 14, 6) | self.E(cx, y + drop, 7, 4)
         self.fill(m, c); self.outline(m, shade(c, 0.5))
         self.glow(cx, y + drop + 20, 34, 24, '#ffe6a8', 0.12)
+
+    def plinth(self, x, y, w=40, h=46, c='#efe9e0', art='vase', tint='#9fd3f0'):
+        r = self.box(x, y + 16, w, 10, h - 16, shade(c, 1.05), c)
+        cx = x + w / 2
+        if art == 'vase':
+            m = self.E(cx, y + 14, 8, 9) | self.R(cx - 3, y + 2, 6, 6)
+            self.fill(m, tint); self.outline(m, shade(tint, 0.5)); self.rect(cx - 5, y + 10, 3, 6, '#ffffff', 0.5)
+        elif art == 'bust':
+            m = self.E(cx, y + 6, 6, 7) | self.E(cx, y + 18, 10, 6)
+            self.fill(m, '#e8e4dc'); self.outline(m, '#9a948c')
+        elif art == 'orb':
+            self.fill(self.E(cx, y + 12, 9, 9), tint); self.glow(cx, y + 12, 26, 22, tint, 0.25)
+            self.rect(cx - 4, y + 6, 3, 3, '#ffffff', 0.7)
+        elif art == 'crystal':
+            m = self.R(cx - 4, y - 6, 8, 22) | self.R(cx - 8, y + 4, 5, 12) | self.R(cx + 3, y + 2, 5, 14)
+            self.fill(m, tint); self.outline(m, shade(tint, 0.5)); self.rect(cx - 3, y - 4, 2, 16, '#ffffff', 0.6)
+            self.glow(cx, y + 6, 34, 30, tint, 0.25)
+        return [x, y + 10, w, h - 10]
+
+    def bench(self, x, y, w=70, c='#a87443'):
+        r = self.box(x, y, w, 12, 10, shade(c, 1.1), c)
+        for px in range(int(x + 2), int(x + w - 2), 8):
+            self.rect(px, y + 1, 1, 10, shade(c, 0.8))
+        return r
+
+    def globe(self, cx, bot):
+        self.rect(cx - 8, bot - 4, 16, 4, '#8c5a3a'); self.rect(cx - 1, bot - 14, 2, 10, '#8c5a3a')
+        m = self.E(cx, bot - 24, 11, 11)
+        self.fill(m, '#4f93ae'); self.dots(m, ['#7ac06a', '#a8c87a'], 10, 3); self.outline(m, '#2a4a5a')
+        self.rect(cx - 5, bot - 31, 3, 3, '#ffffff', 0.5)
+        self.outline(self.E(cx, bot - 24, 13, 13) & ~self.E(cx, bot - 24, 12, 12), '#d9b46a')
+        return [cx - 12, bot - 14, 24, 14]
+
+    def portal_door(self, x, y, w, h, c='#c4b2f2', sealed=False):
+        self.rect(x - 6, y - 8, w + 12, h + 8, '#5a4a7a')
+        self.fill(self.E(x + w / 2, y, w / 2 + 6, 12), '#5a4a7a')
+        self.vgrad(x, y, w, h, shade(c, 0.6), shade(c, 1.1))
+        self.fill(self.E(x + w / 2, y, w / 2, 10), shade(c, 0.6))
+        self.outline(self.R(x - 6, y - 8, w + 12, h + 8), '#2a2040')
+        if sealed:
+            self.rect(x + w / 2 - 1, y, 2, h, '#f6e7a8')
+        self.dots(self.R(x, y, w, h), ['#ffffff', '#f6e7a8'], max(4, int(w * h / 300)), 1)
+        self.glow(x + w / 2, y + h / 2, w, h * 0.8, c, 0.18)
+
+    def jar_shelf(self, x, y, w=120, h=70, glow_c='#9ff0e0', rows=3):
+        r = self.box(x, y, w, 8, h - 8, '#5a4a5a', '#463a4a')
+        rh = (h - 14) / rows
+        for i in range(rows):
+            ry = y + 10 + i * rh
+            self.rect(x + 3, ry, w - 6, rh - 3, '#2a2230')
+            for k in range(int((w - 8) // 12)):
+                jx = x + 5 + k * 12
+                cc = [glow_c, '#f6d36a', '#c4b2f2', '#f2a0b8'][(i + k) % 4]
+                self.rect(jx, ry + rh - 13, 8, 10, '#e6f1f4', 0.35)
+                self.rect(jx + 1, ry + rh - 9, 6, 6, cc)
+                self.rect(jx, ry + rh - 14, 8, 2, '#8a6a4a')
+                self.glow(jx + 4, ry + rh - 6, 9, 7, cc, 0.25)
+            self.rect(x + 2, ry + rh - 3, w - 4, 3, '#6a5a6a')
+        return r
 
     def doormat(self, x, y, w=44, h=14, c='#c97a5a'):
         self.rect(x, y, w, h, c)

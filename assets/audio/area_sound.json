@@ -1,0 +1,1784 @@
+{
+ "_doc": "Per-area soundscape (tools/audio/make_soundscape.py). layers loop from assets/audio/amb, spots are random one-shots from assets/audio/spots (<id>_1..3.ogg), emitters/flow/lake are positional loops. when: day,night,dawn,dusk,dry,rain,wind.",
+ "spot_variants": 3,
+ "reverb": {
+  "open": [
+   0.25,
+   0.6,
+   0.06,
+   20
+  ],
+  "street": [
+   0.4,
+   0.5,
+   0.1,
+   30
+  ],
+  "plaza": [
+   0.5,
+   0.5,
+   0.13,
+   40
+  ],
+  "harbor": [
+   0.45,
+   0.4,
+   0.1,
+   50
+  ],
+  "forest": [
+   0.6,
+   0.6,
+   0.18,
+   30
+  ],
+  "room": [
+   0.25,
+   0.7,
+   0.12,
+   5
+  ],
+  "hall": [
+   0.6,
+   0.5,
+   0.2,
+   15
+  ],
+  "dream": [
+   0.75,
+   0.4,
+   0.28,
+   40
+  ],
+  "cathedral": [
+   0.9,
+   0.35,
+   0.35,
+   60
+  ],
+  "cave": [
+   0.92,
+   0.25,
+   0.42,
+   70
+  ]
+ },
+ "emitters": {
+  "hd_fountain_grand": {
+   "id": "fountain",
+   "r": 560,
+   "vol": 1.0
+  },
+  "hd_fountain_tiered": {
+   "id": "fountain",
+   "r": 420,
+   "vol": 0.8
+  },
+  "hd_waterfall": {
+   "id": "waterfall",
+   "r": 760,
+   "vol": 1.0
+  },
+  "hd_campfire": {
+   "id": "fire",
+   "r": 320,
+   "vol": 0.9
+  }
+ },
+ "areas": {
+  "plaza": {
+   "reverb": "plaza",
+   "flow": {
+    "id": "river",
+    "r": 260,
+    "vol": 0.45
+   },
+   "layers": [
+    {
+     "id": "city_crowd",
+     "vol": 0.75,
+     "when": "day,dry"
+    },
+    {
+     "id": "city_crowd",
+     "vol": 0.3,
+     "when": "night,dry"
+    },
+    {
+     "id": "birds_town",
+     "vol": 0.6,
+     "when": "day,dry"
+    },
+    {
+     "id": "wind_soft",
+     "vol": 0.35,
+     "when": ""
+    },
+    {
+     "id": "wind_soft",
+     "vol": 0.5,
+     "when": "wind"
+    },
+    {
+     "id": "rain_city",
+     "vol": 0.9,
+     "when": "rain"
+    },
+    {
+     "id": "crickets",
+     "vol": 0.7,
+     "when": "night,dry"
+    }
+   ],
+   "spots": [
+    {
+     "id": "dove",
+     "every": [
+      8,
+      18
+     ],
+     "vol": 0.5,
+     "when": "day,dry",
+     "far": false
+    },
+    {
+     "id": "bike_bell",
+     "every": [
+      14,
+      30
+     ],
+     "vol": 0.45,
+     "when": "day,dry",
+     "far": true
+    },
+    {
+     "id": "wind_chime",
+     "every": [
+      20,
+      40
+     ],
+     "vol": 0.35,
+     "when": "dry",
+     "far": false
+    },
+    {
+     "id": "dog_far",
+     "every": [
+      30,
+      70
+     ],
+     "vol": 0.3,
+     "when": "night",
+     "far": true
+    },
+    {
+     "id": "thunder",
+     "every": [
+      25,
+      60
+     ],
+     "vol": 0.55,
+     "when": "rain",
+     "far": true
+    }
+   ]
+  },
+  "jalan_kota": {
+   "reverb": "street",
+   "layers": [
+    {
+     "id": "traffic",
+     "vol": 0.85,
+     "when": "day"
+    },
+    {
+     "id": "traffic",
+     "vol": 0.4,
+     "when": "night"
+    },
+    {
+     "id": "city_crowd",
+     "vol": 0.45,
+     "when": "day,dry"
+    },
+    {
+     "id": "birds_town",
+     "vol": 0.35,
+     "when": "dawn,dry"
+    },
+    {
+     "id": "wind_soft",
+     "vol": 0.3,
+     "when": ""
+    },
+    {
+     "id": "rain_city",
+     "vol": 0.95,
+     "when": "rain"
+    },
+    {
+     "id": "crickets",
+     "vol": 0.7,
+     "when": "night,dry"
+    }
+   ],
+   "spots": [
+    {
+     "id": "car_horn",
+     "every": [
+      12,
+      28
+     ],
+     "vol": 0.4,
+     "when": "",
+     "far": true
+    },
+    {
+     "id": "bus_hiss",
+     "every": [
+      18,
+      40
+     ],
+     "vol": 0.45,
+     "when": "day",
+     "far": false
+    },
+    {
+     "id": "crossing_beep",
+     "every": [
+      25,
+      50
+     ],
+     "vol": 0.35,
+     "when": "day",
+     "far": false
+    },
+    {
+     "id": "train_far",
+     "every": [
+      45,
+      90
+     ],
+     "vol": 0.5,
+     "when": "",
+     "far": true
+    },
+    {
+     "id": "bike_bell",
+     "every": [
+      20,
+      40
+     ],
+     "vol": 0.4,
+     "when": "day,dry",
+     "far": false
+    },
+    {
+     "id": "thunder",
+     "every": [
+      25,
+      60
+     ],
+     "vol": 0.55,
+     "when": "rain",
+     "far": true
+    }
+   ]
+  },
+  "perumahan": {
+   "reverb": "street",
+   "layers": [
+    {
+     "id": "birds_town",
+     "vol": 0.75,
+     "when": "day,dry"
+    },
+    {
+     "id": "cicadas",
+     "vol": 0.6,
+     "when": "day,dry"
+    },
+    {
+     "id": "wind_trees",
+     "vol": 0.4,
+     "when": ""
+    },
+    {
+     "id": "wind_trees",
+     "vol": 0.7,
+     "when": "wind"
+    },
+    {
+     "id": "traffic",
+     "vol": 0.15,
+     "when": "day"
+    },
+    {
+     "id": "rain_open",
+     "vol": 0.85,
+     "when": "rain"
+    },
+    {
+     "id": "crickets",
+     "vol": 0.8,
+     "when": "night,dry"
+    }
+   ],
+   "spots": [
+    {
+     "id": "dog_far",
+     "every": [
+      25,
+      55
+     ],
+     "vol": 0.4,
+     "when": "",
+     "far": true
+    },
+    {
+     "id": "wind_chime",
+     "every": [
+      16,
+      35
+     ],
+     "vol": 0.5,
+     "when": "dry",
+     "far": false
+    },
+    {
+     "id": "tokek",
+     "every": [
+      40,
+      80
+     ],
+     "vol": 0.6,
+     "when": "night",
+     "far": false
+    },
+    {
+     "id": "dove",
+     "every": [
+      15,
+      30
+     ],
+     "vol": 0.4,
+     "when": "dawn,dry",
+     "far": false
+    },
+    {
+     "id": "bike_bell",
+     "every": [
+      30,
+      60
+     ],
+     "vol": 0.35,
+     "when": "day,dry",
+     "far": true
+    },
+    {
+     "id": "thunder",
+     "every": [
+      25,
+      60
+     ],
+     "vol": 0.55,
+     "when": "rain",
+     "far": true
+    }
+   ]
+  },
+  "taman_kota": {
+   "reverb": "open",
+   "lake": {
+    "id": "lake",
+    "r": 300,
+    "vol": 0.7
+   },
+   "layers": [
+    {
+     "id": "birds_park",
+     "vol": 0.85,
+     "when": "day,dry"
+    },
+    {
+     "id": "wind_trees",
+     "vol": 0.4,
+     "when": ""
+    },
+    {
+     "id": "wind_trees",
+     "vol": 0.7,
+     "when": "wind"
+    },
+    {
+     "id": "cicadas",
+     "vol": 0.35,
+     "when": "day,dry"
+    },
+    {
+     "id": "rain_leaves",
+     "vol": 0.9,
+     "when": "rain"
+    },
+    {
+     "id": "crickets",
+     "vol": 0.75,
+     "when": "night,dry"
+    },
+    {
+     "id": "frogs",
+     "vol": 0.45,
+     "when": "night"
+    }
+   ],
+   "spots": [
+    {
+     "id": "whistler",
+     "every": [
+      8,
+      18
+     ],
+     "vol": 0.5,
+     "when": "day,dry",
+     "far": false
+    },
+    {
+     "id": "dove",
+     "every": [
+      15,
+      30
+     ],
+     "vol": 0.4,
+     "when": "day,dry",
+     "far": false
+    },
+    {
+     "id": "owl",
+     "every": [
+      40,
+      80
+     ],
+     "vol": 0.45,
+     "when": "night,dry",
+     "far": true
+    },
+    {
+     "id": "wind_chime",
+     "every": [
+      30,
+      60
+     ],
+     "vol": 0.3,
+     "when": "dry",
+     "far": false
+    },
+    {
+     "id": "thunder",
+     "every": [
+      25,
+      60
+     ],
+     "vol": 0.55,
+     "when": "rain",
+     "far": true
+    }
+   ]
+  },
+  "riverside": {
+   "reverb": "open",
+   "layers": [
+    {
+     "id": "wind_soft",
+     "vol": 0.45,
+     "when": ""
+    },
+    {
+     "id": "wind_soft",
+     "vol": 0.7,
+     "when": "wind"
+    },
+    {
+     "id": "birds_park",
+     "vol": 0.45,
+     "when": "day,dry"
+    },
+    {
+     "id": "rain_water",
+     "vol": 0.9,
+     "when": "rain"
+    },
+    {
+     "id": "crickets",
+     "vol": 0.6,
+     "when": "night,dry"
+    },
+    {
+     "id": "frogs",
+     "vol": 0.75,
+     "when": "night"
+    }
+   ],
+   "flow": {
+    "id": "river",
+    "r": 520,
+    "vol": 0.95
+   },
+   "lake": {
+    "id": "lake",
+    "r": 360,
+    "vol": 0.6
+   },
+   "spots": [
+    {
+     "id": "fish_splash",
+     "every": [
+      18,
+      40
+     ],
+     "vol": 0.45,
+     "when": "dry",
+     "far": false
+    },
+    {
+     "id": "frog",
+     "every": [
+      10,
+      25
+     ],
+     "vol": 0.5,
+     "when": "dusk",
+     "far": false
+    },
+    {
+     "id": "creak",
+     "every": [
+      25,
+      50
+     ],
+     "vol": 0.35,
+     "when": "",
+     "far": false
+    },
+    {
+     "id": "thunder",
+     "every": [
+      25,
+      60
+     ],
+     "vol": 0.55,
+     "when": "rain",
+     "far": true
+    }
+   ]
+  },
+  "dermaga": {
+   "reverb": "harbor",
+   "layers": [
+    {
+     "id": "wind_soft",
+     "vol": 0.55,
+     "when": ""
+    },
+    {
+     "id": "wind_high",
+     "vol": 0.5,
+     "when": "wind"
+    },
+    {
+     "id": "rain_water",
+     "vol": 0.95,
+     "when": "rain"
+    },
+    {
+     "id": "crickets",
+     "vol": 0.4,
+     "when": "night,dry"
+    }
+   ],
+   "flow": {
+    "id": "waves_pier",
+    "r": 700,
+    "vol": 1.0
+   },
+   "spots": [
+    {
+     "id": "gull",
+     "every": [
+      7,
+      16
+     ],
+     "vol": 0.6,
+     "when": "day,dry",
+     "far": false
+    },
+    {
+     "id": "creak",
+     "every": [
+      6,
+      14
+     ],
+     "vol": 0.45,
+     "when": "",
+     "far": false
+    },
+    {
+     "id": "buoy_bell",
+     "every": [
+      18,
+      35
+     ],
+     "vol": 0.4,
+     "when": "",
+     "far": true
+    },
+    {
+     "id": "ship_horn",
+     "every": [
+      50,
+      100
+     ],
+     "vol": 0.55,
+     "when": "",
+     "far": true
+    },
+    {
+     "id": "fish_splash",
+     "every": [
+      25,
+      50
+     ],
+     "vol": 0.35,
+     "when": "dry",
+     "far": false
+    },
+    {
+     "id": "thunder",
+     "every": [
+      25,
+      60
+     ],
+     "vol": 0.55,
+     "when": "rain",
+     "far": true
+    }
+   ]
+  },
+  "hutan_bisik": {
+   "reverb": "forest",
+   "layers": [
+    {
+     "id": "wind_trees",
+     "vol": 0.7,
+     "when": ""
+    },
+    {
+     "id": "wind_trees",
+     "vol": 0.95,
+     "when": "wind"
+    },
+    {
+     "id": "birds_forest",
+     "vol": 0.85,
+     "when": "day,dry"
+    },
+    {
+     "id": "rain_leaves",
+     "vol": 1.0,
+     "when": "rain"
+    },
+    {
+     "id": "crickets",
+     "vol": 0.6,
+     "when": "night,dry"
+    },
+    {
+     "id": "frogs",
+     "vol": 0.35,
+     "when": "night"
+    }
+   ],
+   "flow": {
+    "id": "river",
+    "r": 420,
+    "vol": 0.8
+   },
+   "spots": [
+    {
+     "id": "woodpecker",
+     "every": [
+      18,
+      40
+     ],
+     "vol": 0.45,
+     "when": "day,dry",
+     "far": true
+    },
+    {
+     "id": "cuckoo",
+     "every": [
+      25,
+      55
+     ],
+     "vol": 0.45,
+     "when": "day,dry",
+     "far": true
+    },
+    {
+     "id": "owl",
+     "every": [
+      18,
+      40
+     ],
+     "vol": 0.55,
+     "when": "night,dry",
+     "far": false
+    },
+    {
+     "id": "whistler",
+     "every": [
+      10,
+      22
+     ],
+     "vol": 0.4,
+     "when": "dawn,dry",
+     "far": true
+    },
+    {
+     "id": "thunder",
+     "every": [
+      25,
+      60
+     ],
+     "vol": 0.55,
+     "when": "rain",
+     "far": true
+    }
+   ]
+  },
+  "bukit_bintang": {
+   "reverb": "open",
+   "layers": [
+    {
+     "id": "wind_high",
+     "vol": 0.7,
+     "when": ""
+    },
+    {
+     "id": "wind_high",
+     "vol": 1.0,
+     "when": "wind"
+    },
+    {
+     "id": "birds_park",
+     "vol": 0.3,
+     "when": "day,dry"
+    },
+    {
+     "id": "rain_open",
+     "vol": 0.9,
+     "when": "rain"
+    },
+    {
+     "id": "crickets",
+     "vol": 0.45,
+     "when": "night,dry"
+    }
+   ],
+   "spots": [
+    {
+     "id": "wind_chime",
+     "every": [
+      20,
+      40
+     ],
+     "vol": 0.3,
+     "when": "dry",
+     "far": false
+    },
+    {
+     "id": "owl",
+     "every": [
+      45,
+      90
+     ],
+     "vol": 0.35,
+     "when": "night,dry",
+     "far": true
+    },
+    {
+     "id": "whistler",
+     "every": [
+      20,
+      40
+     ],
+     "vol": 0.3,
+     "when": "day,dry",
+     "far": true
+    },
+    {
+     "id": "thunder",
+     "every": [
+      25,
+      60
+     ],
+     "vol": 0.55,
+     "when": "rain",
+     "far": true
+    }
+   ]
+  },
+  "arland_room": {
+   "reverb": "room",
+   "layers": [
+    {
+     "id": "clock_room",
+     "vol": 0.7,
+     "when": ""
+    },
+    {
+     "id": "birds_window",
+     "vol": 0.7,
+     "when": "day,dry"
+    },
+    {
+     "id": "crickets",
+     "vol": 0.2,
+     "when": "night,dry"
+    },
+    {
+     "id": "rain_roof",
+     "vol": 0.7,
+     "when": "rain"
+    }
+   ],
+   "spots": [
+    {
+     "id": "dog_far",
+     "every": [
+      60,
+      120
+     ],
+     "vol": 0.15,
+     "when": "day,dry",
+     "far": true
+    },
+    {
+     "id": "thunder",
+     "every": [
+      30,
+      70
+     ],
+     "vol": 0.3,
+     "when": "rain",
+     "far": true
+    }
+   ]
+  },
+  "sofia_room": {
+   "reverb": "room",
+   "layers": [
+    {
+     "id": "clock_room",
+     "vol": 0.6,
+     "when": ""
+    },
+    {
+     "id": "birds_window",
+     "vol": 0.75,
+     "when": "day,dry"
+    },
+    {
+     "id": "crickets",
+     "vol": 0.2,
+     "when": "night,dry"
+    },
+    {
+     "id": "rain_roof",
+     "vol": 0.7,
+     "when": "rain"
+    }
+   ],
+   "spots": [
+    {
+     "id": "wind_chime",
+     "every": [
+      40,
+      90
+     ],
+     "vol": 0.15,
+     "when": "dry",
+     "far": true
+    },
+    {
+     "id": "thunder",
+     "every": [
+      30,
+      70
+     ],
+     "vol": 0.3,
+     "when": "rain",
+     "far": true
+    }
+   ]
+  },
+  "rumah_sari": {
+   "reverb": "room",
+   "layers": [
+    {
+     "id": "clock_room",
+     "vol": 1.0,
+     "when": ""
+    },
+    {
+     "id": "birds_window",
+     "vol": 0.5,
+     "when": "day,dry"
+    },
+    {
+     "id": "crickets",
+     "vol": 0.25,
+     "when": "night,dry"
+    },
+    {
+     "id": "rain_roof",
+     "vol": 0.7,
+     "when": "rain"
+    }
+   ],
+   "spots": [
+    {
+     "id": "clock_chime",
+     "every": [
+      70,
+      140
+     ],
+     "vol": 0.35,
+     "when": "",
+     "far": false
+    },
+    {
+     "id": "kettle",
+     "every": [
+      80,
+      160
+     ],
+     "vol": 0.2,
+     "when": "day",
+     "far": false
+    },
+    {
+     "id": "tokek",
+     "every": [
+      50,
+      100
+     ],
+     "vol": 0.25,
+     "when": "night",
+     "far": true
+    }
+   ]
+  },
+  "cafe": {
+   "reverb": "room",
+   "layers": [
+    {
+     "id": "cafe",
+     "vol": 0.9,
+     "when": ""
+    },
+    {
+     "id": "rain_roof",
+     "vol": 0.5,
+     "when": "rain"
+    }
+   ],
+   "spots": [
+    {
+     "id": "espresso",
+     "every": [
+      25,
+      50
+     ],
+     "vol": 0.4,
+     "when": "",
+     "far": false
+    },
+    {
+     "id": "cup_clink",
+     "every": [
+      5,
+      12
+     ],
+     "vol": 0.4,
+     "when": "",
+     "far": false
+    },
+    {
+     "id": "wind_chime",
+     "every": [
+      40,
+      80
+     ],
+     "vol": 0.3,
+     "when": "",
+     "far": false
+    }
+   ]
+  },
+  "dapur": {
+   "reverb": "room",
+   "layers": [
+    {
+     "id": "kitchen",
+     "vol": 0.9,
+     "when": ""
+    },
+    {
+     "id": "birds_window",
+     "vol": 0.4,
+     "when": "day,dry"
+    },
+    {
+     "id": "rain_roof",
+     "vol": 0.6,
+     "when": "rain"
+    }
+   ],
+   "spots": [
+    {
+     "id": "cup_clink",
+     "every": [
+      12,
+      25
+     ],
+     "vol": 0.35,
+     "when": "",
+     "far": false
+    },
+    {
+     "id": "kettle",
+     "every": [
+      50,
+      100
+     ],
+     "vol": 0.3,
+     "when": "",
+     "far": false
+    },
+    {
+     "id": "espresso",
+     "every": [
+      60,
+      120
+     ],
+     "vol": 0.2,
+     "when": "",
+     "far": false
+    }
+   ]
+  },
+  "galeri_komunitas": {
+   "reverb": "hall",
+   "layers": [
+    {
+     "id": "room_tone",
+     "vol": 1.0,
+     "when": ""
+    },
+    {
+     "id": "city_crowd",
+     "vol": 0.2,
+     "when": ""
+    },
+    {
+     "id": "rain_roof",
+     "vol": 0.6,
+     "when": "rain"
+    }
+   ],
+   "spots": [
+    {
+     "id": "cup_clink",
+     "every": [
+      25,
+      50
+     ],
+     "vol": 0.25,
+     "when": "",
+     "far": false
+    },
+    {
+     "id": "wind_chime",
+     "every": [
+      40,
+      80
+     ],
+     "vol": 0.2,
+     "when": "",
+     "far": false
+    }
+   ]
+  },
+  "toko_bunga": {
+   "reverb": "room",
+   "layers": [
+    {
+     "id": "room_tone",
+     "vol": 0.9,
+     "when": ""
+    },
+    {
+     "id": "birds_window",
+     "vol": 0.6,
+     "when": "day,dry"
+    },
+    {
+     "id": "rain_roof",
+     "vol": 0.6,
+     "when": "rain"
+    }
+   ],
+   "spots": [
+    {
+     "id": "wind_chime",
+     "every": [
+      15,
+      35
+     ],
+     "vol": 0.45,
+     "when": "",
+     "far": false
+    }
+   ]
+  },
+  "arcade": {
+   "reverb": "room",
+   "layers": [
+    {
+     "id": "arcade",
+     "vol": 0.9,
+     "when": ""
+    },
+    {
+     "id": "rain_roof",
+     "vol": 0.3,
+     "when": "rain"
+    }
+   ],
+   "spots": [
+    {
+     "id": "arcade_bleep",
+     "every": [
+      4,
+      10
+     ],
+     "vol": 0.35,
+     "when": "",
+     "far": false
+    }
+   ]
+  },
+  "perpustakaan": {
+   "reverb": "hall",
+   "layers": [
+    {
+     "id": "library",
+     "vol": 1.0,
+     "when": ""
+    },
+    {
+     "id": "rain_roof",
+     "vol": 0.5,
+     "when": "rain"
+    }
+   ],
+   "spots": [
+    {
+     "id": "clock_chime",
+     "every": [
+      90,
+      180
+     ],
+     "vol": 0.2,
+     "when": "",
+     "far": false
+    }
+   ]
+  },
+  "ruang_arsip": {
+   "reverb": "hall",
+   "layers": [
+    {
+     "id": "library",
+     "vol": 0.8,
+     "when": ""
+    },
+    {
+     "id": "dream_fade",
+     "vol": 0.3,
+     "when": ""
+    }
+   ],
+   "spots": [
+    {
+     "id": "whisper",
+     "every": [
+      30,
+      60
+     ],
+     "vol": 0.2,
+     "when": "",
+     "far": false
+    }
+   ]
+  },
+  "ruang_dua_surat": {
+   "reverb": "hall",
+   "layers": [
+    {
+     "id": "library",
+     "vol": 0.7,
+     "when": ""
+    },
+    {
+     "id": "dream_bloom",
+     "vol": 0.4,
+     "when": ""
+    }
+   ],
+   "spots": [
+    {
+     "id": "twinkle",
+     "every": [
+      20,
+      40
+     ],
+     "vol": 0.3,
+     "when": "",
+     "far": false
+    }
+   ]
+  },
+  "memory_garden": {
+   "reverb": "dream",
+   "layers": [
+    {
+     "id": "dream_bloom",
+     "vol": 0.8,
+     "when": ""
+    },
+    {
+     "id": "wind_soft",
+     "vol": 0.3,
+     "when": ""
+    },
+    {
+     "id": "birds_park",
+     "vol": 0.25,
+     "when": ""
+    }
+   ],
+   "spots": [
+    {
+     "id": "twinkle",
+     "every": [
+      10,
+      22
+     ],
+     "vol": 0.35,
+     "when": "",
+     "far": false
+    },
+    {
+     "id": "wind_chime",
+     "every": [
+      25,
+      50
+     ],
+     "vol": 0.3,
+     "when": "",
+     "far": false
+    }
+   ]
+  },
+  "lantern_field": {
+   "reverb": "dream",
+   "layers": [
+    {
+     "id": "dream_lantern",
+     "vol": 0.8,
+     "when": ""
+    },
+    {
+     "id": "crickets",
+     "vol": 0.5,
+     "when": ""
+    },
+    {
+     "id": "wind_soft",
+     "vol": 0.35,
+     "when": ""
+    }
+   ],
+   "spots": [
+    {
+     "id": "twinkle",
+     "every": [
+      12,
+      25
+     ],
+     "vol": 0.3,
+     "when": "",
+     "far": false
+    },
+    {
+     "id": "wind_chime",
+     "every": [
+      20,
+      40
+     ],
+     "vol": 0.3,
+     "when": "",
+     "far": false
+    }
+   ]
+  },
+  "star_path": {
+   "reverb": "dream",
+   "layers": [
+    {
+     "id": "dream_stars",
+     "vol": 0.8,
+     "when": ""
+    },
+    {
+     "id": "wind_high",
+     "vol": 0.35,
+     "when": ""
+    }
+   ],
+   "spots": [
+    {
+     "id": "twinkle",
+     "every": [
+      7,
+      15
+     ],
+     "vol": 0.4,
+     "when": "",
+     "far": false
+    }
+   ]
+  },
+  "starfall_village": {
+   "reverb": "dream",
+   "layers": [
+    {
+     "id": "dream_stars",
+     "vol": 0.6,
+     "when": ""
+    },
+    {
+     "id": "crickets",
+     "vol": 0.4,
+     "when": ""
+    },
+    {
+     "id": "wind_soft",
+     "vol": 0.4,
+     "when": ""
+    }
+   ],
+   "spots": [
+    {
+     "id": "wind_chime",
+     "every": [
+      12,
+      25
+     ],
+     "vol": 0.4,
+     "when": "",
+     "far": false
+    },
+    {
+     "id": "twinkle",
+     "every": [
+      15,
+      30
+     ],
+     "vol": 0.3,
+     "when": "",
+     "far": false
+    },
+    {
+     "id": "owl",
+     "every": [
+      50,
+      100
+     ],
+     "vol": 0.3,
+     "when": "",
+     "far": true
+    }
+   ]
+  },
+  "eternal_garden": {
+   "reverb": "dream",
+   "lake": {
+    "id": "lake",
+    "r": 300,
+    "vol": 0.5
+   },
+   "layers": [
+    {
+     "id": "dream_eternal",
+     "vol": 0.8,
+     "when": ""
+    },
+    {
+     "id": "birds_park",
+     "vol": 0.4,
+     "when": ""
+    },
+    {
+     "id": "wind_soft",
+     "vol": 0.3,
+     "when": ""
+    }
+   ],
+   "spots": [
+    {
+     "id": "whistler",
+     "every": [
+      12,
+      25
+     ],
+     "vol": 0.35,
+     "when": "",
+     "far": false
+    },
+    {
+     "id": "twinkle",
+     "every": [
+      15,
+      30
+     ],
+     "vol": 0.3,
+     "when": "",
+     "far": false
+    }
+   ]
+  },
+  "rain_garden": {
+   "reverb": "dream",
+   "layers": [
+    {
+     "id": "rain_leaves",
+     "vol": 0.8,
+     "when": ""
+    },
+    {
+     "id": "dream_lantern",
+     "vol": 0.45,
+     "when": ""
+    }
+   ],
+   "spots": [
+    {
+     "id": "wind_chime",
+     "every": [
+      15,
+      30
+     ],
+     "vol": 0.35,
+     "when": "",
+     "far": false
+    },
+    {
+     "id": "thunder",
+     "every": [
+      50,
+      100
+     ],
+     "vol": 0.3,
+     "when": "",
+     "far": true
+    }
+   ]
+  },
+  "clockwork_station": {
+   "reverb": "hall",
+   "layers": [
+    {
+     "id": "gears",
+     "vol": 0.9,
+     "when": ""
+    },
+    {
+     "id": "dream_stars",
+     "vol": 0.3,
+     "when": ""
+    }
+   ],
+   "spots": [
+    {
+     "id": "clock_chime",
+     "every": [
+      40,
+      80
+     ],
+     "vol": 0.35,
+     "when": "",
+     "far": false
+    },
+    {
+     "id": "twinkle",
+     "every": [
+      25,
+      50
+     ],
+     "vol": 0.25,
+     "when": "",
+     "far": false
+    }
+   ]
+  },
+  "moonlight_lake": {
+   "reverb": "dream",
+   "layers": [
+    {
+     "id": "lake",
+     "vol": 0.9,
+     "when": ""
+    },
+    {
+     "id": "dream_lantern",
+     "vol": 0.35,
+     "when": ""
+    },
+    {
+     "id": "crickets",
+     "vol": 0.5,
+     "when": ""
+    },
+    {
+     "id": "frogs",
+     "vol": 0.35,
+     "when": ""
+    }
+   ],
+   "spots": [
+    {
+     "id": "fish_splash",
+     "every": [
+      20,
+      40
+     ],
+     "vol": 0.35,
+     "when": "",
+     "far": false
+    },
+    {
+     "id": "owl",
+     "every": [
+      40,
+      80
+     ],
+     "vol": 0.3,
+     "when": "",
+     "far": true
+    },
+    {
+     "id": "twinkle",
+     "every": [
+      25,
+      50
+     ],
+     "vol": 0.25,
+     "when": "",
+     "far": false
+    }
+   ]
+  },
+  "memory_bridge": {
+   "reverb": "dream",
+   "layers": [
+    {
+     "id": "wind_high",
+     "vol": 0.5,
+     "when": ""
+    },
+    {
+     "id": "dream_stars",
+     "vol": 0.55,
+     "when": ""
+    }
+   ],
+   "spots": [
+    {
+     "id": "wind_chime",
+     "every": [
+      12,
+      25
+     ],
+     "vol": 0.4,
+     "when": "",
+     "far": false
+    },
+    {
+     "id": "twinkle",
+     "every": [
+      15,
+      30
+     ],
+     "vol": 0.3,
+     "when": "",
+     "far": false
+    }
+   ]
+  },
+  "hall_of_tomorrow": {
+   "reverb": "cathedral",
+   "layers": [
+    {
+     "id": "dream_hall",
+     "vol": 0.9,
+     "when": ""
+    }
+   ],
+   "spots": [
+    {
+     "id": "twinkle",
+     "every": [
+      12,
+      25
+     ],
+     "vol": 0.3,
+     "when": "",
+     "far": false
+    },
+    {
+     "id": "crystal",
+     "every": [
+      25,
+      50
+     ],
+     "vol": 0.3,
+     "when": "",
+     "far": false
+    }
+   ]
+  },
+  "gua_kristal": {
+   "reverb": "cave",
+   "layers": [
+    {
+     "id": "cave",
+     "vol": 1.0,
+     "when": ""
+    }
+   ],
+   "spots": [
+    {
+     "id": "drip",
+     "every": [
+      2,
+      6
+     ],
+     "vol": 0.55,
+     "when": "",
+     "far": false
+    },
+    {
+     "id": "crystal",
+     "every": [
+      8,
+      18
+     ],
+     "vol": 0.4,
+     "when": "",
+     "far": false
+    }
+   ]
+  },
+  "arsip_memudar": {
+   "reverb": "cathedral",
+   "layers": [
+    {
+     "id": "dream_fade",
+     "vol": 0.9,
+     "when": ""
+    },
+    {
+     "id": "wind_soft",
+     "vol": 0.3,
+     "when": ""
+    }
+   ],
+   "spots": [
+    {
+     "id": "whisper",
+     "every": [
+      15,
+      30
+     ],
+     "vol": 0.35,
+     "when": "",
+     "far": false
+    },
+    {
+     "id": "clock_chime",
+     "every": [
+      60,
+      120
+     ],
+     "vol": 0.2,
+     "when": "",
+     "far": true
+    }
+   ]
+  },
+  "kenangan_gazebo": {
+   "reverb": "dream",
+   "layers": [
+    {
+     "id": "rain_roof",
+     "vol": 0.6,
+     "when": ""
+    },
+    {
+     "id": "rain_leaves",
+     "vol": 0.5,
+     "when": ""
+    },
+    {
+     "id": "dream_bloom",
+     "vol": 0.35,
+     "when": ""
+    }
+   ],
+   "spots": [
+    {
+     "id": "wind_chime",
+     "every": [
+      15,
+      30
+     ],
+     "vol": 0.35,
+     "when": "",
+     "far": false
+    },
+    {
+     "id": "thunder",
+     "every": [
+      45,
+      90
+     ],
+     "vol": 0.3,
+     "when": "",
+     "far": true
+    }
+   ]
+  }
+ }
+}

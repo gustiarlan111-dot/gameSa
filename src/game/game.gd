@@ -191,6 +191,7 @@ func _process(delta: float) -> void:
 	world.sprint_held = controls.sprint
 	controls.visible = not cine.letterboxed()
 	Audio.duck(dialog.active or cine.active)
+	Audio.listen(world.player.position)
 	_update_atmosphere()
 	sync_clock_to_step()
 	_sound_clock -= delta
@@ -404,7 +405,11 @@ func sync_soundscape() -> void:
 	var areas: Array = st.get("musicAreas", [])
 	var quest_music = st.get("music") if st.get("music") != null and (areas.is_empty() or areas.has(p.area)) else null
 	Audio.music(Soundscape.music_for(p.area, a.get("music"), weather(), atmosphere.indoor, p.minute, quest_music))
-	Audio.ambience(Soundscape.ambience_for(p.area, weather(), atmosphere.indoor, p.minute))
+	if Audio.area_sound.has_area(p.area):
+		Audio.area(p.area, a, weather(), p.minute)
+	else:
+		Audio.area_stop()
+		Audio.ambience(Soundscape.ambience_for(p.area, weather(), atmosphere.indoor, p.minute))
 
 
 ## Evening and night story steps move the clock forward (never back), so sky, HUD and NPCs agree.
@@ -865,3 +870,7 @@ func _finish_card() -> void:
 		_card.visible = false
 		if d.is_valid():
 			d.call())
+
+
+func _exit_tree() -> void:
+	Audio.area_stop()      # back to the title: let the area soundscape fade out

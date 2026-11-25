@@ -11,7 +11,9 @@ static func music_for(area: String, base, weather: String, indoor: bool, minute:
 	var dusk := WorldClock.hour(minute) >= 16
 	match area:
 		"arland_room", "sofia_room": return "home_evening" if dusk or night else "home_morning"
-		"cafe", "dapur", "galeri_komunitas": return "cafe_waltz"
+		"cafe", "dapur": return "cafe_waltz"
+		"galeri_komunitas": return "gallery_light"
+		"rumah_sari": return "grandma_house"
 		"perpustakaan", "ruang_dua_surat": return "library_whisper"
 		"toko_bunga": return "flower_shop"
 		"arcade": return "arcade_neon"
@@ -28,10 +30,12 @@ static func music_for(area: String, base, weather: String, indoor: bool, minute:
 	if rainy and not indoor:
 		return "rain_lullaby"
 	match area:
-		"riverside", "dermaga": return "lake_moon" if night else "lake_breeze"
+		"riverside": return "lake_moon" if night else "lake_breeze"
+		"dermaga": return "lake_moon" if night else ("lake_breeze" if dusk else "harbor_day")
 		"taman_kota": return "park_sunset" if dusk or night else "park_blossom"
 		"perumahan": return "city_night" if night else "neighborhood_day"
-		"plaza", "jalan_kota": return "city_night" if night else ("city_evening" if dusk else "city_morning")
+		"plaza": return "city_night" if night else ("city_evening" if dusk else "city_morning")
+		"jalan_kota": return "city_night" if night else ("city_evening" if dusk else "street_stroll")
 	return "town" if base == null or str(base) == "" else str(base)
 
 

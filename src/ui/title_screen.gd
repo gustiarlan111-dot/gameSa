@@ -82,6 +82,11 @@ func show_title() -> void:
 			cont.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 			cont.pressed.connect(func(): start_game.emit(ld.value, false))
 			box.add_child(cont)
+	var proto := UiTheme.button("Uji coba 3D (HD-2D)", 18)
+	proto.custom_minimum_size = Vector2(340, 48)
+	proto.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	proto.pressed.connect(func(): get_tree().change_scene_to_file("res://src/proto3d/proto3d.tscn"))
+	box.add_child(proto)
 	play.grab_focus.call_deferred()
 	var ver := UiTheme.label("Versi Godot · pratinjau", 15, Color(UiTheme.CREAM, 0.6), "body")
 	ver.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

@@ -311,11 +311,22 @@ func _build_lamps() -> void:
 		var foot: Vector2 = spot.foot + Vector2(0, 8)
 		var hh: float = foot.y - spot.pos.y
 		var p := stand(foot.x, foot.y, hh)
+		# a real light only where no other light is close: crowded crystals share one, which keeps
+		# the per-object light limit free for the player's light and saves GPU time on phones
 		var l := OmniLight3D.new()
 		l.light_color = Color(0.62, 0.8, 1.0) if crystal else Color(1.0, 0.76, 0.46)
 		l.omni_range = 4.0 if crystal else 5.5
 		l.omni_attenuation = 1.2
 		l.position = p + Vector3(0, 0, 0.35)
+		var crowded := false
+		for o in _lamps:
+			if o.light.position.distance_to(l.position) < (6.0 if crystal else 3.0):
+				crowded = true
+				break
+		if crowded:
+			l.light_energy = 0.0
+			l.visible = false
+			l.set_meta("off", true)
 		_static.add_child(l)
 		var gl := Sprite3D.new()
 		gl.texture = _glow_tex
@@ -537,7 +548,7 @@ func _update_light(delta: float) -> void:
 		var flick := 1.0 + 0.06 * sin(a.time * 2.0 + float(l.x))
 		var on := (1.0 if l.crystal and cave else lamp_on) * flick
 		l.light.light_energy = (1.6 if l.crystal else 2.4) * on
-		l.light.visible = on > 0.02
+		l.light.visible = on > 0.02 and not l.light.has_meta("off")
 		l.glow.visible = on > 0.02
 		l.mat.albedo_color = (Color(0.62, 0.82, 1.0) if l.crystal else Color(1.0, 0.82, 0.55)) * Color(1, 1, 1, 0.55 * minf(1.0, on))
 	var pl := world.player

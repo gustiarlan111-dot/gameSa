@@ -4,6 +4,11 @@ extends Node2D
 ## commands (move, cam, wait, say, line, fade, caption) block unless "async": true.
 ## Commands ("c"): wait, move, place, face, pair, pose, emote, cam, shot, follow, bars, fade, flash, tint,
 ## shake, fx, say, line, caption, sfx, music, spawn, despawn, show, hide, alpha.
+## Film lens (read by WorldView3D and the screen pass, 3D only): angle {pitch, yaw, t}, orbit {deg, t},
+## crane {t, zoom}, dof {a, t}, mood {id: warm|cool|dream|memory|night|none, t}, key {on, color}.
+## Without them every cutscene still gets the film look: a settle-in crane at the start, lower
+## camera on close shots, slow drift and handheld breathing, a slow push-in while people talk,
+## focus blur around the subject, filmic grade and grain, and a soft key light on the couple.
 ## This node lives inside the world (draws world effects); `overlay` draws bars/fade/captions on screen.
 ##
 ## Host (the Game node) provides: actor(who), spawn(id, sprite, x, y, dir), despawn(id), show_partner(on),
@@ -64,6 +69,20 @@ var cap_t := 0.0
 var cap_dur := 0.0
 var _async_cap := false
 
+# film lens (see header). Angles in degrees; 0 pitch = automatic (lower when the shot is closer).
+const BASE_PITCH := 38.0
+var film := 0.0                  # 0..1 how much of the film look is on (eases in/out)
+var pitch := 0.0
+var yaw := 0.0
+var dof := 0.35
+var mood := ""
+var mood_a := 0.0
+var key := 1.0
+var key_color := Color(1.0, 0.86, 0.68)
+var creep := 0.0                 # slow push-in while a line is on screen
+var _tw := {}                    # property -> [from, to, t, dur]
+var _settle := 0.0               # automatic crane at the start, 1 -> 0
+
 var _sparkle: Texture2D
 var _heart: Texture2D
 
@@ -98,7 +117,40 @@ func start(cmds: Array, done: Callable) -> void:
 	_done = done; active = true; _waiting_cb = false; _wait_t = 0; _wait_mover = null; fast = false
 	cam_active = true; cam = host.cam_center(); cam_zoom = 1.0; _cam_dur = 0; _cam_follow = null
 	_bars_target = 1.0; tint_a = 0; _tint_dur = 0; fade = 0; _fade_dur = 0; cap_dur = 0; _shake_t = 0
+	_tw.clear(); pitch = 0.0; yaw = 0.0; dof = 0.35; key = 1.0; key_color = Color(1.0, 0.86, 0.68); creep = 0.0
+	if mood_a < 0.01:
+		mood = ""
+	var has_crane := cmds.any(func(c): return c is Dictionary and str(c.get("c", "")) == "crane")
+	_settle = 0.0 if has_crane or cmds.size() < 3 else 1.0
 	_pump()
+
+
+func _tween(prop: String, to: float, t: float) -> void:
+	if t <= 0.0:
+		set(prop, to); _tw.erase(prop)
+	else:
+		_tw[prop] = [float(get(prop)), to, 0.0, t]
+
+
+## Camera pitch the 3D view should use now (degrees above the ground).
+func view_pitch() -> float:
+	var auto := BASE_PITCH - clampf(cam_zoom + creep - 1.0, -0.4, 0.6) * 28.0
+	var want := pitch if pitch > 0.0 else auto
+	# the automatic opening is a cut to a higher angle that glides down into the scene
+	return lerpf(BASE_PITCH, clampf(want, 18.0, 70.0), film) + _ease(_settle) * 22.0
+
+
+func view_yaw() -> float:
+	return (yaw + sin(time * 0.21) * 3.2) * film + _ease(_settle) * 9.0
+
+
+## Small handheld breathing offset, in map pixels.
+func handheld() -> Vector2:
+	return Vector2(sin(time * 0.9) + 0.5 * sin(time * 2.3), cos(time * 0.7) * 0.8 + 0.4 * sin(time * 1.9)) * 1.4 * film
+
+
+func view_zoom() -> float:
+	return safe_zoom(cam_zoom + creep * film)
 
 
 func _blocked() -> bool:
@@ -140,7 +192,11 @@ func _exec(c: Dictionary) -> void:
 				return
 			_movers = _movers.filter(func(m): return m.a != a)
 			var run := bool(c.get("run", false))
-			var m := {"a": a, "path": pts, "idx": 0, "run": run, "speed": clampf(float(c.get("speed", 150.0 if run else 78.0)), 12, 350),
+			var total := 0.0
+			var prev := a.position
+			for q in pts:
+				total += prev.distance_to(q); prev = q
+			var m := {"a": a, "path": pts, "idx": 0, "run": run, "total": total, "done": 0.0, "speed": clampf(float(c.get("speed", 150.0 if run else 78.0)), 12, 350),
 					"end_dir": Actor.dir_of(str(c.dir)) if c.get("dir") != null else -1}
 			a.clear_pose()
 			_movers.append(m)
@@ -206,6 +262,7 @@ func _exec(c: Dictionary) -> void:
 			if a != null:
 				a.show_emote(str(c.get("e", "heart")), float(c.get("t", 1.8)))
 		"cam":
+			cam_zoom = view_zoom(); creep = 0.0
 			_c0 = cam; _z0 = cam_zoom; _cam_follow = null
 			var on: Node2D = host.actor(str(c.on)) if c.get("on") != null else null
 			_c1 = Vector2(on.position.x, on.position.y - 24) if on != null else Vector2(float(c.get("x", cam.x)), float(c.get("y", cam.y)))
@@ -226,6 +283,7 @@ func _exec(c: Dictionary) -> void:
 				_c1 = single.position + Vector2(0, -28)
 			else:
 				return
+			cam_zoom = view_zoom(); creep = 0.0
 			_c0 = cam; _z0 = cam_zoom; _cam_follow = null; cam_active = true
 			_z1 = safe_zoom(float(c.get("zoom", _preset_zoom(str(c.get("frame", "intimate"))))))
 			var d := clampf(float(c.get("t", 0.9)), 0, 5)
@@ -235,6 +293,44 @@ func _exec(c: Dictionary) -> void:
 				cam = _c1; cam_zoom = _z1; _cam_dur = 0; _async_cam = false
 			else:
 				_cam_t = 0; _cam_dur = d; _async_cam = async
+		"angle":
+			var t := clampf(float(c.get("t", 1.2)), 0, 10)
+			if c.get("pitch") != null:
+				_tween("pitch", clampf(float(c.pitch), 0, 70), t)
+			if c.get("yaw") != null:
+				_tween("yaw", clampf(float(c.yaw), -40, 40), t)
+			if bool(c.get("block", false)):
+				_wait_t = t
+		"orbit":
+			var t := clampf(float(c.get("t", 4.0)), 0.1, 16)
+			_tween("yaw", clampf(yaw + float(c.get("deg", 14.0)), -40, 40), t)
+			if bool(c.get("block", false)):
+				_wait_t = t
+		"crane":
+			# establishing shot: start high and wide above the target, glide down into the scene
+			var t := clampf(float(c.get("t", 3.2)), 0.3, 10)
+			var z := safe_zoom(float(c.get("zoom", cam_zoom)))
+			_settle = 0.0
+			pitch = clampf(float(c.get("from", 66.0)), 20, 70); yaw = float(c.get("yaw", -14.0))
+			_tween("pitch", clampf(float(c.get("pitch", 30.0)), 18, 70), t)
+			_tween("yaw", 0.0, t)
+			_c0 = cam; _c1 = cam; _z0 = safe_zoom(z - 0.22); _z1 = z; cam_zoom = _z0
+			_cam_t = 0; _cam_dur = t; _async_cam = not bool(c.get("block", false))
+		"dof":
+			_tween("dof", clampf(float(c.get("a", 0.8)), 0, 1.5), float(c.get("t", 0.8)))
+		"mood":
+			var id := str(c.get("id", "none"))
+			if id == "none" or id == "":
+				_tween("mood_a", 0.0, float(c.get("t", 1.2)))
+			else:
+				if mood != id:
+					mood_a = 0.0 if mood_a < 0.05 else mood_a
+				mood = id
+				_tween("mood_a", clampf(float(c.get("a", 1.0)), 0, 1), float(c.get("t", 1.2)))
+		"key":
+			_tween("key", 1.0 if bool(c.get("on", true)) else 0.0, float(c.get("t", 0.6)))
+			if c.get("color") != null:
+				key_color = Color(str(c.color))
 		"follow":
 			_cam_follow = host.actor(str(c.get("who", "player"))); _cam_dur = 0; _async_cam = false
 		"bars":
@@ -304,6 +400,8 @@ func _exec(c: Dictionary) -> void:
 
 func _finish() -> void:
 	active = false; _bars_target = 0.0; _tint_dur = 0
+	cam_zoom = view_zoom(); creep = 0.0; _settle = 0.0
+	_tween("mood_a", 0.0, 1.0)
 	_cam_dur = 0; _async_cam = false; _wait_mover = null; _wait_t = 0; _waiting_cb = false
 	for id in _spawned:
 		host.despawn(id)
@@ -320,6 +418,18 @@ func _finish() -> void:
 func _process(raw: float) -> void:
 	var dt := clampf(raw, 0, 0.05) * (3.0 if fast and not _waiting_cb else 1.0)
 	time += dt
+	film = move_toward(film, 1.0 if active else 0.0, dt * (0.9 if active else 0.7))
+	for prop in _tw.keys():
+		var w: Array = _tw[prop]
+		w[2] += dt
+		var kk := clampf(w[2] / w[3], 0, 1)
+		set(prop, lerpf(w[0], w[1], _ease(kk)))
+		if kk >= 1.0:
+			_tw.erase(prop)
+	if _settle > 0.0:
+		_settle = maxf(0.0, _settle - dt / 2.6)
+	if active and (_waiting_cb or _wait_t > 0) and _cam_dur <= 0 and _cam_follow == null:
+		creep = minf(0.1, creep + dt * 0.012)
 	bars += signf(_bars_target - bars) * minf(absf(_bars_target - bars), dt * _bars_speed)
 	if flash > 0:
 		flash -= dt
@@ -376,7 +486,10 @@ func _process(raw: float) -> void:
 		var a: Actor = m.a
 		var tgt: Vector2 = m.path[m.idx]
 		var d := tgt - a.position
-		var step: float = m.speed * dt
+		# ease in and out: start and stop gently like a person, not a sliding cursor
+		var edge := minf(float(m.done), float(m.total) - float(m.done))
+		var step: float = m.speed * dt * clampf(0.35 + edge / 30.0, 0.35, 1.0)
+		m.done += minf(step, d.length())
 		if d.length() <= step:
 			a.position = tgt
 			m.idx += 1
@@ -399,7 +512,7 @@ func cam_point() -> Vector2:
 	var s := Vector2.ZERO
 	if _shake_t > 0:
 		s = Vector2(sin(time * 70.0) * _shake_amp, cos(time * 53.0) * _shake_amp * 0.6)
-	return cam + s
+	return cam + s + handheld()
 
 
 ## World-space effects. Same maths as the Java build, with y pointing down.

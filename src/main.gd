@@ -5,6 +5,8 @@ extends Node
 ##   -- --story <route> <out_prefix> <frame,frame,...>                           new game, the story runs
 ##        by itself (dialogue advances every 50 frames, first choice taken) and a screenshot is saved
 ##        at each listed frame.
+##   -- --cine  <route> <step> [x:y]   jumps to a step, walks up to its first marker and plays its
+##        cutscene with dialogue auto-advancing, then quits. Pair with --write-movie out.avi.
 
 var game: Game
 var _mode := ""
@@ -13,6 +15,8 @@ var _frame := 0
 var _wp := 0
 var _wps: Array = []
 var _shots: Array = []
+var _dlg := 0
+var _idle := 0
 
 
 func _ready() -> void:
@@ -34,6 +38,25 @@ func _ready() -> void:
 			for pt in _args[6].split(";", false):
 				var xy: PackedStringArray = pt.split(":")
 				_wps.append(Vector2(float(xy[0]), float(xy[1])))
+		_start(p, false)
+	elif args.has("--cine"):
+		_mode = "cine"
+		_args = args.slice(args.find("--cine") + 1)
+		var st := Data.step(_args[1])
+		var it: Dictionary = {}
+		for o in st.get("interactables", []):
+			if o.get("route") == null or o.get("route") == _args[0]:
+				it = o
+				break
+		var area: String = Routes.resolve(str(it.get("area", Routes.room(_args[0]))), _args[0])
+		var p := Progress.new_game(_args[0], 1, _args[1], Data.area(area))
+		p.step = _args[1]; p.area = area
+		p.x = float(it.get("x", 400)) - 46; p.y = float(it.get("y", 400)) + 8
+		if _args.size() > 2:
+			p.x = float(_args[2].get_slice(":", 0)); p.y = float(_args[2].get_slice(":", 1))
+		p.companion = st.get("chapter", "PRO") != "PRO"
+		if OS.get_environment("SHOT_MINUTE") != "":
+			p.minute = int(OS.get_environment("SHOT_MINUTE"))
 		_start(p, false)
 	elif args.has("--minigame"):
 		_mode = "minigame"
@@ -168,6 +191,28 @@ func _process(_delta: float) -> void:
 			110: await _save(_args[2] + "_main2.png")
 			111: ov.game.finished = true; ov.game.result_text = ov.game.result_text if ov.game.result_text != "" else "(hasil uji otomatis)"
 			140: await _save(_args[2] + "_hasil.png"); get_tree().quit()
+		return
+	if _mode == "cine":
+		if _frame == 20:
+			game._find_target()
+			game.interact()
+		elif _frame > 20:
+			if game.dialog.active:
+				_dlg += 1
+				if _dlg % 75 == 0:
+					if game.dialog.choosing():
+						game.dialog.choose(0)
+					else:
+						game.dialog.advance(); game.dialog.advance()
+			else:
+				_dlg = 0
+			if game.cine.active or game.dialog.active or game.runner.busy():
+				_idle = 0
+			else:
+				_idle += 1
+			if _idle > 45 or _frame > 9000:
+				print("CINE DONE frame=", _frame, " step=", game.p.step)
+				get_tree().quit()
 		return
 	if _mode == "shot":
 		var w := game.world

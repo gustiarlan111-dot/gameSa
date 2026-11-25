@@ -17,6 +17,9 @@ var tint_mod := Color.WHITE       # day tint for the 3D ambient light
 var lamp_on := 0.0                # 0..1, street lamps and lanterns
 var night := 0.0                  # 0 day .. 1 full night (outdoors)
 var _post: ColorRect
+## Cutscene colour moods: [tint, desaturation]
+const MOODS := {"": [Color(1, 1, 1), 0.0], "warm": [Color(1.1, 0.98, 0.84), 0.05], "cool": [Color(0.86, 0.96, 1.1), 0.1],
+		"dream": [Color(1.04, 0.92, 1.12), 0.0], "memory": [Color(1.1, 0.98, 0.82), 0.55], "night": [Color(0.8, 0.88, 1.12), 0.2]}
 var _post_mat: ShaderMaterial
 var _glow_tex: Texture2D
 var _sparkle: Texture2D
@@ -83,6 +86,17 @@ func _process(delta: float) -> void:
 	_post_mat.set_shader_parameter("bloom", 0.3 if night > 0.3 else 0.18)
 	_post_mat.set_shader_parameter("warmth", (clampf((t - 0.75) * 4.0, 0.0, 1.0) * 0.45 if outdoors else 0.0))
 	_post_mat.set_shader_parameter("vignette", 0.42 if (night > 0.3 or dark_cave()) else 0.3)
+	var c: Cutscene = world.cine if world else null
+	var f := c.film if c != null else 0.0
+	_post_mat.set_shader_parameter("film", f)
+	_post_mat.set_shader_parameter("t", time)
+	if c != null and f > 0.001:
+		var m: Array = MOODS.get(c.mood, MOODS[""])
+		_post_mat.set_shader_parameter("dof", c.dof)
+		_post_mat.set_shader_parameter("mood_col", m[0])
+		_post_mat.set_shader_parameter("mood_desat", m[1])
+		_post_mat.set_shader_parameter("mood_a", c.mood_a)
+		_post_mat.set_shader_parameter("focus_y", 0.52)
 	queue_redraw()
 
 

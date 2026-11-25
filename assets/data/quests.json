@@ -261,6 +261,12 @@
               "c": "bars"
             },
             {
+              "c": "mood",
+              "id": "warm",
+              "t": 1.5,
+              "lens": true
+            },
+            {
               "who": "player",
               "x": 532,
               "y": 250,
@@ -635,6 +641,20 @@
                 "c": "bars"
               },
               {
+                "c": "mood",
+                "id": "warm",
+                "a": 0.7,
+                "t": 2.0,
+                "lens": true
+              },
+              {
+                "c": "crane",
+                "t": 4.0,
+                "zoom": 0.95,
+                "block": true,
+                "lens": true
+              },
+              {
                 "who": "partner",
                 "x": 1362,
                 "y": 750,
@@ -755,6 +775,19 @@
                   "c": "bars"
                 },
                 {
+                  "c": "mood",
+                  "id": "warm",
+                  "t": 2.0,
+                  "lens": true
+                },
+                {
+                  "c": "crane",
+                  "t": 3.6,
+                  "zoom": 1.15,
+                  "block": true,
+                  "lens": true
+                },
+                {
                   "who": "partner",
                   "at": "player",
                   "c": "face"
@@ -797,6 +830,18 @@
                   "n": 2,
                   "from": 1,
                   "c": "say"
+                },
+                {
+                  "c": "orbit",
+                  "deg": 14,
+                  "t": 7.0,
+                  "lens": true
+                },
+                {
+                  "c": "dof",
+                  "a": 0.9,
+                  "t": 1.2,
+                  "lens": true
                 },
                 {
                   "who": "arland",
@@ -877,6 +922,18 @@
                 {
                   "id": "sparkle",
                   "c": "sfx"
+                },
+                {
+                  "c": "angle",
+                  "yaw": 0,
+                  "t": 1.6,
+                  "lens": true
+                },
+                {
+                  "c": "dof",
+                  "a": 0.35,
+                  "t": 1.0,
+                  "lens": true
                 },
                 {
                   "kind": "glow",
@@ -1178,6 +1235,18 @@
                   "c": "bars"
                 },
                 {
+                  "c": "mood",
+                  "id": "dream",
+                  "t": 2.5,
+                  "lens": true
+                },
+                {
+                  "c": "orbit",
+                  "deg": -10,
+                  "t": 8.0,
+                  "lens": true
+                },
+                {
                   "who": "partner",
                   "to": [
                     1492,
@@ -1415,6 +1484,18 @@
                   "zoom": 0.8,
                   "t": 0,
                   "c": "cam"
+                },
+                {
+                  "c": "mood",
+                  "id": "dream",
+                  "t": 1.0,
+                  "lens": true
+                },
+                {
+                  "c": "crane",
+                  "t": 4.5,
+                  "zoom": 1.0,
+                  "lens": true
                 },
                 {
                   "to": 0,
@@ -1684,6 +1765,18 @@
                 "on": true,
                 "t": 0.4,
                 "c": "bars"
+              },
+              {
+                "c": "mood",
+                "id": "dream",
+                "t": 1.5,
+                "lens": true
+              },
+              {
+                "c": "orbit",
+                "deg": 12,
+                "t": 6.0,
+                "lens": true
               },
               {
                 "id": "sparkle",
@@ -2847,6 +2940,19 @@
                   "c": "bars"
                 },
                 {
+                  "c": "mood",
+                  "id": "dream",
+                  "a": 0.8,
+                  "t": 1.5,
+                  "lens": true
+                },
+                {
+                  "c": "dof",
+                  "a": 0.9,
+                  "t": 2.0,
+                  "lens": true
+                },
+                {
                   "who": "partner",
                   "to": [
                     326,
@@ -3595,6 +3701,18 @@
                   "c": "bars"
                 },
                 {
+                  "c": "mood",
+                  "id": "warm",
+                  "t": 2.5,
+                  "lens": true
+                },
+                {
+                  "c": "crane",
+                  "t": 4.0,
+                  "zoom": 1.1,
+                  "lens": true
+                },
+                {
                   "id": "tender",
                   "c": "music"
                 },
@@ -3740,6 +3858,19 @@
                 {
                   "scene": "C01-X03",
                   "c": "say"
+                },
+                {
+                  "c": "mood",
+                  "id": "night",
+                  "a": 0.7,
+                  "t": 3.0,
+                  "lens": true
+                },
+                {
+                  "c": "orbit",
+                  "deg": -16,
+                  "t": 9.0,
+                  "lens": true
                 },
                 {
                   "kind": "stars",
@@ -6439,6 +6570,18 @@
                   "c": "bars"
                 },
                 {
+                  "c": "mood",
+                  "id": "cool",
+                  "t": 2.0,
+                  "lens": true
+                },
+                {
+                  "c": "angle",
+                  "pitch": 26,
+                  "t": 3.0,
+                  "lens": true
+                },
+                {
                   "who": "player",
                   "to": [
                     639,
@@ -6883,6 +7026,19 @@
                   "on": true,
                   "t": 0.5,
                   "c": "bars"
+                },
+                {
+                  "c": "mood",
+                  "id": "memory",
+                  "a": 0.8,
+                  "t": 2.0,
+                  "lens": true
+                },
+                {
+                  "c": "dof",
+                  "a": 1.0,
+                  "t": 2.0,
+                  "lens": true
                 },
                 {
                   "who": "player",

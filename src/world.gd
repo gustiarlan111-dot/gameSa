@@ -402,7 +402,7 @@ func _physics_process(delta: float) -> void:
 	if cine and cine.cam_active:
 		camera.position_smoothing_enabled = false
 		camera.position = cine.cam_point()
-		var zc := vp.y / VIEW_H * cine.cam_zoom
+		var zc := vp.y / VIEW_H * cine.view_zoom()
 		camera.zoom = Vector2(zc, zc)
 		_fit_limits(vp / zc)
 		return

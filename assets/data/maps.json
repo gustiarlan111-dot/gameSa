@@ -16448,69 +16448,611 @@
           0,
           309,
           25,
-          266
+          166
         ],
         [
           1175,
           309,
           25,
           266
-        ],
-        [
-          0,
-          390,
-          102,
-          86
-        ],
-        [
-          417,
-          390,
-          44,
-          87
-        ],
-        [
-          801,
-          392,
-          49,
-          82
         ]
       ],
       "ellipses": [],
       "props": [
         {
-          "type": "maps_v4_perumahan_bench",
-          "x": 544,
-          "y": 373
+          "type": "hd_house_mint",
+          "x": 190,
+          "y": 252
         },
         {
-          "type": "v51_planter_terracotta",
-          "x": 907,
-          "y": 348
+          "type": "hd_library",
+          "x": 678,
+          "y": 304
         },
         {
-          "type": "v51_street_lamp",
-          "x": 1093,
-          "y": 343
+          "type": "hd_house_redbrick",
+          "x": 1020,
+          "y": 252
         },
         {
-          "type": "v51_bench_stone",
-          "x": 965,
-          "y": 343
+          "type": "hd_house_pink",
+          "x": 205,
+          "y": 862
         },
         {
-          "type": "v51_signpost",
-          "x": 1033,
-          "y": 343
+          "type": "hd_house_butter",
+          "x": 600,
+          "y": 870
         },
         {
-          "type": "v51_column_stone",
-          "x": 1085,
-          "y": 418
+          "type": "hd_house_violet",
+          "x": 1000,
+          "y": 862
         },
         {
-          "type": "v51_information_board",
-          "x": 1121,
-          "y": 500
+          "type": "hd_fence_picket",
+          "x": 74,
+          "y": 307
+        },
+        {
+          "type": "hd_fence_picket_b",
+          "x": 111,
+          "y": 307
+        },
+        {
+          "type": "hd_fence_picket",
+          "x": 269,
+          "y": 307
+        },
+        {
+          "type": "hd_fence_picket_b",
+          "x": 367,
+          "y": 307
+        },
+        {
+          "type": "hd_fence_picket",
+          "x": 465,
+          "y": 307
+        },
+        {
+          "type": "hd_fence_picket",
+          "x": 887,
+          "y": 307
+        },
+        {
+          "type": "hd_fence_picket_b",
+          "x": 941,
+          "y": 307
+        },
+        {
+          "type": "hd_fence_picket",
+          "x": 1099,
+          "y": 307
+        },
+        {
+          "type": "hd_fence_picket_b",
+          "x": 1126,
+          "y": 307
+        },
+        {
+          "type": "hd_fence_picket_b",
+          "x": 89,
+          "y": 590
+        },
+        {
+          "type": "hd_fence_picket",
+          "x": 126,
+          "y": 590
+        },
+        {
+          "type": "hd_fence_picket_b",
+          "x": 284,
+          "y": 590
+        },
+        {
+          "type": "hd_fence_picket",
+          "x": 382,
+          "y": 590
+        },
+        {
+          "type": "hd_fence_picket_b",
+          "x": 480,
+          "y": 590
+        },
+        {
+          "type": "hd_fence_picket",
+          "x": 521,
+          "y": 590
+        },
+        {
+          "type": "hd_fence_picket_b",
+          "x": 679,
+          "y": 590
+        },
+        {
+          "type": "hd_fence_picket",
+          "x": 777,
+          "y": 590
+        },
+        {
+          "type": "hd_fence_picket_b",
+          "x": 875,
+          "y": 590
+        },
+        {
+          "type": "hd_fence_picket",
+          "x": 921,
+          "y": 590
+        },
+        {
+          "type": "hd_fence_picket_b",
+          "x": 1079,
+          "y": 590
+        },
+        {
+          "type": "hd_fence_picket",
+          "x": 1126,
+          "y": 590
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 117,
+          "y": 275
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 397,
+          "y": 285
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 106,
+          "y": 287
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 381,
+          "y": 295
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 116,
+          "y": 274
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 465,
+          "y": 291
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 284,
+          "y": 290
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 102,
+          "y": 292
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 85,
+          "y": 285
+        },
+        {
+          "type": "hd_bush_rose",
+          "x": 250,
+          "y": 262
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 344,
+          "y": 274
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 943,
+          "y": 263
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 966,
+          "y": 296
+        },
+        {
+          "type": "hd_bush_rose",
+          "x": 864,
+          "y": 267
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 1156,
+          "y": 268
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 940,
+          "y": 267
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 949,
+          "y": 291
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 935,
+          "y": 279
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 1074,
+          "y": 276
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 845,
+          "y": 281
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 952,
+          "y": 280
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 937,
+          "y": 285
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 1090,
+          "y": 296
+        },
+        {
+          "type": "hd_tree_oak_a",
+          "x": 450,
+          "y": 250
+        },
+        {
+          "type": "hd_tree_cherry_a",
+          "x": 520,
+          "y": 236
+        },
+        {
+          "type": "hd_tree_oak_b",
+          "x": 860,
+          "y": 240
+        },
+        {
+          "type": "hd_tree_big_a",
+          "x": 1170,
+          "y": 230
+        },
+        {
+          "type": "hd_tree_oak_c",
+          "x": 30,
+          "y": 240
+        },
+        {
+          "type": "hd_bicycle",
+          "x": 300,
+          "y": 290
+        },
+        {
+          "type": "hd_bush_yellow",
+          "x": 520,
+          "y": 296
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 836,
+          "y": 296
+        },
+        {
+          "type": "hd_garden_plot",
+          "x": 355,
+          "y": 655
+        },
+        {
+          "type": "hd_garden_plot",
+          "x": 355,
+          "y": 700
+        },
+        {
+          "type": "hd_birdbath",
+          "x": 800,
+          "y": 660
+        },
+        {
+          "type": "hd_bush_berry",
+          "x": 440,
+          "y": 620
+        },
+        {
+          "type": "hd_flowerbed",
+          "x": 760,
+          "y": 625
+        },
+        {
+          "type": "hd_bench",
+          "x": 1120,
+          "y": 640
+        },
+        {
+          "type": "hd_tree_blossom",
+          "x": 30,
+          "y": 766
+        },
+        {
+          "type": "hd_tree_cherry_b",
+          "x": 420,
+          "y": 766
+        },
+        {
+          "type": "hd_tree_cherry_b",
+          "x": 780,
+          "y": 767
+        },
+        {
+          "type": "hd_tree_cherry_b",
+          "x": 1180,
+          "y": 746
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 269,
+          "y": 684
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 1153,
+          "y": 649
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 684,
+          "y": 621
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 808,
+          "y": 650
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 886,
+          "y": 614
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 273,
+          "y": 693
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 303,
+          "y": 614
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 444,
+          "y": 631
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 816,
+          "y": 671
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 161,
+          "y": 695
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 128,
+          "y": 632
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 861,
+          "y": 620
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 891,
+          "y": 600
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 529,
+          "y": 655
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 438,
+          "y": 600
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 46,
+          "y": 609
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 894,
+          "y": 604
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 153,
+          "y": 684
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 65,
+          "y": 699
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 135,
+          "y": 637
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 1111,
+          "y": 677
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 817,
+          "y": 629
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 29,
+          "y": 679
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 348,
+          "y": 623
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 1041,
+          "y": 652
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 469,
+          "y": 662
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 427,
+          "y": 602
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 106,
+          "y": 692
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 358,
+          "y": 638
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 561,
+          "y": 612
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 263,
+          "y": 639
+        },
+        {
+          "type": "hd_lamp_gold",
+          "x": 130,
+          "y": 362
+        },
+        {
+          "type": "hd_lamp_gold",
+          "x": 430,
+          "y": 362
+        },
+        {
+          "type": "hd_lamp_gold",
+          "x": 930,
+          "y": 362
+        },
+        {
+          "type": "hd_lamp_gold",
+          "x": 1130,
+          "y": 362
+        },
+        {
+          "type": "hd_lamp_gold",
+          "x": 300,
+          "y": 534
+        },
+        {
+          "type": "hd_lamp_gold",
+          "x": 600,
+          "y": 534
+        },
+        {
+          "type": "hd_lamp_gold",
+          "x": 860,
+          "y": 534
+        },
+        {
+          "type": "hd_lamp_gold",
+          "x": 1080,
+          "y": 534
+        },
+        {
+          "type": "hd_signpost_res",
+          "x": 70,
+          "y": 362
+        },
+        {
+          "type": "hd_mailbox",
+          "x": 140,
+          "y": 572
+        },
+        {
+          "type": "hd_mailbox",
+          "x": 690,
+          "y": 588
+        },
+        {
+          "type": "hd_bench",
+          "x": 800,
+          "y": 580
+        },
+        {
+          "type": "hd_bin",
+          "x": 420,
+          "y": 572
+        },
+        {
+          "type": "hd_bicycle",
+          "x": 950,
+          "y": 570
+        },
+        {
+          "type": "hd_planter_pink",
+          "x": 1160,
+          "y": 568
+        },
+        {
+          "type": "hd_bench",
+          "x": 560,
+          "y": 330
+        },
+        {
+          "type": "hd_planter_violet",
+          "x": 800,
+          "y": 330
+        },
+        {
+          "type": "hd_bin",
+          "x": 870,
+          "y": 330
+        },
+        {
+          "type": "hd_car_red",
+          "x": 200,
+          "y": 400
+        },
+        {
+          "type": "hd_car_green",
+          "x": 1080,
+          "y": 498
         }
       ],
       "doors": [
@@ -16663,7 +17205,148 @@
       ],
       "v4Layout": "handcrafted_16bit",
       "v4SourceOriginalFilename": "03_perpustakaan.png",
-      "elevationPlatforms": []
+      "elevationPlatforms": [],
+      "visualStyle": "godot_hd_dense",
+      "visualUpdate": "godot_perumahan_hd",
+      "stairs": [],
+      "v6Layout": {
+        "version": 3,
+        "generator": "tools/worldgen/perumahan_hd.py",
+        "hd": true
+      },
+      "tiles": [
+        {
+          "image": "maps/hd/perumahan_0_0@2x.png",
+          "x": 0,
+          "y": 0,
+          "w": 1024,
+          "h": 896
+        },
+        {
+          "image": "maps/hd/perumahan_0_1@2x.png",
+          "x": 1024,
+          "y": 0,
+          "w": 176,
+          "h": 896
+        }
+      ],
+      "surface": {
+        "cell": 8,
+        "rows": [
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g150",
+          "g21s6g97s6g20",
+          "g21s6g97s6g20",
+          "g21s6g97s6g20",
+          "g21s6g97s6g20",
+          "g21s6g97s6g20",
+          "g21s6g97s6g20",
+          "g21s6g39s37g21s6g20",
+          "g21s6g39s37g21s6g20",
+          "g3s144g3",
+          "g3s144g3",
+          "g3s144g3",
+          "g3s144g3",
+          "g3s144g3",
+          "g3s144g3",
+          "g3s144g3",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "s150",
+          "g3s144g3",
+          "g3s144g3",
+          "g3s144g3",
+          "g3s144g3",
+          "g3s144g3",
+          "g3s144g3",
+          "g3s144g3",
+          "g3s144g3",
+          "g3s144g3",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g8r14g21s6g44s6g22",
+          "g23s6g8r14g21s6g44s6g22",
+          "g23s6g8r14g21s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g8r14g21s6g44s6g22",
+          "g23s6g8r14g21s6g44s6g22",
+          "g23s6g8r14g21s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g8r14g21s6g44s6g22",
+          "g23s6g8r14g21s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g23s6g43s6g44s6g22",
+          "g72s6g72",
+          "g150",
+          "g150",
+          "g150"
+        ]
+      }
     },
     "perpustakaan": {
       "name": "Perpustakaan Kota",

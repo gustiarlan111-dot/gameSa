@@ -2922,6 +2922,48 @@
       "cw": 6,
       "ch": 4,
       "layer": "sort"
+    },
+    "hd_library": {
+      "image": "props/hd/hd_library@2x.png",
+      "cw": 260,
+      "ch": 30,
+      "layer": "sort"
+    },
+    "hd_house_pink": {
+      "image": "props/hd/hd_house_pink@2x.png",
+      "cw": 250,
+      "ch": 82,
+      "layer": "sort"
+    },
+    "hd_house_mint": {
+      "image": "props/hd/hd_house_mint@2x.png",
+      "cw": 250,
+      "ch": 82,
+      "layer": "sort"
+    },
+    "hd_house_butter": {
+      "image": "props/hd/hd_house_butter@2x.png",
+      "cw": 260,
+      "ch": 82,
+      "layer": "sort"
+    },
+    "hd_house_violet": {
+      "image": "props/hd/hd_house_violet@2x.png",
+      "cw": 250,
+      "ch": 82,
+      "layer": "sort"
+    },
+    "hd_house_redbrick": {
+      "image": "props/hd/hd_house_redbrick@2x.png",
+      "cw": 260,
+      "ch": 82,
+      "layer": "sort"
+    },
+    "hd_signpost_res": {
+      "image": "props/hd/hd_signpost_res@2x.png",
+      "cw": 6,
+      "ch": 4,
+      "layer": "sort"
     }
   }
 }

@@ -288,6 +288,9 @@ def ground_shadow(sp, cx, cy, rx, ry, k=0.32):
 
 # ----------------------------------------------------------------------------- houses
 
+_HOUSE_NO = [None]
+
+
 def house(kind='arland', W=600, H=500):
     """Front elevation in 3/4 top-down view: roof slope seen from above, front wall, porch, garden
     strip. Footprint (cw*2 px) is centred; the door sits at the exact horizontal centre."""
@@ -372,7 +375,7 @@ def house(kind='arland', W=600, H=500):
         wall_lamp(sp, cx + dw / 2 + 26, wall_bot - dh + 12)
         # house number plate
         sp.put(sp.rect(cx - dw / 2 - 34, wall_bot - dh + 20, 20, 14), trimR[3])
-        sp.put(text_mask(sp, '7' if kind == 'arland' else '9', cx - dw / 2 - 24, wall_bot - dh + 27, 11), hexrgb('#2b2b30'))
+        sp.put(text_mask(sp, _HOUSE_NO[0] or ('7' if kind == 'arland' else '9'), cx - dw / 2 - 24, wall_bot - dh + 27, 11), hexrgb('#2b2b30'))
     # windows
     wy = wall_top + 64
     if kind == 'arland':
@@ -1224,4 +1227,105 @@ def flower_stall(W=200, H=150):
     can = sp.poly([(0, 40), (W, 40), (W - 10, 10), (10, 10)])
     sp.put(can, quant(vgrad(sp, 10, 40, 0.9, 0.5), ramp_from_hex('#4f8a47')))
     outline(sp, WOOD[0], width=1)
+    return sp
+
+
+# ----------------------------------------------------------------------------- residential
+
+HOUSE_VARIANTS = {
+    'pink': ('arland', ramp('#8a5a66', '#a8707c', '#c48a95', '#d9a4ae', '#e8bec6', '#f4d8dd', '#fcecef'), TERRA, '3'),
+    'mint': ('arland', ramp('#4a6a5a', '#5c8270', '#719a86', '#88b29c', '#a2c8b2', '#bedcca', '#dcefe4'), SLATE, '5'),
+    'butter': ('sofia', ramp('#8a6a3a', '#a8844c', '#c4a060', '#d8b878', '#e8cf96', '#f2e2b6', '#faf0d8'), GREEN_ROOF, '11'),
+    'violet': ('arland', ramp('#4f4866', '#625a80', '#786f9a', '#9088b2', '#aaa3c8', '#c6c0dc', '#e2def0'), TERRA, '8'),
+    'redbrick': ('sofia', None, SLATE, '2'),
+}
+
+
+def house_variant(name, W=600, H=500):
+    """Same carefully drawn house builder with another wall/roof palette and house number."""
+    base, wall, roof, no = HOUSE_VARIANTS[name]
+    g = globals()
+    keep = (g['SIDING_BLUE'], g['BRICK'], g['SLATE'], g['TERRA'])
+    try:
+        if base == 'arland':
+            g['SIDING_BLUE'] = wall if wall is not None else keep[0]
+            g['SLATE'] = roof
+        else:
+            if wall is not None:
+                g['BRICK'] = wall
+            g['TERRA'] = roof
+        _HOUSE_NO[0] = no
+        return house(base, W, H)
+    finally:
+        g['SIDING_BLUE'], g['BRICK'], g['SLATE'], g['TERRA'] = keep
+        _HOUSE_NO[0] = None
+
+
+def library(W=600, H=480):
+    """City library: pale stone civic building, portico with four columns and a pediment, tall arched
+    windows, big double door at the exact centre, wide steps."""
+    sp = Sprite(W, H)
+    dith = bayer(H, W)
+    cx = W / 2
+    bot = H - 4
+    x0, x1 = 20, W - 20
+    SANDST = ramp('#8c7f6a', '#a89a82', '#c2b59c', '#d6cab2', '#e6dcc6', '#f2ead9', '#fbf6ec')
+    ground_shadow(sp, cx, bot - 4, W / 2 - 10, 16, 0.4)
+    top = 150
+    wm = sp.rect(x0, top, x1 - x0, bot - 30 - top)
+    sp.put(wm, quant(0.62 + (noise(H, W, 7, 4) - 0.5) * 0.12, SANDST, dith))
+    for yy in range(top + 18, bot - 30, 22):                    # ashlar courses
+        sp.put(sp.rect(x0, yy, x1 - x0, 2) & wm, SANDST[2])
+        off = 0 if (yy // 22) % 2 else 22
+        for xx in range(x0 + off, x1, 44):
+            sp.put(sp.rect(xx, yy - 20, 2, 20) & wm, SANDST[2])
+    # plinth
+    sp.put(sp.rect(x0 - 6, bot - 34, x1 - x0 + 12, 20), quant(vgrad(sp, bot - 34, bot - 14, 0.6, 0.35), STONE, dith))
+    # roof: low slate hip behind a cornice
+    rm = sp.poly([(x0 - 14, top + 4), (x1 + 14, top + 4), (x1 - 40, 56), (x0 + 40, 56)])
+    tile_roof(sp, rm, SLATE, 56, top + 4, 22, 14, seed=7, moss=0.15, scallop=False)
+    darken(sp, rm & (sp.xx > cx), 0.94)
+    sp.put(sp.rect(x0 - 14, top - 2, x1 - x0 + 28, 14), quant(vgrad(sp, top - 2, top + 12, 0.95, 0.55), SANDST))
+    sp.put(sp.rect(x0 - 14, top + 10, x1 - x0 + 28, 3), SANDST[1])
+    # side wings: two tall arched windows each
+    for wx in (x0 + 26, x0 + 104, x1 - 26 - 56, x1 - 104 - 56):
+        window(sp, wx, top + 44, 56, 120, SANDST, 'cream', box=False, arch=True, lit=True, panes=(2, 3))
+    # portico
+    px0, px1 = cx - 130, cx + 130
+    sp.put(sp.rect(px0, top + 30, px1 - px0, bot - 34 - top - 30), quant(vgrad(sp, top, bot, 0.5, 0.35), SANDST))
+    ped = sp.poly([(px0 - 14, top + 34), (px1 + 14, top + 34), (cx, top - 34)])
+    sp.put(ped, quant(vgrad(sp, top - 34, top + 34, 0.9, 0.55), SANDST, dith))
+    sp.put(sp.poly([(px0 + 14, top + 26), (px1 - 14, top + 26), (cx, top - 16)]), SANDST[3])
+    sp.put(sp.ellipse(cx, top + 8, 14, 14), GOLD[3]); sp.put(sp.ellipse(cx, top + 8, 9, 9), GOLD[1])
+    sp.put(sp.rect(px0 - 14, top + 32, px1 - px0 + 28, 6), SANDST[1])
+    # sign
+    sp.put(sp.rect(px0 + 6, top + 42, px1 - px0 - 12, 30), hexrgb('#2f3b52'))
+    sp.put(text_mask(sp, 'PERPUSTAKAAN', cx, top + 57, 19), GOLD[4])
+    # door + lit fanlight
+    door(sp, cx, bot - 34, 96, 150, ramp('#3a2418', '#53331f', '#6d4428', '#875633', '#a06a42'), SANDST, glass=True, arch=True, double=True)
+    # columns
+    for k in range(4):
+        colx = px0 + 14 + k * (px1 - px0 - 28) / 3
+        cm = sp.rect(colx - 11, top + 76, 22, bot - 34 - top - 76)
+        sp.put(cm, quant(hgrad(sp, colx - 11, colx + 11, 0.95, 0.4), SANDST))
+        for f in (-5, 1, 7):
+            sp.put(sp.rect(colx + f - 1, top + 80, 1, bot - 34 - top - 84), SANDST[2])
+        sp.put(sp.rect(colx - 15, top + 72, 30, 8), SANDST[5])
+        sp.put(sp.rect(colx - 15, bot - 42, 30, 8), SANDST[4])
+    # steps
+    for i in range(3):
+        sw = 300 - i * 26
+        sy = bot - 14 + i * -8 + 8
+        st = sp.rect(cx - sw / 2, bot - 12 - i * 8, sw, 9)
+        sp.put(st, quant(0.68 - i * 0.05 + hgrad(sp, cx - sw / 2, cx + sw / 2, 0.08, -0.12), STONE, dith))
+        sp.put(sp.rect(cx - sw / 2, bot - 12 - i * 8, sw, 2), STONE[6])
+    # book return box + banners
+    sp.put(sp.rect(x1 - 70, bot - 74, 34, 44), hexrgb('#3d6fd3'))
+    sp.put(sp.rect(x1 - 66, bot - 66, 26, 4), hexrgb('#1f2a4a'))
+    for bx, col in ((px0 - 34, '#c4433f'), (px1 + 22, '#3d8a5a')):
+        sp.put(sp.rect(bx + 5, top + 40, 2, 120), METAL[2])
+        sp.put(sp.poly([(bx, top + 48), (bx + 14, top + 48), (bx + 14, top + 128), (bx + 7, top + 120), (bx, top + 128)]), hexrgb(col))
+    potted_plant(sp, px0 + 2, bot - 14, 1.2, 1)
+    potted_plant(sp, px1 - 2, bot - 14, 1.2, 3)
+    outline(sp, SANDST[0] * 0.7, width=2)
     return sp

@@ -106,6 +106,9 @@ func _json(path: String) -> Dictionary:
 
 
 ## Walls + prop foot boxes merged into one rectangle list, like MapDb.Area in the Java build.
+const GRID := 128.0
+
+
 func _prepare_area(id: String, a: Dictionary) -> void:
 	var rects: Array[Rect2] = []
 	for w in a.get("walls", []):
@@ -118,6 +121,17 @@ func _prepare_area(id: String, a: Dictionary) -> void:
 		if cw > 0 and ch > 0:
 			rects.append(Rect2(p["x"] - cw / 2.0, p["y"] - ch, cw, ch))
 	a["_rects"] = rects
+	# spatial buckets so dense maps (forest canopy = hundreds of rects) stay cheap to query
+	var grid := {}
+	for i in rects.size():
+		var r: Rect2 = rects[i]
+		for gy in range(int(floor(r.position.y / GRID)), int(floor(r.end.y / GRID)) + 1):
+			for gx in range(int(floor(r.position.x / GRID)), int(floor(r.end.x / GRID)) + 1):
+				var key := Vector2i(gx, gy)
+				if not grid.has(key):
+					grid[key] = []
+				grid[key].append(i)
+	a["_grid"] = grid
 	a["id"] = id
 
 
@@ -140,9 +154,13 @@ func blocked(a: Dictionary, x: float, y: float, flags: Dictionary = {}) -> bool:
 	if x0 < 0 or y0 < 0 or x1 > a.get("w", 0) or y1 > a.get("h", 0):
 		return true
 	var foot := Rect2(x0, y0, x1 - x0, y1 - y0)
-	for r in a["_rects"]:
-		if foot.intersects(r):
-			return true
+	var rects: Array = a["_rects"]
+	var grid: Dictionary = a.get("_grid", {})
+	for gy in range(int(floor(y0 / GRID)), int(floor(y1 / GRID)) + 1):
+		for gx in range(int(floor(x0 / GRID)), int(floor(x1 / GRID)) + 1):
+			for i in grid.get(Vector2i(gx, gy), []):
+				if foot.intersects(rects[i]):
+					return true
 	for g in a.get("gates", []):
 		var r: Array = g.get("rect", [])
 		if r.size() >= 4 and foot.intersects(Rect2(r[0], r[1], r[2], r[3])) and _gate_solid(g, flags):

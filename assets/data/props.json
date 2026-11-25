@@ -2724,6 +2724,120 @@
       "cw": 98,
       "ch": 8,
       "layer": "sort"
+    },
+    "hd_cave_mouth": {
+      "image": "props/hd/hd_cave_mouth@2x.png",
+      "cw": 0,
+      "ch": 0,
+      "layer": "sort"
+    },
+    "hd_waterfall": {
+      "image": "props/hd/hd_waterfall@2x.png",
+      "cw": 0,
+      "ch": 0,
+      "layer": "sort"
+    },
+    "hd_tent": {
+      "image": "props/hd/hd_tent@2x.png",
+      "cw": 76,
+      "ch": 16,
+      "layer": "sort"
+    },
+    "hd_campfire": {
+      "image": "props/hd/hd_campfire@2x.png",
+      "cw": 22,
+      "ch": 8,
+      "layer": "sort"
+    },
+    "hd_log_bench": {
+      "image": "props/hd/hd_log_bench@2x.png",
+      "cw": 56,
+      "ch": 10,
+      "layer": "sort"
+    },
+    "hd_stone_lantern": {
+      "image": "props/hd/hd_stone_lantern@2x.png",
+      "cw": 18,
+      "ch": 8,
+      "layer": "sort"
+    },
+    "hd_carving_moon": {
+      "image": "props/hd/hd_carving_moon@2x.png",
+      "cw": 22,
+      "ch": 8,
+      "layer": "sort"
+    },
+    "hd_carving_star": {
+      "image": "props/hd/hd_carving_star@2x.png",
+      "cw": 22,
+      "ch": 8,
+      "layer": "sort"
+    },
+    "hd_chest": {
+      "image": "props/hd/hd_chest@2x.png",
+      "cw": 26,
+      "ch": 10,
+      "layer": "sort"
+    },
+    "hd_chest_open": {
+      "image": "props/hd/hd_chest_open@2x.png",
+      "cw": 26,
+      "ch": 10,
+      "layer": "sort"
+    },
+    "hd_bridge_broken": {
+      "image": "props/hd/hd_bridge_broken@2x.png",
+      "cw": 0,
+      "ch": 0,
+      "layer": "floor"
+    },
+    "hd_bridge_fixed": {
+      "image": "props/hd/hd_bridge_fixed@2x.png",
+      "cw": 0,
+      "ch": 0,
+      "layer": "floor"
+    },
+    "hd_rock_ledge": {
+      "image": "props/hd/hd_rock_ledge@2x.png",
+      "cw": 0,
+      "ch": 0,
+      "layer": "sort"
+    },
+    "hd_light_shaft": {
+      "image": "props/hd/hd_light_shaft@2x.png",
+      "cw": 0,
+      "ch": 0,
+      "layer": "sort"
+    },
+    "hd_signpost_camp": {
+      "image": "props/hd/hd_signpost_camp@2x.png",
+      "cw": 6,
+      "ch": 4,
+      "layer": "sort"
+    },
+    "hd_rock_ledge_b": {
+      "image": "props/hd/hd_rock_ledge_b@2x.png",
+      "cw": 0,
+      "ch": 0,
+      "layer": "sort"
+    },
+    "hd_log_bench_b": {
+      "image": "props/hd/hd_log_bench_b@2x.png",
+      "cw": 56,
+      "ch": 10,
+      "layer": "sort"
+    },
+    "hd_signpost_hill": {
+      "image": "props/hd/hd_signpost_hill@2x.png",
+      "cw": 6,
+      "ch": 4,
+      "layer": "sort"
+    },
+    "hd_signpost_park": {
+      "image": "props/hd/hd_signpost_park@2x.png",
+      "cw": 6,
+      "ch": 4,
+      "layer": "sort"
     }
   }
 }

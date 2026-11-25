@@ -10,7 +10,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools/artkit'))
-import kit, nature, built, landmarks as lm                                         # noqa: E402
+import kit, nature, built, landmarks as lm, forest as fo                                         # noqa: E402
 from kit import (Sprite, quant, bayer, sphere_shade, outline, noise, hexrgb, ramp, BARK, STONE, LEAF,   # noqa: E402
                  LEAF_DARK, WOOD, METAL, FLOWERS)
 
@@ -500,6 +500,26 @@ KIT = {
     'hd_railing_iron': (lambda: lm.railing_iron(), 98, 8, 'sort'),
     'hd_fence_picket': (lambda: lm.fence_picket(), 98, 8, 'sort'),
     'hd_fence_picket_b': (lambda: lm.fence_picket(seed=5), 98, 8, 'sort'),
+    # Hutan Bisik landmarks, drawn new
+    'hd_cave_mouth': (lambda: fo.cave_mouth(), 0, 0, 'sort'),
+    'hd_waterfall': (lambda: fo.waterfall(), 0, 0, 'sort'),
+    'hd_tent': (lambda: fo.tent(), 76, 16, 'sort'),
+    'hd_campfire': (lambda: fo.campfire(), 22, 8, 'sort'),
+    'hd_log_bench': (lambda: fo.log_bench(seed=0), 56, 10, 'sort'),
+    'hd_log_bench_b': (lambda: fo.log_bench(seed=3), 56, 10, 'sort'),
+    'hd_stone_lantern': (lambda: fo.stone_lantern(), 18, 8, 'sort'),
+    'hd_carving_moon': (lambda: fo.carved_stone('moon'), 22, 8, 'sort'),
+    'hd_carving_star': (lambda: fo.carved_stone('star'), 22, 8, 'sort'),
+    'hd_chest': (lambda: fo.chest(False), 26, 10, 'sort'),
+    'hd_chest_open': (lambda: fo.chest(True), 26, 10, 'sort'),
+    'hd_bridge_broken': (lambda: fo.bridge_stream(True), 0, 0, 'floor'),
+    'hd_bridge_fixed': (lambda: fo.bridge_stream(False), 0, 0, 'floor'),
+    'hd_rock_ledge': (lambda: fo.rock_ledge(), 0, 0, 'sort'),
+    'hd_rock_ledge_b': (lambda: fo.rock_ledge(seed=33), 0, 0, 'sort'),
+    'hd_light_shaft': (lambda: fo.light_shaft(seed=1), 0, 0, 'sort'),
+    'hd_signpost_hill': (lambda: lm.signpost([('Bukit', 1), ('Kemah', -1)]), 6, 4, 'sort'),
+    'hd_signpost_park': (lambda: lm.signpost([('Taman', 1), ('Kemah', -1)]), 6, 4, 'sort'),
+    'hd_signpost_camp': (lambda: lm.signpost([('Gua', -1), ('Sungai', 1)]), 6, 4, 'sort'),
 }
 
 

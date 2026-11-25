@@ -178,6 +178,7 @@ func _process(_delta: float) -> void:
 				game.controls.vec = Vector2.ZERO
 			else:
 				game.controls.vec = d.normalized()
+				game.controls.sprint = OS.get_environment("SHOT_SPRINT") == "1"
 		else:
 			game.controls.vec = Vector2.ZERO
 		if _frame == int(_args[4]):

@@ -432,11 +432,13 @@ func _mirror_sprites(root: Node2D, node: Node, xf: Transform2D, mod: Color, m: D
 				var ctr := cx * r.get_center()
 				var sc := cx.get_scale()
 				sp.pixel_size = S * absf(sc.x)
+				sp.scale = Vector3(1.0, absf(sc.y) / maxf(0.0001, absf(sc.x)), 1.0)
 				sp.modulate = cm * s.self_modulate
 				if flat:
 					sp.position = Vector3(ctr.x * S, 0.02, ctr.y * S)
 				else:
 					sp.position = Vector3(ctr.x * S, -ctr.y * S, 0.0)
+					sp.rotation.z = -cx.get_rotation()
 		if vis and n.get_child_count() > 0:
 			_mirror_sprites(root, n, cx, cm, m)
 		elif not vis:

@@ -25,6 +25,7 @@ SS = 8              # supersampling: base unit -> px while drawing
 OUT_K = 2           # @2x output
 OUTLINE = (52, 38, 58, 255)
 BODY_SCALE = 1.22
+PIXEL = True        # 1x pixel art (hard alpha, limited palette, light/shade rim) like Arland and Sofia
 POSES = ["sit", "wave", "give", "reach", "bow", "hold_l", "hold_r", "cheer",
          "hug", "lean", "photo", "highfive", "dance", "read", "water", "sweep"]
 
@@ -38,6 +39,39 @@ def rgb(h, a=255):
 
 def shade(c, k):
     return tuple(max(0, min(255, int(v * k))) for v in c[:3]) + (c[3],)
+
+
+def pixel_art(im):
+    """Turn a smooth 48x72 render into crisp pixel art: hard alpha, colours snapped to a small
+    per-character palette, top-left rim light and bottom-right rim shade (the 3D lights add the rest)."""
+    a = im.split()[3].point(lambda v: 255 if v >= 110 else 0)
+    rgb_ = im.convert("RGB")
+    pal = PALETTE[0]
+    q = rgb_.quantize(palette=pal, dither=Image.Dither.NONE).convert("RGB") if pal else rgb_
+    out = q.convert("RGBA")
+    out.putalpha(a)
+    px = out.load()
+    w, h = out.size
+    src = [[px[x, y] for x in range(w)] for y in range(h)]
+    def solid(x, y):
+        return 0 <= x < w and 0 <= y < h and src[y][x][3] > 0
+    def dark(c):
+        return c[0] + c[1] + c[2] < 200
+    for y in range(h):
+        for x in range(w):
+            c = src[y][x]
+            if c[3] == 0 or dark(c):
+                continue
+            lit = (not solid(x - 1, y)) or (not solid(x, y - 1)) or (y > 0 and dark(src[y - 1][x])) or (x > 0 and dark(src[y][x - 1]))
+            shd = (not solid(x + 1, y)) or (not solid(x, y + 1)) or (y + 1 < h and dark(src[y + 1][x])) or (x + 1 < w and dark(src[y][x + 1]))
+            if lit and not shd:
+                px[x, y] = shade(c, 1.1)
+            elif shd and not lit:
+                px[x, y] = shade(c, 0.82)
+    return out
+
+
+PALETTE = [None]   # set per character from a reference render (see build)
 
 
 # ----------------------------------------------------------------------------- characters
@@ -182,6 +216,8 @@ class Pen:
         self.d.pieslice((x0, y0, x1, y1), a0, a1, fill=fill)
 
     def out(self, w=FW * OUT_K, h=FH * OUT_K):
+        if PIXEL and w == FW * OUT_K:
+            return pixel_art(self.im.resize((FW, FH), Image.BOX))
         return self.im.resize((w, h), Image.LANCZOS)
 
 
@@ -210,11 +246,12 @@ class Figure:
         # vertical layout (feet at y=70). Children and teens get bigger heads relative to body.
         k = self.k
         child = self.age == "child"
-        self.head_r = (10.2 if child else 9.6 if self.age == "teen" else 9.4) * (0.96 + 0.04 * k)
+        # chibi proportions like Arland and Sofia: big head, short body
+        self.head_r = (11.6 if child else 11.4 if self.age == "teen" else 11.2) * (0.96 + 0.04 * k)
         self.foot_y = 70.0
-        self.leg_len = 13.0 * k * (0.86 if child else 1.0)
+        self.leg_len = 11.5 * k * (0.86 if child else 1.0)
         self.hip_y = self.foot_y - self.leg_len
-        self.torso_h = 17.5 * k * (0.84 if child else 1.0)
+        self.torso_h = 15.0 * k * (0.84 if child else 1.0)
         self.shoulder_y = self.hip_y - self.torso_h
         self.neck_y = self.shoulder_y - 1.0
         self.head_cy = self.neck_y - self.head_r * 0.86 + self.stoop * 0.6
@@ -526,7 +563,7 @@ class Figure:
         if view == "side":
             xs = [cx + r * 0.58]
         else:
-            xs = [cx - r * 0.38, cx + r * 0.38]
+            xs = [cx - r * 0.4, cx + r * 0.4]
         smile_eyes = f.get("eyes") == "smile" or expr in ("senang", "tertawa", "tersenyum")
         for ex in xs:
             if blink or smile_eyes:
@@ -534,9 +571,12 @@ class Figure:
             elif expr == "kaget":
                 pen.dot(ex, eye_y, 1.45, (255, 255, 255, 255))
                 pen.dot(ex, eye_y, 0.9, ink)
-            else:
-                pen.dot(ex, eye_y, 1.25, ink)
-                pen.dot(ex + 0.45, eye_y - 0.5, 0.42, (255, 255, 255, 255))
+            else:   # big anime eyes: dark lash line, coloured iris, white catchlight
+                iris = rgb(f.get("iris", "#5a3a2e"))
+                pen.ellipse(ex, eye_y, 1.6, 2.3, ink, outline=False)
+                pen.ellipse(ex, eye_y + 0.6, 1.05, 1.45, iris, outline=False)
+                pen.dot(ex + 0.45, eye_y - 0.7, 0.62, (255, 255, 255, 255))
+                pen.line(ex - 1.6, eye_y - 1.8, ex + 1.6, eye_y - 1.8, 0.45, ink)
             brow = f.get("brows", "normal")
             by = eye_y - 2.6 - (0.6 if expr == "kaget" else 0)
             bcol = shade(self.hair, 0.8) if self.hair_style not in ("hijab",) else ink
@@ -599,7 +639,11 @@ class Figure:
     def hair_back(self, pen, view, cx, cy, r):
         hs, c = self.hair_style, self.hair
         if hs == "long":
-            pen.rrect(cx - r * 1.02, cy - r * 0.3, cx + r * 1.02, cy + r * 1.75, r * 0.4, c)
+            if view == "back":
+                pen.rrect(cx - r * 1.02, cy - r * 0.3, cx + r * 1.02, cy + r * 1.75, r * 0.4, c)
+            else:   # in front of the body only two locks fall past the shoulders
+                pen.rrect(cx - r * 1.08, cy - r * 0.3, cx - r * 0.55, cy + r * 1.45, r * 0.25, c)
+                pen.rrect(cx + r * 0.55, cy - r * 0.3, cx + r * 1.08, cy + r * 1.45, r * 0.25, c)
         elif hs == "wavy":
             for i in range(5):
                 x = cx - r * 0.95 + i * r * 0.475
@@ -925,7 +969,7 @@ VIEWS = [("front", False), ("side", True), ("side", False), ("back", False)]   #
 
 
 def sheet(fig, cols, fn):
-    w, h = FW * OUT_K, FH * OUT_K
+    w, h = (FW, FH) if PIXEL else (FW * OUT_K, FH * OUT_K)
     im = Image.new("RGBA", (cols * w, 4 * h), (0, 0, 0, 0))
     for row, (view, mirror) in enumerate(VIEWS):
         for col in range(cols):
@@ -937,9 +981,17 @@ def sheet(fig, cols, fn):
 
 
 def build(fig):
+    if PIXEL:
+        # one palette per character from a few reference frames, so every frame shares colours
+        PALETTE[0] = None
+        refs = [fig.frame(v, phase=ph, walking=True) for v, _ in VIEWS[:3] for ph in (0.0, 2.0)]
+        strip = Image.new("RGB", (len(refs) * FW, FH), (0, 0, 0))
+        for i, r in enumerate(refs):
+            strip.paste(r.convert("RGB"), (i * FW, 0), r.split()[3])
+        PALETTE[0] = strip.quantize(colors=28, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
     walk = sheet(fig, 24, lambda v, c: fig.frame(v, phase=c / 24 * math.tau, walking=True))
     idle = sheet(fig, 12, lambda v, c: fig.frame(v, blink=(c == 7)))
-    w, h = FW * OUT_K, FH * OUT_K
+    w, h = (FW, FH) if PIXEL else (FW * OUT_K, FH * OUT_K)
     poses = Image.new("RGBA", (8 * w, len(POSES) * h), (0, 0, 0, 0))
     cache = {}
     for pi, pose in enumerate(POSES):
@@ -1014,15 +1066,19 @@ def main():
         d = os.path.join(assets, "characters", cid)
         os.makedirs(os.path.join(d, "portraits"), exist_ok=True)
         walk, idle, poses = build(fig)
-        walk.save(os.path.join(d, "walk_v53@2x.png"), optimize=True)
-        idle.save(os.path.join(d, "idle_v53@2x.png"), optimize=True)
-        poses.save(os.path.join(d, "poses_v53@2x.png"), optimize=True)
+        sfx = "" if PIXEL else "@2x"
+        for name, img in (("walk_v53", walk), ("idle_v53", idle), ("poses_v53", poses)):
+            img.save(os.path.join(d, name + sfx + ".png"), optimize=True)
+            other = os.path.join(d, name + ("@2x" if PIXEL else "") + ".png")
+            for f in (other, other + ".import"):
+                if os.path.exists(f) and other != os.path.join(d, name + sfx + ".png"):
+                    os.remove(f)
         for emo, expr in PORTRAIT_EMOS.items():
             portrait(fig, expr).save(os.path.join(d, "portraits", emo + ".png"), optimize=True)
-        previews.append((cid, idle.crop((0, 0, FW * OUT_K, FH * OUT_K)), walk, fig))
+        previews.append((cid, None, walk, fig))
         print("built", cid)
     if sheet_out:
-        w, h = FW * OUT_K, FH * OUT_K
+        w, h = (FW, FH) if PIXEL else (FW * OUT_K, FH * OUT_K)
         out = Image.new("RGBA", (len(previews) * w, h * 4 + 24), (58, 46, 82, 255))
         dd = ImageDraw.Draw(out)
         for i, (cid, fr, walk, fig) in enumerate(previews):

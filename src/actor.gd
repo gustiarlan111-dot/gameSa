@@ -34,6 +34,13 @@ var style := {"cadence": 1.0, "bounce": 1.0, "sway": 1.0, "breathing": 1.0, "pha
 var _sprite: Sprite2D
 var _shadow: Sprite2D
 var _sheets := {}     # name -> {tex, cols, rows, k}
+var lean := 0.0              # forward lean while running (radians, + = toward the walking side)
+var squash := 1.0            # vertical squash/stretch on starting and stopping (springs back to 1)
+var _squash_v := 0.0
+var _was_walking := false
+var _last_step := 0
+var _puffs: Array = []       # dust puffs kicked up while running: {node, pos, t}
+static var _puff_tex: Texture2D
 
 const STYLES := {
 	"arland": [1.06, 1.15, .95, 1.0, .7, 1.0], "sofia": [.96, .82, .72, .85, 2.2, 1.0],
@@ -127,6 +134,24 @@ func _process(delta: float) -> void:
 	turn_impulse = maxf(0.0, turn_impulse - dt * 3.8)
 	if walking:
 		anim = fmod(anim + dt * (32.0 if sprinting else 24.0) * style.cadence, 24.0)
+	# start / stop: a small stretch when setting off, a squash when stopping, spring back
+	if walking != _was_walking:
+		_squash_v += -0.9 if not walking else 0.6
+		_was_walking = walking
+	_squash_v += (1.0 - squash) * 180.0 * dt
+	_squash_v *= exp(-dt * 14.0)
+	squash = clampf(squash + _squash_v * dt, 0.9, 1.08)
+	# lean into a run (sideways views lean along the motion, front/back views barely)
+	var want_lean := 0.0
+	if walking and sprinting:
+		want_lean = 0.09 if dir == DIR_RIGHT else -0.09 if dir == DIR_LEFT else 0.0
+	lean = lerpf(lean, want_lean, 1.0 - exp(-dt * 10.0))
+	# dust puffs on each footfall while running
+	var step := int(anim / 6.0)
+	if walking and sprinting and step != _last_step:
+		_spawn_puff()
+	_last_step = step
+	_update_puffs(dt)
 	if emote_time > 0:
 		emote_time -= dt
 		if emote_time <= 0:
@@ -196,8 +221,15 @@ func _update_frame() -> void:
 			"ponder": dx = sin(t * 1.9) * 0.7; lift = sin(t * 2.2) * 0.45
 	if pose == null:
 		dx += sin(life * 5.0 + style.phase) * turn_impulse * 1.5
-	_sprite.scale = Vector2(sc, sc)
-	_sprite.position = Vector2(-FW * style.scale / 2.0 + dx, -FH * style.scale - lift + 1)
+	# squash keeps the feet planted and the width roughly constant in volume
+	var sy := squash
+	var sx := 1.0 + (1.0 - squash) * 0.6
+	_sprite.scale = Vector2(sc * sx, sc * sy)
+	_sprite.rotation = lean
+	var fw: float = FW * style.scale * sx
+	var fh: float = FH * style.scale * sy
+	var foot := Vector2(dx, 1.0 - lift)
+	_sprite.position = foot - Vector2(fw / 2.0, fh).rotated(lean)
 	if _shadow.texture:
 		var sk := 1.0 - minf(0.4, lift / 20.0)
 		_shadow.scale = Vector2(26.0 * sk / _shadow.texture.get_width(), 10.0 / _shadow.texture.get_height())
@@ -209,3 +241,37 @@ func _update_frame() -> void:
 		var tw := _emote_sprite.texture.get_width()
 		_emote_sprite.scale = Vector2(22.0 / tw, 22.0 / tw) * pop
 		_emote_sprite.position = Vector2(0, -FH * style.scale - 12 - lift)
+
+
+func _spawn_puff() -> void:
+	if _puff_tex == null:
+		var g := Gradient.new()
+		g.set_color(0, Color(1, 1, 1, 0.9)); g.set_color(1, Color(1, 1, 1, 0))
+		var gt := GradientTexture2D.new()
+		gt.gradient = g; gt.fill = GradientTexture2D.FILL_RADIAL
+		gt.fill_from = Vector2(0.5, 0.5); gt.fill_to = Vector2(1.0, 0.5)
+		gt.width = 32; gt.height = 32
+		_puff_tex = gt
+	var n := Sprite2D.new()
+	n.texture = _puff_tex
+	n.set_meta("flat", true)
+	n.show_behind_parent = true
+	add_child(n)
+	var side := -6.0 if (_last_step % 2) == 0 else 6.0
+	_puffs.append({"node": n, "pos": position + Vector2(side, -1), "t": 0.0})
+
+
+func _update_puffs(dt: float) -> void:
+	for i in range(_puffs.size() - 1, -1, -1):
+		var p: Dictionary = _puffs[i]
+		p.t += dt
+		var n: Sprite2D = p.node
+		if p.t > 0.5:
+			n.queue_free()
+			_puffs.remove_at(i)
+			continue
+		var k: float = p.t / 0.5
+		n.position = p.pos - position + Vector2(0, -k * 3.0)
+		var sz := 8.0 + 14.0 * k
+		n.scale = Vector2(sz, sz * 0.6) / 32.0
+		n.modulate = Color(0.8, 0.74, 0.64, 0.8 * (1.0 - k))

@@ -39,6 +39,7 @@ var _spawned := {}                # cutscene extras
 var _markers := {}                # interactable id -> Node2D
 var _time := 0.0
 var atmosphere: Atmosphere
+var view3d: WorldView3D
 var confirm: ConfirmBox
 var _clock_step := ""
 var _sound_clock := 0.0
@@ -65,13 +66,15 @@ func _ready() -> void:
 	world.door_touched.connect(_on_door)
 	atmosphere = Atmosphere.new()
 	atmosphere.world = world
-	atmosphere.quality = GfxSettings.quality()
-	world.quality = atmosphere.quality
 	world.add_child(atmosphere)
 	_build_ui()
 	world.flags = p.flags
 	world.start(p.route, p.area, Vector2(p.x, p.y), p.dir)
 	world.partner_mode = 2 if p.companion else 0
+	view3d = WorldView3D.new()
+	view3d.world = world
+	view3d.atmosphere = atmosphere
+	add_child(view3d)
 	_after_enter(false)
 
 
@@ -160,12 +163,6 @@ func _build_ui() -> void:
 			save_now()
 		quit_to_title.emit())
 	pause.process_mode = Node.PROCESS_MODE_ALWAYS
-	pause.gfx_changed.connect(func(q: int):
-		GfxSettings.set_quality(q)
-		atmosphere.quality = q
-		world.quality = q
-		world.rebuild_props()
-		atmosphere.rebuild_lights())
 	pause.book_requested.connect(func():
 		pause.visible = false
 		get_tree().paused = false
@@ -367,7 +364,6 @@ func _after_enter(_announce: bool) -> void:
 	atmosphere.indoor = bool(a.get("indoor", false))
 	atmosphere.ambient = str(a.get("ambient", "")) if a.get("ambient") != null else ""
 	atmosphere.realm = realm()
-	atmosphere.rebuild_lights()
 	_update_atmosphere()
 	sync_soundscape()
 

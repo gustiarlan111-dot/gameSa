@@ -7521,6 +7521,421 @@
           "y": 380
         },
         {
+          "type": "hd_notice_board",
+          "x": 1290,
+          "y": 300
+        },
+        {
+          "type": "hd_bike_rack",
+          "x": 1110,
+          "y": 300
+        },
+        {
+          "type": "hd_vending",
+          "x": 1300,
+          "y": 200
+        },
+        {
+          "type": "hd_kiosk",
+          "x": 2240,
+          "y": 1080
+        },
+        {
+          "type": "hd_umbrella_table",
+          "x": 2170,
+          "y": 1150
+        },
+        {
+          "type": "hd_umbrella_table",
+          "x": 2300,
+          "y": 1160
+        },
+        {
+          "type": "hd_lantern_string",
+          "x": 1875,
+          "y": 520
+        },
+        {
+          "type": "hd_birdbath",
+          "x": 1720,
+          "y": 590
+        },
+        {
+          "type": "hd_birdbath",
+          "x": 520,
+          "y": 700
+        },
+        {
+          "type": "hd_stone_lantern",
+          "x": 950,
+          "y": 735
+        },
+        {
+          "type": "hd_stone_lantern",
+          "x": 1050,
+          "y": 735
+        },
+        {
+          "type": "hd_flowerbed",
+          "x": 1120,
+          "y": 560
+        },
+        {
+          "type": "hd_flowerbed",
+          "x": 1330,
+          "y": 640
+        },
+        {
+          "type": "hd_flowerbed",
+          "x": 2050,
+          "y": 940
+        },
+        {
+          "type": "hd_planter_pink",
+          "x": 1960,
+          "y": 560
+        },
+        {
+          "type": "hd_planter_violet",
+          "x": 2180,
+          "y": 560
+        },
+        {
+          "type": "hd_log_bench",
+          "x": 2010,
+          "y": 1430
+        },
+        {
+          "type": "hd_log_bench_b",
+          "x": 1840,
+          "y": 1470
+        },
+        {
+          "type": "hd_cart",
+          "x": 1450,
+          "y": 1600
+        },
+        {
+          "type": "hd_garden_plot",
+          "x": 860,
+          "y": 1640
+        },
+        {
+          "type": "hd_sacks",
+          "x": 1340,
+          "y": 1560
+        },
+        {
+          "type": "hd_barrel",
+          "x": 1370,
+          "y": 1595
+        },
+        {
+          "type": "hd_mailbox",
+          "x": 2330,
+          "y": 830
+        },
+        {
+          "type": "hd_signpost_park",
+          "x": 1150,
+          "y": 160
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 486,
+          "y": 1043
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1237,
+          "y": 1130
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 938,
+          "y": 1155
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1434,
+          "y": 1582
+        },
+        {
+          "type": "hd_reeds",
+          "x": 1537,
+          "y": 1629
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1261,
+          "y": 1084
+        },
+        {
+          "type": "hd_reeds",
+          "x": 1204,
+          "y": 988
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 1326,
+          "y": 1249
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 807,
+          "y": 1148
+        },
+        {
+          "type": "hd_reeds",
+          "x": 781,
+          "y": 1146
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 1162,
+          "y": 1214
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 902,
+          "y": 1139
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 652,
+          "y": 1129
+        },
+        {
+          "type": "hd_reeds",
+          "x": 443,
+          "y": 932
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 866,
+          "y": 1143
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 573,
+          "y": 798
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1255,
+          "y": 1096
+        },
+        {
+          "type": "hd_reeds",
+          "x": 466,
+          "y": 1021
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 462,
+          "y": 885
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 972,
+          "y": 1178
+        },
+        {
+          "type": "hd_reeds",
+          "x": 705,
+          "y": 758
+        },
+        {
+          "type": "hd_reeds",
+          "x": 1129,
+          "y": 1191
+        },
+        {
+          "type": "hd_reeds",
+          "x": 1546,
+          "y": 1663
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1546,
+          "y": 1650
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 1259,
+          "y": 1058
+        },
+        {
+          "type": "hd_reeds",
+          "x": 510,
+          "y": 834
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 446,
+          "y": 914
+        },
+        {
+          "type": "hd_reeds",
+          "x": 820,
+          "y": 1151
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 565,
+          "y": 1095
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 639,
+          "y": 1128
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 1233,
+          "y": 1134
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 933,
+          "y": 1150
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 747,
+          "y": 1144
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 806,
+          "y": 1148
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1282,
+          "y": 1308
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 782,
+          "y": 1146
+        },
+        {
+          "type": "hd_reeds",
+          "x": 1519,
+          "y": 1586
+        },
+        {
+          "type": "hd_reeds",
+          "x": 1108,
+          "y": 1196
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1460,
+          "y": 1347
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 440,
+          "y": 974
+        },
+        {
+          "type": "hd_reeds",
+          "x": 1562,
+          "y": 1709
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 876,
+          "y": 1143
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1551,
+          "y": 1670
+        },
+        {
+          "type": "hd_reeds",
+          "x": 555,
+          "y": 809
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 1533,
+          "y": 1619
+        },
+        {
+          "type": "hd_reeds",
+          "x": 554,
+          "y": 1092
+        },
+        {
+          "type": "hd_reeds",
+          "x": 1384,
+          "y": 1382
+        },
+        {
+          "type": "hd_reeds",
+          "x": 1236,
+          "y": 1130
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 848,
+          "y": 755
+        },
+        {
+          "type": "hd_reeds",
+          "x": 1412,
+          "y": 1527
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 1424,
+          "y": 1317
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1084,
+          "y": 830
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 454,
+          "y": 996
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1499,
+          "y": 1537
+        },
+        {
+          "type": "hd_reeds",
+          "x": 440,
+          "y": 969
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 751,
+          "y": 754
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 1422,
+          "y": 1547
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 720,
+          "y": 1145
+        },
+        {
+          "type": "hd_reeds",
+          "x": 536,
+          "y": 815
+        },
+        {
           "type": "hd_tree_pine_a",
           "x": 461,
           "y": 103
@@ -7896,9 +8311,9 @@
           "y": 1291
         },
         {
-          "type": "hd_tree_oak_b",
-          "x": 139,
-          "y": 1289
+          "type": "hd_tree_oak_a",
+          "x": 874,
+          "y": 1703
         },
         {
           "type": "hd_tree_oak_c",
@@ -7917,33 +8332,33 @@
         },
         {
           "type": "hd_tree_oak_a",
-          "x": 262,
-          "y": 1709
-        },
-        {
-          "type": "hd_tree_oak_a",
-          "x": 199,
-          "y": 1452
+          "x": 129,
+          "y": 1313
         },
         {
           "type": "hd_tree_oak_c",
-          "x": 403,
-          "y": 1499
+          "x": 879,
+          "y": 1321
         },
         {
           "type": "hd_tree_oak_b",
-          "x": 623,
-          "y": 1285
+          "x": 779,
+          "y": 1256
+        },
+        {
+          "type": "hd_tree_oak_b",
+          "x": 200,
+          "y": 1392
         },
         {
           "type": "hd_tree_oak_a",
-          "x": 849,
-          "y": 1337
+          "x": 759,
+          "y": 1538
         },
         {
-          "type": "hd_tree_oak_a",
-          "x": 50,
-          "y": 1731
+          "type": "hd_tree_oak_b",
+          "x": 565,
+          "y": 1689
         },
         {
           "type": "hd_tree_oak_c",
@@ -7992,58 +8407,58 @@
         },
         {
           "type": "hd_tree_oak_a",
-          "x": 104,
-          "y": 1322
+          "x": 804,
+          "y": 1615
         },
         {
-          "type": "hd_tree_oak_c",
-          "x": 245,
+          "type": "hd_tree_blossom",
+          "x": 122,
+          "y": 1225
+        },
+        {
+          "type": "hd_tree_oak_a",
+          "x": 1668,
+          "y": 1554
+        },
+        {
+          "type": "hd_tree_cherry_b",
+          "x": 1939,
+          "y": 1613
+        },
+        {
+          "type": "hd_tree_oak_a",
+          "x": 1676,
+          "y": 1649
+        },
+        {
+          "type": "hd_tree_cherry_b",
+          "x": 1769,
+          "y": 1478
+        },
+        {
+          "type": "hd_tree_oak_a",
+          "x": 1923,
+          "y": 1741
+        },
+        {
+          "type": "hd_tree_oak_a",
+          "x": 2040,
+          "y": 1500
+        },
+        {
+          "type": "hd_tree_cherry_b",
+          "x": 1928,
           "y": 1659
         },
         {
           "type": "hd_tree_oak_a",
-          "x": 1859,
-          "y": 1477
+          "x": 1959,
+          "y": 1570
         },
         {
           "type": "hd_tree_oak_a",
-          "x": 2302,
-          "y": 1457
-        },
-        {
-          "type": "hd_tree_autumn_a",
-          "x": 1796,
-          "y": 1567
-        },
-        {
-          "type": "hd_tree_oak_a",
-          "x": 2142,
-          "y": 1532
-        },
-        {
-          "type": "hd_tree_oak_a",
-          "x": 1720,
-          "y": 1737
-        },
-        {
-          "type": "hd_tree_autumn_a",
-          "x": 2369,
-          "y": 1472
-        },
-        {
-          "type": "hd_tree_oak_a",
-          "x": 1775,
-          "y": 1487
-        },
-        {
-          "type": "hd_tree_oak_a",
-          "x": 2166,
-          "y": 1743
-        },
-        {
-          "type": "hd_tree_oak_a",
-          "x": 1948,
-          "y": 1561
+          "x": 1818,
+          "y": 1539
         },
         {
           "type": "hd_tree_oak_a",
@@ -8077,28 +8492,18 @@
         },
         {
           "type": "hd_tree_cherry_b",
-          "x": 1800,
-          "y": 1519
+          "x": 2179,
+          "y": 1561
         },
         {
           "type": "hd_tree_cherry_b",
-          "x": 1926,
-          "y": 1675
+          "x": 1850,
+          "y": 1727
         },
         {
           "type": "hd_tree_cherry_b",
-          "x": 1875,
-          "y": 1531
-        },
-        {
-          "type": "hd_tree_oak_b",
-          "x": 2322,
-          "y": 1308
-        },
-        {
-          "type": "hd_tree_oak_c",
-          "x": 2345,
-          "y": 1366
+          "x": 2252,
+          "y": 1699
         },
         {
           "type": "hd_tree_oak_b",
@@ -8127,28 +8532,28 @@
         },
         {
           "type": "hd_tree_oak_c",
-          "x": 2290,
-          "y": 1161
+          "x": 2331,
+          "y": 1203
         },
         {
           "type": "hd_tree_oak_c",
-          "x": 2271,
-          "y": 1234
+          "x": 2288,
+          "y": 1391
+        },
+        {
+          "type": "hd_tree_oak_b",
+          "x": 2281,
+          "y": 1201
+        },
+        {
+          "type": "hd_tree_oak_b",
+          "x": 2250,
+          "y": 996
         },
         {
           "type": "hd_tree_oak_c",
-          "x": 2361,
-          "y": 1309
-        },
-        {
-          "type": "hd_bush_a",
-          "x": 1006,
-          "y": 215
-        },
-        {
-          "type": "hd_bush_b",
-          "x": 2219,
-          "y": 64
+          "x": 2230,
+          "y": 1337
         },
         {
           "type": "hd_bush_b",
@@ -8251,9 +8656,9 @@
           "y": 685
         },
         {
-          "type": "hd_rock_b",
-          "x": 1280,
-          "y": 178
+          "type": "hd_bush_b",
+          "x": 2092,
+          "y": 1702
         },
         {
           "type": "hd_bush_rose",
@@ -8266,9 +8671,9 @@
           "y": 114
         },
         {
-          "type": "hd_rock_a",
-          "x": 1363,
-          "y": 1730
+          "type": "hd_bush_b",
+          "x": 2297,
+          "y": 1278
         },
         {
           "type": "hd_stump",
@@ -8306,19 +8711,19 @@
           "y": 445
         },
         {
-          "type": "hd_rock_b",
-          "x": 1586,
-          "y": 158
+          "type": "hd_bush_b",
+          "x": 778,
+          "y": 200
         },
         {
           "type": "hd_bush_b",
-          "x": 783,
-          "y": 60
+          "x": 166,
+          "y": 1615
         },
         {
-          "type": "hd_rock_a",
-          "x": 2216,
-          "y": 1070
+          "type": "hd_rock_b",
+          "x": 31,
+          "y": 642
         },
         {
           "type": "hd_bush_a",
@@ -8342,8 +8747,18 @@
         },
         {
           "type": "hd_bush_b",
-          "x": 871,
-          "y": 356
+          "x": 753,
+          "y": 197
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 443,
+          "y": 1104
+        },
+        {
+          "type": "hd_rock_a",
+          "x": 222,
+          "y": 1202
         },
         {
           "type": "hd_bush_b",
@@ -8391,9 +8806,9 @@
           "y": 1175
         },
         {
-          "type": "hd_rock_a",
-          "x": 1434,
-          "y": 436
+          "type": "hd_bush_b",
+          "x": 1392,
+          "y": 362
         },
         {
           "type": "hd_rock_a",
@@ -8412,8 +8827,8 @@
         },
         {
           "type": "hd_bush_b",
-          "x": 935,
-          "y": 1295
+          "x": 1787,
+          "y": 169
         },
         {
           "type": "hd_bush_a",
@@ -8451,14 +8866,14 @@
           "y": 334
         },
         {
-          "type": "hd_flowers_white",
-          "x": 199,
-          "y": 294
+          "type": "hd_flowers_yellow",
+          "x": 628,
+          "y": 631
         },
         {
-          "type": "hd_flowers_violet",
-          "x": 694,
-          "y": 365
+          "type": "hd_flowers_yellow",
+          "x": 356,
+          "y": 1627
         },
         {
           "type": "hd_flowers_yellow",
@@ -8471,6 +8886,16 @@
           "y": 337
         },
         {
+          "type": "hd_flowers_white",
+          "x": 1891,
+          "y": 1518
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 671,
+          "y": 1513
+        },
+        {
           "type": "hd_flowers_violet",
           "x": 2207,
           "y": 730
@@ -8481,24 +8906,14 @@
           "y": 1291
         },
         {
-          "type": "hd_flowers_violet",
-          "x": 213,
-          "y": 1197
-        },
-        {
           "type": "hd_flowers_pink",
-          "x": 1843,
-          "y": 1730
+          "x": 2356,
+          "y": 479
         },
         {
           "type": "hd_flowers_violet",
-          "x": 1710,
-          "y": 1021
-        },
-        {
-          "type": "hd_flowers_pink",
-          "x": 2070,
-          "y": 1397
+          "x": 1575,
+          "y": 1266
         },
         {
           "type": "hd_flowers_violet",
@@ -8511,24 +8926,24 @@
           "y": 377
         },
         {
-          "type": "hd_flowers_white",
-          "x": 1282,
-          "y": 306
+          "type": "hd_flowers_violet",
+          "x": 2054,
+          "y": 307
         },
         {
           "type": "hd_flowers_yellow",
-          "x": 374,
-          "y": 1014
-        },
-        {
-          "type": "hd_flowers_pink",
-          "x": 61,
-          "y": 781
+          "x": 912,
+          "y": 82
         },
         {
           "type": "hd_flowers_violet",
-          "x": 170,
-          "y": 1043
+          "x": 384,
+          "y": 161
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 1542,
+          "y": 1078
         },
         {
           "type": "hd_flowers_pink",
@@ -8552,13 +8967,13 @@
         },
         {
           "type": "hd_flowers_violet",
-          "x": 1940,
-          "y": 105
+          "x": 1561,
+          "y": 131
         },
         {
-          "type": "hd_flowers_yellow",
-          "x": 2152,
-          "y": 1438
+          "type": "hd_flowers_pink",
+          "x": 1753,
+          "y": 1431
         },
         {
           "type": "hd_flowers_yellow",
@@ -8571,34 +8986,44 @@
           "y": 593
         },
         {
+          "type": "hd_flowers_white",
+          "x": 365,
+          "y": 1657
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 533,
+          "y": 301
+        },
+        {
           "type": "hd_flowers_yellow",
           "x": 47,
           "y": 1453
         },
         {
-          "type": "hd_flowers_pink",
-          "x": 2233,
-          "y": 1358
-        },
-        {
-          "type": "hd_flowers_yellow",
-          "x": 1943,
-          "y": 1712
-        },
-        {
-          "type": "hd_flowers_yellow",
-          "x": 1511,
-          "y": 308
+          "type": "hd_flowers_white",
+          "x": 1729,
+          "y": 1584
         },
         {
           "type": "hd_flowers_white",
-          "x": 668,
-          "y": 1701
+          "x": 368,
+          "y": 1642
         },
         {
-          "type": "hd_flowers_pink",
-          "x": 945,
-          "y": 212
+          "type": "hd_flowers_violet",
+          "x": 2331,
+          "y": 504
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 376,
+          "y": 642
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 613,
+          "y": 1283
         },
         {
           "type": "hd_flowers_yellow",
@@ -8646,9 +9071,9 @@
           "y": 1230
         },
         {
-          "type": "hd_flowers_white",
-          "x": 192,
-          "y": 1125
+          "type": "hd_flowers_pink",
+          "x": 1877,
+          "y": 1514
         },
         {
           "type": "hd_flowers_violet",
@@ -8666,9 +9091,9 @@
           "y": 1480
         },
         {
-          "type": "hd_flowers_yellow",
-          "x": 561,
-          "y": 1686
+          "type": "hd_flowers_violet",
+          "x": 986,
+          "y": 93
         },
         {
           "type": "hd_flowers_white",
@@ -8706,19 +9131,9 @@
           "y": 1633
         },
         {
-          "type": "hd_flowers_pink",
-          "x": 2250,
-          "y": 1685
-        },
-        {
-          "type": "hd_flowers_pink",
-          "x": 2021,
-          "y": 1111
-        },
-        {
-          "type": "hd_flowers_white",
-          "x": 1650,
-          "y": 928
+          "type": "hd_flowers_violet",
+          "x": 548,
+          "y": 1489
         },
         {
           "type": "hd_flowers_white",
@@ -8781,14 +9196,1914 @@
           "y": 737
         },
         {
-          "type": "hd_flowers_yellow",
-          "x": 1629,
-          "y": 274
+          "type": "hd_flowers_violet",
+          "x": 1754,
+          "y": 1570
         },
         {
           "type": "hd_flowers_white",
           "x": 1337,
           "y": 220
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 1365,
+          "y": 803
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 1525,
+          "y": 1037
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 1621,
+          "y": 869
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 157,
+          "y": 1561
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 1737,
+          "y": 1676
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 825,
+          "y": 563
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 721,
+          "y": 1650
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 220,
+          "y": 366
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 430,
+          "y": 1686
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 1679,
+          "y": 436
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 467,
+          "y": 1582
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 486,
+          "y": 1582
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 810,
+          "y": 350
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 533,
+          "y": 1436
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 274,
+          "y": 192
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 1517,
+          "y": 1118
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 883,
+          "y": 159
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 882,
+          "y": 336
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 672,
+          "y": 1560
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 1312,
+          "y": 1150
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 2100,
+          "y": 226
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 2358,
+          "y": 1579
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 510,
+          "y": 1709
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 116,
+          "y": 199
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 601,
+          "y": 632
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 2303,
+          "y": 992
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 1884,
+          "y": 1138
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 968,
+          "y": 683
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 908,
+          "y": 151
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 2028,
+          "y": 1608
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 2343,
+          "y": 600
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 1498,
+          "y": 188
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 1489,
+          "y": 194
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 2079,
+          "y": 780
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 1988,
+          "y": 1210
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 1772,
+          "y": 206
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 1341,
+          "y": 472
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 1633,
+          "y": 110
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 821,
+          "y": 578
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 52,
+          "y": 1510
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 2057,
+          "y": 1583
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 422,
+          "y": 69
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 874,
+          "y": 1365
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 2125,
+          "y": 321
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 1357,
+          "y": 481
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 589,
+          "y": 146
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 58,
+          "y": 688
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 617,
+          "y": 688
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 118,
+          "y": 915
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 2093,
+          "y": 323
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 2172,
+          "y": 1708
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 2341,
+          "y": 1510
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 566,
+          "y": 598
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 1447,
+          "y": 1281
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 379,
+          "y": 1648
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 150,
+          "y": 802
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 921,
+          "y": 63
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 911,
+          "y": 1251
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 2197,
+          "y": 353
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 884,
+          "y": 154
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 2060,
+          "y": 182
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 68,
+          "y": 639
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 1762,
+          "y": 435
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 2114,
+          "y": 1350
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 569,
+          "y": 1482
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 315,
+          "y": 380
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 1733,
+          "y": 1603
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 1414,
+          "y": 246
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 155,
+          "y": 183
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 1251,
+          "y": 424
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 1056,
+          "y": 370
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 481,
+          "y": 698
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 1519,
+          "y": 1230
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 2328,
+          "y": 1239
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 929,
+          "y": 593
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 1753,
+          "y": 268
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 1371,
+          "y": 1710
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 2306,
+          "y": 335
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 173,
+          "y": 1629
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 609,
+          "y": 78
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 1426,
+          "y": 1173
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 1524,
+          "y": 745
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 970,
+          "y": 1735
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 143,
+          "y": 726
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 1942,
+          "y": 1187
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 2122,
+          "y": 448
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 2173,
+          "y": 742
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 58,
+          "y": 304
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 881,
+          "y": 241
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 1972,
+          "y": 954
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1357,
+          "y": 1141
+        },
+        {
+          "type": "hd_fern_b",
+          "x": 2355,
+          "y": 1084
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 187,
+          "y": 795
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 239,
+          "y": 1156
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 2090,
+          "y": 1521
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 2237,
+          "y": 529
+        },
+        {
+          "type": "hd_fern_b",
+          "x": 1942,
+          "y": 1063
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1750,
+          "y": 1400
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1510,
+          "y": 336
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 638,
+          "y": 343
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1485,
+          "y": 1091
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 1399,
+          "y": 1661
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1911,
+          "y": 1204
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1325,
+          "y": 479
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 195,
+          "y": 1682
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 2013,
+          "y": 81
+        },
+        {
+          "type": "hd_fern_b",
+          "x": 243,
+          "y": 1599
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 876,
+          "y": 63
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 1267,
+          "y": 357
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 322,
+          "y": 1348
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 166,
+          "y": 1102
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 133,
+          "y": 914
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1711,
+          "y": 1732
+        },
+        {
+          "type": "hd_fern_b",
+          "x": 195,
+          "y": 1097
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 570,
+          "y": 265
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 883,
+          "y": 245
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 1607,
+          "y": 866
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 502,
+          "y": 251
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 355,
+          "y": 1708
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 588,
+          "y": 1287
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1251,
+          "y": 415
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 903,
+          "y": 225
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1882,
+          "y": 1031
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 252,
+          "y": 167
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 862,
+          "y": 124
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 855,
+          "y": 347
+        },
+        {
+          "type": "hd_fern_b",
+          "x": 2305,
+          "y": 1349
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1251,
+          "y": 914
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 798,
+          "y": 204
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 388,
+          "y": 979
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 1406,
+          "y": 72
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 580,
+          "y": 1267
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 840,
+          "y": 352
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 303,
+          "y": 1490
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 345,
+          "y": 260
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1560,
+          "y": 1119
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 2267,
+          "y": 1256
+        },
+        {
+          "type": "hd_fern_b",
+          "x": 71,
+          "y": 1362
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 447,
+          "y": 1100
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1567,
+          "y": 522
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 543,
+          "y": 1648
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 740,
+          "y": 295
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 1377,
+          "y": 1704
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 676,
+          "y": 1733
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 2210,
+          "y": 1440
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 848,
+          "y": 597
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1193,
+          "y": 1715
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 2106,
+          "y": 1176
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1358,
+          "y": 308
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 305,
+          "y": 1390
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 296,
+          "y": 1411
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 2357,
+          "y": 636
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 61,
+          "y": 475
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 1757,
+          "y": 1517
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1562,
+          "y": 1238
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 364,
+          "y": 637
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1670,
+          "y": 1108
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 1329,
+          "y": 1122
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 886,
+          "y": 381
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1876,
+          "y": 114
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1869,
+          "y": 1613
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 786,
+          "y": 342
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 181,
+          "y": 1739
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 2026,
+          "y": 1582
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1418,
+          "y": 1170
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 2248,
+          "y": 1553
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 237,
+          "y": 324
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1561,
+          "y": 1049
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1462,
+          "y": 198
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1505,
+          "y": 1236
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 1901,
+          "y": 1700
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 2138,
+          "y": 1532
+        },
+        {
+          "type": "hd_fern_b",
+          "x": 110,
+          "y": 580
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 2000,
+          "y": 151
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 2176,
+          "y": 209
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 253,
+          "y": 1474
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 528,
+          "y": 740
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1606,
+          "y": 335
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1816,
+          "y": 86
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1428,
+          "y": 510
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 352,
+          "y": 1714
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 1389,
+          "y": 1201
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1042,
+          "y": 310
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 238,
+          "y": 181
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 2358,
+          "y": 86
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 813,
+          "y": 1225
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 359,
+          "y": 708
+        },
+        {
+          "type": "hd_fern_b",
+          "x": 406,
+          "y": 758
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 2294,
+          "y": 317
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1466,
+          "y": 385
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 39,
+          "y": 1169
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 2223,
+          "y": 287
+        },
+        {
+          "type": "hd_fern_b",
+          "x": 2105,
+          "y": 1023
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1910,
+          "y": 1595
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 608,
+          "y": 1173
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 846,
+          "y": 103
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1767,
+          "y": 1688
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 338,
+          "y": 938
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 1063,
+          "y": 1350
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 38,
+          "y": 996
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1345,
+          "y": 188
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 118,
+          "y": 723
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 286,
+          "y": 1707
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1474,
+          "y": 1243
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1432,
+          "y": 843
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 337,
+          "y": 243
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 1574,
+          "y": 276
+        },
+        {
+          "type": "hd_fern_b",
+          "x": 160,
+          "y": 1012
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 406,
+          "y": 64
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 1726,
+          "y": 1409
+        },
+        {
+          "type": "hd_fern_b",
+          "x": 2218,
+          "y": 1275
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 289,
+          "y": 475
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 59,
+          "y": 695
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 174,
+          "y": 1045
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1994,
+          "y": 68
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1502,
+          "y": 1097
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1637,
+          "y": 924
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 884,
+          "y": 563
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 336,
+          "y": 1457
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 908,
+          "y": 223
+        },
+        {
+          "type": "hd_fern_b",
+          "x": 519,
+          "y": 414
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 153,
+          "y": 1627
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 2007,
+          "y": 1684
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 752,
+          "y": 316
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 617,
+          "y": 91
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 2059,
+          "y": 1194
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 1868,
+          "y": 834
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1728,
+          "y": 355
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 676,
+          "y": 348
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 386,
+          "y": 718
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 1671,
+          "y": 1508
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1561,
+          "y": 1041
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 428,
+          "y": 1542
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1663,
+          "y": 502
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 111,
+          "y": 346
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1802,
+          "y": 231
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 1079,
+          "y": 221
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 667,
+          "y": 1584
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1700,
+          "y": 457
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 156,
+          "y": 979
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 926,
+          "y": 1725
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 71,
+          "y": 1069
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 883,
+          "y": 191
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 330,
+          "y": 1495
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 629,
+          "y": 682
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 857,
+          "y": 338
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1639,
+          "y": 884
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 760,
+          "y": 1305
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 858,
+          "y": 337
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 126,
+          "y": 959
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 2241,
+          "y": 1293
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 257,
+          "y": 1662
+        },
+        {
+          "type": "hd_fern_b",
+          "x": 2227,
+          "y": 625
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 69,
+          "y": 1028
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 481,
+          "y": 649
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1736,
+          "y": 239
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 480,
+          "y": 419
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 81,
+          "y": 349
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 2022,
+          "y": 1122
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1016,
+          "y": 386
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 197,
+          "y": 157
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 344,
+          "y": 963
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1386,
+          "y": 1039
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1614,
+          "y": 572
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 910,
+          "y": 305
+        },
+        {
+          "type": "hd_fern_b",
+          "x": 1464,
+          "y": 494
+        },
+        {
+          "type": "hd_fern_b",
+          "x": 286,
+          "y": 1515
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 59,
+          "y": 298
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 2122,
+          "y": 1292
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 685,
+          "y": 649
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 2042,
+          "y": 708
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 115,
+          "y": 1362
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1034,
+          "y": 273
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1993,
+          "y": 1346
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1649,
+          "y": 628
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1319,
+          "y": 135
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1548,
+          "y": 1002
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1580,
+          "y": 1084
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1947,
+          "y": 1131
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 2153,
+          "y": 1448
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 1400,
+          "y": 483
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 907,
+          "y": 1288
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 705,
+          "y": 1670
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 1624,
+          "y": 887
+        },
+        {
+          "type": "hd_mushrooms",
+          "x": 1100,
+          "y": 248
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1909,
+          "y": 1252
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1388,
+          "y": 1186
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 2361,
+          "y": 1308
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 253,
+          "y": 1277
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1740,
+          "y": 384
+        },
+        {
+          "type": "hd_tree_willow",
+          "x": 396,
+          "y": 768
+        },
+        {
+          "type": "hd_tree_big_b",
+          "x": 46,
+          "y": 536
+        },
+        {
+          "type": "hd_tree_willow",
+          "x": 190,
+          "y": 664
+        },
+        {
+          "type": "hd_tree_willow",
+          "x": 377,
+          "y": 927
+        },
+        {
+          "type": "hd_tree_big_b",
+          "x": 158,
+          "y": 410
+        },
+        {
+          "type": "hd_tree_big_a",
+          "x": 40,
+          "y": 933
+        },
+        {
+          "type": "hd_tree_willow",
+          "x": 117,
+          "y": 700
+        },
+        {
+          "type": "hd_tree_willow",
+          "x": 398,
+          "y": 847
+        },
+        {
+          "type": "hd_tree_big_b",
+          "x": 159,
+          "y": 560
+        },
+        {
+          "type": "hd_tree_willow",
+          "x": 58,
+          "y": 965
+        },
+        {
+          "type": "hd_bush_berry",
+          "x": 1306,
+          "y": 966
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 179,
+          "y": 1011
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 618,
+          "y": 1649
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 142,
+          "y": 607
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 225,
+          "y": 1473
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 2182,
+          "y": 777
+        },
+        {
+          "type": "hd_bush_berry",
+          "x": 266,
+          "y": 1423
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 1532,
+          "y": 203
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 2224,
+          "y": 701
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 1417,
+          "y": 247
+        },
+        {
+          "type": "hd_bush_yellow",
+          "x": 1389,
+          "y": 880
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 1651,
+          "y": 102
+        },
+        {
+          "type": "hd_bush_yellow",
+          "x": 1298,
+          "y": 905
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 2278,
+          "y": 536
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 435,
+          "y": 1602
+        },
+        {
+          "type": "hd_bush_yellow",
+          "x": 39,
+          "y": 685
+        },
+        {
+          "type": "hd_bush_yellow",
+          "x": 1834,
+          "y": 127
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 755,
+          "y": 94
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 828,
+          "y": 211
+        },
+        {
+          "type": "hd_bush_berry",
+          "x": 2034,
+          "y": 1043
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 1407,
+          "y": 304
+        },
+        {
+          "type": "hd_bush_berry",
+          "x": 1857,
+          "y": 1592
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 949,
+          "y": 222
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 124,
+          "y": 1464
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 922,
+          "y": 402
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 2184,
+          "y": 1513
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 1486,
+          "y": 1197
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 1321,
+          "y": 74
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 657,
+          "y": 314
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 515,
+          "y": 1515
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 1358,
+          "y": 96
+        },
+        {
+          "type": "hd_bush_yellow",
+          "x": 94,
+          "y": 829
+        },
+        {
+          "type": "hd_bush_yellow",
+          "x": 2167,
+          "y": 1657
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 2164,
+          "y": 665
+        },
+        {
+          "type": "hd_bush_berry",
+          "x": 2139,
+          "y": 1544
+        },
+        {
+          "type": "hd_bush_yellow",
+          "x": 175,
+          "y": 1137
+        },
+        {
+          "type": "hd_bush_berry",
+          "x": 423,
+          "y": 255
+        },
+        {
+          "type": "hd_bush_berry",
+          "x": 2357,
+          "y": 747
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 486,
+          "y": 205
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 2254,
+          "y": 1274
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 1973,
+          "y": 1322
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 641,
+          "y": 703
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 394,
+          "y": 1601
+        },
+        {
+          "type": "hd_bush_berry",
+          "x": 2279,
+          "y": 658
+        },
+        {
+          "type": "hd_bush_berry",
+          "x": 1589,
+          "y": 594
+        },
+        {
+          "type": "hd_bush_yellow",
+          "x": 345,
+          "y": 386
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 153,
+          "y": 1710
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 942,
+          "y": 626
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 643,
+          "y": 316
+        },
+        {
+          "type": "hd_bush_berry",
+          "x": 733,
+          "y": 1268
+        },
+        {
+          "type": "hd_bush_berry",
+          "x": 1864,
+          "y": 1377
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 2186,
+          "y": 603
+        },
+        {
+          "type": "hd_bush_a",
+          "x": 1578,
+          "y": 1267
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 2203,
+          "y": 103
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 681,
+          "y": 105
+        },
+        {
+          "type": "hd_bush_yellow",
+          "x": 1563,
+          "y": 532
+        },
+        {
+          "type": "hd_bush_berry",
+          "x": 592,
+          "y": 150
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 381,
+          "y": 231
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 1078,
+          "y": 385
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 54,
+          "y": 1232
+        },
+        {
+          "type": "hd_rock_a",
+          "x": 134,
+          "y": 1550
+        },
+        {
+          "type": "hd_rock_b",
+          "x": 1946,
+          "y": 240
+        },
+        {
+          "type": "hd_rock_b",
+          "x": 2109,
+          "y": 1009
+        },
+        {
+          "type": "hd_rock_a",
+          "x": 276,
+          "y": 1478
+        },
+        {
+          "type": "hd_rock_a",
+          "x": 104,
+          "y": 73
+        },
+        {
+          "type": "hd_rock_a",
+          "x": 479,
+          "y": 1508
+        },
+        {
+          "type": "hd_stump",
+          "x": 409,
+          "y": 1072
+        },
+        {
+          "type": "hd_rock_b",
+          "x": 1507,
+          "y": 1195
+        },
+        {
+          "type": "hd_log",
+          "x": 579,
+          "y": 1620
+        },
+        {
+          "type": "hd_rock_a",
+          "x": 367,
+          "y": 206
+        },
+        {
+          "type": "hd_rock_a",
+          "x": 272,
+          "y": 1727
+        },
+        {
+          "type": "hd_rock_a",
+          "x": 2218,
+          "y": 519
+        },
+        {
+          "type": "hd_stump",
+          "x": 1584,
+          "y": 542
+        },
+        {
+          "type": "hd_rock_a",
+          "x": 209,
+          "y": 1073
+        },
+        {
+          "type": "hd_rock_b",
+          "x": 1696,
+          "y": 424
+        },
+        {
+          "type": "hd_rock_a",
+          "x": 465,
+          "y": 432
+        },
+        {
+          "type": "hd_rock_b",
+          "x": 2065,
+          "y": 416
+        },
+        {
+          "type": "hd_log",
+          "x": 1948,
+          "y": 160
+        },
+        {
+          "type": "hd_rock_b",
+          "x": 2040,
+          "y": 138
+        },
+        {
+          "type": "hd_stump",
+          "x": 1487,
+          "y": 469
         },
         {
           "type": "hd_bush_a",
@@ -9145,12 +11460,12 @@
           ]
         }
       ],
-      "visualStyle": "v6_hd_kit",
-      "visualUpdate": "v6_hd_rebuild",
+      "visualStyle": "godot_hd_dense",
+      "visualUpdate": "godot_taman_dense",
       "elevationPlatforms": [],
       "v6Layout": {
-        "version": 2,
-        "generator": "tools/v6/worldgen/taman_kota_hd.py",
+        "version": 3,
+        "generator": "tools/worldgen/taman_kota_hd.py",
         "hd": true,
         "districts": [
           "koi lake + island + lookout deck",
@@ -9205,7 +11520,232 @@
           "w": 352,
           "h": 736
         }
-      ]
+      ],
+      "surface": {
+        "cell": 8,
+        "rows": [
+          "g146r8g146",
+          "g146r8g146",
+          "g146r8g146",
+          "g146r8g146",
+          "g146r8g146",
+          "g146r8g146",
+          "g146r8g146",
+          "g146r8g146",
+          "g146r8g146",
+          "g146r7g147",
+          "g146r7g147",
+          "g146r7g147",
+          "g146r7g147",
+          "g146r7g147",
+          "g146r7g147",
+          "g146r7g147",
+          "g146r7g147",
+          "g145r8g147",
+          "g145r8g147",
+          "g145r8g147",
+          "g145r8g147",
+          "g145r8g147",
+          "g145r8g147",
+          "g145r8g147",
+          "g145r8g147",
+          "g145r8g147",
+          "g145r8g147",
+          "g145r8g147",
+          "g145r8g147",
+          "g145r8g147",
+          "g145r8g147",
+          "g145r8g147",
+          "g145r8g147",
+          "g145r7g148",
+          "g145r7g148",
+          "g144r8g148",
+          "g144r8g148",
+          "g144r8g148",
+          "g144r8g148",
+          "g144r7g149",
+          "g144r7g149",
+          "g143r8g149",
+          "g143r8g149",
+          "g143r8g149",
+          "g143r8g149",
+          "g143r7g150",
+          "g143r7g150",
+          "g142r8g150",
+          "g142r8g150",
+          "g142r8g150",
+          "g142r8g150",
+          "g142r7g151",
+          "g142r7g151",
+          "g142r7g151",
+          "g141r8g151",
+          "g86r7g48r8g151",
+          "g81r26g34r8g151",
+          "g77r46g18r7g152",
+          "g73r65g3r8g151",
+          "g68r80g79s15g58",
+          "g63r86g74s23g54",
+          "g59r92g70s27g52",
+          "g54r33g1r1g1r63g66s31g50",
+          "g50r33g23r50g61s35g48",
+          "g45r33g41r1g1r37g58s37g47",
+          "g40r35g59r1g1r25g54s39g46",
+          "g37r33g74r20g50s41g45",
+          "g35r30g81r20g47s43g44",
+          "g34r27g88r20g43s45g43",
+          "g34r22g96r19g41s45g43",
+          "g34r17g103r19g38s47g42",
+          "g34r13g110r18g36s47g42",
+          "g34r9g116r19g33s47r6g36",
+          "g34r7g121r20g29s47r6g36",
+          "g33r8g123r19g28s47r7g35",
+          "g33r8g125r20g25s47r7g35",
+          "g33r8g128r19g23s47r6g36",
+          "g33r7g131r19g21s46r7g36",
+          "g33r7g134r18g20s45g43",
+          "g33r7g137r16g19s44g44",
+          "g33r7g139r16g18s43g44",
+          "g32r8g142r15g17s41g45",
+          "g32r8g144r14g17s39g46",
+          "g32r8g146r14g16s36g48",
+          "g32r7g149r14g16s33g49",
+          "g32r7g150r14g17s29g51",
+          "g32r7g152r14g17s25g53",
+          "g32r7g153r14g19s19g56",
+          "g31r8g155r14g22s9g61",
+          "g31r8g157r13g23r6g62",
+          "g31r7g159r13g22r7g61",
+          "g31r7g161r13g21r6g61",
+          "g31r7g162r14g19r7g60",
+          "g31r7g83w8g73r13g18r7g60",
+          "g31r7g55r17g11w8g75r13g17r7g59",
+          "g31r7g47r8s1r2s6r1s3r2s1r4g8w8g76r13g16r8g58",
+          "g31r7g42r7s26r7g1w8g78r11g17r7g58",
+          "g30r8g38r5s38r2w8g80r10g16r8g57",
+          "g30r7g37r4s43w8g80r10g17r8g56",
+          "g30r7g35r3s46w8g82r9g17r7g56",
+          "g30r7g33r3s48w8g1r1g81r8g17r7g56",
+          "g30r7g30r3s50r1w8r1s1r1g81r8g17r7g55",
+          "g30r7g29r2s52r1w8r1s1r3g79r8g18r7g54",
+          "g30r7g28r1s54r1w8r1s4r1g78r8g18r7g54",
+          "g30r7g26r2s56w8s6r1g78r8g18r15g45",
+          "g29r8g25r2s57w8s7r2g76r8g18r24g1r1g34",
+          "g29r7g25r2s60r4s10r2g75r8g18r60",
+          "g29r7g24r2s77r1g75r8g16r61",
+          "g29r7g23r1s80r1g74r8g14r63",
+          "g29r7g23r1s81r1g74r8g12r64",
+          "g29r7g22r1s82r2g73r8g10r66",
+          "g28r8g21r1s25g6s53r1g74r7g9r67",
+          "g29r7g20r2s22g13s50r1g73r8g7r13g9r46",
+          "g28r8g20r1s22g15s49r1g73r8g6r13g21r35",
+          "g28r7g20r2s21g17s48r1g74r8g3r13g58",
+          "g28r7g20r2s20g18s48r2g73r8g2r13g59",
+          "g28r7g20r1s21g19s48r1g74r7g1r12g61",
+          "g28r7g20r1s22g18s48r1g74r20g61",
+          "g28r7g20r1s22g16s50r1g75r17g63",
+          "g28r7g20r1s23g14s51r1g75r15g65",
+          "g28r8g19r1s26g9s52r2g75r14g66",
+          "g28r8g19r1s88r2g75r12g67",
+          "g29r8g18r2s89r3g72r11g68",
+          "g29r8g19r1s91r3g70r9g70",
+          "g30r7g20r1s92r2g68r9g71",
+          "g30r8g19r1s93r2g67r8g72",
+          "g31r7g19r1s94r2g66r8g72",
+          "g31r8g19r2s94r1g64r8g73",
+          "g31r8g20r1s94r2g63r8g73",
+          "g32r8g20r1s93r3g62r7g74",
+          "g32r8g21r1s94r1g61r8g74",
+          "g33r8g21r1s93r1g61r7g75",
+          "g33r8g22r2s91r2g60r7g75",
+          "g34r8g22r2s90r1g60r8g75",
+          "g34r8g24r2s88r2g59r7g76",
+          "g35r8g24r3s86r2g58r8g76",
+          "g35r8g26r3s84r1g59r8g76",
+          "g35r8g28r2s83r1g59r7g77",
+          "g36r8g29r3s79r2g58r8g77",
+          "g36r8g31r4s75r2g59r8g77",
+          "g37r8g33r5s1r1s69r1g60r7g78",
+          "g37r8g37r7s22r5s37r1g60r8g78",
+          "g37r9g39r1g2r14s1r13s36r1g61r8g78",
+          "g38r8g54r1g1r1g13r2s33r2g60r8g79",
+          "g38r9g70r2s31r2g61r8g79",
+          "g39r8g72r1s31r1g60r8g80",
+          "g39r8g73r3s28r2g59r8g80",
+          "g40r8g73r6s12r1s10r2g60r8g80",
+          "g40r8g77r11s2r4s7r1g62r7g81",
+          "g40r8g81r1g1r2g2r4g3r2s4r2g61r8g81",
+          "g41r8g94r2s3r1g62r8g81",
+          "g41r8g96r1s2r2g7r2g52r7g82",
+          "g42r8g96r2s1r1g6r2s1r2g49r8g82",
+          "g42r8g97r1s1r3g2r3s3r2g48r7g83",
+          "g43r9g96r2s1r4s6r3g45r9g82",
+          "g43r11g95r2s12r2g44r11g80",
+          "g44r12g95r1s12r2g42r17g75",
+          "g44r13g95r1s13r2g40r21g71",
+          "g45r14g94r2s12r3g37r26g67",
+          "g46r15g93r2s13r2g36r28g65",
+          "g48r15g92r3s13r2g33r8g5r16g65",
+          "g49r15g93r2s13r2g32r8g8r13g65",
+          "g51r16g91r3s13r1g30r9g12r9g65",
+          "g53r15g92r2s12r3g28r8g17r4g66",
+          "g55r15g91r2s13r2g26r8g88",
+          "g57r15g91r2s13r1g25r8g88",
+          "g59r15g90r2s13r2g22r8g89",
+          "g60r15g91r2s12r2g21r8g89",
+          "g62r15g91r2s11r2g20r7g90",
+          "g64r15g90r1s12r2g18r8g90",
+          "g66r15g89r2s11r2g16r8g91",
+          "g68r14g90r1s12r1g15r8g91",
+          "g69r19g85r1s11r1g14r9g91",
+          "g71r21g82r2s9r1g14r8g92",
+          "g73r25g77r2s8r1g14r7g93",
+          "g74r28g74r1s8r1g13r8g93",
+          "g76r30g70r2s7r1g12r8g94",
+          "g78r35g51r1g5r1g4w12g1r1g9r8g94",
+          "g80r38g38r19w12r18g95",
+          "g85r37g25r28w12r18g95",
+          "g90r37g12r36w12r17g96",
+          "g96r35g1r43w12r17g96",
+          "g101r74w12r16g97",
+          "g106r69w12r16g97",
+          "g111r64w12r14g99",
+          "g115r42g18w12g113",
+          "g120r28g28r2s7r1g114",
+          "g125r17g34r2s7r1g114",
+          "g130r2g4r6g34r2s7r1g114",
+          "g136r6g34r2s7r1g114",
+          "g137r5g34r2s7r2g113",
+          "g137r6g34r1s8r1g113",
+          "g137r6g34r1s8r2g112",
+          "g116r10g2r22g2r10g16r1s8r1g112",
+          "g116r10g2r22g2r10g16r1s8r1g112",
+          "g116r10g2r10g2r10g2r10g16r1s9r1g111",
+          "g116r10g2r10g2r10g2r10g17r1s8r1g111",
+          "g116r10g2r10g2r10g2r10g17r1s8r2g110",
+          "g116r10g2r10g2r10g2r10g18r1s8r1g110",
+          "g116r10g2r10g2r10g2r10g18r2s7r2g109",
+          "g116r10g2r10g2r10g2r10g18r1s9r1g109",
+          "g116r10g2r10g2r10g2r10g19r1s8r1g109",
+          "g116r10g2r10g2r10g2r10g19r1s8r2g108",
+          "g116r10g2r10g2r10g2r10g20r1s8r1g108",
+          "g116r10g2r10g2r10g2r10g20r2s7r2g107",
+          "g116r10g2r10g2r10g2r10g20r1s9r1g107",
+          "g116r10g2r10g2r10g2r10g21r1s8r1g107",
+          "g116r10g2r10g2r10g2r10g21r2s7r1g107",
+          "g116r10g2r10g2r10g2r10g21r2s8r1g106",
+          "g184r1s8r1g106",
+          "g184r2s7r2g105",
+          "g184r2s7r2g105",
+          "g185r1s8r1g105",
+          "g185r1s8r1g105",
+          "g186r1s7r2g104",
+          "g186r2s7r1g104",
+          "g186r1s8r1g104",
+          "g186r1s8r2g103",
+          "g187r1s8r1g103",
+          "g187r2s7r1g103"
+        ]
+      }
     },
     "riverside": {
       "name": "Tepi Danau",

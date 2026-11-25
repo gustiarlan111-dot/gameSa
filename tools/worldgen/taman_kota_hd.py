@@ -112,6 +112,31 @@ def design(m, P):
     c.overhang(c.mat == PATH, gm, 0.25, 1)
     c.rim(np.isin(c.mat, [STONE, 5]), gm | (c.mat == PATH))
     m.water_mask = w_only
+    # ---- fine detail: grass blades, petals on paths, pebbles, ripple glints near the shore
+    rng = np.random.default_rng(SEED + 3)
+    ys, xs = np.nonzero(np.isin(c.mat, [PATH, STONE, SAND])[::8, ::8])
+    for i in rng.integers(0, len(ys), 1100):
+        y, x = ys[i] * 8, xs[i] * 8
+        k = rng.random()
+        if k < 0.4:
+            c.img[y:y + 3, x:x + 4] = rgb(('#f3b8c8', '#f7d4de', '#e996ad')[rng.integers(0, 3)])
+        elif k < 0.6:
+            c.img[y:y + 3, x:x + 3] = rgb(('#c98b4a', '#d9a35c')[rng.integers(0, 2)])
+        else:
+            c.img[y:y + 2, x:x + 2] = rgb(('#8f877c', '#a69c8e')[rng.integers(0, 2)])
+    gm2 = c.mat == GRASS
+    ys, xs = np.nonzero(gm2[::6, ::6])
+    for i in rng.integers(0, len(ys), 7000):
+        y, x = ys[i] * 6, xs[i] * 6
+        if rng.random() < 0.8:
+            for d in range(-2, 3):
+                h_ = rng.integers(3, 7)
+                if x + d * 2 < c.w:
+                    c.img[max(0, y - h_):y, x + d * 2] = c.img[y, x] * (1.18 if d % 2 else 0.85)
+        else:
+            c.img[y:y + 2, x:x + 2] = rgb(('#fbf6ec', '#f7c9d9', '#f4d870', '#c4b2f2')[rng.integers(0, 4)])
+    edge = np.minimum.reduce([c.xx, c.yy, c.w - 1 - c.xx, c.h - 1 - c.yy])
+    c.img[edge < 10] *= 0.86
 
     # ---------------------------------------------------------------- props
     pr = m.prop
@@ -163,6 +188,27 @@ def design(m, P):
                  (320, 760), (1540, 1340), (2300, 830), (1140, 400), (1240, 380)):
         pr(('hd_flowers_pink', 'hd_flowers_yellow', 'hd_flowers_violet', 'hd_flowers_white')[(x + y) % 4], x, y)
 
+    # ---- extra life: park furniture, gazebo festoons, shoreline plants, meadow clutter
+    pr('hd_notice_board', 1290, 300); pr('hd_bike_rack', 1110, 300); pr('hd_vending', 1300, 200)
+    pr('hd_kiosk', 2240, 1080); pr('hd_umbrella_table', 2170, 1150); pr('hd_umbrella_table', 2300, 1160)
+    pr('hd_lantern_string', 1875, 520); pr('hd_birdbath', 1720, 590); pr('hd_birdbath', 520, 700)
+    pr('hd_stone_lantern', 950, 735); pr('hd_stone_lantern', 1050, 735)
+    pr('hd_flowerbed', 1120, 560); pr('hd_flowerbed', 1330, 640); pr('hd_flowerbed', 2050, 940)
+    pr('hd_planter_pink', 1960, 560); pr('hd_planter_violet', 2180, 560)
+    pr('hd_log_bench', 2010, 1430); pr('hd_log_bench_b', 1840, 1470); pr('hd_cart', 1450, 1600)
+    pr('hd_garden_plot', 860, 1640); pr('hd_sacks', 1340, 1560); pr('hd_barrel', 1370, 1595)
+    pr('hd_mailbox', 2330, 830); pr('hd_signpost_park', 1150, 160)
+    # reeds and ferns ring the lake and stream banks
+    ys, xs = np.nonzero(m.water_mask[::K, ::K])
+    wm = m.water_mask[::K, ::K]
+    ring = (dist_from(wm, 60) < 26) & (dist_from(wm, 60) > 8) & (m.c.mat[::K, ::K] == SAND)
+    ys, xs = np.nonzero(ring)
+    rng2 = np.random.default_rng(SEED + 5)
+    for i in rng2.integers(0, len(ys), 70):
+        x, y = int(xs[i]), int(ys[i])
+        if all((x - px) ** 2 + (y - py) ** 2 > (r_ + 6) ** 2 for px, py, r_ in m.points) and not (1380 < x < 1520 and 1390 < y < 1500):
+            pr(('hd_reeds', 'hd_grass_tall', 'hd_fern_a')[i % 3], x, y)
+
     # ---- planting: groves avoid water, paths, decks, points
     blocked = (m.c.mat != GRASS) | (dist_from(m.c.mat != GRASS, 40 * K) < 30 * K)
     for x, y, r in m.points:
@@ -174,7 +220,11 @@ def design(m, P):
     m.scatter(['hd_tree_oak_a', 'hd_tree_autumn_a', 'hd_tree_cherry_b'], [3, 2, 2], 18, (1650, 1450, 740, 300), blocked, 22, P)
     m.scatter(['hd_tree_oak_b', 'hd_tree_oak_c'], [1, 1], 10, (2150, 950, 240, 500), blocked, 22, P)
     m.scatter(['hd_bush_a', 'hd_bush_b', 'hd_bush_rose', 'hd_rock_a', 'hd_rock_b', 'hd_stump'], [5, 5, 2, 2, 1, 1], 60, (30, 60, 2340, 1680), blocked, 18, P)
-    m.scatter(['hd_flowers_pink', 'hd_flowers_yellow', 'hd_flowers_violet', 'hd_flowers_white'], [1, 1, 1, 1], 70, (30, 60, 2340, 1680), blocked, 10, P)
+    m.scatter(['hd_flowers_pink', 'hd_flowers_yellow', 'hd_flowers_violet', 'hd_flowers_white'], [1, 1, 1, 1], 160, (30, 60, 2340, 1680), blocked, 10, P)
+    m.scatter(['hd_grass_tall', 'hd_grass_tall_b', 'hd_fern_a', 'hd_fern_b', 'hd_mushrooms'], [3, 3, 1, 1, 1], 200, (30, 60, 2340, 1680), blocked, 10, P)
+    m.scatter(['hd_tree_big_a', 'hd_tree_big_b', 'hd_tree_willow'], [1, 1, 1], 10, (40, 400, 400, 800), blocked, 30, P)
+    m.scatter(['hd_bush_berry', 'hd_bush_yellow', 'hd_bush_a', 'hd_bush_b'], [1, 1, 2, 2], 60, (30, 60, 2340, 1680), blocked, 16, P)
+    m.scatter(['hd_rock_a', 'hd_rock_b', 'hd_log', 'hd_stump'], [2, 2, 1, 1], 20, (30, 60, 2340, 1680), blocked, 20, P)
     # north border hedge, gap for the forest path
     for x in range(60, 2400, 70):
         if abs(x - 1200) > 110:
@@ -196,8 +246,8 @@ def main():
     m.points.append((*VIEW_POINT, 60))
     design(m, P)
     m.bake_shadows(P)
-    extra = dict(water=[dict(cx=800, cy=950, rx=350, ry=188), dict(cx=1075, cy=1075, rx=175, ry=112)],
-                 v6Layout=dict(version=2, generator='tools/worldgen/taman_kota_hd.py', hd=True,
+    extra = dict(visualStyle='godot_hd_dense', visualUpdate='godot_taman_dense', water=[dict(cx=800, cy=950, rx=350, ry=188), dict(cx=1075, cy=1075, rx=175, ry=112)],
+                 v6Layout=dict(version=3, generator='tools/worldgen/taman_kota_hd.py', hd=True,
                                districts=['koi lake + island + lookout deck', 'stream + plank bridge on the loop path',
                                           'gazebo rose court + Rain Garden gate', 'picnic meadow', 'community garden',
                                           'pine grove', 'cherry walk']))

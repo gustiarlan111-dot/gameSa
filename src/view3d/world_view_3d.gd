@@ -452,6 +452,10 @@ func _hide_under(n: Node, m: Dictionary) -> void:
 
 
 # ------------------------------------------------------------------ light and camera
+func _starry() -> bool:
+	return str(world.area.get("music", "")) == "star"
+
+
 func _update_light(delta: float) -> void:
 	var a := atmosphere
 	var minute := float(a.minute)
@@ -468,6 +472,11 @@ func _update_light(delta: float) -> void:
 	env.ambient_light_color = env.ambient_light_color.lerp(amb, k)
 	env.ambient_light_energy = lerpf(env.ambient_light_energy, amb_e, k)
 	var sky := Color(0.55, 0.72, 0.9).lerp(Color(0.95, 0.62, 0.48), clampf((1.0 - e) * 1.2, 0, 1)) * tint
+	if a.realm and not a.indoor and not cave:
+		amb = Color(0.5, 0.52, 0.86) if _starry() else Color(0.86, 0.74, 0.84)
+		env.ambient_light_color = env.ambient_light_color.lerp(amb, k)
+		env.ambient_light_energy = lerpf(env.ambient_light_energy, 0.36 if _starry() else 0.55, k)
+		sky = Color(0.03, 0.04, 0.12) if _starry() else Color(0.6, 0.42, 0.5)
 	if a.indoor or cave:
 		sky = Color(0.008, 0.006, 0.012)
 	env.background_color = sky
@@ -489,8 +498,14 @@ func _update_light(delta: float) -> void:
 			energy *= 0.55
 	elif a.indoor:
 		az = 15.0; el = 62.0; energy = 0.35; col = Color(1.0, 0.92, 0.82)
+	elif a.realm and not a.indoor:
+		# dream places keep their own light: starry evening on the star maps, a golden dusk elsewhere
+		if _starry():
+			az = -30.0; el = 48.0; energy = 0.4; col = Color(0.66, 0.74, 1.0)
+		else:
+			az = -55.0; el = 24.0; energy = 0.7; col = Color(1.0, 0.8, 0.62)
 	elif not cave:
-		az = 15.0; el = 66.0; energy = 0.22 if not a.realm else 0.35; col = Color(0.58, 0.68, 1.0)
+		az = 15.0; el = 66.0; energy = 0.22; col = Color(0.58, 0.68, 1.0)
 	sun.rotation_degrees = Vector3(-el, az + 180.0, 0)
 	sun.light_color = col
 	sun.light_energy = lerpf(sun.light_energy, energy, k)

@@ -1411,3 +1411,84 @@ def lifebuoy_post(W=60, H=120):
     sp.put(ring, np.where(((ang * 2 / np.pi).astype(int) % 2 == 0)[..., None], hexrgb('#e04a3a') * np.ones(3), hexrgb('#f4f0e6') * np.ones(3)))
     outline(sp, WOOD[0], width=1)
     return sp
+
+
+# ----------------------------------------------------------------------------- hilltop
+
+def observatory(W=480, H=560):
+    """Hilltop observatory: round sandstone drum on a wide plinth, copper-teal dome with the shutter
+    open and a brass telescope peeking out, warm arched windows, double door up a short flight of
+    steps, little star weathervane, potted plants and two lamps."""
+    sp = Sprite(W, H)
+    dith = bayer(H, W)
+    cx = W / 2
+    bot = H - 4
+    SANDST = ramp('#7d705c', '#9a8c74', '#b5a78c', '#ccc0a4', '#ded4bb', '#eee7d3', '#faf6ec')
+    DOME = ramp('#163a3e', '#1f5054', '#2b686a', '#3c8382', '#559e98', '#78b9ae', '#a3d4c6')
+    ground_shadow(sp, cx, bot - 6, W / 2 - 14, 20, 0.42)
+    # plinth / terrace
+    pm = sp.rect(24, bot - 58, W - 48, 44)
+    sp.put(pm, quant(0.5 + vgrad(sp, bot - 58, bot - 14, 0.2, -0.15) + (noise(H, W, 6, 3) - 0.5) * 0.1, STONE, dith))
+    for xx in range(24, W - 24, 40):
+        sp.put(sp.rect(xx, bot - 58, 2, 44) & pm, STONE[1])
+    sp.put(sp.rect(20, bot - 62, W - 40, 6), STONE[5])
+    # drum (cylinder: horizontal shading for roundness)
+    dx0, dx1, dtop = 86, W - 86, 214
+    dm = sp.rect(dx0, dtop, dx1 - dx0, bot - 62 - dtop)
+    u = (sp.xx - cx) / ((dx1 - dx0) / 2)
+    shade = 0.78 - 0.32 * np.clip(u + 0.35, -1, 1) ** 2 - 0.12 * (u > 0.2)
+    sp.put(dm, quant(shade + (noise(H, W, 7, 4) - 0.5) * 0.08, SANDST, dith))
+    for yy in range(dtop + 20, bot - 62, 22):                    # ashlar courses
+        sp.put(sp.rect(dx0, yy, dx1 - dx0, 2) & dm, SANDST[1])
+        off = 0 if (yy // 22) % 2 else 18
+        for xx in range(dx0 + off, dx1, 36):
+            sp.put(sp.rect(xx, yy - 20, 2, 20) & dm, SANDST[1])
+    # cornice
+    sp.put(sp.rect(dx0 - 12, dtop - 10, dx1 - dx0 + 24, 14), quant(vgrad(sp, dtop - 10, dtop + 4, 0.95, 0.5), SANDST))
+    sp.put(sp.rect(dx0 - 12, dtop + 3, dx1 - dx0 + 24, 3), SANDST[0])
+    # dome
+    r = (dx1 - dx0) / 2 + 6
+    dome = sp.ellipse(cx, dtop - 8, r, r * 0.92) & (sp.yy < dtop - 6)
+    sh = sphere_shade(sp, cx, dtop - 8, r, r * 0.92)
+    sp.put(dome, quant(np.clip(sh, 0, 1) * 0.85 + 0.1, DOME, dith))
+    for k in range(-3, 4):                                          # copper ribs
+        rib = dome & (np.abs(sp.xx - (cx + k * r / 3.6 * np.sqrt(np.clip(1 - ((sp.yy - dtop + 8) / (r * 0.92)) ** 2, 0, 1)))) < 1.2)
+        sp.put(rib, DOME[1])
+    slit = dome & (np.abs(sp.xx - (cx + 18)) < 15) & (sp.yy > dtop - r * 0.92 + 6)
+    sp.put(slit, hexrgb('#141a2a'))
+    sp.put(slit & (sp.yy % 9 < 1), hexrgb('#22304a'))
+    tube = sp.poly([(cx + 8, dtop - 46), (cx + 74, dtop - 126), (cx + 88, dtop - 112), (cx + 24, dtop - 34)])
+    sp.put(tube, quant(vgrad(sp, dtop - 126, dtop - 34, 0.95, 0.35), GOLD))
+    sp.put(sp.ellipse(cx + 81, dtop - 119, 9, 9), hexrgb('#9fd0e8'))
+    sp.put(sp.ellipse(cx + 81, dtop - 119, 4, 4), hexrgb('#e8f6ff'))
+    # finial + star vane
+    sp.put(sp.rect(cx - 2, dtop - 8 - r * 0.92 - 30, 4, 32), METAL[3])
+    st = []
+    for i in range(10):
+        a = -np.pi / 2 + i * np.pi / 5
+        rr = 13 if i % 2 == 0 else 5.5
+        st.append((cx + rr * np.cos(a), dtop - 8 - r * 0.92 - 40 + rr * np.sin(a)))
+    sp.put(sp.poly(st), GOLD[4])
+    # windows (lit, arched) and door
+    for wx in (dx0 + 18, dx1 - 18 - 44):
+        window(sp, wx, dtop + 40, 44, 96, SANDST, 'cream', box=False, arch=True, lit=True, panes=(2, 3))
+    window(sp, cx - 18, dtop + 22, 36, 44, SANDST, 'cream', box=False, arch=True, lit=True, panes=(1, 2))
+    door(sp, cx, bot - 62, 84, 128, ramp('#2a1c2e', '#3d2943', '#523858', '#6a4a70', '#845f8a'), SANDST, glass=True, arch=True, double=True)
+    sp.put(sp.rect(cx - 52, bot - 206, 104, 22), hexrgb('#2f3b52'))
+    sp.put(text_mask(sp, 'OBSERVATORIUM', cx, bot - 195, 12), GOLD[4])
+    # steps
+    for i in range(3):
+        sw = 150 - i * 20
+        st_ = sp.rect(cx - sw / 2, bot - 18 - i * 14, sw, 15)
+        sp.put(st_, quant(0.66 - i * 0.06 + hgrad(sp, cx - sw / 2, cx + sw / 2, 0.08, -0.12), STONE, dith))
+        sp.put(sp.rect(cx - sw / 2, bot - 18 - i * 14, sw, 2), STONE[6])
+    # lamps, plants
+    for lx in (cx - 110, cx + 110):
+        sp.put(sp.rect(lx - 3, bot - 160, 6, 100), METAL[1])
+        sp.put(sp.rect(lx - 10, bot - 182, 20, 24), METAL[2])
+        sp.put(sp.rect(lx - 7, bot - 178, 14, 16), hexrgb('#ffd98a'))
+        sp.put(sp.poly([(lx - 13, bot - 182), (lx + 13, bot - 182), (lx, bot - 194)]), METAL[3])
+    potted_plant(sp, 46, bot - 60, 1.3, 2)
+    potted_plant(sp, W - 46, bot - 60, 1.3, 5)
+    outline(sp, SANDST[0] * 0.65, width=2)
+    return sp

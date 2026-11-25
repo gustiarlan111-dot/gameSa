@@ -537,6 +537,7 @@ KIT = {
     'hd_signpost_res': (lambda: lm.signpost([('Jalan Kota', -1), ('Perpustakaan', 1)]), 6, 4, 'sort'),
     'hd_fishing_hut': (lambda: lm.fishing_hut(), 120, 20, 'sort'),
     'hd_telescope': (lambda: lm.telescope(), 16, 6, 'sort'),
+    'hd_observatory': (lambda: lm.observatory(), 196, 40, 'sort'),
     'hd_pier_post': (lambda: lm.pier_post(), 10, 6, 'sort'),
     'hd_lifebuoy': (lambda: lm.lifebuoy_post(), 8, 6, 'sort'),
     'hd_signpost_lake': (lambda: lm.signpost([('Plaza', -1), ('Dermaga', 1)]), 6, 4, 'sort'),

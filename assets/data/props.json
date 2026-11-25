@@ -1556,6 +1556,12 @@
       "cw": 6,
       "ch": 4,
       "layer": "sort"
+    },
+    "hd_observatory": {
+      "image": "props/hd/hd_observatory@2x.png",
+      "cw": 196,
+      "ch": 40,
+      "layer": "sort"
     }
   }
 }

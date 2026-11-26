@@ -10,7 +10,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools/artkit'))
-import kit, nature, built, landmarks as lm, forest as fo                                         # noqa: E402
+import kit, nature, built, landmarks as lm, forest as fo, clockwork as cwk                                        # noqa: E402
 from kit import (Sprite, quant, bayer, sphere_shade, outline, noise, hexrgb, ramp, BARK, STONE, LEAF,   # noqa: E402
                  LEAF_DARK, WOOD, METAL, FLOWERS)
 
@@ -497,6 +497,11 @@ KIT = {
     'hd_flower_buckets_b': (lambda: lm.flower_buckets(1), 70, 14, 'sort'),
     'hd_flower_buckets_c': (lambda: lm.flower_buckets(2), 70, 14, 'sort'),
     'hd_column_stone': (lambda: lm.column_stone(), 14, 10, 'sort'),
+    # V8: Clockwork Station landmarks (tools/artkit/clockwork.py)
+    'hd_clock_tower': (lambda: cwk.clock_tower(), 128, 26, 'sort'),
+    'hd_train_car': (lambda: cwk.train_car(), 236, 22, 'sort'),
+    'hd_lamp_clock': (lambda: cwk.lamp_clock(), 0, 0, 'sort'),
+    'hd_gear_big': (lambda: cwk.gear_big(), 44, 8, 'sort'),
     'hd_railing_iron': (lambda: lm.railing_iron(), 98, 8, 'sort'),
     'hd_fence_picket': (lambda: lm.fence_picket(), 98, 8, 'sort'),
     'hd_fence_picket_b': (lambda: lm.fence_picket(seed=5), 98, 8, 'sort'),

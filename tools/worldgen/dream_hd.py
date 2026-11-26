@@ -82,11 +82,15 @@ THEMES = {
     'clockwork_station': dict(
         grass=('#2e2a4a', '#342f54', '#3a355e', '#413b68', '#484272', '#504a7c'),
         path='tiles', path_pal=('#b8a27e', '#a8926e'), plaza=('#d8c49a', '#cdb88e', '#e2cea6', '#c2ad84'), mortar='#7a6a4a',
-        trees=(['hd_column_stone', 'hd_tree_dream_c', 'hd_tree_dream_a'], [1, 3, 2]),
-        lights='hd_lamp_gold', light_every=200,
-        ring=['hd_column_stone', 'hd_flowers_white', 'hd_planter_violet', 'hd_lamp_gold'],
+        # V8: a station that reads as one: the clock tower over the hub, a carriage stopped on its
+        # track by the arrival plaza, clock lamps on the platforms, brass gears in the grass
+        trees=(['hd_column_stone', 'hd_tree_dream_c', 'hd_tree_dream_a', 'hd_gear_big'], [2, 3, 1, 2]),
+        lights='hd_lamp_clock', light_every=200,
+        ring=['hd_column_stone', 'hd_flowers_white', 'hd_planter_violet', 'hd_lamp_clock'],
         small=(['hd_mushrooms_glow', 'hd_grass_tall_b', 'hd_flowers_white'], [3, 3, 2]),
-        specials=[('hd_bench', 960, 900), ('hd_bench', 700, 640), ('hd_bench', 1280, 640)],
+        specials=[('hd_bench', 960, 900), ('hd_bench', 700, 640), ('hd_bench', 1280, 640),
+                  ('hd_clock_tower', 960, 760), ('hd_train_car', 520, 1235)],
+        clear=[(960, 640, 120), (960, 520, 90), (520, 1180, 150), (640, 1200, 80), (400, 1200, 80)],
         density=0.6, stars=True, clocks=True),
     'moonlight_lake': dict(
         grass=('#243a4a', '#294254', '#2f4a5e', '#355368', '#3c5c72', '#44667c'),
@@ -361,7 +365,8 @@ def furnish(m, T, base, pts, doors, polys, plaza_list, walk, P):
             lx, ly = (x, y) + nrm * (72 if cave else 44) * side
             side = -side
             X, Y = int(lx * K), int(ly * K)
-            if 0 < X < c.w and 0 < Y < c.h and not near_pts(lx, ly, 40) and not door_zone(lx, ly) \
+            in_clear = any((lx - qx) ** 2 + (ly - qy) ** 2 < qr * qr for qx, qy, qr in T.get('clear', []))
+            if 0 < X < c.w and 0 < Y < c.h and not near_pts(lx, ly, 40) and not door_zone(lx, ly) and not in_clear \
                     and (cave or c.mat[Y, X] == GRASS) and not (cave and walk[Y, X]):
                 pr(T['lights'], lx, ly)
     # decor ring around each clearing
@@ -375,6 +380,7 @@ def furnish(m, T, base, pts, doors, polys, plaza_list, walk, P):
                     and c.mat[Y, X] not in (WATER, DECK):
                 pr(T['ring'][k % len(T['ring'])], rx, ry)
     m.keep_out = [(x, y, 46) for x, y in pts] + [(cx, cy, max(w, h) / 2 + 50) for cx, cy, w, h in doors]
+    m.keep_out += [tuple(c_) for c_ in T.get('clear', [])]      # V8: room around tall landmarks
     blocked = (c.mat != (ROCK if cave else GRASS)) | (dist_from(walk, 40) < (26 if cave else 14))
     if cave:
         blocked = walk | (dist_from(walk, 60) > 26) | (dist_from(walk, 60) < 6)

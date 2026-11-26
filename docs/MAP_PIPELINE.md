@@ -55,3 +55,12 @@ The game always draws in 3D; there is no graphics option.
   `src/fx/post25d.gdshader` (depth blur, bloom, grade, vignette) on CanvasLayer 1 under the HUD
   (layer 2), and draws rain, petals, fireflies and butterflies in 2D. WorldView3D sets the
   viewport canvas transform to match the 3D ground, so 2D overlays and `World.view_rect()` line up.
+
+## Interiors (tools/worldgen/rooms_hd.py)
+- One function per room paints the base layout with the kit in tools/worldgen/interior.py. A second
+  density layer adds `PRE[area]` (rugs and light pools right after `shell()`, under the furniture) and
+  `EXTRA[area]` (more furniture, wall decor, floor clutter, `r.wear()` scuffs).
+- `python3 tools/worldgen/rooms_hd.py <area|all> --preview DIR --overlay` writes `<area>_overlay.png`
+  with blocked rects (red) and every quest/examine/door/spawn point (blue rings, 16-unit clearance).
+  The run prints `CROWDED` when furniture sits inside that clearance and `INVALID` when a point is
+  unreachable; `--apply` refuses to write while anything is invalid.

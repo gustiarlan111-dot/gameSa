@@ -8,6 +8,7 @@ takes world coordinates and returns the rect that should block walking (or None 
 Light comes from the top-left, outlines are darker hue-shifted rims (no pure black), like the
 outdoor kit in tools/artkit.
 """
+import math
 import numpy as np
 from paint import rgb, hash2
 from ground import noise
@@ -38,16 +39,27 @@ class Room:
         self.img = m.c.img
         self.rng = np.random.default_rng(seed)
         self.block = []                    # world rects that stop walking
+        self.nshell = 0
         self.seed = seed
 
     # ------------------------------------------------------------------ primitives (world units)
     def R(self, x, y, w, h):
         c = self.c
-        return (c.xx >= x * K) & (c.xx < (x + w) * K) & (c.yy >= y * K) & (c.yy < (y + h) * K)
+        m = np.zeros((c.h, c.w), bool)
+        x0, x1 = max(0, math.ceil(x * K)), min(c.w, math.ceil((x + w) * K))
+        y0, y1 = max(0, math.ceil(y * K)), min(c.h, math.ceil((y + h) * K))
+        if x1 > x0 and y1 > y0:
+            m[y0:y1, x0:x1] = True
+        return m
 
     def E(self, cx, cy, rx, ry):
         c = self.c
-        return ((c.xx - cx * K) / (rx * K)) ** 2 + ((c.yy - cy * K) / (ry * K)) ** 2 < 1
+        m = np.zeros((c.h, c.w), bool)
+        x0, x1 = max(0, int((cx - abs(rx)) * K) - 1), min(c.w, int((cx + abs(rx)) * K) + 2)
+        y0, y1 = max(0, int((cy - abs(ry)) * K) - 1), min(c.h, int((cy + abs(ry)) * K) + 2)
+        if x1 > x0 and y1 > y0 and rx and ry:
+            m[y0:y1, x0:x1] = ((c.xx[y0:y1, x0:x1] - cx * K) / (rx * K)) ** 2 + ((c.yy[y0:y1, x0:x1] - cy * K) / (ry * K)) ** 2 < 1
+        return m
 
     def fill(self, mask, c, a=1.0):
         c = col(c)
@@ -191,6 +203,7 @@ class Room:
             self.rect(x + (side - 6 if x == 0 else 0), wy, 6, bottom - wy, '#5a4658')
         self.rect(0, bottom, W, H - bottom, '#3a2c3c')
         self.rect(0, bottom, W, 4, '#5a4658')
+        self.nshell = len(self.block) + (4 if door is None else 5)
         if door is None:
             walls = [[0, 0, W, wall_h], [0, wall_h, side, bottom - wall_h], [W - side, wall_h, side, bottom - wall_h], [0, bottom, W, H - bottom]]
             self.block += walls
@@ -851,3 +864,304 @@ class Room:
         st = self.R(x + 3, y + 3, w - 6, h - 6) & ((self.c.xx // K) % 4 == 0)
         self.img[st] = shade(c, 0.9)
         self.outline(self.R(x, y, w, h), shade(c, 0.5))
+
+    # ------------------------------------------------------------------ lived-in kit (v2: denser rooms)
+    def wear(self, n=60, area=None, c='#2a1c1c'):
+        """Floor scuffs, worn paths and dust specks so big floors stop reading as one flat colour.
+        Walk-through; only lands on floor (mat != 0) outside blocked furniture."""
+        c0 = self.c
+        x0, y0, x1, y1 = area or (0, 0, self.m.W, self.m.H)
+        blk = np.zeros((c0.h // K + 1, c0.w // K + 1), bool)
+        for b in self.block[self.nshell:]:
+            if b:
+                bx, by, bw, bh = [int(v) for v in b]
+                blk[max(0, by):by + bh, max(0, bx):bx + bw] = True
+        for b in self.block[:self.nshell]:
+            bx, by, bw, bh = [int(v) for v in b]
+            blk[max(0, by):by + bh, max(0, bx):bx + bw] = True
+        for _ in range(n):
+            x = self.rng.uniform(x0, x1); y = self.rng.uniform(y0, y1)
+            if blk[min(blk.shape[0] - 1, int(y)), min(blk.shape[1] - 1, int(x))]:
+                continue
+            k = self.rng.random()
+            if k < 0.45:                       # soft worn patch
+                g = self.E(x, y, self.rng.uniform(8, 22), self.rng.uniform(4, 9))
+                self.img[g] = self.img[g] * 0.96 + col('#fff4e0') * 0.04
+            elif k < 0.8:                      # scuff
+                L = self.rng.uniform(3, 9)
+                self.rect(x, y, L, 0.5, c, 0.18)
+            else:                              # dust / crumb
+                self.rect(x, y, 1, 1, '#fff4e0', 0.25)
+
+    def baseboard_bits(self, y, xs, kind='outlet'):
+        """Outlets / switches on the wainscot band."""
+        for x in xs:
+            self.rect(x, y, 6, 8, '#f4efe6'); self.outline(self.R(x, y, 6, 8), '#8a7a6a')
+            if kind == 'outlet':
+                self.rect(x + 1.5, y + 2, 1, 2, '#5a4a40'); self.rect(x + 3.5, y + 2, 1, 2, '#5a4a40')
+            else:
+                self.rect(x + 2, y + 2, 2, 4, '#d9cfc0')
+
+    def sconce(self, cx, y, c='#ffd98a', metal='#8a6a4a'):
+        self.rect(cx - 1, y, 2, 6, metal); self.rect(cx - 4, y + 5, 8, 2, metal)
+        m = self.E(cx, y + 1, 4, 4)
+        self.fill(m, c); self.outline(m, shade(metal, 0.7))
+        self.glow(cx, y + 2, 22, 18, c, 0.22)
+
+    def corkboard(self, x, y, w=46, h=32, notes=6):
+        self.rect(x, y, w, h, '#a8744c'); self.rect(x + 2, y + 2, w - 4, h - 4, '#c99a6a')
+        self.dots(self.R(x + 2, y + 2, w - 4, h - 4), ['#b4865a', '#d8ac7c'], 30, 1)
+        pal = ['#fbf4e6', '#f6e7a8', '#f6c3cd', '#bfe3f4', '#c9e8a8']
+        for i in range(notes):
+            nx = x + 4 + (i * 13) % (w - 14); ny = y + 4 + (i // max(1, (w - 14) // 13)) * 12 + (i % 2) * 2
+            self.rect(nx, ny, 10, 9, pal[i % len(pal)])
+            for k in range(2):
+                self.rect(nx + 2, ny + 3 + k * 3, 6, 0.5, '#8a7a6a')
+            self.rect(nx + 4, ny, 2, 2, ['#e04a4a', '#4a7ae0', '#e0b04a'][i % 3])
+        self.outline(self.R(x, y, w, h), '#6e4a30')
+
+    def calendar(self, x, y, c='#e06a7a'):
+        self.rect(x, y, 16, 20, '#fbf8f0'); self.rect(x, y, 16, 5, c)
+        for i in range(3):
+            for k in range(4):
+                self.rect(x + 2 + k * 3.5, y + 7 + i * 4, 2, 2, '#c9bfb0' if (i + k) % 5 else c)
+        self.outline(self.R(x, y, 16, 20), '#8a7a6a')
+        self.rect(x + 7, y - 2, 2, 2, '#5a4a40')
+
+    def mirror(self, x, y, w=24, h=34, c='#c9a46a'):
+        self.rect(x, y, w, h, c)
+        self.vgrad(x + 2, y + 2, w - 4, h - 4, '#e8f4fb', '#b8cfe0')
+        self.rect(x + 4, y + 4, 2, h - 12, '#ffffff', 0.7); self.rect(x + 8, y + 4, 1, h - 18, '#ffffff', 0.5)
+        self.outline(self.R(x, y, w, h), shade(c, 0.5))
+
+    def plates(self, x, y, n=4):
+        self.rect(x, y + 12, n * 11 + 2, 2, '#8a6a4a')
+        for i in range(n):
+            m = self.E(x + 6 + i * 11, y + 6, 5, 6)
+            self.fill(m, '#fbf8f0'); self.outline(m, '#a8a0b0')
+            self.fill(self.E(x + 6 + i * 11, y + 6, 2.5, 3), ['#9fd3f0', '#f2a0b8', '#f6d36a', '#9cc7b8'][i % 4])
+
+    def hooks(self, x, y, items=('#e06a7a', '#9cc7b8', '#f6d36a')):
+        """Wall hooks with aprons / bags / jackets."""
+        self.rect(x, y, len(items) * 14 + 4, 3, '#8a6a4a')
+        for i, c in enumerate(items):
+            hx = x + 4 + i * 14
+            self.rect(hx + 3, y + 2, 2, 3, '#5a4a40')
+            m = self.R(hx, y + 5, 9, 16) | self.E(hx + 4.5, y + 5, 4.5, 2.5)
+            self.fill(m, c); self.outline(m, shade(c, 0.5))
+            self.rect(hx + 1, y + 6, 1, 13, shade(c, 1.2))
+
+    def side_table(self, x, y, w=24, c='#b48a5e', item='lamp'):
+        r = self.box(x, y, w, 12, 12, shade(c, 1.12), c)
+        cx = x + w / 2
+        if item == 'lamp':
+            self.rect(cx - 1, y - 6, 2, 10, '#7a6a5a')
+            m = self.R(cx - 6, y - 14, 12, 9); self.fill(m, '#fbe2b0'); self.outline(m, '#b08a5a')
+            self.glow(cx, y - 6, 24, 18, '#ffe6a8', 0.16)
+        elif item == 'plant':
+            self.pot(cx, y + 9, 0.5, kind='leafy')
+        elif item == 'books':
+            for k, cc in enumerate(('#c45a5a', '#5a7ac4', '#e0b04a')):
+                self.rect(x + 3, y + 8 - k * 3, w - 8, 3, cc)
+        elif item == 'radio':
+            self.rect(x + 3, y + 1, w - 6, 9, '#7a5234'); self.rect(x + 5, y + 3, 8, 5, '#d9b48a')
+        elif item == 'tea':
+            self.rect(cx - 6, y + 3, 7, 6, '#fbf4ea'); self.rect(cx + 2, y + 5, 4, 4, '#fbf4ea')
+        return r
+
+    def armchair(self, x, y, c='#9cc7b8', w=34, cushion=None):
+        r = self.box(x, y, w, 12, 18, shade(c, 1.1), c)
+        self.rect(x, y + 8, 6, 22, shade(c, 0.85)); self.rect(x + w - 6, y + 8, 6, 22, shade(c, 0.85))
+        self.rect(x + 6, y + 12, w - 12, 8, shade(c, 1.2))
+        self.outline(self.R(x, y, w, 30), shade(c, 0.45))
+        if cushion:
+            self.cushion(x + w / 2, y + 14, 0.6, cushion)
+        return r
+
+    def stool(self, cx, bot, c='#e8b04a', legs='#6b6b78'):
+        self.drop(cx - 6, bot - 5, 12, 5, 0.8, 2, 2)
+        self.rect(cx - 4, bot - 8, 1.5, 8, legs); self.rect(cx + 3, bot - 8, 1.5, 8, legs)
+        m = self.E(cx, bot - 9, 6, 3.5); self.fill(m, c); self.outline(m, shade(c, 0.5))
+        self.fill(self.E(cx - 1.5, bot - 10, 3, 1.3), shade(c, 1.25))
+        return [cx - 6, bot - 12, 12, 12]
+
+    def coat_rack(self, cx, bot, coats=('#5a7ac4', '#e06a7a')):
+        self.drop(cx - 7, bot - 5, 14, 5, 0.75, 2, 2)
+        self.fill(self.E(cx, bot - 2, 7, 2.5), '#6e4a30')
+        self.rect(cx - 1, bot - 56, 2, 54, '#8a5a3a')
+        self.rect(cx - 8, bot - 54, 16, 2, '#8a5a3a')
+        for i, c in enumerate(coats):
+            sx = cx - 9 + i * 10
+            m = self.R(sx, bot - 52, 8, 24) | self.E(sx + 4, bot - 52, 4, 3)
+            self.fill(m, c); self.outline(m, shade(c, 0.5)); self.rect(sx + 1, bot - 50, 1, 20, shade(c, 1.2))
+        self.fill(self.E(cx, bot - 58, 7, 3), '#d9b48a'); self.outline(self.E(cx, bot - 58, 7, 3), '#8a6a4a')
+        return [cx - 8, bot - 14, 16, 14]
+
+    def umbrella_stand(self, cx, bot, cols=('#5a7ac4', '#e0b04a', '#e06a7a')):
+        r = self.box(cx - 6, bot - 16, 12, 4, 12, '#5a5a6c', '#7a7a8c')
+        for i, c in enumerate(cols):
+            ux = cx - 4 + i * 4
+            self.rect(ux, bot - 30 + i * 2, 2, 18, c)
+            for a in range(0, 180, 30):
+                self.rect(ux - 2 + 2 * np.cos(np.radians(a)), bot - 32 + i * 2 - 2 * np.sin(np.radians(a)), 1, 1, '#3a2a1e')
+        return r
+
+    def book_stack(self, x, bot, n=4):
+        pal = ['#c45a5a', '#5a7ac4', '#e0b04a', '#6aa86a', '#9a6ac4', '#e08a5a']
+        self.drop(x, bot - n * 3, 16, n * 3, 0.8, 2, 2)
+        for i in range(n):
+            off = (i * 3) % 4 - 1
+            self.rect(x + off, bot - (i + 1) * 3, 15 - (i % 2) * 2, 3, pal[(i + int(x)) % len(pal)])
+            self.rect(x + off, bot - (i + 1) * 3, 15 - (i % 2) * 2, 0.5, '#fbf8f0', 0.6)
+        return [x - 1, bot - n * 3, 17, n * 3]
+
+    def box_stack(self, x, y, c='#c9a06a', n=2):
+        r = self.box(x, y + 10, 26, 7, 14, shade(c, 1.12), c)
+        self.rect(x + 12, y + 10, 2, 7, '#e8d8b0')
+        if n > 1:
+            self.box(x + 3, y, 20, 6, 10, shade(c, 1.18), shade(c, 1.05))
+            self.rect(x + 12, y, 2, 6, '#e8d8b0')
+        return [x, y, 26, 31]
+
+    def sack(self, cx, bot, c='#d8c49a', label='#8a5a3a', fill_c=None):
+        self.drop(cx - 9, bot - 18, 18, 18, 0.78, 3, 2)
+        m = self.E(cx, bot - 8, 9, 9) | self.R(cx - 7, bot - 20, 14, 10)
+        self.fill(m, c); self.outline(m, shade(c, 0.5))
+        if fill_c:
+            self.fill(self.E(cx, bot - 19, 6, 2.5), fill_c); self.dots(self.E(cx, bot - 19, 5, 2), [shade(fill_c, 0.7), shade(fill_c, 1.2)], 6, 1)
+        self.rect(cx - 4, bot - 10, 8, 5, label, 0.6)
+        self.rect(cx - 7, bot - 16, 14, 1, shade(c, 0.7))
+        return [cx - 9, bot - 20, 18, 20]
+
+    def display_case(self, x, y, w=48, h=30, c='#8a5a3a', items=('#f2a0b8', '#f6d36a', '#9fd3f0')):
+        r = self.box(x, y, w, 16, h - 16, '#dff0f6', c)
+        for i, ic in enumerate(items):
+            self.fill(self.E(x + 8 + i * (w - 16) / max(1, len(items) - 1), y + 8, 4, 3), ic)
+        self.rect(x + 2, y + 2, w - 4, 1, '#ffffff', 0.8); self.rect(x + 3, y + 3, 1, 10, '#ffffff', 0.5)
+        return r
+
+    def ladder(self, x, y, h=120, c='#a8744c'):
+        self.rect(x, y, 2, h, c); self.rect(x + 12, y, 2, h, c)
+        for k in range(int(h // 12)):
+            self.rect(x, y + 6 + k * 12, 14, 2, shade(c, 1.1))
+        self.rect(x + 2, y, 10, 2, '#6b6b78')
+
+    def card_catalog(self, x, y, w=48, h=44, c='#7a5234'):
+        r = self.box(x, y, w, 8, h - 8, shade(c, 1.1), c)
+        cols, rows = int(w // 11), int((h - 12) // 8)
+        for i in range(rows):
+            for k in range(cols):
+                dx, dy = x + 3 + k * 11, y + 10 + i * 8
+                self.outline(self.R(dx, dy, 9, 6), shade(c, 0.6))
+                self.rect(dx + 2, dy + 1, 5, 2, '#fbf4e6'); self.rect(dx + 4, dy + 4, 1.5, 1, '#d9c9a0')
+        return r
+
+    def stanchions(self, x0, x1, y, c='#c9a24a', rope='#a8304a'):
+        n = max(2, int((x1 - x0) // 40) + 1)
+        xs = [x0 + (x1 - x0) * i / (n - 1) for i in range(n)]
+        for a, b in zip(xs, xs[1:]):
+            for t in range(int(b - a)):
+                tt = t / (b - a)
+                self.rect(a + t, y - 10 + 5 * 4 * tt * (1 - tt), 1, 1.5, rope)
+        for sx in xs:
+            self.fill(self.E(sx, y + 1, 4, 2), shade(c, 0.7)); self.rect(sx - 1, y - 12, 2, 13, c)
+            self.fill(self.E(sx, y - 12, 2, 2), shade(c, 1.2))
+        return [x0 - 4, y - 4, x1 - x0 + 8, 8]
+
+    def partition(self, x, y, w=60, h=12, c='#f6f0e6', arts=(0, 2)):
+        """Free-standing gallery wall (seen from above: thin top, tall face with framed pieces)."""
+        r = self.box(x, y, w, 6, 40, shade(c, 1.05), c)
+        fw = (w - 10) / len(arts) - 4
+        for i, a in enumerate(arts):
+            self.frame(x + 6 + i * (fw + 4), y + 12, fw, 22, a, '#8a6a4a')
+            self.glow(x + 6 + i * (fw + 4) + fw / 2, y + 20, fw, 16, '#fff4d8', 0.15)
+        return [x, y, w, 46]
+
+    def sign_stand(self, cx, bot, c='#3a4a3a', frame='#a8744c'):
+        self.drop(cx - 12, bot - 6, 24, 6, 0.75, 2, 2)
+        self.rect(cx - 12, bot - 34, 24, 30, frame); self.rect(cx - 10, bot - 32, 20, 24, c)
+        for k in range(4):
+            self.rect(cx - 7, bot - 28 + k * 5, 14 - (k % 2) * 4, 1, ['#fbf4e6', '#f6d36a', '#f2a0b8', '#fbf4e6'][k])
+        self.rect(cx - 12, bot - 4, 2, 4, frame); self.rect(cx + 10, bot - 4, 2, 4, frame)
+        return [cx - 12, bot - 12, 24, 12]
+
+    def bin(self, cx, bot, c='#7a8a8c'):
+        r = self.box(cx - 6, bot - 16, 12, 4, 12, shade(c, 1.1), c)
+        self.rect(cx - 4, bot - 15, 3, 2, '#fbf4e6')
+        return r
+
+    def vending(self, x, y, w=36, h=62, c='#e04a5a', glow_c='#bfe8ff'):
+        r = self.box(x, y, w, 8, h - 8, shade(c, 1.15), c)
+        self.rect(x + 3, y + 11, w - 14, h - 24, '#1a1a2a')
+        for i in range(4):
+            for k in range(3):
+                self.rect(x + 5 + k * ((w - 18) / 3), y + 13 + i * ((h - 28) / 4), 5, 6,
+                          ['#f6d36a', '#9af06a', '#f26a9a', '#5ad8f0', '#ffffff'][(i * 3 + k) % 5])
+        self.rect(x + w - 10, y + 14, 6, 14, shade(c, 0.7))
+        for k in range(4):
+            self.rect(x + w - 9, y + 16 + k * 3, 4, 1.5, '#fbf4e6')
+        self.rect(x + 4, y + h - 10, w - 14, 5, '#2a2a38')
+        self.glow(x + w / 2, y + h / 2, w, h * 0.6, glow_c, 0.12)
+        return r
+
+    def pinball(self, x, y, w=30, h=56, c='#5ad8f0'):
+        r = self.box(x, y, w, 40, 14, '#1e1a30', shade(c, 0.7))
+        self.vgrad(x + 3, y + 3, w - 6, 34, shade(c, 0.6), '#2a2046')
+        for (dx, dy, cc) in ((8, 10, '#f26a9a'), (w - 10, 12, '#f6d36a'), (w / 2, 20, '#9af06a')):
+            self.fill(self.E(x + dx, y + dy, 3, 3), cc); self.glow(x + dx, y + dy, 7, 7, cc, 0.4)
+        self.rect(x + 6, y + 32, 7, 2, '#ffffff'); self.rect(x + w - 13, y + 32, 7, 2, '#ffffff')
+        self.rect(x + 2, y - 10, w - 4, 10, '#2a2046'); self.rect(x + 4, y - 8, w - 8, 6, c)
+        return [x, y - 10, w, h + 10 - 2]
+
+    def candle(self, cx, bot, s=1.0, c='#fbf4e6'):
+        self.rect(cx - 2 * s, bot - 8 * s, 4 * s, 8 * s, c)
+        self.rect(cx - 0.5, bot - 10 * s, 1, 2 * s, '#3a2a1e')
+        self.fill(self.E(cx, bot - 12 * s, 1.6 * s, 2.6 * s), '#ffd27a')
+        self.glow(cx, bot - 10 * s, 16 * s, 12 * s, '#ffd27a', 0.3)
+
+    def papers(self, x, y, n=5, w=30, h=20):
+        for i in range(n):
+            px = x + self.rng.uniform(0, w); py = y + self.rng.uniform(0, h)
+            self.rect(px, py, 8, 10, ['#fbf4e6', '#f2ead8', '#e8e0d0'][i % 3], 0.95)
+            self.rect(px + 1.5, py + 3, 5, 0.5, '#8a7a6a', 0.6); self.rect(px + 1.5, py + 5, 4, 0.5, '#8a7a6a', 0.6)
+
+    def chest(self, x, y, w=34, c='#8a5a3a'):
+        r = self.box(x, y, w, 10, 16, shade(c, 1.15), c)
+        self.rect(x, y + 10, w, 2, '#c9a24a'); self.rect(x + w / 2 - 3, y + 12, 6, 5, '#c9a24a')
+        self.rect(x + 3, y, 2, 26, shade(c, 0.6)); self.rect(x + w - 5, y, 2, 26, shade(c, 0.6))
+        return r
+
+    def piano(self, x, y, w=70, c='#3a2a30'):
+        r = self.box(x, y, w, 14, 34, shade(c, 1.4), c)
+        self.rect(x + 3, y + 14, w - 6, 8, '#fbf8f0')
+        for k in range(int((w - 6) // 4)):
+            self.rect(x + 4 + k * 4, y + 14, 0.6, 8, '#8a8a98')
+            if k % 7 not in (2, 6):
+                self.rect(x + 6 + k * 4, y + 14, 2, 5, '#1a1418')
+        self.rect(x + w / 2 - 8, y + 3, 16, 9, '#fbf4e6'); self.rect(x + w / 2 - 6, y + 5, 12, 0.5, '#5a4a40')
+        return r
+
+    def fruit_bowl(self, cx, cy):
+        m = self.E(cx, cy, 8, 4); self.fill(m, '#d9b48a'); self.outline(m, '#8a6a4a')
+        self.dots(self.E(cx, cy - 2, 6, 3), ['#e06a5a', '#f2a04a', '#7ac06a', '#f6d36a'], 8, 2)
+
+    def mug_shelf(self, x, y, n=5):
+        self.rect(x, y, n * 9 + 4, 2, '#8a6a4a')
+        for i in range(n):
+            c = ['#fbf4ea', '#9cc7b8', '#e8b04a', '#f2a0b8', '#9fd3f0'][i % 5]
+            self.rect(x + 3 + i * 9, y - 6, 6, 6, c); self.rect(x + 9 + i * 9, y - 5, 1.5, 3, shade(c, 0.7))
+            self.outline(self.R(x + 3 + i * 9, y - 6, 6, 6), shade(c, 0.5))
+
+    def runner(self, x, y, w, h, a='#7a3a4a', b='#a85060'):
+        self.rug(x + w / 2, y + h / 2, w / 2, h / 2, a, b, round_=False)
+
+    def pillow_pile(self, cx, cy, cols=('#f4b6c2', '#c4b2f2', '#f6e2a8')):
+        for i, c in enumerate(cols):
+            self.cushion(cx - 10 + i * 10, cy + (i % 2) * 4, 0.9, c)
+
+    def cat(self, cx, cy, c='#e8954a', curl=True):
+        self.fill(self.E(cx, cy, 8, 5), c); self.fill(self.E(cx + 6, cy - 3, 4, 3.5), c)
+        self.rect(cx + 4, cy - 7, 2, 2, c); self.rect(cx + 8, cy - 7, 2, 2, c)
+        self.rect(cx - 8, cy + 2, 7, 2, shade(c, 0.8))
+        self.outline(self.E(cx, cy, 8, 5) | self.E(cx + 6, cy - 3, 4, 3.5), shade(c, 0.5))
+        self.rect(cx + 5, cy - 3, 1, 0.6, '#2a1c1c'); self.rect(cx + 7.5, cy - 3, 1, 0.6, '#2a1c1c')

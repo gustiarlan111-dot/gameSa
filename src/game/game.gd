@@ -41,6 +41,7 @@ var _markers := {}                # interactable id -> Node2D
 var _time := 0.0
 var atmosphere: Atmosphere
 var view3d: WorldView3D
+var npc_life: NpcLife           # U3b: neighbour chatter bubbles, umbrellas, lightning flinch
 var confirm: ConfirmBox
 var _clock_step := ""
 var _sound_clock := 0.0
@@ -77,6 +78,9 @@ func _ready() -> void:
 	view3d.world = world
 	view3d.atmosphere = atmosphere
 	add_child(view3d)
+	npc_life = NpcLife.new().setup(self)
+	_ui.add_child(npc_life)
+	_ui.move_child(npc_life, 0)          # under the HUD, dialog and menus
 	_after_enter(false)
 
 
@@ -197,6 +201,7 @@ func _process(delta: float) -> void:
 	world.locked = busy
 	world.input_vec = controls.vec if not busy else Vector2.ZERO
 	world.sprint_held = controls.sprint
+	world.hand_in_hand = p.holding_hands        # U3b: shown as one pair sprite (World._hand_walk)
 	controls.visible = not cine.letterboxed()
 	controls.set_talking(dialog.active)    # tapping the box advances; no stick/buttons over the text
 	Audio.duck(dialog.active or cine.active)
@@ -674,6 +679,13 @@ func _on_line(line: Dictionary) -> void:
 				who = world.npcs[id]
 	if who and e.get("emote") != null:
 		who.show_emote(e.emote, 1.8)
+	# U3b: the speaker acts the line (body pose from the expression) unless a cutscene posed them
+	if who and not who.walking and (who.pose == null or who.acting) and who.couple == "":
+		var ap := Acting.pose_for(str(line.get("e", "neutral")), who.character in ["arland", "sofia"])
+		if ap != "":
+			who.set_pose(ap, Acting.HOLD, true)
+		elif who.acting:
+			who.clear_pose()
 	if line.get("e") == "jatuh_cinta":
 		sfx("cinema_heartbeat", 0.18)
 

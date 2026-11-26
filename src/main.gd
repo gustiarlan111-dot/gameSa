@@ -4,7 +4,8 @@ extends Node
 ##   -- --shot  <route> <area> <x> <y> <frames> <out.png> [x:y;x:y waypoints]   free exploration
 ##        (env SHOT_QUALITY=low|medium|high|ultra forces a graphics preset, SHOT_SETTINGS=1 opens the
 ##        settings window, SHOT_LEFT=1 the left-handed layout, SHOT_FLASH=1 a lightning flash,
-##        SHOT_NOREFLECT=1 hides the V8.10 water reflections; none is saved)
+##        SHOT_NOREFLECT=1 hides the V8.10 water reflections; U3b: SHOT_HAND=1, SHOT_POSE=<pose>,
+##        SHOT_CINE=<json cmds>, SHOT_TALK=1 (see _process); none is saved)
 ##   -- --story <route> <out_prefix> <frame,frame,...>                           new game, the story runs
 ##        by itself (dialogue advances every 50 frames, first choice taken) and a screenshot is saved
 ##        at each listed frame. Env STORY_STEP/STORY_AREA[/STORY_FLAGS/STORY_COMPANION] start it at a
@@ -254,6 +255,19 @@ func _process(_delta: float) -> void:
 			game.settings.open()          # QA: capture the V8 settings window over the scene
 		if OS.get_environment("SHOT_FLASH") == "1" and _frame == int(_args[4]) - 3:
 			game.atmosphere.flash = 1.0   # QA: capture a lightning flash
+		# U3b QA: SHOT_HAND=1 walks hand in hand, SHOT_POSE=<pose> holds a pose on both, SHOT_CINE=<json
+		# cutscene commands> plays them at frame 20, SHOT_TALK=1 lets neighbours start chatting at once
+		if _frame == 3 and OS.get_environment("SHOT_HAND") == "1":
+			game.p.holding_hands = true
+		if _frame == 10 and OS.get_environment("SHOT_POSE") != "":
+			for a in [w.player, w.partner]:
+				a.set_pose(OS.get_environment("SHOT_POSE"), 99.0)
+		if _frame == 20 and OS.get_environment("SHOT_CINE") != "":
+			game.runner.run([{"do": "cine", "cmds": JSON.parse_string(OS.get_environment("SHOT_CINE"))}])
+		if _frame == 4 and OS.get_environment("SHOT_TALK") == "1":
+			game.npc_life._cool = 0.0
+		if _frame == int(_args[4]) - 1 and game.npc_life.current().size() > 0:
+			print("TALK ", game.npc_life.current().get("id"), " ", game.npc_life.current().get("a"), "+", game.npc_life.current().get("b"))
 		if _wp < _wps.size():
 			var d: Vector2 = _wps[_wp] - w.player.position
 			if d.length() < 8:

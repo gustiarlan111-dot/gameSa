@@ -23,6 +23,9 @@ uniform float sit = 0.0;
 uniform float leg_gap = 0.022;     // half-gap opened between the legs (model units)
 uniform float knee = 0.0;          // knee flex of the trailing leg (radians)
 uniform float arm_outer = 0.305;   // |x| where the arm starts, outside the torso
+// U3b: per-arm swing (0 = the hand holding the partner's stays still) and a forward lean for running
+uniform float arm_lk = 1.0;
+uniform float arm_rk = 1.0;
 varying float v_x0;
 varying float v_y0;
 
@@ -57,7 +60,7 @@ void vertex() {
 	float aw = smoothstep(arm_outer - 0.02, arm_outer + 0.02, abs(v0.x)) * smoothstep(hip_y - 0.02, hip_y + 0.06, v0.y)
 		* (1.0 - smoothstep(shoulder_y - 0.1, shoulder_y - 0.02, v0.y));
 	float aside = v0.x < 0.0 ? 1.0 : -1.0;
-	v = rot_yz(v, -sin(phase) * arm * aside * aw, shoulder_y, 0.03);
+	v = rot_yz(v, -sin(phase) * arm * aside * aw * (v0.x < 0.0 ? arm_rk : arm_lk), shoulder_y, 0.03);
 	// pose arms: weight from the rest shape (v0) so a raised arm stays one piece
 	float aw0 = smoothstep(arm_x - 0.04, arm_x + 0.03, abs(v0.x)) * smoothstep(hip_y, hip_y + 0.06, v0.y)
 		* (1.0 - smoothstep(shoulder_y - 0.08, shoulder_y, v0.y));

@@ -8,7 +8,7 @@ const CHARS := {"arland": "res://assets/characters/arland/model/Arland.glb", "so
 const FW := 384
 const FH := 576
 const PITCH := 10.0
-const KINDS := {"idle": 12, "walk": 24}
+const KINDS := {"idle": 12, "walk": 24, "run": 16}     # U3b: run cycle
 # Actor.POSES order; each: [frame0, frame1] of {param: degrees}. Columns: dir (down, left, right, up) * 2 + frame.
 # Arms are fused to the body in these rigless models, so arm gestures stay small (<= 22°, the
 # range that reads cleanly in the walk); overhead gestures become body language instead.
@@ -29,6 +29,14 @@ const POSES := [
 	["read", {"l_fwd": 22, "r_fwd": 22, "bow": 12}, {"l_fwd": 20, "r_fwd": 22, "bow": 13}],
 	["water", {"r_fwd": 22, "bow": 15}, {"r_fwd": 14, "bow": 15}],
 	["sweep", {"l_fwd": 20, "r_fwd": 20, "bow": 16}, {"l_fwd": 10, "r_fwd": 10, "bow": 16}],
+	# U3b emotions (body language; the face comes from the model): leaning back and open for joy,
+	# head down with hands together for shyness, slumped for sadness, forward and stiff for anger,
+	# a jolt back with hands up for surprise
+	["senang", {"bow": -6, "l_up": 8, "r_up": 8, "breathe": 1.0}, {"bow": -9, "l_up": 12, "r_up": 12, "breathe": -1.0}],
+	["malu", {"bow": 11, "l_fwd": 14, "r_fwd": 14}, {"bow": 13, "l_fwd": 17, "r_fwd": 17}],
+	["sedih", {"bow": 16, "breathe": -1.0}, {"bow": 17, "breathe": 1.0}],
+	["marah", {"bow": 7, "l_fwd": -14, "r_fwd": -14}, {"bow": 9, "l_fwd": -17, "r_fwd": -17}],
+	["kaget", {"bow": -12, "l_fwd": 20, "r_fwd": 20}, {"bow": -9, "l_fwd": 22, "r_fwd": 22}],
 ]
 const POSE_YAW := [0.0, -72.0, 72.0, 180.0]
 const POSE_PARAMS := ["l_fwd", "r_fwd", "l_up", "r_up", "bow", "sit", "breathe"]
@@ -89,11 +97,20 @@ func _render(c: String) -> void:
 		for row in 8:
 			holder.rotation_degrees.y = YAW[row]
 			for f in n:
+				mat.set_shader_parameter("bow", 0.0)
 				if kind == "walk":
 					mat.set_shader_parameter("phase", TAU * f / n)
 					mat.set_shader_parameter("swing", deg_to_rad(26.0))
 					mat.set_shader_parameter("arm", deg_to_rad(float(OS.get_environment("ARM_DEG")) if OS.get_environment("ARM_DEG") != "" else 38.0))
 					mat.set_shader_parameter("knee", deg_to_rad(38.0))
+					mat.set_shader_parameter("breathe", 0.0)
+				elif kind == "run":
+					# U3b: longer stride, deeper knee, body leaning into the run
+					mat.set_shader_parameter("phase", TAU * f / n)
+					mat.set_shader_parameter("swing", deg_to_rad(38.0))
+					mat.set_shader_parameter("arm", deg_to_rad(38.0))
+					mat.set_shader_parameter("knee", deg_to_rad(62.0))
+					mat.set_shader_parameter("bow", deg_to_rad(9.0))
 					mat.set_shader_parameter("breathe", 0.0)
 				else:
 					mat.set_shader_parameter("phase", 0.0)
@@ -107,7 +124,7 @@ func _render(c: String) -> void:
 				img.save_png("user://charframes/%s_%s_%d_%02d.png" % [c, kind, row, f])
 		print(c, " ", kind, " done")
 	mat.set_shader_parameter("swing", 0.0); mat.set_shader_parameter("arm", 0.0); mat.set_shader_parameter("phase", 0.0)
-	mat.set_shader_parameter("knee", 0.0)
+	mat.set_shader_parameter("knee", 0.0); mat.set_shader_parameter("bow", 0.0)
 	for pi in (POSES.size() if kinds_only == "" else 0):
 		for d in 4:
 			holder.rotation_degrees.y = POSE_YAW[d]

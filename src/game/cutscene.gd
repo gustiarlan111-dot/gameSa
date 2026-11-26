@@ -243,6 +243,12 @@ func _exec(c: Dictionary) -> void:
 					"handwalk": (["hold_l", "hold_r"] if left else ["hold_r", "hold_l"])}.get(kind, ["highfive", "highfive"])
 			var dur := maxf(0.3, float(c.get("t", 1.8)))
 			pl.set_pose(poses[0], dur); other.set_pose(poses[1], dur)
+			if kind == "hug" and pl.character in Actor.COUPLE_X and other.character in Actor.COUPLE_X:
+				# U3b: a real embrace drawn from the couple sheet (both GLBs rendered together); row 0 has
+				# Arland on the left, row 3 Sofia on the left
+				var arland_left: bool = (pl.character == "arland") != left
+				pl.set_couple("hug", dur, (other.position.x - pl.position.x) / 2.0, 0 if arland_left else 3)
+				other.hide_for(dur)
 			pl.show_emote("heart", 1.4); other.show_emote("heart", 1.4)
 			if bool(c.get("block", true)):
 				_wait_t = dur

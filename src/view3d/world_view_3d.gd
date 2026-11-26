@@ -533,9 +533,10 @@ func _update_mirrors() -> void:
 		m.pivot.rotation.x = _tilt
 		m.pivot.position = foot + Vector3(0, _lift(r.position.y) + 0.004, 0) + _wall_push(r.position)
 		m.base.position = foot + Vector3(0, _lift(r.position.y), 0)
-		m.pivot.visible = r.visible
-		m.base.visible = r.visible
-		if r.visible:
+		var shown: bool = r.visible and not (r is Actor and r.hidden_by_couple)   # U3b: the pair sprite draws both
+		m.pivot.visible = shown
+		m.base.visible = shown
+		if shown:
 			_mirror_sprites(r, r, Transform2D.IDENTITY, r.modulate, m)
 	for id in _mirrors.keys():
 		if not seen.has(id):

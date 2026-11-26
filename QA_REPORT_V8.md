@@ -1,5 +1,16 @@
 # QA REPORT — V8.0
 
+## Upgrade 6 (U3b) — karakter & NPC hidup — ringkasan
+| Pemeriksaan | Hasil |
+|---|---|
+| Tes logika | **70 / 70 lulus** (12 baru: pemetaan ekspresi→pose, baris pose & siklus lari, 3 lembar pasangan, 48 obrolan NPC valid, 19 dialog ingatan di posisi aman, Bu Melati ingat pita sekali lalu kembali normal) |
+| Pose lama tidak berubah | baris 0–15 `poses_v53@2x.png` identik piksel per piksel dengan sebelumnya |
+| Di game | bergandengan (jalan ke bawah & ke kanan), pelukan di gazebo, 5 emosi, lari, hujan dengan satu payung berdua, Dito & Pak Ujang mengobrol: `docs/screens/u3b/` |
+| Route Sofia / Arland sampai tamat | `EPI_FREE` di frame 160.977 / 159.127, sama dengan V8.10; 0 script error |
+| Ukuran | +±2 MB sprite (lari, emosi, pasangan, payung) |
+| FPS | tidak bisa diukur di server (lihat AUDIT.md §4). Biaya tambahan per frame kecil: satu sprite pasangan menggantikan dua sprite; obrolan dicek 1×/detik |
+| Belum diuji | di HP sungguhan; bergandengan saat menaiki tangga teras (dibuat, belum difoto) |
+
 ## V8.10 — pantulan air, normal map, Dermaga — ringkasan
 | Pemeriksaan | Hasil |
 |---|---|

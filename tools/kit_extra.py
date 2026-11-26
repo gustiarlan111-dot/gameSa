@@ -10,7 +10,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools/artkit'))
-import kit, nature, built, landmarks as lm, forest as fo, clockwork as cwk                                        # noqa: E402
+import kit, nature, built, landmarks as lm, forest as fo, clockwork as cwk, dreamscape as dsc                                        # noqa: E402
 from kit import (Sprite, quant, bayer, sphere_shade, outline, noise, hexrgb, ramp, BARK, STONE, LEAF,   # noqa: E402
                  LEAF_DARK, WOOD, METAL, FLOWERS)
 
@@ -502,6 +502,11 @@ KIT = {
     'hd_train_car': (lambda: cwk.train_car(), 236, 22, 'sort'),
     'hd_lamp_clock': (lambda: cwk.lamp_clock(), 0, 0, 'sort'),
     'hd_gear_big': (lambda: cwk.gear_big(), 44, 8, 'sort'),
+    # V8.2: dream map landmarks (tools/artkit/dreamscape.py)
+    'hd_star_lantern_post': (lambda: dsc.star_lantern_post(), 8, 6, 'sort'),
+    'hd_star_gate': (lambda: dsc.star_gate(), 0, 0, 'sort'),          # walk-through
+    'hd_hall_tomorrow': (lambda: dsc.hall_tomorrow(), 330, 40, 'sort'),
+    'hd_rain_pavilion': (lambda: dsc.rain_pavilion(), 0, 0, 'sort'),  # walk-through, stand under it
     'hd_railing_iron': (lambda: lm.railing_iron(), 98, 8, 'sort'),
     'hd_fence_picket': (lambda: lm.fence_picket(), 98, 8, 'sort'),
     'hd_fence_picket_b': (lambda: lm.fence_picket(seed=5), 98, 8, 'sort'),

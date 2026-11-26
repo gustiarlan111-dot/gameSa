@@ -3452,6 +3452,30 @@
       "cw": 44,
       "ch": 8,
       "layer": "sort"
+    },
+    "hd_star_lantern_post": {
+      "image": "props/hd/hd_star_lantern_post@2x.png",
+      "cw": 8,
+      "ch": 6,
+      "layer": "sort"
+    },
+    "hd_star_gate": {
+      "image": "props/hd/hd_star_gate@2x.png",
+      "cw": 0,
+      "ch": 0,
+      "layer": "sort"
+    },
+    "hd_hall_tomorrow": {
+      "image": "props/hd/hd_hall_tomorrow@2x.png",
+      "cw": 330,
+      "ch": 40,
+      "layer": "sort"
+    },
+    "hd_rain_pavilion": {
+      "image": "props/hd/hd_rain_pavilion@2x.png",
+      "cw": 0,
+      "ch": 0,
+      "layer": "sort"
     }
   }
 }

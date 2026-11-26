@@ -1,5 +1,20 @@
 # CHANGELOG — V8.0 "The Definitive Overhaul"
 
+## V8.2 (tahap 3)
+Save schema tetap 8; hanya prop di tiga map mimpi yang berubah (pintu, spawn, titik quest sama).
+
+### Landmark map mimpi
+Empat aset baru digambar dari kode (`tools/artkit/dreamscape.py`, kit v6 + normal map):
+- **Memory Bridge**: tiang **lentera bintang** di kedua sisi jembatan (3 per sisi) dan sebagai lampu
+  jalur, serta **gerbang konstelasi** (bulan sabit + lima bintang untuk lima konstelasi) di plaza
+  kedatangan. Gerbangnya bisa dilewati.
+- **Hall of Tomorrow**: **Balai Hari Esok** akhirnya ada: balai berkolom dengan tiga pintu bercahaya
+  (tiga masa depan) di belakang tiga lengkung, dengan matahari terbit di pedimennya.
+- **Rain Garden**: **paviliun kaca** dengan rantai hujan dan lentera gantung menaungi altar lentera.
+  Pemain bisa berdiri di bawahnya.
+
+---
+
 ## V8.1 (tahap 2)
 Save schema tetap 8; tidak ada ID quest, map, karakter, atau flag yang berubah.
 

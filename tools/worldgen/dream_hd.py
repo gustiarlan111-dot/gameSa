@@ -77,7 +77,9 @@ THEMES = {
         ring=['hd_reeds', 'hd_fern_a', 'hd_bush_b', 'hd_mushrooms_glow'],
         small=(['hd_fern_a', 'hd_fern_b', 'hd_grass_tall', 'hd_reeds', 'hd_mushrooms', 'hd_bush_b'], [3, 2, 3, 2, 1, 1]),
         specials=[('hd_arch', 960, 620), ('hd_lantern_post', 840, 1010), ('hd_lantern_post', 560, 960), ('hd_lantern_post', 1080, 530),
-                  ('hd_lantern_post', 850, 320), ('hd_lantern_post', 1420, 310)],
+                  ('hd_lantern_post', 850, 320), ('hd_lantern_post', 1420, 310),
+                  ('hd_rain_pavilion', 960, 760)],                   # V8.2: glass pavilion over the lantern altar
+        clear=[(960, 650, 110)],
         density=1.0, puddles=True),
     'clockwork_station': dict(
         grass=('#2e2a4a', '#342f54', '#3a355e', '#413b68', '#484272', '#504a7c'),
@@ -105,10 +107,13 @@ THEMES = {
         grass=('#3b3a62', '#42416c', '#4a4976', '#525180', '#5b5a8a', '#646394'),
         path='tiles', path_pal=('#cfc6e8', '#c2b8de'), plaza=('#ddd5f0', '#d0c7e8', '#e8e1f6', '#c6bce0'), mortar='#8a80b0',
         trees=(['hd_tree_dream_a', 'hd_tree_dream_b', 'hd_tree_dream_c', 'hd_crystal'], [3, 3, 3, 1]),
-        lights='hd_lantern_post', light_every=200,
+        lights='hd_star_lantern_post', light_every=200,
         ring=['hd_crystal', 'hd_crystal_cyan', 'hd_flowers_violet', 'hd_mushrooms_glow'],
         small=(['hd_flowers_violet', 'hd_flowers_white', 'hd_mushrooms_glow', 'hd_grass_tall_b'], [2, 2, 2, 3]),
-        specials=[], river=(590, 70), bridge=(904, 1016), density=0.9, stars=True),
+        # V8.2: star lanterns along both bridge rails, a constellation gate at the arrival plaza
+        specials=[('hd_star_gate', 180, 1010)] + [('hd_star_lantern_post', x, y) for x in (898, 1022) for y in (482, 592, 702)],
+        clear=[(180, 930, 100)],
+        river=(590, 70), bridge=(904, 1016), density=0.9, stars=True),
     'hall_of_tomorrow': dict(
         grass=('#4a3f6a', '#524674', '#5a4e7e', '#635688', '#6c5f92', '#76689c'),
         path='tiles', path_pal=('#efe9f6', '#e2dbee'), plaza=('#f6f2fa', '#ebe5f4', '#e0d9ee', '#d4cce6'), mortar='#a89cc8',
@@ -116,7 +121,9 @@ THEMES = {
         lights='hd_lamp_gold', light_every=180,
         ring=['hd_column_stone', 'hd_flowers_white', 'hd_crystal', 'hd_planter_violet'],
         small=(['hd_flowers_white', 'hd_flowers_violet', 'hd_crystal', 'hd_mushrooms_glow'], [2, 2, 1, 1]),
-        specials=[('hd_arch', 750, 360), ('hd_arch', 1210, 360), ('hd_arch', 960, 420), ('hd_star_stone', 965, 560)],
+        specials=[('hd_hall_tomorrow', 960, 330),                     # V8.2: the hall itself, behind its arches
+                  ('hd_arch', 750, 360), ('hd_arch', 1210, 360), ('hd_arch', 960, 420), ('hd_star_stone', 965, 560)],
+        clear=[(960, 200, 230), (760, 230, 110), (1160, 230, 110)],
         density=0.8, stars=True),
     'arsip_memudar': dict(      # story v7: the archive where unspoken stories fade
         grass=('#4a4a58', '#525262', '#5a5a6c', '#636376', '#6c6c80', '#76768a'),

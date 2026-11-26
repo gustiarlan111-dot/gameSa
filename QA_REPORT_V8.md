@@ -1,5 +1,16 @@
 # QA REPORT — V8.0
 
+## V8.2 (tahap 3) — ringkasan
+| Pemeriksaan | Hasil |
+|---|---|
+| Tes logika | 58 / 58 lulus |
+| Validator map: memory_bridge, hall_of_tomorrow, rain_garden | 0 error, 0 titik quest tak terjangkau |
+| `--apply` tiga map | hanya `props` yang berubah; pintu dan spawn sama |
+| Route Sofia / Arland sampai tamat | `EPI_FREE` di frame 160.077 / 159.427 (identik dengan V8.1), 0 script error |
+| Screenshot landmark di game | `docs/screens/v8/dream_landmarks.png` |
+
+---
+
 ## V8.1 (tahap 2) — ringkasan
 | Pemeriksaan | Hasil |
 |---|---|

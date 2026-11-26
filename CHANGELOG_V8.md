@@ -1,5 +1,25 @@
 # CHANGELOG — V8.0 "The Definitive Overhaul"
 
+## V8.8 — tiga map mimpi cerita mendapat identitas sendiri
+Sebelumnya, dari titik spawn, map-map ini tampak seperti hutan mimpi yang sama (audit V8, poin 5).
+Sekarang landmark setiap map mengikuti perannya di cerita. 10 prop baru digambar dari kode
+(`tools/artkit/memoryscape.py`).
+- **Memory Garden** (prolog, "The Beginning of Us"):
+  - "Gerbang pulang" kini berupa buku raksasa yang terbuka di atas dua pilar berbunga. Halaman
+    kirinya bergambar bunga (yang dilihat Sofia), halaman kanannya bintang (yang dilihat Arland),
+    dan di antara pilarnya ada tirai cahaya;
+  - buku kenangan di atas mimbar menyambut di dekat titik datang;
+  - setiap keping cahaya punya alas batu sendiri.
+- **Arsip Memudar** (Bab 5): arsip yang benar-benar terlihat seperti arsip. Ada rak-rak tinggi yang
+  bagian atasnya memudar ke kabut dan lembaran kertas lepas di rumput. Di gema pertama berdiri
+  lemari katalog perpustakaan, dan di gema ketiga ada meja arsip dengan amplop "Untuk Sari" yang
+  tidak pernah dikirim (menggantikan kotak surat).
+- **Kenangan Gazebo** (Bab 6, Taman Kota empat puluh tahun lalu): lampu taman modern diganti lampu
+  gas besi tuang dari masa itu, dan ada tiang poster tua di titik amati "Poster tua". Perubahan di
+  map ini paling kecil. Gazebo dan bangku sengaja tetap sama dengan Taman Kota, karena cerita
+  bilang "Gazebonya sama. Bangkunya sama."
+- Ukuran map, pintu, spawn, titik amati, dan semua titik quest tetap sama. Save schema 8.
+
 ## V8.7 — remaster map Perumahan: teras rumah, gang samping, Gang Melati
 - Pintu depan tiga rumah di sisi selatan menghadap ke kamera, tetapi map dulu berakhir tepat di
   pintunya dan jalan setapak dari pagar menuju bagian belakang rumah. Sekarang map diperluas ke

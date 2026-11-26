@@ -3524,6 +3524,66 @@
       "cw": 96,
       "ch": 8,
       "layer": "sort"
+    },
+    "hd_memory_gate": {
+      "image": "props/hd/hd_memory_gate@2x.png",
+      "cw": 0,
+      "ch": 0,
+      "layer": "sort"
+    },
+    "hd_memory_book": {
+      "image": "props/hd/hd_memory_book@2x.png",
+      "cw": 40,
+      "ch": 10,
+      "layer": "sort"
+    },
+    "hd_shard_pedestal": {
+      "image": "props/hd/hd_shard_pedestal@2x.png",
+      "cw": 30,
+      "ch": 8,
+      "layer": "sort"
+    },
+    "hd_archive_shelf": {
+      "image": "props/hd/hd_archive_shelf@2x.png",
+      "cw": 66,
+      "ch": 10,
+      "layer": "sort"
+    },
+    "hd_archive_shelf_b": {
+      "image": "props/hd/hd_archive_shelf_b@2x.png",
+      "cw": 66,
+      "ch": 10,
+      "layer": "sort"
+    },
+    "hd_archive_desk": {
+      "image": "props/hd/hd_archive_desk@2x.png",
+      "cw": 86,
+      "ch": 14,
+      "layer": "sort"
+    },
+    "hd_card_catalog": {
+      "image": "props/hd/hd_card_catalog@2x.png",
+      "cw": 44,
+      "ch": 10,
+      "layer": "sort"
+    },
+    "hd_paper_pile": {
+      "image": "props/hd/hd_paper_pile@2x.png",
+      "cw": 0,
+      "ch": 0,
+      "layer": "sort"
+    },
+    "hd_poster_column": {
+      "image": "props/hd/hd_poster_column@2x.png",
+      "cw": 30,
+      "ch": 10,
+      "layer": "sort"
+    },
+    "hd_lamp_old": {
+      "image": "props/hd/hd_lamp_old@2x.png",
+      "cw": 0,
+      "ch": 0,
+      "layer": "sort"
     }
   }
 }

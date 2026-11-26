@@ -29,7 +29,12 @@ THEMES = {
         lights='hd_lantern_post', light_every=210,
         ring=['hd_crystal', 'hd_crystal_cyan', 'hd_flowers_violet', 'hd_mushrooms_glow'],
         small=(['hd_flowers_violet', 'hd_flowers_white', 'hd_flowers_pink', 'hd_mushrooms_glow', 'hd_crystal', 'hd_grass_tall_b'], [3, 2, 2, 2, 1, 2]),
-        specials=[('hd_arch', 412, 640), ('hd_star_stone', 1000, 470), ('hd_stone_lantern', 950, 1000), ('hd_stone_lantern', 1050, 1000)],
+        # V8.8: the way home is a giant open book (flower page + star page) between two pillars, the
+        # shared memory book waits on a lectern near the arrival, each light shard has its plinth
+        specials=[('hd_arch', 412, 640), ('hd_memory_gate', 1000, 470), ('hd_stone_lantern', 950, 1000), ('hd_stone_lantern', 1050, 1000),
+                  ('hd_memory_book', 1110, 1250), ('hd_shard_pedestal', 338, 936), ('hd_shard_pedestal', 1662, 936),
+                  ('hd_shard_pedestal', 1000, 1336)],
+        clear=[(1000, 420, 170), (1110, 1230, 60)],
         density=1.0),
     'lantern_field': dict(
         grass=('#2f4a46', '#35524c', '#3c5b52', '#436559', '#4b6e60', '#557868'),
@@ -128,22 +133,27 @@ THEMES = {
     'arsip_memudar': dict(      # story v7: the archive where unspoken stories fade
         grass=('#4a4a58', '#525262', '#5a5a6c', '#636376', '#6c6c80', '#76768a'),
         path='tiles', path_pal=('#c8c2b4', '#bab4a6'), plaza=('#d6d0c2', '#cac4b6', '#e0dacc', '#beb8aa'), mortar='#8a8478',
-        trees=(['hd_column_stone', 'hd_tree_dark_a', 'hd_tree_dark_b', 'hd_tree_willow'], [2, 3, 3, 1]),
+        # V8.8: an archive you can see: endless shelves fading into fog, loose pages in the grass,
+        # the card catalogue at the library echo and the desk with the unsent letter at the third echo
+        trees=(['hd_archive_shelf', 'hd_archive_shelf_b', 'hd_column_stone', 'hd_tree_dark_a', 'hd_tree_dark_b'], [3, 3, 1, 2, 2]),
         lights='hd_stone_lantern', light_every=230,
-        ring=['hd_column_stone', 'hd_flowers_white', 'hd_mushrooms_glow', 'hd_crystal'],
-        small=(['hd_flowers_white', 'hd_grass_tall_b', 'hd_mushrooms_glow', 'hd_fern_b'], [2, 3, 2, 2]),
+        ring=['hd_column_stone', 'hd_paper_pile', 'hd_mushrooms_glow', 'hd_flowers_white'],
+        small=(['hd_flowers_white', 'hd_grass_tall_b', 'hd_mushrooms_glow', 'hd_fern_b', 'hd_paper_pile'], [2, 3, 2, 2, 2]),
         specials=[('hd_arch', 800, 380), ('hd_column_stone', 560, 640), ('hd_column_stone', 1040, 640),
-                  ('hd_mailbox', 1290, 650), ('hd_bench', 420, 760), ('hd_star_stone', 800, 860)],
+                  ('hd_archive_desk', 1240, 664), ('hd_card_catalog', 360, 664), ('hd_bench', 420, 760), ('hd_star_stone', 800, 860)]
+                 + [('hd_archive_shelf' if i % 2 else 'hd_archive_shelf_b', x, y) for i, (x, y) in enumerate(
+                     [(540, 262), (640, 248), (960, 248), (1060, 262), (430, 330), (1170, 330)])],
         density=0.8, stars=True),
     'kenangan_gazebo': dict(    # story v7: Taman Kota on a rainy day forty years ago
         grass=('#5a6a4a', '#627252', '#6a7a5a', '#728262', '#7a8a6a', '#849472'),
         path='dirt', path_pal=('#a8987a', '#b2a284', '#9e8e70', '#bcac8e'), plaza=('#c4b494', '#cebe9e', '#baaa8a', '#d6c6a8'), mortar='#8a7a5e',
         trees=(['hd_tree_oak_a', 'hd_tree_oak_b', 'hd_tree_willow', 'hd_tree_cherry_a'], [3, 2, 2, 1]),
-        lights='hd_lamp_gold', light_every=220,
+        # V8.8: forty years ago - gas lamps instead of the modern park lamps, the old poster column
+        lights='hd_lamp_old', light_every=220,
         ring=['hd_flowerbed', 'hd_bush_a', 'hd_flowers_white', 'hd_bush_rose'],
         small=(['hd_flowers_white', 'hd_flowers_yellow', 'hd_grass_tall', 'hd_fern_a', 'hd_bush_b'], [2, 2, 3, 2, 1]),
-        specials=[('hd_gazebo', 800, 540), ('hd_bench', 500, 610), ('hd_bench', 1120, 760), ('hd_lamp_gold', 640, 520),
-                  ('hd_lamp_gold', 960, 520)],
+        specials=[('hd_gazebo', 800, 540), ('hd_bench', 500, 610), ('hd_bench', 1120, 760), ('hd_lamp_old', 640, 520),
+                  ('hd_lamp_old', 960, 520), ('hd_poster_column', 1240, 866), ('hd_lamp_old', 360, 868)],
         density=0.9, puddles=True),
     'gua_kristal': dict(
         grass=('#2a2440', '#2f2848', '#352d50', '#3b3258', '#423860', '#493e68'),

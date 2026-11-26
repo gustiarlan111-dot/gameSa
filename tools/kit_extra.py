@@ -10,7 +10,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools/artkit'))
-import kit, nature, built, landmarks as lm, forest as fo, clockwork as cwk, dreamscape as dsc, townsquare as tsq                                        # noqa: E402
+import kit, nature, built, landmarks as lm, forest as fo, clockwork as cwk, dreamscape as dsc, townsquare as tsq, memoryscape as msc                                        # noqa: E402
 from kit import (Sprite, quant, bayer, sphere_shade, outline, noise, hexrgb, ramp, BARK, STONE, LEAF,   # noqa: E402
                  LEAF_DARK, WOOD, METAL, FLOWERS)
 
@@ -507,6 +507,17 @@ KIT = {
     'hd_star_gate': (lambda: dsc.star_gate(), 0, 0, 'sort'),          # walk-through
     'hd_hall_tomorrow': (lambda: dsc.hall_tomorrow(), 330, 40, 'sort'),
     'hd_rain_pavilion': (lambda: dsc.rain_pavilion(), 0, 0, 'sort'),  # walk-through, stand under it
+    # V8.8: Memory Garden, Arsip Memudar, Kenangan Gazebo (tools/artkit/memoryscape.py)
+    'hd_memory_gate': (lambda: msc.memory_gate(), 0, 0, 'sort'),      # walk-through, the way home
+    'hd_memory_book': (lambda: msc.memory_book(), 40, 10, 'sort'),
+    'hd_shard_pedestal': (lambda: msc.shard_pedestal(), 30, 8, 'sort'),
+    'hd_archive_shelf': (lambda: msc.archive_shelf(seed=0), 66, 10, 'sort'),
+    'hd_archive_shelf_b': (lambda: msc.archive_shelf(seed=5), 66, 10, 'sort'),
+    'hd_archive_desk': (lambda: msc.archive_desk(), 86, 14, 'sort'),
+    'hd_card_catalog': (lambda: msc.card_catalog(), 44, 10, 'sort'),
+    'hd_paper_pile': (lambda: msc.paper_pile(), 0, 0, 'sort'),
+    'hd_poster_column': (lambda: msc.poster_column(), 30, 10, 'sort'),
+    'hd_lamp_old': (lambda: msc.lamp_old(), 0, 0, 'sort'),
     'hd_railing_iron': (lambda: lm.railing_iron(), 98, 8, 'sort'),
     'hd_fence_picket': (lambda: lm.fence_picket(), 98, 8, 'sort'),
     'hd_fence_picket_b': (lambda: lm.fence_picket(seed=5), 98, 8, 'sort'),

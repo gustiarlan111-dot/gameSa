@@ -1,5 +1,14 @@
 # QA REPORT — V8.0
 
+## V8.8 — Memory Garden, Arsip Memudar, Kenangan Gazebo — ringkasan
+| Pemeriksaan | Hasil |
+|---|---|
+| Tes logika | 58 / 58 lulus |
+| Validator map | 0 error di ketiga map; 18 / 11 / 9 titik quest/amati/pintu, 0 tak terjangkau |
+| `--apply` | hanya ketiga area itu yang berubah; ukuran, pintu, spawn, titik amati sama |
+| Route Sofia / Arland sampai tamat | `EPI_FREE` di frame 159.727 / 159.077 (sama dengan V8.7); tiap route melewati 7 langkah cerita di ketiga map ini; 0 script error |
+| Screenshot di game | `docs/screens/v8/memory_maps.png` |
+
 ## V8.7 — Perumahan (teras rumah, gang samping, Gang Melati) — ringkasan
 | Pemeriksaan | Hasil |
 |---|---|

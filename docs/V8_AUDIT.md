@@ -45,7 +45,9 @@ Error validator lama yang disebut di MAP_PIPELINE.md (`arland_room a_frame`, 3 q
    starfall_village, eternal_garden, rain_garden, clockwork_station, moonlight_lake, memory_bridge,
    hall_of_tomorrow, arsip_memudar, kenangan_gazebo) dari titik spawn tampak serupa: pohon
    berwarna, kristal, jalan setapak. Clockwork Station tidak menampilkan jam/stasiun dan Memory
-   Bridge tidak menampilkan jembatan di dekat spawn. → **Belum dikerjakan** (butuh remaster map per area).
+   Bridge tidak menampilkan jembatan di dekat spawn. → **Sebagian dikerjakan**: Clockwork Station (V8.1),
+   Memory Bridge, Hall of Tomorrow, Rain Garden (V8.2), Memory Garden, Arsip Memudar, Kenangan Gazebo (V8.8).
+   Sisa: star_path, starfall_village, eternal_garden, moonlight_lake.
 6. **Map padat untuk Android kelas bawah**: 7 area punya lebih dari 900 prop (hutan_bisik 1.862,
    eternal_garden 1.262). Saat ini aman karena MultiMesh per tekstur, tetapi FPS di perangkat
    nyata belum diukur. → Preset Rendah di V8 membantu; pengukuran perangkat masih perlu.

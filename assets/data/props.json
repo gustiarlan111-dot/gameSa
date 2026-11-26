@@ -3476,6 +3476,42 @@
       "cw": 0,
       "ch": 0,
       "layer": "sort"
+    },
+    "hd_balustrade": {
+      "image": "props/hd/hd_balustrade@2x.png",
+      "cw": 98,
+      "ch": 8,
+      "layer": "sort"
+    },
+    "hd_balustrade_post": {
+      "image": "props/hd/hd_balustrade_post@2x.png",
+      "cw": 22,
+      "ch": 8,
+      "layer": "sort"
+    },
+    "hd_balustrade_post_b": {
+      "image": "props/hd/hd_balustrade_post_b@2x.png",
+      "cw": 22,
+      "ch": 8,
+      "layer": "sort"
+    },
+    "hd_balustrade_post_c": {
+      "image": "props/hd/hd_balustrade_post_c@2x.png",
+      "cw": 22,
+      "ch": 8,
+      "layer": "sort"
+    },
+    "hd_pergola": {
+      "image": "props/hd/hd_pergola@2x.png",
+      "cw": 0,
+      "ch": 0,
+      "layer": "sort"
+    },
+    "hd_stair_planter": {
+      "image": "props/hd/hd_stair_planter@2x.png",
+      "cw": 30,
+      "ch": 12,
+      "layer": "sort"
     }
   }
 }

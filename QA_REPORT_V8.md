@@ -1,5 +1,15 @@
 # QA REPORT — V8.0
 
+## V8.6 — Jalan Kota (teras + Alun-alun Bawah) — ringkasan
+| Pemeriksaan | Hasil |
+|---|---|
+| Tes logika | 58 / 58 lulus |
+| Validator map (32 area) | 0 error; Jalan Kota: 4 primitif elevasi, 2 tangga (tiap tangga menghubungkan e=40 ↔ 0), 49 titik (pintu, titik amati, kedatangan), 0 tak terjangkau |
+| `--apply` Jalan Kota | pintu, spawn dan titik amati lama sama koordinatnya; map tumbuh 400 px ke selatan; ukuran tile map +1,0 MB |
+| Route Sofia / Arland sampai tamat | `EPI_FREE` di frame 159.727 / 159.077, sama persis dengan run V8.5; 0 script error |
+| Screenshot di game | sebelum/sesudah, Alun-alun Bawah, turun tangga timur: `docs/screens/v8/jalan_kota_terrace.png` |
+| Belum diuji | di HP sungguhan (performa map lebih besar), sudut kamera cutscene di Jalan Kota (tidak ada cutscene di map ini) |
+
 ## V8.2 (tahap 3) — ringkasan
 | Pemeriksaan | Hasil |
 |---|---|

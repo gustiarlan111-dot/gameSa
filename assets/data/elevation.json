@@ -27,6 +27,12 @@
       {"id": "east_terrace_b", "kind": "plateau", "rect": [2900, 0, 300, 776], "e": 64},
       {"id": "east_cliff_b", "kind": "slope", "rect": [2900, 776, 300, 64], "axis": "y", "from": 64, "to": 0},
       {"id": "east_terrace_ramp", "kind": "slope", "rect": [2480, 0, 120, 760], "axis": "x", "from": 0, "to": 80}
+    ],
+    "jalan_kota": [
+      {"id": "street", "kind": "plateau", "rect": [0, 0, 1200, 744], "e": 40},
+      {"id": "terrace_wall", "kind": "slope", "rect": [0, 744, 1200, 40], "axis": "y", "from": 40, "to": 0},
+      {"id": "st0", "kind": "slope", "rect": [288, 744, 64, 40], "axis": "y", "from": 40, "to": 0, "stairs": true},
+      {"id": "st1", "kind": "slope", "rect": [848, 744, 64, 40], "axis": "y", "from": 40, "to": 0, "stairs": true}
     ]
   }
 }

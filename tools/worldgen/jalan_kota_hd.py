@@ -1,8 +1,14 @@
-"""Jalan Kota, HD rebuild (1200x896 world, 2 texels per unit). Everything is drawn by code: the shop
+"""Jalan Kota, HD rebuild (1200x1296 world, 2 texels per unit). Everything is drawn by code: the shop
 row (tools/artkit/landmarks.py shopfront), asphalt road with lane marks and a zebra crossing, curbs,
 tiled north pavement, brick south pavement, parked cars, bus stop, Rini's kiosk, flower stall,
-iron railings along the road and the park edge, a cherry/oak park strip to the south.
-Same size, doors, examine spots and quest points as before, so story and save data are untouched.
+iron railings along the road.
+
+V8.6: the street became a terrace. The old park strip south of the pavement is now a retaining
+wall with a stone balustrade, two staircases lead down to the Alun-alun Bawah (lower square): a
+radial court round a fountain, a wisteria pergola, a small cafe corner, market stalls, lawns, lamps.
+The height layer lives in assets/data/elevation.json (street plateau e=FACE_H, wall face, stairs).
+Everything north of y=736 keeps its coordinates, doors, examine spots and quest points, so story
+and save data are untouched; the map only grew southward.
 Usage: python3 tools/worldgen/jalan_kota_hd.py [--preview OUT.png] [--apply]
 """
 import sys, json, hashlib
@@ -15,21 +21,88 @@ from hdmap import HDMap, K, GRASS, STONE, A          # noqa: E402
 from paint import rgb, wear, moss                     # noqa: E402
 from ground import noise                              # noqa: E402
 import common                                         # noqa: E402
+from terrace import Terrace                           # noqa: E402
 
-AREA, W, H = 'jalan_kota', 1200, 896
+AREA, W, H = 'jalan_kota', 1200, 1296
 SEED = int(hashlib.sha256(b'jalan_kota_hd').hexdigest()[:8], 16)
 TILE_M = 11
 SHOP_Y = 284                      # shop fronts stand on this line
 N_WALK = (20, 262, 1160, 142)     # north pavement
 ROAD = (0, 412, 1200, 184)
-S_WALK = (20, 604, 1160, 132)     # south pavement
-PARK_Y = 736
+S_WALK = (20, 604, 1160, 140)     # south pavement, runs up to the terrace coping
+PARK_Y = 736                      # end of the south pavement = top of the terrace wall
+FACE_Y, FACE_H = 744, 40          # retaining wall face (picture px), e = FACE_H on the street
+LOW_Y = FACE_Y + FACE_H           # lower square starts here
+STAIRS_X = [(288, 64), (848, 64)] # x, width of the two staircases (centres 320 / 880)
+COURT = (600, 1036, 210, 150)     # radial court: centre x, y, radius x, radius y
+FOUNTAIN = (600, 1036)
+SOUTH_Y = 1252                    # hedge line / map edge wall at the south of the lower square
 CROSS = (900, 90)                 # zebra crossing x, width
 SHOPS = [('hd_shop_florist', 261), ('hd_shop_bakery', 495), ('hd_shop_mart', 720), ('hd_shop_arcade', 946),
          ('hd_shop_books', 1106)]
-WALLS = [[0, 0, 1200, 262], [0, 262, 20, 203], [0, 565, 20, 171], [1180, 262, 20, 203], [1180, 565, 20, 171],
-         [0, PARK_Y, 1200, 896 - PARK_Y]]
+WALLS = [[0, 0, 1200, 262], [0, 262, 20, 203], [0, 565, 20, 179], [1180, 262, 20, 203], [1180, 565, 20, 179],
+         [0, LOW_Y, 20, H - LOW_Y], [1180, LOW_Y, 20, H - LOW_Y], [0, SOUTH_Y, 1200, H - SOUTH_Y]]
+TER = Terrace()
+EXAMINE = [
+    {'id': 'fountain_low', 'x': 600, 'y': 1080, 'label': 'Air Mancur Alun-alun', 'r': 70, 'lines': {
+        'arland': [{'s': 'arland', 'e': 'neutral', 't': 'Dasarnya penuh koin. Semua orang punya permintaan, ternyata.'}],
+        'sofia': [{'s': 'sofia', 'e': 'senang', 't': 'Katanya kalau lempar koin di sini, permintaannya harus dirahasiakan.'}]}},
+    {'id': 'pergola', 'x': 196, 'y': 980, 'label': 'Pergola Wisteria', 'r': 64, 'lines': {
+        'arland': [{'s': 'arland', 'e': 'neutral', 't': 'Wisteria. Sofia pasti betah duduk lama di bawah sini.'}],
+        'sofia': [{'s': 'sofia', 'e': 'senang', 't': 'Wisteria! Wanginya manis banget kalau sudah sore.'}]}},
+    {'id': 'balustrade_view', 'x': 600, 'y': 728, 'label': 'Pagar Batu', 'r': 50, 'lines': {
+        'arland': [{'s': 'arland', 'e': 'neutral', 't': 'Dari sini alun-alun bawah kelihatan semua. Ramai juga.'}],
+        'sofia': [{'s': 'sofia', 'e': 'neutral', 't': 'Tangganya ada dua, kiri dan kanan. Ketemu di air mancur, yuk.'}]}},
+]
+ELEVATION = [
+    {'id': 'street', 'kind': 'plateau', 'rect': [0, 0, W, FACE_Y], 'e': FACE_H},
+    {'id': 'terrace_wall', 'kind': 'slope', 'rect': [0, FACE_Y, W, FACE_H], 'axis': 'y', 'from': FACE_H, 'to': 0},
+] + [{'id': 'st%d' % i, 'kind': 'slope', 'rect': [x, FACE_Y, w, FACE_H], 'axis': 'y', 'from': FACE_H, 'to': 0, 'stairs': True}
+     for i, (x, w) in enumerate(STAIRS_X)]
 DOOR_RECTS = {'door_florist': [225, 284, 72, 40], 'door_arcade': [905, 284, 82, 40]}
+
+
+def lower_square(m):
+    """Alun-alun Bawah: promenade under the wall, paths from both stairs, radial court, cross walk, lawns."""
+    c = m.c
+    warm = c.tiles('#e2d6c2', '#d9ccb6', 40, grout='#ad9c84', salt=21)
+    c.put(m.rect(20, LOW_Y, W - 40, 58), warm, STONE)                               # promenade under the wall
+    c.put(m.rect(20, 1182, W - 40, SOUTH_Y - 1182), warm, STONE)                    # south promenade
+    walk = c.bricks(('#c7ad94', '#cfb59c', '#d7bea6', '#bfa48b'), 30, 15, '#8a735f', salt=22)
+    cx, cy, rx, ry = COURT
+    for sx, sw in STAIRS_X:                                                          # stair foot -> court
+        x = sx + sw / 2
+        c.put(m.path([(x, LOW_Y + 30), (x, 880), (cx + (x - cx) * 0.62, cy - ry * 0.8)], 58, salt=int(x)), walk, STONE)
+    c.put(m.rect(20, cy - 30, W - 40, 60), walk, STONE)                              # east-west walk
+    c.put(m.rect(cx - 32, cy, 64, 1182 - cy), walk, STONE)                           # court -> south promenade
+    for px, py, pw, ph in ((92, 930, 220, 150), (870, 900, 250, 104)):               # pergola + cafe patios
+        c.put(c.rrect(px * K, py * K, pw * K, ph * K, 14 * K), c.tiles('#e8dcc8', '#ddd1bb', 30, grout='#b4a38b', salt=px), STONE)
+    court = m.ellipse(cx, cy, rx, ry)
+    rad, r, th, ri = c.radial(cx * K, cy * K, ry / rx, ('#d4c7b4', '#dcd0be', '#e4d9c8', '#ebe2d3'), 24, 40, salt=23, mortar='#a99a85')
+    c.put(court, rad, STONE)
+    c.img[court & (r > (rx - 12) * K)] = rgb('#a2876b')
+    c.img[court & (r > (rx - 8) * K)] = rgb('#c9a780')
+    pool = m.ellipse(cx, cy + 4, 86, 58)                                             # fountain basin rim + water
+    c.img[pool] = rgb('#bfb6a6')
+    water = m.ellipse(cx, cy + 4, 76, 50)
+    n = noise(c.h, c.w, 18, SEED + 31)
+    c.img[water] = rgb('#5f9fc2') * (0.86 + 0.22 * n[water][:, None])
+    c.img[water & (n > 0.72)] = rgb('#cfe9f5')
+    c.img[m.ellipse(cx, cy - 8, 76, 40) & ~m.ellipse(cx, cy + 4, 76, 50)] *= 1.0
+    c.img[m.ellipse(cx, cy + 10, 86, 58) & ~pool] *= 0.75                             # basin contact shadow
+    for k in range(10):                                                              # coins glinting
+        a = k * 2.3
+        c.img[m.ellipse(cx + np.cos(a) * 46, cy + 8 + np.sin(a) * 26, 1.6, 1.2)] = rgb('#e8c25a')
+    # flower beds along the wall foot (soil + blooms), not in front of the stairs
+    rng = np.random.default_rng(SEED + 33)
+    for x0, x1 in ((30, 250), (400, 810), (960, 1170)):
+        bed = m.rect(x0, LOW_Y + 14, x1 - x0, 16)
+        c.img[bed] = rgb('#5b4031')
+        c.img[m.rect(x0, LOW_Y + 28, x1 - x0, 2)] = rgb('#b9ad9b')
+        for _ in range(int((x1 - x0) * 0.9)):
+            x, y = rng.uniform(x0 + 2, x1 - 2), rng.uniform(LOW_Y + 15, LOW_Y + 27)
+            col = ('#3b7040', '#4f8a47', '#f3b8c8', '#f7e08a', '#c7a9ea', '#ffffff')[rng.integers(0, 6)]
+            c.img[m.ellipse(x, y, 2.2, 1.8)] = rgb(col)
 
 
 def design(m):
@@ -78,10 +151,10 @@ def design(m):
     for tx in (300, 600, 900):                                      # tactile strip at the crossings
         c.img[m.rect(tx - 20, 606, 40, 12)] = rgb('#e2c24a')
     c.img[m.rect(CROSS[0] + 25, 606, 40, 12)] = rgb('#e2c24a')
-    # low stone wall between pavement and park
-    lw = m.rect(0, PARK_Y - 4, W, 12)
-    c.put(lw, c.bricks(('#9c958a', '#a8a196', '#b4ada1'), 36, 12, '#6f695f', salt=7), STONE)
-    c.img[m.rect(0, PARK_Y + 8, W, 4)] *= 0.65
+    lower_square(m)
+    # terrace edge: retaining wall face below the pavement, broken by the two staircases
+    TER.__init__()
+    TER.run(m, c, 0, W, FACE_Y, FACE_H, STAIRS_X, 40)
     # shop bases: a darker strip where facades meet the pavement
     c.img[m.rect(20, 262, 1160, 22)] *= 0.82
     # wear, moss, litter (petals, leaves, gum)
@@ -144,18 +217,22 @@ def furnish(m, P):
     # railings: along the road edge of the south pavement (gaps for crossings / bus stop), park edge
     for x in (300, 400, 640, 740, 840):
         pr('hd_railing_iron', x, 606)
-    for x in range(70, W, 100):
-        pr('hd_railing_iron', x, PARK_Y + 8)
-    # park strip south: two rows of trees, shrubs and flowers (out of reach, behind the railing)
+    # terrace edge: stone balustrade with urn piers at both sides of each staircase
     rng = np.random.default_rng(SEED + 9)
     trees = ['hd_tree_cherry_a', 'hd_tree_cherry_b', 'hd_tree_oak_a', 'hd_tree_oak_b', 'hd_tree_blossom', 'hd_tree_oak_c']
-    for row, (y0, off) in enumerate(((812, 0), (890, 45))):
-        for x in range(30 + off, W, 95):
-            pr(trees[rng.integers(0, len(trees))], x + rng.uniform(-18, 18), y0 + rng.uniform(-10, 10))
-    for _ in range(40):
-        pr(['hd_bush_a', 'hd_bush_b', 'hd_bush_rose', 'hd_bush_yellow'][rng.integers(0, 4)], rng.uniform(20, W - 20), rng.uniform(770, 860))
-    for _ in range(50):
-        pr(['hd_flowers_pink', 'hd_flowers_white', 'hd_flowers_yellow', 'hd_grass_tall'][rng.integers(0, 4)], rng.uniform(20, W - 20), rng.uniform(756, 890))
+    posts = ['hd_balustrade_post', 'hd_balustrade_post_b', 'hd_balustrade_post_c']
+    xa = 20
+    for i, (sx, sw) in enumerate(STAIRS_X + [(W - 20 + 14, 0)]):
+        xb = sx - 14
+        nseg = max(1, int(round((xb - xa) / 96)))
+        step = (xb - xa) / nseg
+        for k in range(nseg):
+            pr('hd_balustrade', xa + step * (k + 0.5), FACE_Y)
+        if sw:
+            pr(posts[i % 3], sx - 14, FACE_Y + 1); pr(posts[(i + 1) % 3], sx + sw + 14, FACE_Y + 1)
+            pr('hd_stair_planter', sx - 32, LOW_Y + 44); pr('hd_stair_planter', sx + sw + 32, LOW_Y + 44)
+        xa = sx + sw + 14
+    lower_furnish(m, P, rng, trees)
     # backdrop: trees behind the roofs
     for x in range(20, W, 85):
         pr(trees[rng.integers(0, len(trees))], x + rng.uniform(-15, 15), rng.uniform(40, 70))
@@ -163,6 +240,53 @@ def furnish(m, P):
     # hedges and shrubs in the gaps between and beside the shop fronts
     for x in list(range(26, 160, 22)) + [372, 386, 606, 620, 1176]:
         pr(['hd_bush_a', 'hd_bush_b', 'hd_bush_rose'][int(x) % 3], x, 258 + rng.uniform(-3, 3))
+
+
+def lower_furnish(m, P, rng, trees):
+    pr = m.prop
+    cx, cy, rx, ry = COURT
+    pr('hd_fountain_tiered', cx, cy + 18)
+    for k in range(8):                                                   # lamps round the court
+        a = np.pi / 8 + k * np.pi / 4
+        pr('hd_lamp_gold', cx + np.cos(a) * (rx + 18), cy + np.sin(a) * (ry + 14))
+    for bx, by in ((cx - 140, cy - 92), (cx + 140, cy - 92), (cx - 150, cy + 104), (cx + 150, cy + 104)):
+        pr('hd_bench', bx, by)
+    # west: wisteria pergola over two benches, birdbath and flower beds
+    pr('hd_bench', 160, 1010); pr('hd_bench', 236, 1010); pr('hd_pergola', 198, 1048)
+    pr('hd_birdbath', 120, 1120); pr('hd_flowerbed', 270, 1124); pr('hd_planter_pink', 96, 1060)
+    # east: little cafe corner with umbrella tables and a kiosk
+    pr('hd_stall_blue', 1100, 968)
+    for tx, ty in ((920, 968), (1000, 990), (930, 1060)):
+        pr('hd_umbrella_table', tx, ty)
+    pr('hd_planter_violet', 870, 952); pr('hd_bin', 1150, 1000)
+    # south promenade: two market stalls, a cart, notice board, benches
+    pr('hd_stall_red', 300, 1236); pr('hd_cart', 900, 1238); pr('hd_bicycle', 150, 1232)
+    pr('hd_notice_board', 470, 1220); pr('hd_bench', 740, 1222); pr('hd_bench', 1040, 1222)
+    # lawns: trees at the quadrant corners, shrubs, flowers
+    for tx, ty in ((70, 900), (430, 916), (770, 914), (1150, 1110), (60, 1150), (1140, 1170)):
+        pr(trees[rng.integers(0, len(trees))], tx, ty)
+    blocked = m.c.mat != GRASS                                           # lawn planting only on grass
+    m.rng = rng
+    m.scatter(['hd_bush_a', 'hd_bush_b', 'hd_bush_rose', 'hd_bush_yellow'], [2, 2, 1, 1], 22, (30, 850, W - 60, 330), blocked, 12, P)
+    m.scatter(['hd_flowers_pink', 'hd_flowers_white', 'hd_flowers_yellow', 'hd_grass_tall', 'hd_flowers_violet'], [2, 1, 1, 2, 1],
+              70, (30, 850, W - 60, 330), blocked, 6, P)
+    # south edge: hedge of shrubs and a tree line behind the edge wall
+    for row, y in enumerate((SOUTH_Y + 10, H - 6)):             # clipped hedge, two rows; no tall trees
+        for x in range(30 + row * 17, W, 34):                     # here so the stalls stay in view
+            pr(['hd_bush_a', 'hd_bush_b', 'hd_bush_rose'][(int(x) // 34 + row) % 3 if row else int(x) % 2], x + rng.uniform(-5, 5), y)
+
+
+def common_elev_dump(E):
+    """elevation.json layout: one primitive per line, areas in file order (same as the hand-kept file)."""
+    out = ['{', '  "_doc": %s,' % json.dumps(E['_doc'], ensure_ascii=False), '  "areas": {']
+    names = list(E['areas'])
+    for i, n in enumerate(names):
+        prims = E['areas'][n]
+        out.append('    %s: [' % json.dumps(n))
+        out += ['      %s%s' % (json.dumps(q, ensure_ascii=False), ',' if j < len(prims) - 1 else '') for j, q in enumerate(prims)]
+        out.append('    ]%s' % (',' if i < len(names) - 1 else ''))
+    out += ['  }', '}']
+    return '\n'.join(out) + '\n'
 
 
 def main():
@@ -173,15 +297,35 @@ def main():
     for d in base['doors']:
         if d['id'] in DOOR_RECTS:
             d['rect'] = DOOR_RECTS[d['id']]
+    ex = {e['id']: e for e in base.get('examine', [])}
+    for e in EXAMINE:
+        ex[e['id']] = e
+    base['examine'] = list(ex.values())
     m = HDMap(AREA, W, H, SEED)
     design(m)
     furnish(m, P)
+    keep = {'hd_balustrade', 'hd_balustrade_post', 'hd_balustrade_post_b', 'hd_balustrade_post_c'}
+    dropped = [p for p in m.props if p['type'] not in keep and TER.hits(p, P)]
+    m.props = [p for p in m.props if p['type'] in keep or not TER.hits(p, P)]
+    print('terrace walls', len(TER.walls), 'stairs', len(TER.stairs), 'props dropped for stairs/walls', len(dropped),
+          [(p['type'], p['x'], p['y']) for p in dropped])
     m.bake_shadows(P)
-    m.collision = lambda P_: WALLS
-    extra = dict(ellipses=[], water=[], stairs=[], doors=base['doors'], visualStyle='godot_hd_dense',
+    m.collision = lambda P_: WALLS + TER.walls
+    animals = [{'type': 'cat_grey', 'n': 1, 'region': [60, 1100, 1080, 120], 'day': False},
+               {'type': 'bird', 'n': 3, 'region': [380, 930, 440, 230]},
+               {'type': 'bird', 'n': 2, 'region': [234, 560, 704, 160]},
+               {'type': 'dog', 'n': 1, 'region': [527, 612, 528, 110]}]
+    extra = dict(ellipses=[[FOUNTAIN[0], FOUNTAIN[1] + 4, 84, 56]], water=[], stairs=TER.stairs, doors=base['doors'], animals=animals,
+                 visualStyle='godot_hd_dense',
                  visualUpdate='godot_jalan_kota_hd', v6Layout=dict(version=3, generator='tools/worldgen/jalan_kota_hd.py', hd=True))
     prev = sys.argv[sys.argv.index('--preview') + 1] if '--preview' in sys.argv else None
-    m.write(base, extra, P, Q, apply='--apply' in sys.argv, preview=prev)
+    bad = m.write(base, extra, P, Q, apply='--apply' in sys.argv, preview=prev)
+    if '--apply' in sys.argv and not bad:
+        ep = A / 'data/elevation.json'
+        E = json.loads(ep.read_text(encoding='utf-8'))
+        E['areas'][AREA] = ELEVATION
+        ep.write_text(common_elev_dump(E), encoding='utf-8')
+        print('elevation.json:', AREA, len(ELEVATION), 'primitives')
 
 
 if __name__ == '__main__':

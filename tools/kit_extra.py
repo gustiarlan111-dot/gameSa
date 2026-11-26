@@ -10,7 +10,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools/artkit'))
-import kit, nature, built, landmarks as lm, forest as fo, clockwork as cwk, dreamscape as dsc                                        # noqa: E402
+import kit, nature, built, landmarks as lm, forest as fo, clockwork as cwk, dreamscape as dsc, townsquare as tsq                                        # noqa: E402
 from kit import (Sprite, quant, bayer, sphere_shade, outline, noise, hexrgb, ramp, BARK, STONE, LEAF,   # noqa: E402
                  LEAF_DARK, WOOD, METAL, FLOWERS)
 
@@ -557,6 +557,13 @@ KIT = {
     'hd_car_green': (lambda: lm.car('#4f8a6a', facing=-1), 104, 30, 'sort'),
     'hd_bus_shelter': (lambda: lm.bus_shelter(), 96, 14, 'sort'),
     'hd_kiosk': (lambda: lm.kiosk(), 76, 16, 'sort'),
+    # V8.6: Jalan Kota lower square (tools/artkit/townsquare.py)
+    'hd_balustrade': (lambda: tsq.balustrade(), 98, 8, 'sort'),
+    'hd_balustrade_post': (lambda: tsq.balustrade_post(seed=0), 22, 8, 'sort'),
+    'hd_balustrade_post_b': (lambda: tsq.balustrade_post(seed=1), 22, 8, 'sort'),
+    'hd_balustrade_post_c': (lambda: tsq.balustrade_post(seed=2), 22, 8, 'sort'),
+    'hd_pergola': (lambda: tsq.pergola(), 0, 0, 'sort'),              # walk-through
+    'hd_stair_planter': (lambda: tsq.stair_planter(), 30, 12, 'sort'),
     'hd_flower_stall': (lambda: lm.flower_stall(), 88, 14, 'sort'),
 }
 

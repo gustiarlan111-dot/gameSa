@@ -1,5 +1,26 @@
 # CHANGELOG — V8.0 "The Definitive Overhaul"
 
+## V8.6 — remaster map Jalan Kota: teras dan Alun-alun Bawah
+- Jalan Kota tidak lagi datar. Map diperluas ke selatan (1200×896 → 1200×1296). Jalan dan
+  trotoar kini berada di atas **teras** setinggi satu tingkat (elevasi nyata 40, sistem yang sama
+  dengan Plaza). Tepinya berupa **dinding penahan** dari batu potong dengan **pagar balustrade**
+  dan tiang ber-pot bunga.
+- **Dua tangga batu** (barat dan timur) turun ke **Alun-alun Bawah**, area baru yang berisi:
+  - pelataran melingkar dengan air mancur bertingkat (koin di dasar kolam) dan 8 lampu;
+  - pergola wisteria dengan dua bangku;
+  - sudut kafe dengan payung meja dan lapak;
+  - promenade selatan dengan lapak, gerobak, papan pengumuman, dan bangku;
+  - taman bunga di kaki dinding, pagar tanaman, burung dan kucing.
+- 3 titik amati baru: Air Mancur Alun-alun, Pergola Wisteria, Pagar Batu. Masing-masing punya
+  kalimat untuk route Arland dan Sofia.
+- 6 prop baru digambar dari kode (`tools/artkit/townsquare.py`): balustrade, 3 tiang ber-pot
+  bunga, pergola wisteria, pot pohon di kaki tangga.
+- `tools/worldgen/terrace.py`: alat bersama untuk melukis dinding teras dan tangga, sehingga map
+  lain bisa memakainya.
+- Semua yang di utara y=736 tetap di koordinat lama: toko, pintu, titik amati, spawn, titik
+  masuk dari Plaza dan Perumahan. Save lama tetap aman (schema 8, tanpa migrasi). Taman pohon yang
+  dulu tak terjangkau di selatan trotoar diganti dinding teras.
+
 ## V8.5 — dialog: adegan bertemplat ditulis ulang (Phase 07, langkah 1)
 - Audit cerita lengkap dengan angka: `docs/STORY_AUDIT_V8.md`.
 - `tools/story_v8.py` (bisa dijalankan ulang, teks asli di `tools/story_v8_orig.json`):

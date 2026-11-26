@@ -49,10 +49,14 @@ Terraces, retaining walls, cliffs and stairs have real height in the 3D view. Ga
   stair. Hide the plateau's open ends under canopy or give them a ramp so cutscene cameras see no gap.
 - `python3 tools/maptool.py check` fails when a stair has no stairs slope or both landings are at the
   same height; `tests/logic_test.gd` checks the same at runtime.
+- Shared painter: `tools/worldgen/terrace.py` (`Terrace.run()` paints a wall face broken by
+  southward stairs and collects collision walls, keep-clear rects and `stairs` entries). Jalan Kota
+  uses it and writes its own height layer into `elevation.json` on `--apply`, one primitive per line.
 
 ## Status
-- Done: Plaza, Hutan Bisik (both with the V8 height layer).
-- Next: other outdoor areas (jalan_kota, taman_kota, riverside, perumahan, dermaga, bukit_bintang),
+- Done: Plaza, Hutan Bisik, Jalan Kota (all three with the V8 height layer). Jalan Kota (V8.6) grew
+  from 1200x896 to 1200x1296: the street is a terrace (e=40) above the new Alun-alun Bawah.
+- Next: other outdoor areas (perumahan, taman_kota, riverside, dermaga, bukit_bintang),
   and distinct landmarks for the dream maps (see docs/V8_AUDIT.md).
 - `maptool check`: 0 errors on all 32 areas (the old arland_room / jalan_kota / perpustakaan errors are fixed).
 

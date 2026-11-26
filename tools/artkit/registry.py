@@ -73,7 +73,10 @@ def build(only=None):
         e = {'image': rel, 'cw': cw, 'ch': ch, 'layer': layer}
         data['props'][pid] = e
         print(pid, img.size)
-    pj.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    import extrude_u2b, propsjson                     # U2b: redrawn props get fresh 3D sides
+    extrude_u2b.refresh(data)
+    pj.write_text(propsjson.dumps(data), encoding='utf-8')
 
 
 if __name__ == '__main__':

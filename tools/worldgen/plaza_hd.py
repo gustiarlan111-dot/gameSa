@@ -464,6 +464,10 @@ def main():
                  v6Layout=dict(version=3, generator='tools/worldgen/plaza_hd.py', hd=True))
     prev = sys.argv[sys.argv.index('--preview') + 1] if '--preview' in sys.argv else None
     m.write(base, extra, P, Q, apply='--apply' in sys.argv, preview=prev)
+    if '--apply' in sys.argv:
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+        import bridges_u2b                              # U2b: the canal bridges' arches and end posts
+        bridges_u2b.apply(['plaza'])
 
 
 if __name__ == '__main__':

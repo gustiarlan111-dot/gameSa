@@ -906,7 +906,9 @@ def stand_up(area, r, m, P, apply):
         data = json.loads(pj.read_text(encoding='utf-8'))
         data['props'] = {k: v for k, v in data['props'].items() if not k.startswith('room_%s_' % area)}
         data['props'].update({k: v for k, v in P.items() if k.startswith('room_%s_' % area)})
-        pj.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+        import propsjson
+        pj.write_text(propsjson.dumps(data), encoding='utf-8')
     print(area, 'stood up', len(cuts), 'pieces (wall included)')
 
 

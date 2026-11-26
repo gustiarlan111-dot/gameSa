@@ -370,6 +370,65 @@ func _ready() -> void:
 		and w_f1b1.normalized().is_equal_approx(w_ray) and is_equal_approx((w_q[3] as Vector3).z, (w_q[0] as Vector3).z - 21.0 * WorldView3D.S)
 		and (w_q[2] as Vector3).y > (w_q[3] as Vector3).y,
 		"sisi 3D perabot menempel di bidang sprite dan atasnya searah sinar kamera (siluet tidak berubah)")
+	# 21. U2b outdoor 3D (tools/extrude_u2b.py, src/view3d/prop_extrude.gd, world_mist.gd, world_particles.gd, tools/bridges_u2b.py)
+	var x_n := 0
+	var x_bad: Array = []
+	var x_pic: Array = []
+	var x_up := sin(WorldView3D.PITCH) / (cos(WorldView3D.TILT) * cos(WorldView3D.PITCH) - sin(WorldView3D.TILT) * sin(WorldView3D.PITCH))
+	for x_k in Data.props:
+		var x_d: Dictionary = Data.props[x_k]
+		if not x_d.has("ext"):
+			continue
+		x_n += 1
+		var x_pts: Array = x_d.ext.p
+		var x_img := Image.load_from_file(ProjectSettings.globalize_path("res://assets/" + x_d.image))
+		var x_k2 := Data.prop_scale(x_d)
+		var x_w := x_img.get_width() * x_k2; var x_h := x_img.get_height() * x_k2
+		var x_area := 0.0
+		for x_i in x_pts.size():
+			var x_a: Array = x_pts[x_i]; var x_b: Array = x_pts[(x_i + 1) % x_pts.size()]
+			x_area += float(x_a[0]) * float(x_b[1]) - float(x_b[0]) * float(x_a[1])
+			if absf(x_a[0]) > x_w / 2 + 1 or x_a[1] < -0.5 or x_a[1] > x_h + 0.5 or x_a[2] < 0.0 or x_a[2] > 1.0:
+				x_bad.append(x_k)
+			# from the gameplay camera the back of this point must land on the painting (within 1 px)
+			var x_hu: float = x_a[1] + (1.0 - float(x_a[2])) * x_up * float(x_d.ext.d)
+			var x_hit := false
+			for x_dy in [-1.0, -0.5, 0.0, 0.5, 1.0]:
+				for x_dx in [-1.0, -0.5, 0.0, 0.5, 1.0]:
+					var x_c := int((float(x_a[0]) + x_dx + x_w / 2.0) / x_k2); var x_r := int((x_h - x_hu + x_dy) / x_k2)
+					if x_c >= 0 and x_r >= 0 and x_c < x_img.get_width() and x_r < x_img.get_height() and x_img.get_pixel(x_c, x_r).a > 0.5:
+						x_hit = true
+			if not x_hit and not x_pic.has(x_k): x_pic.append(x_k)
+		if x_pts.size() < 3 or x_area <= 0.0 or float(x_d.ext.d) < 4.0 or float(x_d.ext.d) > 48.0: x_bad.append(x_k)
+	ok(x_n >= 80 and x_bad.is_empty(), "%d prop luar punya kontur 3D yang sah (berlawanan jarum jam, di dalam sprite) %s" % [x_n, x_bad.slice(0, 3)])
+	ok(x_pic.is_empty(), "sisi 3D tidak mengubah gambar dari kamera permainan %s" % [x_pic.slice(0, 3)])
+	ok(PropExtrude.back(10.0, 0.0).is_equal_approx(Vector3(0, 0, -10.0 * WorldView3D.S))
+		and PropExtrude.back(10.0, 1.0).normalized().is_equal_approx(Vector3(0, -sin(WorldView3D.PITCH), -cos(WorldView3D.PITCH)))
+		and is_equal_approx(PropExtrude.back(10.0, 1.0).z, -10.0 * WorldView3D.S), "dorongan ke belakang: lurus di tanah atau searah sinar kamera")
+	ok(PropExtrude.triangles("hd_rock_a", 32, 22) > 6 and PropExtrude.triangles("hd_fence_picket", 98, 35) > 20 and not PropExtrude.has("hd_tree_oak_a") and not PropExtrude.has("hd_bush_a"),
+		"batu dan pagar bervolume; pohon dan semak tidak")
+	var x_pl: Array = Data.props.hd_planter_violet.ext.p
+	var x_top := 0.0
+	for x_q in x_pl: x_top = maxf(x_top, float(x_q[1]))
+	ok(x_top < 20.0, "pot bunga hanya potnya yang bervolume, bukan tanamannya (puncak %.0f dari 36 px)" % x_top)
+	ok(is_equal_approx(WorldMist.strength_at(360, "cerah"), 1.0) and WorldMist.strength_at(720, "cerah") == 0.0
+		and WorldMist.strength_at(1200, "cerah") > 0.0 and WorldMist.strength_at(1200, "cerah") <= 0.3
+		and is_equal_approx(WorldMist.strength_at(720, "rain"), 0.45) and is_equal_approx(WorldMist.strength_at(360, "berangin"), 0.4),
+		"kabut: tebal saat subuh, hilang siang, tipis senja, ada saat hujan, menipis saat berangin")
+	ok(WorldMist.colour_at(720, "rain").is_equal_approx(Color(0.72, 0.76, 0.82)) and WorldMist.colour_at(30, "cerah").b > WorldMist.colour_at(30, "cerah").r,
+		"warna kabut: abu-abu saat hujan, kebiruan di malam hari")
+	ok(WorldParticles.palette_for("hd_tree_cherry_a") == WorldParticles.PINK and WorldParticles.palette_for("hd_tree_autumn_b") == WorldParticles.ORANGE
+		and WorldParticles.palette_for("hd_tree_oak_a") == WorldParticles.GREEN and WorldParticles.leaf_amount(5, 2400, 1600) == 0
+		and WorldParticles.leaf_amount(863, 3200, 2400) == 40 and WorldParticles.leaf_amount(136, 2400, 1760) > 12,
+		"daun gugur ikut warna pohonnya, jumlah ikut kerapatan pohon")
+	var x_tk := Data.area("taman_kota"); var x_pz := Data.area("plaza")
+	ok(Elevation.at(x_tk, 1450, 1450) == 4.0 and Elevation.at(x_tk, 1402, 1450) == 0.0 and Elevation.at(x_tk, 1398, 1450) == 0.0
+		and is_equal_approx(Elevation.at(x_pz, 486, 1373), 6.0) and Elevation.at(x_pz, 486, 1323) == 0.0 and Elevation.at(x_pz, 1200, 1373) > 7.5,
+		"jembatan punya tinggi: dek Taman Kota naik, jembatan kanal Plaza melengkung")
+	var x_posts := 0
+	for x_pp in x_tk.props + x_pz.props:
+		if (x_pp.type == "hd_fence_h" and x_pp.x == 1450) or ((x_pp.type == "hd_pier_post" or x_pp.type == "hd_bollard") and x_pp.y in [1332.0, 1420.0]): x_posts += 1
+	ok(x_posts == 14, "pagar dan tiang jembatan terpasang (%d dari 14)" % x_posts)
 	print("%s: %d pemeriksaan, %d gagal" % ["SEMUA LULUS" if fails == 0 else "ADA YANG GAGAL", checks, fails])
 	get_tree().quit(1 if fails > 0 else 0)
 

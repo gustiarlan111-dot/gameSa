@@ -4522,6 +4522,66 @@
           "type": "hd_grass_tall_b",
           "x": 1782,
           "y": 1144
+        },
+        {
+          "type": "hd_pier_post",
+          "x": 442,
+          "y": 1332
+        },
+        {
+          "type": "hd_pier_post",
+          "x": 530,
+          "y": 1332
+        },
+        {
+          "type": "hd_pier_post",
+          "x": 442,
+          "y": 1420
+        },
+        {
+          "type": "hd_pier_post",
+          "x": 530,
+          "y": 1420
+        },
+        {
+          "type": "hd_bollard",
+          "x": 1142,
+          "y": 1332
+        },
+        {
+          "type": "hd_bollard",
+          "x": 1258,
+          "y": 1332
+        },
+        {
+          "type": "hd_bollard",
+          "x": 1142,
+          "y": 1420
+        },
+        {
+          "type": "hd_bollard",
+          "x": 1258,
+          "y": 1420
+        },
+        {
+          "type": "hd_pier_post",
+          "x": 1862,
+          "y": 1332
+        },
+        {
+          "type": "hd_pier_post",
+          "x": 1950,
+          "y": 1332
+        },
+        {
+          "type": "hd_pier_post",
+          "x": 1862,
+          "y": 1420
+        },
+        {
+          "type": "hd_pier_post",
+          "x": 1950,
+          "y": 1420
         }
       ],
       "doors": [
@@ -12473,6 +12533,16 @@
           "type": "hd_flowers_yellow",
           "x": 2360,
           "y": 708
+        },
+        {
+          "type": "hd_fence_h",
+          "x": 1450,
+          "y": 1422
+        },
+        {
+          "type": "hd_fence_h",
+          "x": 1450,
+          "y": 1486
         }
       ],
       "doors": [

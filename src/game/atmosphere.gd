@@ -18,6 +18,7 @@ var lamp_on := 0.0                # 0..1, street lamps and lanterns
 var night := 0.0                  # 0 day .. 1 full night (outdoors)
 var storm := false                # V8: thunderstorm on this rainy day (set by Game)
 var flash := 0.0                  # V8: lightning, 0..1 (WorldView3D lights the 3D world with it)
+var fireflies3d := false          # U2b: WorldParticles draws the fireflies in 3D, so the flat ones stay off
 var _next_bolt := 6.0
 var _thunder_in := -1.0
 var _bolt_rng := RandomNumberGenerator.new()
@@ -161,6 +162,8 @@ func _draw() -> void:
 			var pt := Vector2(L + fx, T + fy)
 			if ambient == "petals":
 				draw_rect(Rect2(pt, Vector2(4, 3)), Color(1, 0.78, 0.86, 0.85))
+			elif ambient == "fireflies" and fireflies3d:
+				continue
 			elif ambient == "fireflies":
 				var al := 0.3 + 0.7 * maxf(0, sin(time * 2 + i))
 				draw_texture_rect(_glow_tex, Rect2(pt - Vector2(9, 9), Vector2(18, 18)), false, Color(1, 0.95, 0.55, al * 0.8))

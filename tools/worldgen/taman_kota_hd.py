@@ -289,6 +289,9 @@ def main():
         (A / 'data/quests.json').write_text(json.dumps(Q, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
         print('panorama point moved', moved)
         write_elevation(A, AREA, ELEVATION)
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+        import bridges_u2b                              # U2b: the plank bridge's height and rails
+        bridges_u2b.apply([AREA])
 
 
 if __name__ == '__main__':

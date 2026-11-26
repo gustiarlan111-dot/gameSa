@@ -1,4 +1,4 @@
-# Dunia 3D — interior (Upgrade 3, bagian U2a)
+# Dunia 3D (Upgrade 3) — interior (U2a) dan luar ruang (U2b)
 
 Ruangan bertanda `room3d` (11 ruangan, `tools/worldgen/rooms_hd.py` `ROOMS3D`) dibangun seperti map luar:
 lantai datar, dinding belakang dan perabot berdiri sebagai sprite yang condong ke belakang (`TILT`), sama
@@ -93,3 +93,83 @@ blok, ruang kosong ke dinding belakang, dan maksimum 40 px.
 - Satu quad langit, dua mesh aditif, satu emitor debu, dan satu `SpotLight3D` (tanpa bayangan, hanya siang) per
   jendela.
 - FPS di HP belum diukur: renderer server terkunci ±7,5 fps (lihat AUDIT.md §4).
+
+---
+
+# U2b — luar ruang
+
+## 4. Sisi 3D objek padat (`tools/extrude_u2b.py`, `src/view3d/prop_extrude.gd`)
+Objek luar ruang adalah sprite kit tanpa data kotak, jadi teknik prisma U2a diperluas untuk mengikuti
+bentuk siluetnya:
+- **Alat offline** menelusuri kontur luar alpha tiap sprite (Moore tracing) dan menyederhanakannya
+  (RDP 0,6 px). Hasilnya disimpan di `props.json` sebagai `"ext": {"d": kedalaman, "p": [[x, hu, s, sx, sh], …]}`.
+  Game tidak membaca tekstur dari GPU.
+- **Dorongan ke belakang.** Setiap tepi kontur didorong ke belakang bidang sprite sejauh `d`.
+  - Titik bergerak lurus di tanah (`s = 0`) atau searah sinar kamera (`s = 1`).
+  - Alat menaikkan `s` titik demi titik sampai titik belakangnya, dilihat dari kamera permainan,
+    tetap jatuh di atas lukisan (toleransi 0,75 px).
+  - Hasilnya, gambar dari kamera permainan tidak berubah (diuji di `tests/logic_test.gd` §21). Saat
+    kamera bergerak, sisi dan permukaan atas terlihat dan diterangi matahari sungguhan.
+- **Kedalaman** = `ch` kotak kaki × 1,6, atau × 0,8 untuk pagar dan rel, dalam batas 4–48 px.
+- **Yang dilewati:** pohon, semak, rumput, bunga, struktur terbuka (gazebo, ayunan, jemuran), dan
+  bangunan (bangunan sudah punya kotak `_add_volume`).
+- **Tanaman.** Pada pot dan tiang berguci, daun hijau beserta bunga di sekitarnya (dilebarkan 3 px)
+  dikeluarkan dari kontur, jadi hanya pot atau tiangnya yang bervolume. Kalau tidak, semak terekstrusi
+  terbaca sebagai tong hijau.
+- **Cakupan:** 85 jenis objek (batu, tiang lampu, bangku, pagar, pot, peti, kios, mobil, sumur, air
+  mancur, dan lain-lain).
+- **Render:** satu mesh per jenis, satu `MultiMesh` per jenis per area. Paling berat di Plaza: +30
+  draw call dan ±10 ribu segitiga.
+- Sisi tidak menerima bayangan (alasannya sama dengan prisma U2a), tetapi ikut memberi bayangan.
+- Saat objek memudar karena menutupi pasangan, sisinya ikut disembunyikan.
+- `kit_extra.py` dan `artkit/registry.py` menghitung ulang `ext` setiap kali menggambar ulang sprite.
+  Semua alat menulis `props.json` lewat `tools/propsjson.py` (daftar angka di satu baris).
+
+## 5. Kabut pagi (`src/view3d/world_mist.gd`, `src/fx/mist.gdshader`)
+- **Bentuk:** tiga lembar kabut di ketinggian 0,08, 0,3, dan 0,62 m yang mengikuti kamera.
+  - Noise diambil di koordinat dunia pada grid 2 px map, sehingga kabut diam di tanah dan hanyut
+    oleh angin.
+  - Bentuknya gumpalan dengan tanah bersih di antaranya.
+  - Tanpa dither: dither Bayer mirip semut televisi di samping sprite yang difilter halus (K7).
+- **Waktu** (`strength_at`): paling tebal 05.00–07.00 dan hilang pukul 09.00; tipis saat senja
+  (×0,3) dan malam (0,12).
+- **Cuaca:** saat hujan minimal 0,45, ×1,2 saat berawan, ×0,4 saat berangin (dengan angin 3× lebih
+  cepat).
+- **Area:** map alam ×0,8, termasuk Hutan Bisik dan Bukit Bintang yang memakai cahaya mimpi; map kota
+  ×0,5. Map mimpi lain dan gua tidak berkabut (bagian dari U2c).
+- **Warna:** putih kebiruan saat subuh, merah muda saat senja, biru di malam hari, abu-abu saat hujan.
+- Kabut jarak lingkungan 3D bertambah sedikit mengikutinya (+0,0025 × kekuatan). Versi pertama
+  +0,006 membuat seluruh layar pudar krem.
+- Teras yang ditinggikan berada di atas kabut, jadi kabut berkumpul di tanah rendah.
+
+## 6. Partikel dunia (`src/view3d/world_particles.gd`)
+- **Daun dan kelopak:**
+  - Gugur dari tajuk pohon di sekitar kamera. Titik pancarnya diperbarui saat kamera bergeser 64 px.
+  - Warnanya mengikuti pohon: sakura dan bunga merah muda, pohon musim gugur oranye, pinus dan
+    pohon gelap hijau tua, lainnya hijau.
+  - Jumlahnya mengikuti kerapatan pohon (12–40). Daun hanyut dan berputar, lebih cepat saat
+    berangin, dan berhenti saat hujan.
+- **Kunang-kunang 3D:**
+  - 50 cahaya di ketinggian 0,2–2,0 m dengan glow malam, aktif dari senja sampai subuh.
+  - Ada di map alam dan area ber-ambience *fireflies*. Di map mimpi menyala terus.
+  - Menggantikan kunang-kunang 2D datar, yang dulu juga muncul di siang hari.
+  - Saat menyala, sistemnya langsung penuh (`preprocess`).
+- Kelopak 2D (*petals*) dan kupu-kupu tetap.
+
+## 7. Jembatan (`tools/bridges_u2b.py`)
+Jembatan Taman Kota dan tiga jembatan kanal Plaza dulu dilukis rata di permukaan air. Tambalannya
+idempoten, hanya mengganti entrinya sendiri:
+- **Tinggi** di `elevation.json`:
+  - Jembatan Plaza melengkung (tinggi 6/8/6 di tengah kanal).
+  - Dek Taman Kota naik 4 dengan landaian 8 px di kedua ujung.
+  - Dari kamera permainan gambarnya tetap. Pasangan berjalan naik ke jembatan, dan kamera cutscene
+    melihat jembatan sungguhan.
+- **Pagar dan tiang** di `maps.json`, dengan sisi 3D:
+  - pagar kayu di tepi utara dan selatan dek Taman Kota;
+  - tiang di keempat sudut tiap jembatan Plaza (tiang kayu di jembatan papan, patok batu di
+    jembatan batu).
+- `taman_kota_hd.py` dan `plaza_hd.py` memanggilnya saat `--apply`.
+- Catatan: `plaza_hd.py` tidak lagi menghasilkan ulang map Plaza yang ter-commit (111 ribu piksel
+  dan daftar prop berbeda), jadi Plaza **tidak** dibuat ulang. Tambalan hanya menyentuh data.
+
+**Uji di layar:** `SHOT_NOVOL=1` mematikan sisi 3D luar ruang, sama seperti prisma interior.

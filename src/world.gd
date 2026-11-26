@@ -13,6 +13,7 @@ const STAIRS_SPEED := 0.72      # V8: walking speed factor on stairs (Elevation 
 const VIEW_H := 428.0          # world units visible vertically at framing 1.0 (same as Java ExtendViewport)
 
 var area: Dictionary = {}
+var current_id := ""                  # U2b: id of the area in `area` (3D mist and particles read it)
 var route := "sofia"
 var flags := {}
 var player: Actor
@@ -71,6 +72,7 @@ func start(route_id: String, area_id: String, pos: Vector2, facing := "down") ->
 
 func enter_area(area_id: String, pos: Vector2, facing := "down") -> void:
 	area = Data.area(area_id)
+	current_id = area_id
 	for n in [_ground, _floor]:
 		for c in n.get_children():
 			c.queue_free()

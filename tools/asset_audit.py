@@ -127,7 +127,9 @@ def main():
                 imp.unlink()
         for k in dead_props:
             del P['props'][k]
-        (A / 'data/props.json').write_text(json.dumps(P, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        import propsjson
+        (A / 'data/props.json').write_text(propsjson.dumps(P), encoding='utf-8')
         print('deleted', len(unused), 'files and', len(dead_props), 'prop entries')
 
 

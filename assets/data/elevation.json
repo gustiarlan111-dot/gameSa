@@ -13,7 +13,13 @@
       {"id": "terrace_wall", "kind": "slope", "rect": [1690, 1070, 440, 34], "axis": "y", "from": 34, "to": 0},
       {"id": "st4", "kind": "slope", "rect": [1878, 1070, 54, 34], "axis": "y", "from": 34, "to": 0, "stairs": true},
       {"id": "st5", "kind": "slope", "rect": [1652, 884, 38, 68], "axis": "x", "from": 0, "to": 34, "stairs": true},
-      {"id": "st6", "kind": "slope", "rect": [2130, 884, 38, 68], "axis": "x", "from": 34, "to": 0, "stairs": true}
+      {"id": "st6", "kind": "slope", "rect": [2130, 884, 38, 68], "axis": "x", "from": 34, "to": 0, "stairs": true},
+      {"id": "br_pl0_n", "kind": "slope", "rect": [436, 1324, 100, 49], "axis": "y", "from": 0, "to": 6},
+      {"id": "br_pl0_s", "kind": "slope", "rect": [436, 1373, 100, 49], "axis": "y", "from": 6, "to": 0},
+      {"id": "br_pl1_n", "kind": "slope", "rect": [1136, 1324, 128, 49], "axis": "y", "from": 0, "to": 8},
+      {"id": "br_pl1_s", "kind": "slope", "rect": [1136, 1373, 128, 49], "axis": "y", "from": 8, "to": 0},
+      {"id": "br_pl2_n", "kind": "slope", "rect": [1856, 1324, 100, 49], "axis": "y", "from": 0, "to": 6},
+      {"id": "br_pl2_s", "kind": "slope", "rect": [1856, 1373, 100, 49], "axis": "y", "from": 6, "to": 0}
     ],
     "hutan_bisik": [
       {"id": "west_terrace", "kind": "plateau", "rect": [120, 0, 1020, 584], "e": 80},
@@ -62,7 +68,10 @@
       {"id": "ne_terrace", "kind": "plateau", "rect": [1700, 0, 700, 712], "e": 30},
       {"id": "ne_west_ramp", "kind": "slope", "rect": [1620, 0, 80, 712], "axis": "x", "from": 0, "to": 30},
       {"id": "ne_wall", "kind": "slope", "rect": [1700, 712, 700, 30], "axis": "y", "from": 30, "to": 0},
-      {"id": "st0", "kind": "slope", "rect": [1856, 712, 64, 30], "axis": "y", "from": 30, "to": 0, "stairs": true}
+      {"id": "st0", "kind": "slope", "rect": [1856, 712, 64, 30], "axis": "y", "from": 30, "to": 0, "stairs": true},
+      {"id": "br_tk", "kind": "plateau", "rect": [1410, 1414, 80, 72], "e": 4},
+      {"id": "br_tk_w", "kind": "slope", "rect": [1402, 1414, 8, 72], "axis": "x", "from": 0, "to": 4},
+      {"id": "br_tk_e", "kind": "slope", "rect": [1490, 1414, 8, 72], "axis": "x", "from": 4, "to": 0}
     ],
     "dermaga": [
       {"id": "ov_top0", "kind": "plateau", "rect": [1159, 412, 89, 15], "e": 24},

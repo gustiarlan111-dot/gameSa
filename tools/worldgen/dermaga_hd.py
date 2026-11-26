@@ -2,7 +2,12 @@
 depth ramp and foam, sandy shore, a long plank pier out to a wide fishing platform, a boat shed with
 its own jetty and slipway in the east, a stone overlook north of the pier root, gravel shore path from
 the Riverside gate, and a blossoming wood on the meadow. Same size, door, examine spots and quest
-points as before.  Usage: python3 tools/worldgen/dermaga_hd.py [--preview OUT.png] [--apply]
+points as before.
+
+V8.10: the stone overlook is a round bastion raised above the shore path (e=OV_F, height layer in
+assets/data/elevation.json): curved retaining wall with coping, steps down to the pier path,
+urn piers at the top of the steps. The panorama point stands on top.
+Usage: python3 tools/worldgen/dermaga_hd.py [--preview OUT.png] [--apply]
 """
 import sys, json, hashlib
 from pathlib import Path
@@ -14,6 +19,7 @@ from hdmap import HDMap, K, GRASS, PATH, STONE, WATER, DECK, SAND, A   # noqa: E
 from paint import rgb, wear, moss                                     # noqa: E402
 from ground import dist_from, noise                                   # noqa: E402
 import common                                                         # noqa: E402
+from terrace import Terrace, write_elevation                          # noqa: E402
 
 AREA, W, H = 'dermaga', 2400, 1360
 SEED = int(hashlib.sha256(b'dermaga_hd').hexdigest()[:8], 16)
@@ -28,6 +34,74 @@ PATHS = [[(0, 531), (180, 540), (420, 548), (700, 560), (950, 566), (1204, 590),
          [(700, 560), (620, 420), (520, 260), (480, 120)],
          [(2050, 612), (2200, 480), (2325, 380)],
          [(420, 548), (300, 625)]]
+OV_F = 24                            # bastion height (picture px of wall face)
+OV_STAIR = (1180, 48)                # x, width of the steps on the south side
+TER = Terrace()                      # collects the bastion's collision walls and stairs
+
+
+def _rim(x, south=True):
+    ox, oy, r = OVERLOOK
+    t = np.clip(1 - ((np.asarray(x, float) - ox) / r) ** 2, 0, 1)
+    return oy + (1 if south else -1) * r * 0.62 * np.sqrt(t)
+
+
+def elevation_prims():
+    ox, oy, r = OVERLOOK
+    rx, ry = r, r * 0.62
+    prims = []
+    for k in range(8):                                  # the round top as 8 horizontal bands
+        y0 = oy - ry + k * ry / 4
+        yc = y0 + ry / 8
+        hw = rx * np.sqrt(max(0.0, 1 - ((yc - oy) / ry) ** 2))
+        prims.append({'id': 'ov_top%d' % k, 'kind': 'plateau', 'rect': [int(ox - hw), int(y0), int(2 * hw), int(np.ceil(ry / 4))], 'e': OV_F})
+    for k in range(10):                                 # the curved south wall face as 10 columns
+        x0 = ox - rx + k * rx / 5
+        y0 = float(_rim(x0 + rx / 10))
+        prims.append({'id': 'ov_wall%d' % k, 'kind': 'slope', 'rect': [int(x0), int(y0), int(np.ceil(rx / 5)), OV_F], 'axis': 'y', 'from': OV_F, 'to': 0})
+    sx, sw = OV_STAIR
+    prims.append({'id': 'st0', 'kind': 'slope', 'rect': [sx, int(_rim(sx + sw / 2)) - 1, sw, OV_F + 1], 'axis': 'y', 'from': OV_F, 'to': 0, 'stairs': True})
+    return prims
+
+
+def bastion(m, c):
+    """Curved retaining wall under the south half of the overlook, coping, steps, contact shadow."""
+    TER.__init__()
+    ox, oy, r = OVERLOOK
+    rx, ry = r, r * 0.62
+    X, Y = c.xx / K, c.yy / K
+    top = m.ellipse(ox, oy, rx, ry)
+    face = m.ellipse(ox, oy + OV_F, rx, ry) & ~top & (Y > oy)
+    c.put(face, c.bricks(('#8d877b', '#999285', '#a49d90', '#afa89b'), 40, 18, '#5f5a51', salt=91), STONE)
+    rim = _rim(X)
+    t = np.clip((Y - rim) / OV_F, 0, 1)
+    c.img[face] *= (1.0 - 0.4 * t[face])[:, None]
+    cop = top & ~m.ellipse(ox, oy, rx - 5, ry - 4) & (Y > oy - ry * 0.4)
+    c.img[cop] = rgb('#ddd6c8')
+    c.img[cop & (Y < rim - 2.5)] = rgb('#f1ece2')
+    sh = m.ellipse(ox, oy + OV_F + 8, rx + 6, ry + 4) & ~m.ellipse(ox, oy + OV_F, rx, ry) & (Y > oy)
+    c.img[sh] *= 0.72
+    rng = np.random.default_rng(92)
+    for _ in range(26):                                 # ivy over the coping
+        x = rng.uniform(ox - rx * 0.95, ox + rx * 0.95)
+        if OV_STAIR[0] - 6 < x < OV_STAIR[0] + OV_STAIR[1] + 6:
+            continue
+        y = float(_rim(x))
+        c.img[m.rect(x, y - 2, 2.5, rng.uniform(4, OV_F * 0.7))] = rgb(('#3b7040', '#4f8a47', '#2b5537')[rng.integers(0, 3)])
+    sx, sw = OV_STAIR
+    y0 = float(_rim(sx + sw / 2))
+    TER.stairs_south(m, c, sx, y0, sw, OV_F, 93)
+    # collision along the whole rim (south face and the back), leaving the steps open
+    for x in np.arange(ox - rx, ox + rx, 10):
+        xc = x + 5
+        if not (sx - 8 <= xc <= sx + sw + 8):
+            ys = float(_rim(xc))
+            TER.walls.append([int(x), int(ys - 3), 10, OV_F + 3])
+        yn = float(_rim(xc, south=False))
+        TER.walls.append([int(x), int(yn - 5), 10, 6])
+    for x0 in (ox - rx - 6, ox + rx - 4):               # east and west ends
+        TER.walls.append([int(x0), int(oy - 12), 10, int(OV_F + 24)])
+
+
 EDGE_WALLS = [[0, 0, 20, 475], [0, 587, 20, 773], [2380, 0, 20, 1360], [0, 0, 2400, 16]]
 
 
@@ -60,6 +134,7 @@ def design(m):
     ring = m.ellipse(ox, oy, orad, orad * 0.62)
     c.put(ring, c.tiles('#d9cdb8', '#cfc2ab', 24, grout='#a39278', salt=6), STONE)
     c.put(m.ellipse(ox, oy, orad * 0.3, orad * 0.19), c.tiles('#c6b79c', '#bcad92', 12, grout='#998a70', salt=7), STONE)
+    bastion(m, c)
     # lake
     c.put(water, c.water(water, ('#1b4b70', '#225a82', '#2a6c94', '#3480a6', '#4896ba', '#66afcc')), WATER)
     dl = dist_from(~water, 8)
@@ -140,8 +215,10 @@ def furnish(m, P, water):
     pr('hd_lantern_post', 1700, 560)
     # overlook: benches and the telescope facing the lake
     ox, oy, orad = OVERLOOK
-    pr('hd_telescope', ox + 40, oy - 30); pr('hd_bench', ox - 60, oy - 36); pr('hd_bench', ox + 64, oy + 46)
-    pr('hd_flowerbed', ox - 100, oy + 10); pr('hd_flowerbed', ox + 104, oy - 6)
+    pr('hd_telescope', ox + 40, oy - 30); pr('hd_bench', ox - 54, oy - 8); pr('hd_bench', ox + 50, oy + 20)
+    sx, sw = OV_STAIR
+    pr('hd_balustrade_post', sx - 14, int(_rim(sx)) + 1); pr('hd_balustrade_post_b', sx + sw + 14, int(_rim(sx + sw)) + 1)
+    pr('hd_flowerbed', ox - 70, oy + 98); pr('hd_flowerbed', ox + 70, oy + 98)
     # shore path furniture
     pr('hd_notice_board', 760, 524)
     pr('hd_signpost_lake', 120, 500); pr('hd_signpost', 1250, 640)
@@ -188,14 +265,20 @@ def main():
     m.keep_out = [(x, y, 46) for x, y in pts] + [(40, 531, 80)]
     water = design(m)
     furnish(m, P, water)
+    keep = {'hd_balustrade_post', 'hd_balustrade_post_b', 'hd_telescope'}
+    dropped = [p for p in m.props if p['type'] not in keep and TER.hits(p, P)]
+    m.props = [p for p in m.props if p['type'] in keep or not TER.hits(p, P)]
+    print('bastion walls', len(TER.walls), 'stairs', len(TER.stairs), 'dropped', len(dropped), [(p['type'], p['x'], p['y']) for p in dropped][:8])
     m.bake_shadows(P)
     water_walls = HDMap.collision(m, P)
-    m.collision = lambda P_: EDGE_WALLS + water_walls
-    extra = dict(ellipses=[], stairs=[], water=base.get('water', []), waterFlow=base.get('waterFlow', []),
+    m.collision = lambda P_: EDGE_WALLS + water_walls + TER.walls
+    extra = dict(ellipses=[], stairs=TER.stairs, water=base.get('water', []), waterFlow=base.get('waterFlow', []),
                  animals=base.get('animals', []), visualStyle='godot_hd_dense', visualUpdate='godot_dermaga_dense',
                  v6Layout=dict(version=3, generator='tools/worldgen/dermaga_hd.py', hd=True))
     prev = sys.argv[sys.argv.index('--preview') + 1] if '--preview' in sys.argv else None
-    m.write(base, extra, P, Q, apply='--apply' in sys.argv, preview=prev)
+    bad = m.write(base, extra, P, Q, apply='--apply' in sys.argv, preview=prev)
+    if '--apply' in sys.argv and not bad:
+        write_elevation(A, AREA, elevation_prims())
 
 
 if __name__ == '__main__':

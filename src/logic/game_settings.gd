@@ -113,10 +113,10 @@ static func listen(cb: Callable) -> void:
 static func quality() -> Dictionary:
 	match str(value("quality")):
 		"low":
-			return {"shadows": false, "shadow_size": 1024, "glow": false, "post": false, "taps": false, "lamps": false, "msaa": 0}
+			return {"shadows": false, "shadow_size": 1024, "glow": false, "post": false, "taps": false, "lamps": false, "msaa": 0, "reflect": false}
 		"medium":
-			return {"shadows": true, "shadow_size": 2048, "glow": true, "post": true, "taps": false, "lamps": true, "msaa": 0}
+			return {"shadows": true, "shadow_size": 2048, "glow": true, "post": true, "taps": false, "lamps": true, "msaa": 0, "reflect": true}
 		"ultra":
-			return {"shadows": true, "shadow_size": 4096, "glow": true, "post": true, "taps": true, "lamps": true, "msaa": 2}
+			return {"shadows": true, "shadow_size": 4096, "glow": true, "post": true, "taps": true, "lamps": true, "msaa": 2, "reflect": true}
 	# high = the look the game shipped with: project default shadow atlas (0 = leave it)
-	return {"shadows": true, "shadow_size": 0, "glow": true, "post": true, "taps": true, "lamps": true, "msaa": 0}
+	return {"shadows": true, "shadow_size": 0, "glow": true, "post": true, "taps": true, "lamps": true, "msaa": 0, "reflect": true}

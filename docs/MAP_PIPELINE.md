@@ -61,8 +61,9 @@ Terraces, retaining walls, cliffs and stairs have real height in the 3D view. Ga
   each front door and two side alleys down to Gang Melati and the warga green.
 - V8.9: Riverside (terrace wall along the promenade, grand stair), Taman Kota (NE terrace with the
   gazebo court), Bukit Bintang (hilltop e=70 above the valley, observatory dais).
-- Next: dermaga,
-  and distinct landmarks for the dream maps (see docs/V8_AUDIT.md).
+- V8.10: Dermaga (round bastion at the overlook, curved wall painted from the ellipse, height layer
+  approximated by bands/columns). Water reflections for every map with water (src/view3d/water_reflect.gd).
+- Next: distinct landmarks for the remaining dream maps (see docs/V8_AUDIT.md).
 - `maptool check`: 0 errors on all 32 areas (the old arland_room / jalan_kota / perpustakaan errors are fixed).
 
 ## 3D view (HD-2D, Godot)

@@ -1,5 +1,17 @@
 # QA REPORT — V8.0
 
+## V8.10 — pantulan air, normal map, Dermaga — ringkasan
+| Pemeriksaan | Hasil |
+|---|---|
+| Tes logika | 58 / 58 lulus |
+| Validator map | 0 error; Dermaga: 19 primitif elevasi, 1 tangga (24 ↔ 0), 32 titik, 0 tak terjangkau; peringatan prop Dermaga (916) sudah ada sebelumnya (914) |
+| Normal map | 351 / 351 prop HD punya normal map (sebelumnya 18 prop V8.6–V8.8 tidak punya) |
+| Pantulan | screenshot dengan dan tanpa pantulan (`SHOT_NOREFLECT=1`) di Riverside dan Dermaga; persiapan 67 prop / 77–107 ms (Riverside), 23 prop / 145 ms (Taman Kota) di PC uji; tidak ada error render |
+| Jalan sungguhan di game | Dermaga: dari jalan (1204,620) naik tangga bastion sampai titik panorama (1204,466): sampai |
+| Route Sofia / Arland sampai tamat | `EPI_FREE` di frame 160.977 / 159.127, sama dengan V8.9; 0 script error |
+| Belum diuji | biaya pantulan di HP sungguhan (FPS); kalau berat, preset Rendah mematikannya |
+| Screenshot | `docs/screens/v8/reflections_dermaga.png` |
+
 ## V8.9 — Riverside, Taman Kota, Bukit Bintang (elevasi) — ringkasan
 | Pemeriksaan | Hasil |
 |---|---|

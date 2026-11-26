@@ -42,6 +42,7 @@ const SWAY3D := preload("res://src/fx/sway3d.gdshader")
 const FADE3D := preload("res://src/fx/occlude_fade.gdshader")
 var _inst := {}                         # standing prop holder -> [MultiMesh, index, Transform3D, tex, img]
 var _faders := {}                       # holder -> {mesh, shadow, mat, fade, want}
+var reflect: WaterReflect               # V8.10 water reflections (null without water)
 
 
 func _ready() -> void:
@@ -159,6 +160,7 @@ func rebuild() -> void:
 		_mirrors[k].pivot.queue_free(); _mirrors[k].base.queue_free()
 	_mirrors.clear()
 	_rustle.clear(); _alts.clear(); _lamps.clear()
+	reflect = null
 	_inst.clear(); _faders.clear()
 	# rooms marked room3d are built like outdoor maps: furniture and the back wall stand up as sprites
 	_indoor = bool(world.area.get("indoor", false)) and not bool(world.area.get("room3d", false))
@@ -170,6 +172,11 @@ func rebuild() -> void:
 		var wf := WaterFx.new().setup(world)
 		if wf.active():
 			_static.add_child(wf)
+			# V8.10: props and characters by the water are reflected in it (src/view3d/water_reflect.gd)
+			var t0 := Time.get_ticks_msec()
+			reflect = WaterReflect.new().setup(self, wf)
+			_static.add_child(reflect)
+			print_verbose("water reflections: %d props, %d ms" % [reflect.count_static, Time.get_ticks_msec() - t0])
 		else:
 			wf.free()
 	_snap = true

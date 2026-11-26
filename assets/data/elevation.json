@@ -63,6 +63,27 @@
       {"id": "ne_west_ramp", "kind": "slope", "rect": [1620, 0, 80, 712], "axis": "x", "from": 0, "to": 30},
       {"id": "ne_wall", "kind": "slope", "rect": [1700, 712, 700, 30], "axis": "y", "from": 30, "to": 0},
       {"id": "st0", "kind": "slope", "rect": [1856, 712, 64, 30], "axis": "y", "from": 30, "to": 0, "stairs": true}
+    ],
+    "dermaga": [
+      {"id": "ov_top0", "kind": "plateau", "rect": [1159, 412, 89, 15], "e": 24},
+      {"id": "ov_top1", "kind": "plateau", "rect": [1132, 427, 143, 15], "e": 24},
+      {"id": "ov_top2", "kind": "plateau", "rect": [1118, 441, 170, 15], "e": 24},
+      {"id": "ov_top3", "kind": "plateau", "rect": [1112, 455, 182, 15], "e": 24},
+      {"id": "ov_top4", "kind": "plateau", "rect": [1112, 470, 182, 15], "e": 24},
+      {"id": "ov_top5", "kind": "plateau", "rect": [1118, 484, 170, 15], "e": 24},
+      {"id": "ov_top6", "kind": "plateau", "rect": [1132, 498, 143, 15], "e": 24},
+      {"id": "ov_top7", "kind": "plateau", "rect": [1159, 512, 89, 15], "e": 24},
+      {"id": "ov_wall0", "kind": "slope", "rect": [1112, 494, 19, 24], "axis": "y", "from": 24, "to": 0},
+      {"id": "ov_wall1", "kind": "slope", "rect": [1130, 510, 19, 24], "axis": "y", "from": 24, "to": 0},
+      {"id": "ov_wall2", "kind": "slope", "rect": [1148, 519, 19, 24], "axis": "y", "from": 24, "to": 0},
+      {"id": "ov_wall3", "kind": "slope", "rect": [1167, 524, 19, 24], "axis": "y", "from": 24, "to": 0},
+      {"id": "ov_wall4", "kind": "slope", "rect": [1185, 526, 19, 24], "axis": "y", "from": 24, "to": 0},
+      {"id": "ov_wall5", "kind": "slope", "rect": [1204, 526, 19, 24], "axis": "y", "from": 24, "to": 0},
+      {"id": "ov_wall6", "kind": "slope", "rect": [1222, 524, 19, 24], "axis": "y", "from": 24, "to": 0},
+      {"id": "ov_wall7", "kind": "slope", "rect": [1240, 519, 19, 24], "axis": "y", "from": 24, "to": 0},
+      {"id": "ov_wall8", "kind": "slope", "rect": [1259, 510, 19, 24], "axis": "y", "from": 24, "to": 0},
+      {"id": "ov_wall9", "kind": "slope", "rect": [1277, 494, 19, 24], "axis": "y", "from": 24, "to": 0},
+      {"id": "st0", "kind": "slope", "rect": [1180, 526, 48, 25], "axis": "y", "from": 24, "to": 0, "stairs": true}
     ]
   }
 }

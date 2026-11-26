@@ -25,7 +25,8 @@ M untuk Memory Book, Esc untuk jeda.
 
 **Pengaturan** (layar judul atau menu Jeda): kualitas grafis Rendah/Sedang/Tinggi/Ultra, 30/60 FPS,
 volume musik/suasana/efek, ukuran kontrol sentuh, dan joystick kiri/kanan. Tersimpan di
-`user://settings.json`, terpisah dari save cerita.
+`user://settings.json`, terpisah dari save cerita. Preset Rendah mematikan bayangan, glow, lampu,
+efek layar, dan pantulan air (V8.10).
 
 ## Build APK sendiri
 

@@ -1,5 +1,23 @@
 # CHANGELOG — V8.0 "The Definitive Overhaul"
 
+## V8.10 — pantulan air, normal map yang tertinggal, bastion Dermaga
+- **Pantulan di air** (baru, `src/view3d/water_reflect.gd` + `src/fx/water_reflect.gdshader`):
+  - objek berdiri di dekat air terpantul terbalik di permukaannya: pohon, tiang dermaga, pagar,
+    alang-alang, pelampung, gubuk;
+  - karakter yang berjalan di tepi air (Arland, Sofia, NPC) juga terpantul;
+  - pantulan beriak mengikuti permukaan, memudar makin jauh dari kaki, mengikuti cahaya
+    siang/malam, dan hanya tampil di atas air terbuka (tidak di dek, dermaga, atau tepian);
+  - dibuat tanpa kamera kedua, jadi aman untuk mode GL Compatibility di Android. Maksimal 400
+    objek per map; disiapkan sekali saat masuk area (77–145 ms di PC uji);
+  - menyala di preset Sedang/Tinggi/Ultra, mati di preset Rendah.
+- **Normal map untuk 18 prop baru V8.6–V8.8** (balustrade dan tiangnya, pergola, pot tangga,
+  ayunan, jemuran, gerbang buku, mimbar buku, alas keping, rak arsip, meja arsip, katalog kartu,
+  tumpukan kertas, tiang poster, lampu gas). Sebelumnya cahaya di prop ini datar. Sekarang semua
+  351 prop HD punya normal map.
+- **Dermaga**: bukit pandang di pangkal dermaga kini berupa bastion bundar (+24) dengan dinding
+  batu melengkung, tangga ke jalan dermaga, dan tiang ber-pot bunga. Titik panorama berada di
+  atasnya. Pintu, spawn, dan titik quest tidak berubah.
+
 ## V8.9 — map kota: Riverside, Taman Kota, Bukit Bintang bertingkat
 Ketiga map kini punya elevasi nyata (sistem yang sama dengan Plaza), tanpa memindahkan titik
 quest, pintu, atau spawn.

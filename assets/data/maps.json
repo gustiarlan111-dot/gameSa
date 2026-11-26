@@ -51601,6 +51601,222 @@
           696,
           9,
           8
+        ],
+        [
+          1172,
+          525,
+          8,
+          26
+        ],
+        [
+          1228,
+          525,
+          8,
+          26
+        ],
+        [
+          1112,
+          485,
+          10,
+          27
+        ],
+        [
+          1112,
+          446,
+          10,
+          6
+        ],
+        [
+          1122,
+          498,
+          10,
+          27
+        ],
+        [
+          1122,
+          433,
+          10,
+          6
+        ],
+        [
+          1132,
+          506,
+          10,
+          27
+        ],
+        [
+          1132,
+          425,
+          10,
+          6
+        ],
+        [
+          1142,
+          511,
+          10,
+          27
+        ],
+        [
+          1142,
+          420,
+          10,
+          6
+        ],
+        [
+          1152,
+          516,
+          10,
+          27
+        ],
+        [
+          1152,
+          415,
+          10,
+          6
+        ],
+        [
+          1162,
+          519,
+          10,
+          27
+        ],
+        [
+          1162,
+          412,
+          10,
+          6
+        ],
+        [
+          1172,
+          410,
+          10,
+          6
+        ],
+        [
+          1182,
+          408,
+          10,
+          6
+        ],
+        [
+          1192,
+          408,
+          10,
+          6
+        ],
+        [
+          1202,
+          407,
+          10,
+          6
+        ],
+        [
+          1212,
+          408,
+          10,
+          6
+        ],
+        [
+          1222,
+          409,
+          10,
+          6
+        ],
+        [
+          1232,
+          520,
+          10,
+          27
+        ],
+        [
+          1232,
+          411,
+          10,
+          6
+        ],
+        [
+          1242,
+          517,
+          10,
+          27
+        ],
+        [
+          1242,
+          414,
+          10,
+          6
+        ],
+        [
+          1252,
+          513,
+          10,
+          27
+        ],
+        [
+          1252,
+          418,
+          10,
+          6
+        ],
+        [
+          1262,
+          508,
+          10,
+          27
+        ],
+        [
+          1262,
+          423,
+          10,
+          6
+        ],
+        [
+          1272,
+          501,
+          10,
+          27
+        ],
+        [
+          1272,
+          430,
+          10,
+          6
+        ],
+        [
+          1282,
+          491,
+          10,
+          27
+        ],
+        [
+          1282,
+          440,
+          10,
+          6
+        ],
+        [
+          1292,
+          467,
+          10,
+          27
+        ],
+        [
+          1292,
+          465,
+          10,
+          6
+        ],
+        [
+          1106,
+          458,
+          10,
+          48
+        ],
+        [
+          1292,
+          458,
+          10,
+          48
         ]
       ],
       "ellipses": [],
@@ -51812,23 +52028,33 @@
         },
         {
           "type": "hd_bench",
-          "x": 1144,
-          "y": 434
+          "x": 1150,
+          "y": 462
         },
         {
           "type": "hd_bench",
-          "x": 1268,
-          "y": 516
+          "x": 1254,
+          "y": 490
+        },
+        {
+          "type": "hd_balustrade_post",
+          "x": 1166,
+          "y": 526
+        },
+        {
+          "type": "hd_balustrade_post_b",
+          "x": 1242,
+          "y": 526
         },
         {
           "type": "hd_flowerbed",
-          "x": 1104,
-          "y": 480
+          "x": 1134,
+          "y": 568
         },
         {
           "type": "hd_flowerbed",
-          "x": 1308,
-          "y": 464
+          "x": 1274,
+          "y": 568
         },
         {
           "type": "hd_notice_board",
@@ -53042,8 +53268,8 @@
         },
         {
           "type": "hd_tree_blossom",
-          "x": 1399,
-          "y": 251
+          "x": 1062,
+          "y": 473
         },
         {
           "type": "hd_tree_autumn_a",
@@ -53414,6 +53640,16 @@
           "type": "hd_bush_a",
           "x": 559,
           "y": 70
+        },
+        {
+          "type": "hd_bush_yellow",
+          "x": 1344,
+          "y": 469
+        },
+        {
+          "type": "hd_bush_b",
+          "x": 643,
+          "y": 278
         },
         {
           "type": "hd_bush_yellow",
@@ -54086,14 +54322,14 @@
           "y": 274
         },
         {
-          "type": "hd_bush_yellow",
-          "x": 803,
-          "y": 618
+          "type": "hd_flowers_yellow",
+          "x": 1413,
+          "y": 394
         },
         {
-          "type": "hd_bush_b",
+          "type": "hd_flowers_violet",
           "x": 1336,
-          "y": 135
+          "y": 138
         },
         {
           "type": "hd_flowers_violet",
@@ -54194,6 +54430,16 @@
           "type": "hd_flowers_pink",
           "x": 105,
           "y": 347
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 1342,
+          "y": 471
+        },
+        {
+          "type": "hd_flowers_violet",
+          "x": 407,
+          "y": 438
         },
         {
           "type": "hd_flowers_yellow",
@@ -54457,13 +54703,13 @@
         },
         {
           "type": "hd_flowers_pink",
-          "x": 1231,
-          "y": 288
+          "x": 1157,
+          "y": 403
         },
         {
-          "type": "hd_flowers_white",
-          "x": 575,
-          "y": 278
+          "type": "hd_flowers_yellow",
+          "x": 1604,
+          "y": 348
         },
         {
           "type": "hd_flowers_white",
@@ -54701,9 +54947,19 @@
           "y": 169
         },
         {
-          "type": "hd_flowers_pink",
-          "x": 890,
-          "y": 220
+          "type": "hd_flowers_yellow",
+          "x": 1424,
+          "y": 236
+        },
+        {
+          "type": "hd_flowers_yellow",
+          "x": 1984,
+          "y": 258
+        },
+        {
+          "type": "hd_flowers_white",
+          "x": 2322,
+          "y": 642
         },
         {
           "type": "hd_flowers_violet",
@@ -54947,8 +55203,8 @@
         },
         {
           "type": "hd_flowers_white",
-          "x": 1131,
-          "y": 530
+          "x": 2028,
+          "y": 158
         },
         {
           "type": "hd_flowers_white",
@@ -55141,19 +55397,29 @@
           "y": 626
         },
         {
-          "type": "hd_flowers_violet",
-          "x": 994,
-          "y": 527
+          "type": "hd_flowers_yellow",
+          "x": 1095,
+          "y": 495
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 1912,
+          "y": 469
+        },
+        {
+          "type": "hd_flowers_pink",
+          "x": 809,
+          "y": 308
         },
         {
           "type": "hd_flowers_violet",
-          "x": 1080,
-          "y": 84
+          "x": 323,
+          "y": 454
         },
         {
-          "type": "hd_flowers_violet",
-          "x": 388,
-          "y": 109
+          "type": "hd_flowers_white",
+          "x": 1630,
+          "y": 293
         },
         {
           "type": "hd_flowers_violet",
@@ -55206,44 +55472,34 @@
           "y": 329
         },
         {
-          "type": "hd_flowers_white",
-          "x": 34,
-          "y": 415
+          "type": "hd_grass_tall",
+          "x": 661,
+          "y": 609
         },
         {
-          "type": "hd_flowers_pink",
+          "type": "hd_grass_tall",
           "x": 1658,
-          "y": 367
+          "y": 356
         },
         {
-          "type": "hd_flowers_pink",
+          "type": "hd_grass_tall",
           "x": 1371,
-          "y": 129
+          "y": 125
         },
         {
-          "type": "hd_flowers_white",
-          "x": 43,
-          "y": 612
-        },
-        {
-          "type": "hd_flowers_yellow",
-          "x": 2003,
-          "y": 84
-        },
-        {
-          "type": "hd_flowers_pink",
+          "type": "hd_grass_tall",
           "x": 725,
-          "y": 78
+          "y": 76
         },
         {
-          "type": "hd_flowers_pink",
+          "type": "hd_grass_tall",
           "x": 943,
-          "y": 527
+          "y": 511
         },
         {
-          "type": "hd_flowers_white",
+          "type": "hd_mushrooms",
           "x": 333,
-          "y": 333
+          "y": 323
         },
         {
           "type": "hd_grass_tall",
@@ -55257,18 +55513,18 @@
         },
         {
           "type": "hd_grass_tall",
-          "x": 1864,
-          "y": 92
-        },
-        {
-          "type": "hd_grass_tall_b",
-          "x": 1393,
-          "y": 313
+          "x": 1350,
+          "y": 454
         },
         {
           "type": "hd_grass_tall",
-          "x": 312,
-          "y": 417
+          "x": 590,
+          "y": 498
+        },
+        {
+          "type": "hd_grass_tall_b",
+          "x": 636,
+          "y": 379
         },
         {
           "type": "hd_mushrooms",
@@ -55309,6 +55565,16 @@
           "type": "hd_fern_a",
           "x": 969,
           "y": 261
+        },
+        {
+          "type": "hd_fern_a",
+          "x": 1347,
+          "y": 492
+        },
+        {
+          "type": "hd_grass_tall",
+          "x": 1693,
+          "y": 153
         },
         {
           "type": "hd_grass_tall_b",
@@ -55432,13 +55698,13 @@
         },
         {
           "type": "hd_grass_tall",
-          "x": 2013,
-          "y": 494
+          "x": 1184,
+          "y": 397
         },
         {
-          "type": "hd_grass_tall",
-          "x": 443,
-          "y": 453
+          "type": "hd_fern_a",
+          "x": 1828,
+          "y": 536
         },
         {
           "type": "hd_mushrooms",
@@ -55547,18 +55813,8 @@
         },
         {
           "type": "hd_grass_tall_b",
-          "x": 1136,
-          "y": 539
-        },
-        {
-          "type": "hd_grass_tall",
-          "x": 1148,
-          "y": 90
-        },
-        {
-          "type": "hd_fern_a",
-          "x": 1436,
-          "y": 63
+          "x": 256,
+          "y": 93
         },
         {
           "type": "hd_fern_a",
@@ -56016,39 +56272,29 @@
           "y": 508
         },
         {
-          "type": "hd_grass_tall_b",
+          "type": "hd_stump",
           "x": 242,
           "y": 230
         },
         {
-          "type": "hd_grass_tall",
-          "x": 843,
-          "y": 618
+          "type": "hd_stump",
+          "x": 72,
+          "y": 295
         },
         {
-          "type": "hd_grass_tall_b",
+          "type": "hd_rock_b",
           "x": 1096,
           "y": 403
         },
         {
-          "type": "hd_grass_tall_b",
+          "type": "hd_rock_b",
           "x": 1903,
           "y": 530
         },
         {
-          "type": "hd_grass_tall_b",
+          "type": "hd_rock_b",
           "x": 1777,
           "y": 523
-        },
-        {
-          "type": "hd_grass_tall_b",
-          "x": 503,
-          "y": 622
-        },
-        {
-          "type": "hd_stump",
-          "x": 2242,
-          "y": 340
         },
         {
           "type": "hd_log",
@@ -56096,9 +56342,9 @@
           "y": 62
         },
         {
-          "type": "hd_stump",
-          "x": 1912,
-          "y": 538
+          "type": "hd_rock_a",
+          "x": 2291,
+          "y": 476
         },
         {
           "type": "hd_stump",
@@ -56154,26 +56400,6 @@
           "type": "hd_stump",
           "x": 1417,
           "y": 91
-        },
-        {
-          "type": "hd_rock_a",
-          "x": 1824,
-          "y": 94
-        },
-        {
-          "type": "hd_stump",
-          "x": 155,
-          "y": 326
-        },
-        {
-          "type": "hd_rock_a",
-          "x": 712,
-          "y": 137
-        },
-        {
-          "type": "hd_rock_a",
-          "x": 388,
-          "y": 100
         }
       ],
       "doors": [
@@ -56368,7 +56594,18 @@
           "h": 336
         }
       ],
-      "stairs": [],
+      "stairs": [
+        {
+          "id": "st0",
+          "rect": [
+            1180,
+            527,
+            48,
+            24
+          ],
+          "dir": "down"
+        }
+      ],
       "surface": {
         "cell": 8,
         "rows": [
@@ -56433,14 +56670,14 @@
           "g78r6g55s23g112r7g19",
           "g78r6g55s23g110r8g20",
           "g79r6g54s23g109r8g21",
-          "g80r6g54s21g108r9g22",
-          "g80r6g55s19g108r8g24",
-          "r4g1r1g1r1g1r1g71r6g55s17g109r7g25",
-          "r29g1r1g1r2g1r1g2r1g43r5g57s13g109r7g27",
-          "r57g1r1g1r1g1r3g2r1g14r6g59s7g111r8g27",
-          "r80g1r1g1r5g3r1g56r5g111r7g29",
-          "r114g1r3g2r2g26r7g108r7g30",
-          "r131g2r1g14r29g1r1g1r1g80r8g31",
+          "g80r6g53s23g107r9g22",
+          "g80r6g53s23g106r8g24",
+          "r4g1r1g1r1g1r1g71r6g52s23g106r7g25",
+          "r29g1r1g1r2g1r1g2r1g43r5g53s21g105r7g27",
+          "r57g1r1g1r1g1r3g2r1g14r6g53s19g105r8g27",
+          "r80g1r1g1r5g3r1g50s17g105r7g29",
+          "r114g1r3g2r2g22s13g106r7g30",
+          "r131g2r1g13s7r23g1r1g1r1g80r8g31",
           "r140g2r1g4r46g67r8g32",
           "g15r188g2r1g53r8g33",
           "g37r1g1r1g1r178g2r2g35r7g32r1g2",

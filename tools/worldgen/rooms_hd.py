@@ -490,6 +490,313 @@ def rumah_sari(r):
     r.glow(210, 150, 40, 30, '#fff4d8', 0.12)
 
 
+# ======================================================================================== v2 density
+# Extra layers on top of each room (2026-11-25 "ramaikan interior"). PRE runs right after shell()
+# (floor rugs and light pools under the furniture), EXTRA after the room script (more furniture,
+# wall decor, clutter). Every blocking piece sits in floor space the overlay
+# (rooms_hd.py <area> --preview DIR --overlay) shows free of quest/examine/door points.
+PRE, EXTRA = {}, {}
+
+
+def pre(fn):
+    PRE[fn.__name__[4:]] = fn
+    return fn
+
+
+def extra(fn):
+    EXTRA[fn.__name__[4:]] = fn
+    return fn
+
+
+@pre
+def pre_cafe(r):
+    for x, y in ((136, 544), (276, 584), (596, 584), (776, 544), (756, 404)):
+        r.rug(x + 24, y + 18, 44, 24, '#c98a5a', '#ecd2ac')
+    r.rug(400, 252, 34, 12, '#a8744c', '#e8b04a', round_=False)
+    r.rug(205, 412, 40, 24, '#9cc7b8', '#eef5f0')
+    for x in (120, 300, 560, 760):
+        r.glow(x, 400, 110, 60, '#ffe6b8', 0.07)
+
+
+@extra
+def ext_cafe(r):
+    # wall: sconces, mugs, plates, notice board, calendar, hooks, little frames, more greenery
+    for x in (350, 452, 806, 914):
+        r.sconce(x, 146)
+    r.mug_shelf(60, 176, 5); r.plates(120, 160, 3)
+    r.corkboard(650, 166, 46, 32, 6); r.calendar(706, 172, '#e8b04a')
+    r.hooks(896, 160, ('#e06a7a', '#9cc7b8'))
+    r.frame(590, 176, 20, 24, 3); r.frame(614, 182, 14, 18, 1)
+    r.frame(180, 176, 14, 18, 4)
+    r.baseboard_bits(206, (176, 604, 724))
+    r.hanging_plant(180, 10, 40); r.hanging_plant(460, 10, 34); r.hanging_plant(700, 10, 40)
+    # floor: pastry case + coffee sacks by the counter side, coat rack by the kitchen door
+    r.block.append(r.display_case(466, 244, 60, 34, '#7a4a32', ('#f2a0b8', '#c98b4a', '#f6d36a', '#e06a7a')))
+    r.block.append(r.sack(560, 292, '#d8c49a', '#7a4a32', '#5a3a24'))
+    r.block.append(r.sack(584, 296, '#cdb88a', '#7a4a32', '#5a3a24'))
+    r.block.append(r.sign_stand(612, 300))
+    r.block.append(r.coat_rack(790, 296, ('#5a7ac4', '#e0b04a')))
+    r.block.append(r.umbrella_stand(814, 300))
+    # reading armchair by the gallery door, another by the sofa nook
+    r.block.append(r.armchair(32, 348, '#c98a5a', cushion='#f6e2a8'))
+    r.block.append(r.side_table(70, 360, 22, item='lamp'))
+    r.block.append(r.armchair(880, 350, '#9cc7b8', cushion='#f6d3dc'))
+    r.block.append(r.floor_lamp(936, 424, '#f6e2a8'))
+    # extra two-seat table on the left, plants and a bin to break up the bottom floor
+    r.block.append(r.table(196, 396, 48, 32, '#8a5a3a', cloth='#e8f0dc', round_=True, chairs=2, chair_c='#a87443', items=('cup', 'vase')))
+    r.block.append(r.plant_big(520, 626, 'leafy', 0.9))
+    r.block.append(r.bin(704, 624))
+    r.book_stack(706, 296, 3)
+    r.block.append(r.stool(470, 300, '#e8b04a'))
+    r.block.append(r.bookshelf(28, 516, 40, 62, '#8a5a3a', rows=3, deco=False))
+    r.block.append(r.plant_big(744, 626, 'tall', 0.9))
+    r.block.append(r.plant_big(362, 626, 'leafy', 0.8))
+    r.wear(160, (20, 232, 940, 626))
+
+
+@pre
+def pre_galeri_komunitas(r):
+    r.rug(480, 560, 46, 50, '#a8304a', '#c9586a', round_=False)
+    for x in (140, 270, 690, 820):
+        r.glow(x, 150, 70, 40, '#fff4d8', 0.08)
+    r.rug(522, 440, 46, 26, '#e8e0f0', '#ffffff')
+
+
+@extra
+def ext_galeri_komunitas(r):
+    # free-standing walls with more framed pieces, a glass case on the big rug, extra plinths
+    r.block.append(r.partition(250, 214, 90, arts=(1, 3)))
+    r.block.append(r.partition(610, 214, 90, arts=(4, 2)))
+    r.block.append(r.display_case(494, 412, 56, 30, '#8a6a9a', ('#9fd3f0', '#f6d36a', '#f2a0b8')))
+    r.block.append(r.plinth(170, 318, 36, 50, art='orb', tint='#f2a0b8'))
+    r.block.append(r.plinth(170, 410, 36, 50, art='bust'))
+    r.block.append(r.plinth(730, 270, 36, 50, art='crystal', tint='#c4b2f2'))
+    # velvet ropes in front of the back-wall plinths
+    r.block.append(r.stanchions(150, 270, 184))
+    r.block.append(r.stanchions(670, 800, 184))
+    # welcome desk with brochures by the entrance, sign, bin and plants
+    r.block.append(r.counter(150, 540, 110, 40, '#f6f0e6', '#8a6a9a', items=('register', 'gap', 'jars'), doors=False))
+    r.papers(196, 544, 4, 20, 6)
+    r.block.append(r.sign_stand(300, 590, '#f6f0e6', '#8a6a9a'))
+    r.block.append(r.bin(130, 600))
+    r.block.append(r.plant_big(860, 470, 'leafy', 0.9))
+    r.block.append(r.plant_big(440, 200, 'tall', 0.8)); r.block.append(r.plant_big(520, 200, 'tall', 0.8))
+    for x, y in ((100, 316), (100, 436), (840, 314), (840, 434)):
+        r.block.append(r.plant_big(x, y, 'leafy', 0.75))
+    r.block.append(r.bench(360, 506, 60, '#8a6a9a'))
+    for x, w in ((100, 60), (240, 70), (590, 70), (740, 60)):
+        r.sconce(x + w / 2, 4, '#fff1c8', '#b08a5a')
+    r.wear(120, (82, 90, 878, 610))
+
+
+@pre
+def pre_perpustakaan(r):
+    r.rug(505, 258, 104, 40, '#4f6a52', '#a8c09a', round_=False)
+    r.rug(950, 586, 86, 26, '#7a3a4a', '#d9b48a', round_=False)
+    r.rug(980, 790, 80, 34, '#7a3a4a', '#f2d5a8')
+    r.rug(370, 620, 100, 40, '#4f6a52', '#d8c8a0')
+    r.rug(760, 330, 100, 40, '#7a3a4a', '#e8c89a')
+    for x in (215, 395, 676, 855, 1035):
+        r.glow(x, 260, 90, 50, '#fff1c8', 0.06)
+
+
+@extra
+def ext_perpustakaan(r):
+    for x in (215, 395, 676, 855, 1035):
+        r.sconce(x, 96, '#ffe6a8', '#6e4a30')
+    r.ladder(362, 34, 158); r.ladder(1010, 34, 158)
+    # second reading table under the windows and a new shelf row on the right
+    r.block.append(r.table(430, 236, 150, 44, '#6e4a30', chairs=2, chair_c='#4f6a52'))
+    for x in (460, 548):
+        r.rect(x, 242, 2, 12, '#7a6a5a'); r.fill(r.E(x + 1, 242, 6, 3.5), '#4f6a52'); r.glow(x, 256, 30, 18, '#ffe6a8', 0.15)
+    r.rect(492, 246, 14, 10, '#fbf8f0'); r.book_stack(516, 256, 3)
+    r.block.append(r.bookshelf(760, 236, 200, 54, '#6e4a30', rows=2))
+    # reading table between the right shelf rows, study table bottom-left, card catalogues
+    r.block.append(r.table(884, 566, 130, 40, '#6e4a30', chairs=0, items=('cup', 'vase')))
+    r.block.append(r.table(300, 596, 140, 44, '#6e4a30', chairs=2, chair_c='#7a3a4a', items=('cup',)))
+    r.rect(352, 604, 22, 14, '#fbf8f0'); r.rect(356, 606, 20, 12, '#f6ecd8')
+    r.block.append(r.card_catalog(700, 620, 60, 44))
+    r.block.append(r.card_catalog(90, 740, 56, 44))
+    r.block.append(r.bookshelf(1070, 640, 80, 90, '#6e4a30', rows=3, deco=False))
+    # cosy armchairs bottom-right, a lamp table near the sofa, book carts and piles
+    r.block.append(r.armchair(930, 770, '#7a3a4a', cushion='#e8c46a'))
+    r.block.append(r.side_table(966, 782, 22, item='books'))
+    r.block.append(r.armchair(992, 770, '#4f6a52', cushion='#f2d5a8'))
+    r.block.append(r.floor_lamp(1050, 810, '#f2d5a8'))
+    r.block.append(r.side_table(214, 322, 24, item='lamp'))
+    r.block.append(r.book_stack(470, 548, 5)); r.block.append(r.book_stack(490, 552, 3))
+    r.block.append(r.crate(500, 520, 30, 26, '#8a5e3e'))
+    r.book_stack(1000, 606, 2)
+    r.block.append(r.plant_big(600, 236, 'leafy', 0.9))
+    r.block.append(r.sign_stand(500, 790, '#3a4a3a', '#6e4a30'))
+    r.block.append(r.bookshelf(880, 320, 150, 44, '#6e4a30', rows=2))
+    r.block.append(r.bookshelf(42, 460, 40, 70, '#6e4a30', rows=3, deco=False))
+    r.wear(260, (40, 200, 1160, 842))
+
+
+@pre
+def pre_ruang_dua_surat(r):
+    r.rug(302, 316, 68, 36, '#3a2c5a', '#6a58a0', round_=False)
+    r.rug(652, 316, 68, 36, '#3a2c5a', '#6a58a0', round_=False)
+    for x, y in ((200, 260), (760, 260), (480, 560)):
+        r.glow(x, y, 90, 60, '#c4b2f2', 0.06)
+
+
+@extra
+def ext_ruang_dua_surat(r):
+    # paper-star garland, sconces and little frames on the night wall
+    for i in range(18):
+        x = 260 + i * 25; y = 30 + 8 * math.sin(i * 0.9)
+        r.rect(x, 10, 0.6, y - 10, '#8a7ac4')
+        m = r.E(x, y + 2, 3, 3); r.fill(m, ['#f6e7a8', '#f2a0b8', '#9fd3f0'][i % 3]); r.glow(x, y + 2, 7, 6, '#f6e7a8', 0.3)
+    for x in (110, 280, 680, 850):
+        r.sconce(x, 22, '#f6e7a8', '#8a7ac4')
+    # telescope by the left window, memory chests, an armchair corner each side
+    r.rect(290, 128, 2, 32, '#6a5a7a'); r.rect(282, 150, 2, 14, '#6a5a7a'); r.rect(298, 150, 2, 14, '#6a5a7a')
+    m = r.R(270, 124, 34, 8); r.fill(m, '#c9a24a'); r.outline(m, '#6a4a2a'); r.rect(266, 125, 5, 6, '#e8d8a8')
+    r.block.append([272, 124, 32, 42])
+    r.block.append(r.chest(398, 150, 40, '#5a3a5a')); r.block.append(r.chest(522, 150, 40, '#3a4a6a'))
+    r.papers(440, 176, 5, 40, 10)
+    r.block.append(r.sofa(150, 236, 90, 40, '#4a3a6a', ('#f2a0b8', '#9fd3f0')))
+    r.block.append(r.armchair(700, 236, '#4a3a6a', cushion='#f6e7a8'))
+    r.block.append(r.side_table(742, 248, 22, item='books'))
+    # drawers full of letters on both sides, candle tables, cushions round the rug
+    r.block.append(r.card_catalog(150, 420, 56, 44, '#3a2c44'))
+    r.block.append(r.card_catalog(754, 420, 56, 44, '#3a2c44'))
+    for x in (220, 720):
+        r.block.append(r.side_table(x, 560, 24, item='tea'))
+        r.candle(x + 12, 562, 0.8)
+    for x, y in ((380, 520), (580, 520)):
+        r.pillow_pile(x, y, ('#f2a0b8', '#c4b2f2', '#9fd3f0'))
+    for x, y in ((400, 470), (560, 470), (430, 560), (530, 560), (380, 420), (580, 420)):
+        r.candle(x, y, 0.7)
+    r.block.append(r.plant_big(860, 250, 'tall', 0.9)); r.block.append(r.plant_big(100, 250, 'tall', 0.9))
+    r.block.append(r.book_stack(620, 400, 4))
+    r.block.append(r.bookshelf(250, 420, 110, 44, '#3a2c44', rows=2))
+    r.block.append(r.bookshelf(600, 420, 110, 44, '#3a2c44', rows=2))
+    r.block.append(r.floor_lamp(340, 196, '#f6e7a8')); r.block.append(r.floor_lamp(620, 196, '#f6e7a8'))
+    r.block.append(r.plant_big(160, 616, 'tall', 0.8)); r.block.append(r.plant_big(800, 616, 'tall', 0.8))
+    for i in range(14):       # letters dropped on the floor
+        r.papers(r.rng.uniform(120, 820), r.rng.uniform(380, 600), 1, 4, 4)
+    r.wear(140, (58, 70, 902, 612), c='#1a1428')
+
+
+@extra
+def ext_arcade(r):
+    r.block.append(r.vending(470, 70, 36, 62, '#e04a5a'))
+    r.block.append(r.pinball(516, 80, 30, 56, '#9af06a'))
+    r.block.append(r.pinball(442, 240, 28, 56, '#f26a9a'))
+    r.block.append(r.vending(520, 300, 36, 56, '#5a3a9c', '#f6d36a'))
+    r.block.append(r.bin(452, 376, '#5a5a7a'))
+    for i in range(40):       # spilled tickets and confetti
+        x = r.rng.uniform(40, 560); y = r.rng.uniform(140, 410)
+        r.rect(x, y, 3, 1.5, ['#f6d36a', '#f26a9a', '#5ad8f0', '#9af06a'][i % 4], 0.8)
+    for x, c in ((120, '#f26a9a'), (380, '#5ad8f0'), (500, '#f6d36a')):
+        r.glow(x, 300, 80, 60, c, 0.05)
+    r.wear(60, (30, 100, 570, 420), c='#000000')
+
+
+@extra
+def ext_ruang_arsip(r):
+    for x in (80, 220, 380, 520):
+        r.sconce(x, 40, '#9ff0e0', '#5a5a74')
+    r.corkboard(424, 18, 64, 38, 8)
+    for a, b in (((432, 26), (470, 40)), ((446, 30), (476, 24))):
+        for t in range(30):
+            r.rect(a[0] + (b[0] - a[0]) * t / 30, a[1] + (b[1] - a[1]) * t / 30, 1, 0.6, '#e04a4a')
+    r.block.append(r.chest(130, 260, 34, '#4a3a2a'))
+    r.block.append(r.box_stack(150, 316, '#8a7a5a'))
+    r.block.append(r.card_catalog(400, 200, 60, 44, '#4a4a5a'))
+    r.block.append(r.box_stack(422, 282, '#7a6a50', n=1))
+    r.papers(170, 360, 6, 60, 20); r.papers(380, 320, 4, 40, 20)
+    r.block.append(r.book_stack(220, 400, 4))
+    r.block.append(r.box_stack(50, 296, '#7a6a50'))
+    r.block.append(r.crate(84, 312, 24, 20, '#6a5a44'))
+    for x, y in ((120, 230), (460, 260), (230, 300)):
+        r.candle(x, y, 0.8)
+    r.wear(70, (26, 100, 574, 420), c='#000000')
+
+
+@extra
+def ext_rumah_sari(r):
+    r.frame(176, 26, 16, 20, 3); r.frame(198, 32, 22, 16, 1); r.frame(226, 24, 14, 18, 4)
+    r.calendar(530, 40, '#a8784e'); r.mirror(322, 30, 20, 30, '#8c5a34')
+    r.sconce(170, 64, '#ffe2b0', '#7a5234'); r.sconce(330, 70, '#ffe2b0', '#7a5234')
+    r.block.append(r.cabinet(36, 110, 52, 60, '#7a5234', drawers=3))
+    r.pot(50, 110, 0.55, kind='flower'); r.rect(64, 100, 12, 10, '#d9b48a'); r.rect(66, 102, 8, 6, '#e8c0a8')
+    r.block.append(r.armchair(40, 188, '#a87a5a', cushion='#f4e2c0'))
+    r.block.append(r.side_table(440, 350, 24, item='plant'))
+    r.block.append(r.basket(404, 362, 22, 16, '#c9a46a', laundry=False))
+    r.dots(r.E(415, 364, 8, 3), ['#e06a7a', '#5a7ac4', '#f6d36a'], 6, 2)          # yarn
+    r.book_stack(190, 384, 3)
+    r.slippers(250, 396, '#c89a6a')
+    r.wear(70, (24, 100, 576, 420))
+
+
+@pre
+def pre_dapur(r):
+    r.rug(148, 340, 66, 32, '#9cc7b8', '#eef5e6')
+    r.rug(200, 152, 120, 8, '#e8b04a', '#f6e2a8', round_=False)
+
+
+@extra
+def ext_dapur(r):
+    r.mug_shelf(254, 62, 7)
+    r.hooks(346, 48, ('#e06a7a', '#f6d36a'))
+    r.baseboard_bits(74, (160, 238, 366))
+    r.block.append(r.sack(470, 250, '#e8dcc0', '#9cc7b8', '#fbf8f0'))
+    r.block.append(r.sack(494, 256, '#d8c49a', '#c45a5a', '#e0b04a'))
+    r.block.append(r.box_stack(40, 230, '#c9a06a'))
+    r.fruit_bowl(148, 328)
+    r.block.append(r.bin(250, 410, '#9cc7b8'))
+    r.block.append(r.cabinet(80, 236, 50, 56, '#9cc7b8', drawers=2))
+    r.mug_shelf(82, 232, 4)
+    r.block.append(r.table(400, 300, 40, 26, '#c99a6a', chairs=0, items=('cake',)))
+    r.block.append(r.plant_big(440, 420, 'leafy', 0.8))
+    r.hooks(40, 50, ('#f6d36a', '#9cc7b8', '#e06a7a'))
+    r.wear(80, (30, 150, 570, 420))
+
+
+@extra
+def ext_toko_bunga(r):
+    r.block.append(r.crate(170, 250, 40, 26, '#a87443'))
+    r.dots(r.R(172, 246, 36, 8), ['#f2a0b8', '#ffffff', '#e04a5a', '#f6d36a'], 24, 2)
+    r.leaves(190, 250, 18, 5, n=12)
+    r.block.append(r.sack(160, 330, '#b89a6a', '#6a9a5a', '#5a3a24'))
+    r.block.append(r.flower_table(372, 356, 70, 30, '#c99a6a'))
+    for k in range(4):
+        r.pot(384 + k * 15, 362, 0.45, kind='flower')
+    r.block.append(r.box_stack(470, 400, '#d8b88a', n=1))
+    # watering can
+    m = r.E(222, 300, 7, 5); r.fill(m, '#7aa8c4'); r.outline(m, '#3a5a74'); r.rect(228, 294, 8, 2, '#7aa8c4')
+    for i in range(70):       # fallen petals and leaves
+        x = r.rng.uniform(140, 470); y = r.rng.uniform(200, 400)
+        r.rect(x, y, 1.5, 1, ['#f2a0b8', '#ffffff', '#e04a5a', '#6aa86a', '#f6d36a'][i % 5], 0.9)
+    r.wear(60, (24, 100, 576, 420))
+
+
+@extra
+def ext_arland_room(r):
+    r.corkboard(330, 20, 50, 30, 5); r.calendar(400, 30, '#5a7ac4')
+    r.baseboard_bits(86, (150, 420))
+    r.book_stack(212, 312, 3)
+    r.block.append(r.basket(150, 270, 22, 18, '#8a9aa8'))
+    # skateboard and a backpack on the floor
+    r.rect(396, 402, 30, 6, '#e0866a'); r.outline(r.R(396, 402, 30, 6), '#7a3a2a')
+    for x in (400, 418):
+        r.fill(r.E(x, 409, 2, 1.5), '#3a3a48')
+    m = r.R(364, 220, 16, 18) | r.E(372, 220, 8, 4); r.fill(m, '#5a7ac4'); r.outline(m, '#2a3a6a')
+    r.rect(367, 228, 10, 6, '#4a6ab4')
+    r.wear(60, (24, 100, 576, 420))
+
+
+@extra
+def ext_sofia_room(r):
+    r.calendar(128, 34, '#e2a7a8')
+    r.baseboard_bits(86, (150, 452))
+    r.wear(60, (24, 100, 576, 420))
+
+
 def build(area, apply=False, preview=None):
     P = json.loads((A / 'data/props.json').read_text(encoding='utf-8'))['props']
     Q = json.loads((A / 'data/quests.json').read_text(encoding='utf-8'))
@@ -498,7 +805,27 @@ def build(area, apply=False, preview=None):
     seed = int(hashlib.sha256(area.encode()).hexdigest()[:8], 16)
     m = HDMap(area, base['w'], base['h'], seed)
     r = Room(m, seed)
+    if area in PRE:
+        shell = r.shell
+
+        def shell_then_pre(*a, **k):
+            w = shell(*a, **k)
+            PRE[area](r)
+            return w
+        r.shell = shell_then_pre
     ROOMS[area](r)
+    if area in EXTRA:
+        EXTRA[area](r)
+    keep = keep_points(area, base, Q, M)
+    nshell = r.nshell
+    for b in r.block[nshell:]:
+        if b is None:
+            continue
+        x, y, w, h = b
+        for label, px, py, rad in keep:
+            if x - CLEAR < px < x + w + CLEAR and y - CLEAR < py < y + h + CLEAR:
+                print('CROWDED', area, label, px, py, 'by', [round(v) for v in b])
+    r.block = [b for b in r.block if b is not None]
     walls = [[int(round(v)) for v in b] for b in r.block]
     m.collision = lambda P_: walls
     extra = dict(visualStyle='godot_hd_interior', visualUpdate='godot_rooms_hd', v4Layout=None, indoor=True,
@@ -507,7 +834,40 @@ def build(area, apply=False, preview=None):
     if preview:
         Path(preview).mkdir(parents=True, exist_ok=True)
         out = str(Path(preview) / ('%s.png' % area))
-    return m.write(base, extra, P, Q, apply=apply, preview=out)
+    res = m.write(base, extra, P, Q, apply=apply, preview=out)
+    if preview and '--overlay' in sys.argv:
+        from PIL import Image, ImageDraw
+        im = Image.open(out.replace('.png', '_hd.png')).convert('RGB')
+        d = ImageDraw.Draw(im, 'RGBA')
+        for x, y, w, h in walls:
+            d.rectangle([x * 2, y * 2, (x + w) * 2 - 1, (y + h) * 2 - 1], fill=(255, 0, 0, 50), outline=(255, 0, 0, 160))
+        for label, px, py, rad in keep:
+            d.ellipse([px * 2 - 2 * CLEAR, py * 2 - 2 * CLEAR, px * 2 + 2 * CLEAR, py * 2 + 2 * CLEAR], outline=(0, 90, 255, 230), width=2)
+            d.text((px * 2 + 4, py * 2 - 6), str(label)[:14], fill=(0, 40, 160, 255))
+        for gx in range(0, base['w'], 50):
+            d.line([gx * 2, 0, gx * 2, 8], fill=(0, 0, 0, 255)); d.text((gx * 2 + 2, 0), str(gx), fill=(255, 255, 255, 255))
+        for gy in range(0, base['h'], 50):
+            d.line([0, gy * 2, 8, gy * 2], fill=(0, 0, 0, 255)); d.text((0, gy * 2 + 2), str(gy), fill=(255, 255, 255, 255))
+        im.save(out.replace('.png', '_overlay.png'))
+    return res
+
+
+CLEAR = 16      # furniture keeps this many world units free around every quest/examine/door point
+
+
+def keep_points(area, base, Q, M):
+    """Every spot the game sends a character to in this room: quest points and cutscene moves,
+    examine spots, arrival points of doors leading here, the spawn and the exits."""
+    import common
+    pts = [(mv[0], mv[3], mv[4], mv[5]) for mv in common.migrate_quests(json.loads(json.dumps(Q)), area, lambda x, y: (x, y))]
+    pts += [('ex ' + e['id'], e['x'], e['y'], e.get('r')) for e in base.get('examine', [])]
+    pts += [(d['id'], d['tx'], d['ty'], None) for b in M['areas'].values() for d in b.get('doors', []) if d.get('to') == area]
+    pts += [(d['id'], d['rect'][0] + d['rect'][2] / 2, d['rect'][1] + d['rect'][3] / 2, None) for d in base.get('doors', [])]
+    pts.append(('spawn', base['spawn'][0], base['spawn'][1], None))
+    if base.get('bed'):
+        b = base['bed']
+        pts.append(('bed', b['x'], b['y'], None) if isinstance(b, dict) else ('bed', b[0], b[1], None))
+    return pts
 
 
 if __name__ == '__main__':

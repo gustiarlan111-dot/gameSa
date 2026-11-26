@@ -27,9 +27,14 @@ Baris arah (sama dengan `Actor.facing8`): 0 bawah, 1 kiri-bawah, 2 kiri, 3 kiri-
 
 ## Animasi tanpa rig
 Model saat ini tidak punya rig, jadi gerak dibuat oleh shader `tests/charrender/walk_rig.gdshader`:
-kaki berayun dari pinggul, lengan sedikit berayun, badan bernapas, membungkuk, dan duduk (lutut
-ditekuk). Batas yang ditemukan saat pengujian:
-- Lengan menyatu dengan badan pada model ini, jadi gestur lengan dibatasi ±22°. Melambai, bersorak,
+- kaki: kedua kaki dirapatkan ke porosnya masing-masing dan "selaput" geometri di antara paha
+  dibuang, jadi terlihat dua kaki; berayun 26° dari pinggul; lutut kaki belakang menekuk 38°;
+- lengan: hanya bagian terluar (lengan + tangan, |x| > 0.305) yang berayun 38° berlawanan dengan kaki;
+- badan bernapas, naik sedikit di antara langkah, bisa membungkuk dan duduk (lutut ditekuk).
+
+Batas yang ditemukan saat pengujian:
+- Lengan menyatu dengan badan pada model ini. Ayunan jalan di atas 38° membuat punggung menggembung,
+  dan gestur pose dibatasi ±22°. Melambai, bersorak,
   dan tos tampil sebagai bahasa tubuh kecil, bukan lengan terangkat.
 - Wajah dari samping murni kurang terbaca, jadi arah samping dirender di 72°.
 - Ukuran (`HEIGHT` di `tools/char_sheets.py`): Arland 134 px, Sofia 126 px (@2x), sama dengan sprite lama.

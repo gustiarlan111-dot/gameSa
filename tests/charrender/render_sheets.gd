@@ -81,20 +81,25 @@ func _render(c: String) -> void:
 	mat.shader = preload("res://tests/charrender/walk_rig.gdshader")
 	for mi in inst.find_children("*", "MeshInstance3D", true, false):
 		(mi as MeshInstance3D).material_override = mat
+	var kinds_only := OS.get_environment("KIND_ONLY")
 	for kind in KINDS:
+		if kinds_only != "" and kinds_only != kind:
+			continue
 		var n: int = KINDS[kind]
 		for row in 8:
 			holder.rotation_degrees.y = YAW[row]
 			for f in n:
 				if kind == "walk":
 					mat.set_shader_parameter("phase", TAU * f / n)
-					mat.set_shader_parameter("swing", deg_to_rad(24.0))
-					mat.set_shader_parameter("arm", deg_to_rad(20.0))
+					mat.set_shader_parameter("swing", deg_to_rad(26.0))
+					mat.set_shader_parameter("arm", deg_to_rad(float(OS.get_environment("ARM_DEG")) if OS.get_environment("ARM_DEG") != "" else 38.0))
+					mat.set_shader_parameter("knee", deg_to_rad(38.0))
 					mat.set_shader_parameter("breathe", 0.0)
 				else:
 					mat.set_shader_parameter("phase", 0.0)
 					mat.set_shader_parameter("swing", 0.0)
 					mat.set_shader_parameter("arm", 0.0)
+					mat.set_shader_parameter("knee", 0.0)
 					mat.set_shader_parameter("breathe", sin(TAU * f / n))
 				await RenderingServer.frame_post_draw
 				await RenderingServer.frame_post_draw
@@ -102,7 +107,8 @@ func _render(c: String) -> void:
 				img.save_png("user://charframes/%s_%s_%d_%02d.png" % [c, kind, row, f])
 		print(c, " ", kind, " done")
 	mat.set_shader_parameter("swing", 0.0); mat.set_shader_parameter("arm", 0.0); mat.set_shader_parameter("phase", 0.0)
-	for pi in POSES.size():
+	mat.set_shader_parameter("knee", 0.0)
+	for pi in (POSES.size() if kinds_only == "" else 0):
 		for d in 4:
 			holder.rotation_degrees.y = POSE_YAW[d]
 			for f in 2:

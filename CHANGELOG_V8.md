@@ -4,8 +4,9 @@
 - Model Arland & Sofia dari user (`Arland_Sofia_Cuby_3D_V5_Free`) dirender menjadi sprite 8 arah @2x:
   idle (12 frame), jalan (24 frame, kaki melangkah bergantian), dan 16 pose untuk cutscene.
   Alat: `tests/charrender/render_sheets.tscn` + `tools/char_sheets.py`; panduan di `docs/CHARACTERS.md`.
-- Model tanpa rig, jadi gerak dibuat dengan rig prosedural di shader. Gestur lengan dibatasi ±22°
-  karena lengan menyatu dengan badan pada model ini (lihat docs/CHARACTERS.md).
+- Model tanpa rig, jadi gerak dibuat dengan rig prosedural di shader: dua kaki terpisah yang melangkah
+  bergantian, lutut kaki belakang menekuk, tangan berayun 38° berlawanan dengan kaki, badan naik turun.
+  Gestur pose dibatasi ±22° karena lengan menyatu dengan badan pada model ini (docs/CHARACTERS.md).
 - Sprite lama tidak dihapus (dipakai lagi bila file @2x dihapus). GLB sumber tidak ikut APK.
 - Potret dialog masih gambar lama.
 

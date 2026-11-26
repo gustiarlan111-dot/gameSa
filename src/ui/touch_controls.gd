@@ -25,25 +25,38 @@ const RADIUS := 78.0
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_PASS
-	_base = _img("ui/joy_base.png", 168)
-	_knob = _img("ui/joy_knob.png", 74)
-	_act = _btn("ui/btn_action.png", 112)
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	_base = _img(UiTheme.disc(56, Color(0.1, 0.07, 0.18, 0.55), Color(UiTheme.GILD, 0.8), false), 168)
+	_knob = _img(UiTheme.disc(24, Color("3a2d5c"), UiTheme.GILD), 74)
+	_act = _btn(UiTheme.disc(38, UiTheme.ROSE, UiTheme.GILD), 112)
 	_act.pressed.connect(func(): action_pressed.emit())
-	_run = _btn("ui/btn_round.png", 84)
+	var act_l := UiTheme.label("Aksi", 22, UiTheme.TEXT, "pixel")
+	act_l.add_theme_color_override("font_outline_color", UiTheme.EDGE)
+	act_l.add_theme_constant_override("outline_size", 6)
+	act_l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	act_l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	act_l.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	act_l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_act.add_child(act_l)
+	_run = _btn(UiTheme.disc(28, Color("2c2246"), Color("7b67a0")), 84)
 	_run.toggle_mode = true
-	_run.texture_pressed = Data.tex("ui/btn_round_on.png")
+	_run.texture_pressed = UiTheme.disc(28, Color("4f3d7a"), UiTheme.GILD)
 	_run.toggled.connect(func(on): sprint = on)
-	var run_l := UiTheme.label("Lari", 17, UiTheme.INK, "bold")
+	var run_l := UiTheme.label("Lari", 18, UiTheme.TEXT, "pixel")
+	run_l.add_theme_color_override("font_outline_color", UiTheme.EDGE)
+	run_l.add_theme_constant_override("outline_size", 5)
 	run_l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	run_l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	run_l.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	run_l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_run.add_child(run_l)
 	_pause = UiTheme.button("II", 20)
+	_pause.focus_mode = Control.FOCUS_NONE
 	_pause.custom_minimum_size = Vector2(56, 52)
 	_pause.pressed.connect(func(): pause_pressed.emit())
 	add_child(_pause)
 	_book = UiTheme.button("Buku", 18)
+	_book.focus_mode = Control.FOCUS_NONE
 	_book.custom_minimum_size = Vector2(72, 52)
 	_book.pressed.connect(func(): book_pressed.emit())
 	add_child(_book)
@@ -51,25 +64,23 @@ func _ready() -> void:
 	_layout()
 
 
-func _img(path: String, s: float) -> TextureRect:
+func _img(tex: Texture2D, s: float) -> TextureRect:
 	var t := TextureRect.new()
-	t.texture = Data.tex(path)
+	t.texture = tex
 	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	t.size = Vector2(s, s)
 	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	t.modulate.a = 0.55
-	t.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	add_child(t)
 	return t
 
 
-func _btn(path: String, s: float) -> TextureButton:
+func _btn(tex: Texture2D, s: float) -> TextureButton:
 	var b := TextureButton.new()
-	b.texture_normal = Data.tex(path)
+	b.texture_normal = tex
 	b.ignore_texture_size = true
 	b.stretch_mode = TextureButton.STRETCH_SCALE
 	b.size = Vector2(s, s)
-	b.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	b.modulate.a = 0.85
 	add_child(b)
 	return b
@@ -133,6 +144,13 @@ func _drag(pos: Vector2) -> void:
 	if vec.length() < 0.18:
 		vec = Vector2.ZERO
 	_place(_origin, off)
+
+
+## While a dialogue box is open only the pause/book buttons stay; the stick and round buttons
+## would sit over the text.
+func set_talking(on: bool) -> void:
+	for n in [_base, _knob, _act, _run]:
+		n.visible = not on
 
 
 func reset() -> void:

@@ -159,6 +159,15 @@ func _process(_delta: float) -> void:
 			if _frame == 320:
 				get_tree().quit()
 			return
+		if _args[0].begins_with("pause:"):           # UI capture: pause menu, history, confirm box, toast
+			match _frame:
+				20:
+					game.p.coins = 42; game.p.affection = 18; process_mode = Node.PROCESS_MODE_ALWAYS
+					game.open_pause()
+				40: await _save(_args[2] + "_jeda.png"); game.pause.set_status("Progress tersimpan"); game.pause._lines = [{"speaker": "Sofia", "day": 1, "text": "Hari ini langitnya cantik sekali, ya."}, {"speaker": "Arland", "day": 1, "text": "Iya. Mau jalan ke dermaga nanti sore?"}]; game.pause._show_history()
+				60: await _save(_args[2] + "_riwayat.png"); game.pause._history.visible = false; game.pause.visible = false; get_tree().paused = false; game.confirm.ask("Tidur sampai pagi?", "Hari akan berganti dan toko-toko buka lagi besok pagi.", "Tidur", func(): pass, "Nanti")
+				80: await _save(_args[2] + "_konfirmasi.png"); get_tree().quit()
+			return
 		if _args[0].begins_with("book:"):
 			match _frame:
 				20:

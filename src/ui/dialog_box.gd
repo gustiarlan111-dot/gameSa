@@ -24,7 +24,7 @@ var _portrait: TextureRect
 var _name_tag: Panel
 var _name: Label
 var _text: RichTextLabel
-var _arrow: Label
+var _arrow: Control
 var _progress_bg: ColorRect
 var _progress: ColorRect
 var _skip: Button
@@ -36,16 +36,17 @@ var _dim: ColorRect
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_STOP
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	visible = false
 	_dim = ColorRect.new(); _dim.color = Color(UiTheme.BG, 0.0); _dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_dim)
 	_panel = Panel.new()
-	_panel.add_theme_stylebox_override("panel", UiTheme.panel(Color(1, 0.975, 0.965, 0.97)))
+	_panel.add_theme_stylebox_override("panel", UiTheme.window(Color.WHITE, 0.95))
 	_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_panel)
 	_portrait_frame = Panel.new()
-	_portrait_frame.add_theme_stylebox_override("panel", UiTheme.panel(Color("efe3f1"), Color("d9c6e0"), 14, 2, 0))
+	_portrait_frame.add_theme_stylebox_override("panel", UiTheme.button_box("plate:efe4f3"))
 	_portrait_frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_panel.add_child(_portrait_frame)
 	_portrait = TextureRect.new()
@@ -56,7 +57,9 @@ func _ready() -> void:
 	_name_tag = Panel.new()
 	_name_tag.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_panel.add_child(_name_tag)
-	_name = UiTheme.label("", 24, Color.WHITE, "bold")
+	_name = UiTheme.label("", 24, UiTheme.TEXT, "pixel")
+	_name.add_theme_color_override("font_outline_color", UiTheme.EDGE)
+	_name.add_theme_constant_override("outline_size", 6)
 	_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_name.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	_name_tag.add_child(_name)
@@ -66,23 +69,33 @@ func _ready() -> void:
 	_text.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_text.add_theme_font_override("normal_font", UiTheme.font("body"))
 	_text.add_theme_font_size_override("normal_font_size", 25)
-	_text.add_theme_color_override("default_color", UiTheme.INK)
+	_text.add_theme_color_override("default_color", UiTheme.TEXT)
+	_text.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.45))
+	_text.add_theme_constant_override("shadow_offset_x", 2)
+	_text.add_theme_constant_override("shadow_offset_y", 2)
 	_text.add_theme_constant_override("line_separation", 6)
 	_panel.add_child(_text)
-	_arrow = UiTheme.label("▼", 20, UiTheme.PINK_DEEP, "bold")
+	_arrow = Control.new()
+	_arrow.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_arrow.size = Vector2(24, 18)
+	_arrow.draw.connect(func():
+		UiTheme.draw_arrow(_arrow, Vector2(UiTheme.PX, UiTheme.PX), UiTheme.EDGE)
+		UiTheme.draw_arrow(_arrow, Vector2.ZERO, UiTheme.GILD))
 	_panel.add_child(_arrow)
-	_progress_bg = ColorRect.new(); _progress_bg.color = Color(UiTheme.LAVENDER, 0.22); _panel.add_child(_progress_bg)
-	_progress = ColorRect.new(); _progress.color = Color(UiTheme.PINK_DEEP, 0.85); _panel.add_child(_progress)
-	_skip = UiTheme.button("Lewati  ▶", 18)
+	_progress_bg = ColorRect.new(); _progress_bg.color = Color(UiTheme.WIN_LINE, 0.55); _panel.add_child(_progress_bg)
+	_progress = ColorRect.new(); _progress.color = Color(UiTheme.GILD, 0.9); _panel.add_child(_progress)
+	_skip = UiTheme.button("Lewati  ▶▶", 17)
 	_skip.pressed.connect(skip_all)
 	add_child(_skip)
 	_choice_layer = Control.new(); _choice_layer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); _choice_layer.visible = false
 	add_child(_choice_layer)
-	var head := UiTheme.label("Pilihanmu menentukan momen berikutnya", 26, UiTheme.CREAM, "title")
+	var head := UiTheme.label("Pilihanmu menentukan momen berikutnya", 28, UiTheme.GILD, "title")
 	head.name = "Head"
 	head.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	head.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.45))
-	head.add_theme_constant_override("shadow_offset_y", 2)
+	head.add_theme_color_override("font_outline_color", UiTheme.EDGE)
+	head.add_theme_constant_override("outline_size", 7)
+	head.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.5))
+	head.add_theme_constant_override("shadow_offset_y", 3)
 	_choice_layer.add_child(head)
 	_choice_box = VBoxContainer.new()
 	_choice_box.add_theme_constant_override("separation", 14)
@@ -135,16 +148,15 @@ func _show_line() -> void:
 	_portrait_frame.visible = portrait != null
 	if portrait != null:
 		_portrait.texture = Data.portrait(portrait, str(_line.get("e", "neutral")))
-	var tag := UiTheme.INK_SOFT if narrator else (UiTheme.NPC_TAG if sp.get("style", "") == "npc" else (UiTheme.PINK_DEEP if spk.begins_with("sofia") else UiTheme.LAVENDER))
-	var st := UiTheme.panel(tag, tag.darkened(0.15), 12, 2, 4)
-	_name_tag.add_theme_stylebox_override("panel", st)
+	var tag := Color("4a3d63") if narrator else (Color("3f7a6b") if sp.get("style", "") == "npc" else (UiTheme.ROSE if spk.begins_with("sofia") else Color("5a6fb0")))
+	_name_tag.add_theme_stylebox_override("panel", UiTheme.button_box("plate:" + tag.to_html(false)))
 	_name.text = sp.get("name", spk)
 	var t := str(_line.get("t", ""))
 	if sp.get("style", "") == "message":
 		t = "✉  " + t
 	_text.text = t
 	_text.visible_characters = 0
-	_text.add_theme_color_override("default_color", UiTheme.INK_SOFT if narrator else UiTheme.INK)
+	_text.add_theme_color_override("default_color", UiTheme.TEXT_SOFT if narrator else UiTheme.TEXT)
 	_layout()
 
 
@@ -156,7 +168,7 @@ func _build_choices() -> void:
 	var i := 0
 	for c in _choices:
 		i += 1
-		var b := UiTheme.button("%d.   %s" % [i, c.get("text", "")], 24)
+		var b := UiTheme.button("%d   %s" % [i, c.get("text", "")], 24)
 		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		b.custom_minimum_size = Vector2(0, 64)
 		b.pressed.connect(_pick.bind(c))
@@ -226,9 +238,10 @@ func _process(delta: float) -> void:
 	_panel.position.y = _box_y() + (1.0 - _appear) * 20.0
 	var prog := 1.0 if total == 0 else minf(1.0, _shown / total)
 	_progress.size.x = _progress_bg.size.x * prog
-	_arrow.visible = _revealed() and int(_blink * 2.5) % 2 == 0
+	_arrow.visible = _revealed()
+	_arrow.position.y = _panel.size.y - 46 + roundf(absf(sin(_blink * 4.0)) * 2.0) * UiTheme.PX
 	if _portrait_frame.visible:
-		_portrait.position.y = 8 + sin(_blink * 1.7) * 1.5
+		_portrait.position.y = 9 + sin(_blink * 1.7) * 1.5
 
 
 func _box_y() -> float:
@@ -246,25 +259,25 @@ func _layout() -> void:
 	var h := _box_h()
 	_panel.size = Vector2(w, h)
 	_panel.position = Vector2((size.x - w) / 2.0, _box_y())
-	var tx := 32.0
+	var tx := 38.0
 	if _portrait_frame.visible:
-		var ph := h - 28.0
+		var ph := h - 34.0
 		var pw := ph * 0.9
-		_portrait_frame.position = Vector2(14, 14)
+		_portrait_frame.position = Vector2(18, 16)
 		_portrait_frame.size = Vector2(pw, ph)
-		_portrait.position = Vector2(4, 8)
-		_portrait.size = Vector2(pw - 8, ph - 12)
-		tx = 14 + pw + 26
-	var nw := maxf(170.0, UiTheme.font("bold").get_string_size(_name.text, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 44)
-	_name_tag.position = Vector2(tx - 6, -22)
+		_portrait.position = Vector2(9, 9)
+		_portrait.size = Vector2(pw - 18, ph - 21)
+		tx = 18 + pw + 26
+	var nw := maxf(170.0, UiTheme.font("pixel").get_string_size(_name.text, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 56)
+	_name_tag.position = Vector2(tx - 6, -24)
 	_name_tag.size = Vector2(nw, 44)
 	_name.position = Vector2.ZERO
 	_name.size = _name_tag.size
-	_text.position = Vector2(tx, 34)
-	_text.size = Vector2(w - tx - 40, h - 70)
-	_progress_bg.position = Vector2(tx, h - 22); _progress_bg.size = Vector2(w - tx - 70, 4)
-	_progress.position = _progress_bg.position; _progress.size.y = 4
-	_arrow.position = Vector2(w - 44, h - 44)
+	_text.position = Vector2(tx, 38)
+	_text.size = Vector2(w - tx - 44, h - 74)
+	_progress_bg.position = Vector2(tx, h - 27); _progress_bg.size = Vector2(w - tx - 76, UiTheme.PX)
+	_progress.position = _progress_bg.position; _progress.size.y = UiTheme.PX
+	_arrow.position = Vector2(w - 50, h - 46)
 	_skip.size = Vector2(0, 0)
 	_skip.position = Vector2(_panel.position.x + w - 150, _panel.position.y - 58)
 	var cw := minf(size.x - 80, 820.0)

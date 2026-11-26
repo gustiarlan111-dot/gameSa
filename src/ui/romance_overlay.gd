@@ -180,18 +180,18 @@ func _draw() -> void:
 	if engine == null:
 		return
 	var p := engine.p
-	draw_rect(Rect2(Vector2.ZERO, size), Color(UiTheme.BG, 0.75))
+	draw_rect(Rect2(Vector2.ZERO, size), Color(0.05, 0.03, 0.1, 0.66))
 	var pr := _panel
 	var o := pr.position
 	var w := pr.size.x
-	UiTheme.panel(Color("2f2545"), Color("57476f"), 22, 3, 10).draw(get_canvas_item(), pr)
-	UiTheme.draw_text(self, "Waktu Berdua ♥", o.x + 26, o.y + 20, 28, UiTheme.CREAM, "left", 0, "title")
-	UiTheme.draw_text(self, "Kedekatan: %d/100   •   Koin: %d" % [p.affection, p.coins], o.x + 27, o.y + 78, 20, UiTheme.GOLD)
+	UiTheme.window().draw(get_canvas_item(), pr)
+	UiTheme.draw_text(self, "Waktu Berdua ♥", o.x + 30, o.y + 20, 30, UiTheme.GILD, "left", 0, "title", 6)
+	UiTheme.draw_text(self, "Kedekatan: %d/100   •   Koin: %d" % [p.affection, p.coins], o.x + 32, o.y + 80, 20, UiTheme.TEXT_SOFT)
 	var items := _items()
 	for i in _choices.size():
 		var e: Dictionary = items[page * 3 + i]
 		var row := Rect2(o.x + 22, o.y + 196 + i * 101, w - 44, 87)
-		UiTheme.panel(Color(1, 0.975, 0.965), Color("d9c6e0"), 14, 2, 0).draw(get_canvas_item(), row)
+		UiTheme.button_box("inset").draw(get_canvas_item(), row)
 		var tx := row.position.x + 20
 		var title := ""
 		var desc := ""
@@ -199,7 +199,7 @@ func _draw() -> void:
 			"gift":
 				var it := _item(e.item)
 				var t := Data.tex(str(it.get("icon", "")))
-				draw_circle(row.position + Vector2(42, 43), 31, Color("f3e6ef"))
+				draw_circle(row.position + Vector2(42, 42), 31, Color(UiTheme.WIN_TOP, 0.9))
 				if t:
 					draw_texture_rect(t, Rect2(row.position.x + 15, row.position.y + 16, 54, 54), false)
 				tx = row.position.x + 83
@@ -223,8 +223,8 @@ func _draw() -> void:
 				title = "%s  •  +%d ♥ / hari" % [e.get("title", ""), int(e.get("affection", 0))]
 				var r := engine.couple_action_block(e.id, area)
 				desc = ("Mode gandengan aktif • pilih Lepaskan" if e.id == "gandengan" and p.holding_hands else str(e.get("desc", ""))) if r == "" else r
-		UiTheme.draw_text(self, title, tx, row.position.y + 14, 20, UiTheme.INK, "left", 0, "bold")
+		UiTheme.draw_text(self, title, tx, row.position.y + 14, 20, UiTheme.TEXT, "left", 0, "bold")
 		var f := UiTheme.font("body")
-		draw_multiline_string(f, Vector2(tx, row.position.y + 48 + f.get_ascent(16) * 0.82), desc, HORIZONTAL_ALIGNMENT_LEFT, row.position.x + row.size.x - 230 - tx, 16, 2, UiTheme.INK_SOFT)
-	UiTheme.draw_text(self, "Halaman %d/%d" % [page + 1, maxi(1, (items.size() + 2) / 3)], o.x + 195, o.y + pr.size.y - 100, 17, UiTheme.CREAM)
-	UiTheme.draw_text(self, status, o.x + 25, o.y + pr.size.y - 46, 17, UiTheme.GOLD, "left", w - 48)
+		draw_multiline_string(f, Vector2(tx, row.position.y + 48 + f.get_ascent(16) * 0.82), desc, HORIZONTAL_ALIGNMENT_LEFT, row.position.x + row.size.x - 230 - tx, 16, 2, UiTheme.TEXT_SOFT)
+	UiTheme.draw_text(self, "Halaman %d/%d" % [page + 1, maxi(1, (items.size() + 2) / 3)], o.x + 195, o.y + pr.size.y - 100, 17, UiTheme.TEXT_SOFT, "left", 0, "pixel")
+	UiTheme.draw_text(self, status, o.x + 25, o.y + pr.size.y - 46, 17, UiTheme.GILD, "left", w - 48)

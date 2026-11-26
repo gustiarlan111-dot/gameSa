@@ -251,5 +251,72 @@ func _ready() -> void:
 	ok(wx_rain > 0 and wx_storm > 0 and wx_storm < wx_rain, "badai hanya di sebagian hari hujan (%d dari %d)" % [wx_storm, wx_rain])
 	ok(GameSettings.sanitize({"lightning": false}).lightning == false and GameSettings.sanitize({}).lightning == true, "opsi kilat petir")
 	ok(ResourceLoader.exists("res://assets/audio/sfx/thunder.wav") and ResourceLoader.exists("res://assets/audio/sfx/step_stairs.wav"), "suara guntur & tangga ada")
+	# 19. U3b characters and living NPCs (src/logic/acting.gd, src/game/npc_life.gd, tools/npc_memory_u3b.py)
+	ok(Acting.pose_for("tertawa", true) == "senang" and Acting.pose_for("kaget", false) == "surprised"
+		and Acting.pose_for("neutral", true) == "" and Acting.pose_for("tidak_ada", false) == "", "ekspresi dialog -> pose tubuh")
+	var u_bad: Array = []
+	for u_e in Acting.EIGHT:
+		var u_p: String = Acting.EIGHT[u_e]
+		if u_p != "" and not Actor.POSES.has(u_p):
+			u_bad.append(u_p)
+	ok(u_bad.is_empty() and Actor.POSES.find("senang") == 16 and Actor.POSES.find("kaget") == 20, "pose emosi ada di lembar pose %s" % [u_bad])
+	for u_c in ["arland", "sofia"]:
+		var u_ps: Texture2D = load("res://assets/characters/%s/poses_v53@2x.png" % u_c)
+		var u_rs: Texture2D = load("res://assets/characters/%s/run_8dir_v53@2x.png" % u_c)
+		ok(u_ps.get_height() / (Actor.FH * 2) >= Actor.POSES.size() and u_rs != null and u_rs.get_height() / (Actor.FH * 2) == 8,
+			"%s: %d baris pose, siklus lari 8 arah" % [u_c, u_ps.get_height() / (Actor.FH * 2)])
+	for u_k in {"hand_walk": 12, "hand_idle": 2, "hug": 2}:
+		var u_t: Texture2D = load("res://assets/characters/couple/%s@2x.png" % u_k)
+		ok(u_t != null and u_t.get_width() == Actor.CFW * 2 * {"hand_walk": 12, "hand_idle": 2, "hug": 2}[u_k] and u_t.get_height() == Actor.FH * 2 * 4,
+			"lembar pasangan %s (4 arah)" % u_k)
+	ok(NpcLife.pair_key("rini", "darmo") == "darmo|rini" and NpcLife.speaker_id(1, "a", "b") == "b" and NpcLife.speaker_id("darmo", "darmo", "rini") == "darmo",
+		"kunci & pembicara obrolan NPC")
+	var u_ch: Dictionary = Data._json("res://assets/data/npc_chatter.json")
+	var u_ids := {}
+	var u_npcs := {}
+	for u_n in Data.quests.townNpcs:
+		u_npcs[u_n.id] = u_n
+	var u_cbad: Array = []
+	for u_t2 in u_ch.get("generic", []):
+		if u_ids.has(u_t2.id) or u_t2.lines.size() < 2: u_cbad.append(u_t2.id)
+		u_ids[u_t2.id] = true
+	for u_pk in u_ch.get("pairs", {}):
+		var u_two: PackedStringArray = u_pk.split("|")
+		if u_two.size() != 2 or u_two[0] >= u_two[1] or not u_npcs.has(u_two[0]) or not u_npcs.has(u_two[1]): u_cbad.append(u_pk)
+		for u_t3 in u_ch.pairs[u_pk]:
+			if u_ids.has(u_t3.id) or u_t3.lines.size() < 2: u_cbad.append(u_t3.id)
+			u_ids[u_t3.id] = true
+			for u_l in u_t3.lines:
+				if not (str(u_l[0]) in u_two): u_cbad.append(u_t3.id + ":" + str(u_l[0]))
+	ok(u_cbad.is_empty() and u_ids.size() >= 40, "%d obrolan NPC valid %s" % [u_ids.size(), u_cbad])
+	var u_mem := 0
+	var u_mbad: Array = []
+	for u_n2 in Data.quests.townNpcs:
+		var u_seen_mem := false
+		for u_d in u_n2.get("dialogs", []):
+			if str(u_d.get("id", "")).begins_with("MEM_"):
+				u_mem += 1; u_seen_mem = true
+				var u_f: String = u_d.when.flags[0]
+				if not (u_d.when.notFlags as Array).has(u_d.id): u_mbad.append(u_d.id)
+				if u_f.begins_with("SQ_") and not JSON.stringify(Data.quests.townNpcs).contains('"id":"%s"' % u_f) and not JSON.stringify(Data.quests).contains('"' + u_f + '"'):
+					u_mbad.append(u_f)
+			elif u_seen_mem:
+				for u_a in u_d.get("actions", []):
+					if u_a.get("do") in ["flag", "item", "removeItem", "count", "toast", "coins"] and not str(u_d.get("id", "")).begins_with("MEM_"):
+						u_mbad.append("%s: dialog quest setelah ingatan" % u_n2.id)
+	ok(u_mem == 19 and u_mbad.is_empty(), "NPC mengingat pilihan pemain: %d dialog sekali-tampil %s" % [u_mem, u_mbad])
+	ok(ResourceLoader.exists("res://assets/fx/umbrella_0.png") and ResourceLoader.exists("res://assets/fx/umbrella_3.png"), "payung untuk hujan")
+	var u_qe := QuestEngine.new(Progress.new_game("arland", 4, Data.first_step, Data.area("arland_room")))
+	var u_mel: Dictionary = {}
+	for u_n3 in Data.quests.townNpcs:
+		if u_n3.id == "melati": u_mel = u_n3
+	u_qe.p.minute = 10 * 60
+	var u_before: Dictionary = u_qe.npc_dialog(u_mel)
+	u_qe.p.add_flag("C02_RIBBON_LAVENDER")
+	var u_after: Dictionary = u_qe.npc_dialog(u_mel)
+	u_qe.p.add_flag("MEM_MELATI_LAVENDER")
+	var u_later: Dictionary = u_qe.npc_dialog(u_mel)
+	ok(u_before.get("id", "") != "MEM_MELATI_LAVENDER" and u_after.get("id", "") == "MEM_MELATI_LAVENDER" and u_later.get("id", "") != "MEM_MELATI_LAVENDER",
+		"Bu Melati ingat pita lavender sekali, lalu kembali ke obrolan biasa")
 	print("%s: %d pemeriksaan, %d gagal" % ["SEMUA LULUS" if fails == 0 else "ADA YANG GAGAL", checks, fails])
 	get_tree().quit(1 if fails > 0 else 0)

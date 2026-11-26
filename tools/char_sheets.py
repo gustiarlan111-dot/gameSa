@@ -5,7 +5,13 @@ on the same foot line, alpha-hardened (the game draws sprites with alpha cut), l
 given the kit's 2-texel coloured outline, then packed at @2x (96x144 per frame):
   assets/characters/<c>/idle_8dir_v53@2x.png   12 x 8
   assets/characters/<c>/walk_8dir_v53@2x.png   24 x 8
-  assets/characters/<c>/poses_v53@2x.png        8 x 16 (dir down/left/right/up x 2 frames)
+  assets/characters/<c>/run_8dir_v53@2x.png    16 x 8 (U3b)
+  assets/characters/<c>/poses_v53@2x.png        8 x 21 (dir down/left/right/up x 2 frames; rows 16-20
+                                                       are the U3b emotions)
+  --couple (tests/charrender/render_couple.tscn, 640x576 raw, both characters at Arland's scale):
+  assets/characters/couple/hand_walk@2x.png    12 x 4 (160x144 frames; dirs down/left/right/up)
+  assets/characters/couple/hand_idle@2x.png     2 x 4
+  assets/characters/couple/hug@2x.png           2 x 4
 Actor prefers @2x sheets, so the old 1x art stays in place untouched (delete the @2x files to go back).
 Usage: python3 tools/char_sheets.py <charframes dir>
 """
@@ -27,7 +33,7 @@ def bbox(a):
     return ys.min(), ys.max(), xs.min(), xs.max()
 
 
-def frame(im, scale, foot_raw, cx_raw, col, fit=False):
+def frame(im, scale, foot_raw, cx_raw, col, fit=False, FW=FW):
     w, h = im.size
     im = im.resize((max(1, round(w * scale)), max(1, round(h * scale))), Image.LANCZOS)
     a = np.asarray(im).astype(np.float32)
@@ -69,7 +75,7 @@ def main(src):
         scale = HEIGHT[c] / (y1 - y0 + 1)
         foot, cx = y1, (x0 + x1) / 2
         col = OUTLINE[c]
-        for kind, cols in (('idle', 12), ('walk', 24)):
+        for kind, cols in (('idle', 12), ('walk', 24), ('run', 16)):
             sheet = Image.new('RGBA', (FW * cols, FH * 8), (0, 0, 0, 0))
             for r in range(8):
                 for f in range(cols):
@@ -78,8 +84,11 @@ def main(src):
             out = ROOT / 'assets/characters' / c / ('%s_8dir_v53@2x.png' % kind)
             sheet.save(out, optimize=True)
             print(out.relative_to(ROOT), sheet.size)
-        sheet = Image.new('RGBA', (FW * 8, FH * 16), (0, 0, 0, 0))
-        for p in range(16):
+        npose = 0
+        while (src / ('%s_pose_%02d_0_0.png' % (c, npose))).exists():
+            npose += 1
+        sheet = Image.new('RGBA', (FW * 8, FH * npose), (0, 0, 0, 0))
+        for p in range(npose):
             for d in range(4):
                 for f in range(2):
                     im = Image.open(src / ('%s_pose_%02d_%d_%d.png' % (c, p, d, f))).convert('RGBA')
@@ -89,5 +98,29 @@ def main(src):
         print(out.relative_to(ROOT), sheet.size)
 
 
+def couple(src):
+    """Pair sheets, both characters in one frame at Arland's scale and foot line (Sofia was scaled in the render)."""
+    src = Path(src)
+    ref = np.asarray(Image.open(src / 'arland_idle_0_00.png'))[..., 3]
+    y0, y1, x0, x1 = bbox(ref)
+    scale = HEIGHT['arland'] / (y1 - y0 + 1)
+    foot = y1
+    cfw = 160
+    out_dir = ROOT / 'assets/characters/couple'
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for kind, cols in (('hand_walk', 12), ('hand_idle', 2), ('hug', 2)):
+        sheet = Image.new('RGBA', (cfw * cols, FH * 4), (0, 0, 0, 0))
+        for d in range(4):
+            for f in range(cols):
+                im = Image.open(src / ('couple_%s_%d_%02d.png' % (kind, d, f))).convert('RGBA')
+                sheet.paste(frame(im, scale, foot, im.size[0] / 2, OUTLINE['arland'], FW=cfw), (f * cfw, d * FH))
+        out = out_dir / ('%s@2x.png' % kind)
+        sheet.save(out, optimize=True)
+        print(out.relative_to(ROOT), sheet.size)
+
+
 if __name__ == '__main__':
-    main(sys.argv[1])
+    if '--couple' in sys.argv:
+        couple(sys.argv[sys.argv.index('--couple') + 1])
+    else:
+        main(sys.argv[1])

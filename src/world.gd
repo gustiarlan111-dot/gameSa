@@ -24,6 +24,7 @@ var sprint_held := false
 var door_cooldown := 0.0
 var locked := false               # dialogue / cutscene / menus own the input
 var partner_mode := 2             # 0 hidden, 1 placed by the story step, 2 walking with the player
+var hand_in_hand := false         # U3b: Progress.holding_hands ("Bergandengan Tangan"): one pair sprite
 var cine: Cutscene                # set by Game; overrides the camera while active
 var npcs := {}                    # town NPC id -> Actor
 var npc_brain := {}               # id -> {home, radius, target, pause}
@@ -556,7 +557,12 @@ func _physics_process(delta: float) -> void:
 			if _trail.size() > 80:
 				_trail.pop_front()
 		_check_doors(o)
-	if partner_mode == 2 and not (cine and cine.active):
+	var hand := hand_in_hand and partner_mode == 2 and partner.visible and not (cine and cine.active)
+	if hand:
+		_hand_walk()
+	elif player.couple == "hand":
+		_hand_release()
+	if partner_mode == 2 and not (cine and cine.active) and not hand:
 		_follow(delta)
 	var vp := get_viewport_rect().size
 	if cine and cine.cam_active:
@@ -605,6 +611,23 @@ func _follow(delta: float) -> void:
 			partner.face(player.position.x - partner.position.x, player.position.y - partner.position.y)
 	if dist_player > 240:      # fell far behind (e.g. after a scene): catch up next to the player
 		place_partner_beside()
+
+
+## U3b: walking hand in hand. The player draws both from the couple sheet; the partner stays at the
+## player's side (hidden) so talking, doors and scenes still find them, and steps out when it ends.
+func _hand_walk() -> void:
+	player.set_couple("hand")
+	partner.hidden_by_couple = true
+	partner.position = player.position
+	partner.dir = player.dir; partner.facing8 = player.facing8
+	partner.walking = player.walking; partner.sprinting = player.sprinting
+	_trail.clear()
+
+
+func _hand_release() -> void:
+	player.set_couple("")
+	partner.hidden_by_couple = false
+	place_partner_beside()
 
 
 func place_partner_beside() -> void:

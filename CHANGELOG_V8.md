@@ -1,5 +1,32 @@
 # CHANGELOG — V8.0 "The Definitive Overhaul"
 
+## Upgrade 6 (U3b) — karakter dan NPC yang hidup
+**Arland & Sofia**
+- Siklus **lari** sungguhan, 8 arah, 16 frame.
+- **5 emosi** tubuh: senang, malu, sedih, marah, kaget. Saat berbicara, karakter **memerankan ekspresi
+  baris dialognya**. NPC memakai gestur kecil (tertawa, mengangguk, malu, terkejut, berpikir).
+- **Bergandengan tangan**: mode "Bergandengan Tangan" sebelumnya hanya tersimpan di save tanpa terlihat
+  apa-apa. Sekarang keduanya berjalan berdampingan sambil bergandengan, dalam satu sprite yang dirender dari
+  kedua GLB sekaligus, di 4 arah dengan langkah serempak.
+- **Pelukan sungguhan** di cutscene (`pair` hug): kepala Sofia bersandar di bahu Arland. Sebelumnya dua
+  sprite saling mengulurkan tangan.
+- **Payung saat hujan**, dan satu payung untuk berdua saat bergandengan.
+
+**NPC**
+- **Tetangga mengobrol**: dua NPC yang berdiri berdekatan saling menghadap dan berbicara lewat gelembung
+  kata saat pasangan ada di dekatnya. Ada 48 obrolan (`assets/data/npc_chatter.json`):
+  - obrolan umum sesuai pagi/siang/sore/malam, hujan atau cerah, dan bab cerita;
+  - obrolan khusus 13 pasangan (Bu Rini–Kakek Darmo, Nenek Sari–Oma Ina, Dito–Tika, dan lainnya);
+  - gosip tentang hal yang sudah dilakukan pasangan.
+- **NPC mengingat pilihan pemain**: 19 dialog sekali-tampil (`tools/npc_memory_u3b.py`). Contoh: Bu Melati
+  ingat warna pita yang dipilih Arland, Bang Juna ingat kencan yang dimulai dari arcade, Rara ingat baju
+  kencan Sofia, dan Kakek Darmo, Pak Udin, Dito, Pak Pos, Kak Raka, Bu Laras, Nenek Sari ingat side quest
+  yang sudah diselesaikan. Dialog ini muncul setelah dialog quest dan sebelum obrolan biasa, jadi tidak
+  menutupi langkah quest.
+- **Reaksi cuaca**: NPC yang tetap di luar saat hujan memakai payung (17 NPC sudah berteduh lewat jadwal
+  mereka sejak sebelumnya). Saat kilat menyambar, NPC yang terlihat tersentak dengan tanda "!", dan Arland
+  & Sofia ikut kaget.
+
 ## V8.10 — pantulan air, normal map yang tertinggal, bastion Dermaga
 - **Pantulan di air** (baru, `src/view3d/water_reflect.gd` + `src/fx/water_reflect.gdshader`):
   - objek berdiri di dekat air terpantul terbalik di permukaannya: pohon, tiang dermaga, pagar,

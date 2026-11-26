@@ -34468,6 +34468,60 @@
           ]
         },
         {
+          "id": "MEM_RAKA_RESEP",
+          "when": {
+            "flags": [
+              "SQ_RESEP3_DONE"
+            ],
+            "notFlags": [
+              "MEM_RAKA_RESEP"
+            ]
+          },
+          "actions": [
+            {
+              "do": "lines",
+              "lines": [
+                {
+                  "s": "raka",
+                  "e": "senyum",
+                  "t": "Kue jahe buatan kalian waktu itu... jujur, pelanggan nanya terus. Mau kerja di sini?"
+                }
+              ]
+            },
+            {
+              "do": "flag",
+              "id": "MEM_RAKA_RESEP"
+            }
+          ]
+        },
+        {
+          "id": "MEM_RAKA_BUKU",
+          "when": {
+            "flags": [
+              "SQ_BUKU_DONE"
+            ],
+            "notFlags": [
+              "MEM_RAKA_BUKU"
+            ]
+          },
+          "actions": [
+            {
+              "do": "lines",
+              "lines": [
+                {
+                  "s": "raka",
+                  "e": "senyum",
+                  "t": "Lima buku kafe pulang semua. Rak di pojok jadi lengkap lagi, berkat kalian."
+                }
+              ]
+            },
+            {
+              "do": "flag",
+              "id": "MEM_RAKA_BUKU"
+            }
+          ]
+        },
+        {
           "when": {
             "hours": [
               "06:00",
@@ -34828,6 +34882,98 @@
           ]
         },
         {
+          "id": "MEM_MELATI_LAVENDER",
+          "when": {
+            "flags": [
+              "C02_RIBBON_LAVENDER"
+            ],
+            "notFlags": [
+              "MEM_MELATI_LAVENDER"
+            ]
+          },
+          "actions": [
+            {
+              "do": "lines",
+              "lines": [
+                {
+                  "s": "melati",
+                  "e": "senyum",
+                  "t": "Pita lavender yang kamu pilih waktu itu, Bu Melati masih ingat. Dia suka, kan?"
+                }
+              ]
+            },
+            {
+              "do": "lines",
+              "lines": [
+                {
+                  "s": "arland",
+                  "e": "malu",
+                  "t": "Kayaknya suka, Bu. Dia senyum terus seharian."
+                }
+              ],
+              "route": "arland"
+            },
+            {
+              "do": "flag",
+              "id": "MEM_MELATI_LAVENDER"
+            }
+          ]
+        },
+        {
+          "id": "MEM_MELATI_PEACH",
+          "when": {
+            "flags": [
+              "C02_RIBBON_PEACH"
+            ],
+            "notFlags": [
+              "MEM_MELATI_PEACH"
+            ]
+          },
+          "actions": [
+            {
+              "do": "lines",
+              "lines": [
+                {
+                  "s": "melati",
+                  "e": "senyum",
+                  "t": "Pita peach waktu itu pilihan yang berani, Nak. Bunganya jadi kelihatan hangat."
+                }
+              ]
+            },
+            {
+              "do": "flag",
+              "id": "MEM_MELATI_PEACH"
+            }
+          ]
+        },
+        {
+          "id": "MEM_MELATI_BUNGA",
+          "when": {
+            "flags": [
+              "SQ_BUNGA_DONE"
+            ],
+            "notFlags": [
+              "MEM_MELATI_BUNGA"
+            ]
+          },
+          "actions": [
+            {
+              "do": "lines",
+              "lines": [
+                {
+                  "s": "melati",
+                  "e": "senang",
+                  "t": "Nenek Sari sampai menaruh buket kemarin di jendela. Terima kasih sudah mengantar, ya."
+                }
+              ]
+            },
+            {
+              "do": "flag",
+              "id": "MEM_MELATI_BUNGA"
+            }
+          ]
+        },
+        {
           "when": {
             "hours": [
               "06:00",
@@ -35124,6 +35270,60 @@
                   "t": "Mesin capitnya di pojok kanan. Tenang, fokus, lepas!"
                 }
               ]
+            }
+          ]
+        },
+        {
+          "id": "MEM_JUNA_ARCADE",
+          "when": {
+            "flags": [
+              "C02_ARCADE_FIRST"
+            ],
+            "notFlags": [
+              "MEM_JUNA_ARCADE"
+            ]
+          },
+          "actions": [
+            {
+              "do": "lines",
+              "lines": [
+                {
+                  "s": "juna",
+                  "e": "tertawa",
+                  "t": "Kalian yang kencannya mulai dari arcade itu, kan? Jarang ada yang seberani itu. Bang Juna salut."
+                }
+              ]
+            },
+            {
+              "do": "flag",
+              "id": "MEM_JUNA_ARCADE"
+            }
+          ]
+        },
+        {
+          "id": "MEM_JUNA_KASET",
+          "when": {
+            "flags": [
+              "SQ_V7_KASET_DONE"
+            ],
+            "notFlags": [
+              "MEM_JUNA_KASET"
+            ]
+          },
+          "actions": [
+            {
+              "do": "lines",
+              "lines": [
+                {
+                  "s": "juna",
+                  "e": "senyum",
+                  "t": "Kasetnya Nenek Sari bunyi lagi? Syukurlah. Keroncong itu harus diputar, bukan disimpan."
+                }
+              ]
+            },
+            {
+              "do": "flag",
+              "id": "MEM_JUNA_KASET"
             }
           ]
         },
@@ -35454,6 +35654,60 @@
                   "t": "Cari madu? Ayo, dekati Nenek."
                 }
               ]
+            }
+          ]
+        },
+        {
+          "id": "MEM_SARI_MOCHI",
+          "when": {
+            "flags": [
+              "SQ_MOCHI_DONE"
+            ],
+            "notFlags": [
+              "MEM_SARI_MOCHI"
+            ]
+          },
+          "actions": [
+            {
+              "do": "lines",
+              "lines": [
+                {
+                  "s": "sari",
+                  "e": "senang",
+                  "t": "Mochi sekarang tidur di keranjang dekat jendela. Sejak kalian menemukannya, dia betah di rumah."
+                }
+              ]
+            },
+            {
+              "do": "flag",
+              "id": "MEM_SARI_MOCHI"
+            }
+          ]
+        },
+        {
+          "id": "MEM_SARI_KASET",
+          "when": {
+            "flags": [
+              "SQ_V7_KASET_DONE"
+            ],
+            "notFlags": [
+              "MEM_SARI_KASET"
+            ]
+          },
+          "actions": [
+            {
+              "do": "lines",
+              "lines": [
+                {
+                  "s": "sari",
+                  "e": "senyum",
+                  "t": "Kaset keroncong itu Nenek putar tiap sore sekarang. Kakek dulu paling suka lagu yang ketiga."
+                }
+              ]
+            },
+            {
+              "do": "flag",
+              "id": "MEM_SARI_KASET"
             }
           ]
         },
@@ -35827,6 +36081,60 @@
                   "t": "Kalengnya: belakang rumah plaza, Jalan Kota, tepi danau, sama dapur kafe!"
                 }
               ]
+            }
+          ]
+        },
+        {
+          "id": "MEM_DITO_BATU",
+          "when": {
+            "flags": [
+              "SQ_BATU_DONE"
+            ],
+            "notFlags": [
+              "MEM_DITO_BATU"
+            ]
+          },
+          "actions": [
+            {
+              "do": "lines",
+              "lines": [
+                {
+                  "s": "dito",
+                  "e": "senang",
+                  "t": "Batu berkilau dari Kakak Dito taruh di kotak harta. Paling bagus yang dari Tepi Danau!"
+                }
+              ]
+            },
+            {
+              "do": "flag",
+              "id": "MEM_DITO_BATU"
+            }
+          ]
+        },
+        {
+          "id": "MEM_DITO_MURAL",
+          "when": {
+            "flags": [
+              "SQ_MURAL_DONE"
+            ],
+            "notFlags": [
+              "MEM_DITO_MURAL"
+            ]
+          },
+          "actions": [
+            {
+              "do": "lines",
+              "lines": [
+                {
+                  "s": "dito",
+                  "e": "tertawa",
+                  "t": "Muralnya sudah jadi, Kak! Ada gambar Kakak berdua juga, kecil, di pojok. Hehe."
+                }
+              ]
+            },
+            {
+              "do": "flag",
+              "id": "MEM_DITO_MURAL"
             }
           ]
         },
@@ -36261,6 +36569,33 @@
           ]
         },
         {
+          "id": "MEM_UDIN_IKAN",
+          "when": {
+            "flags": [
+              "SQ_IKAN_DONE"
+            ],
+            "notFlags": [
+              "MEM_UDIN_IKAN"
+            ]
+          },
+          "actions": [
+            {
+              "do": "lines",
+              "lines": [
+                {
+                  "s": "udin",
+                  "e": "tertawa",
+                  "t": "Pemancing pemula kita! Lima jenis ikan, Bapak masih cerita ke semua orang."
+                }
+              ]
+            },
+            {
+              "do": "flag",
+              "id": "MEM_UDIN_IKAN"
+            }
+          ]
+        },
+        {
           "when": {
             "hours": [
               "06:00",
@@ -36535,6 +36870,33 @@
                   "t": "Selamat datang. Perpustakaan ini sudah berdiri sebelum kota punya lampu jalan."
                 }
               ]
+            }
+          ]
+        },
+        {
+          "id": "MEM_LARAS_KARTU",
+          "when": {
+            "flags": [
+              "SQ_V26_CARDS_S_DONE"
+            ],
+            "notFlags": [
+              "MEM_LARAS_KARTU"
+            ]
+          },
+          "actions": [
+            {
+              "do": "lines",
+              "lines": [
+                {
+                  "s": "laras",
+                  "e": "senyum",
+                  "t": "Kartu cerita yang kamu tulis sudah Bu Laras pajang di dekat meja pinjam."
+                }
+              ]
+            },
+            {
+              "do": "flag",
+              "id": "MEM_LARAS_KARTU"
             }
           ]
         },
@@ -37182,6 +37544,33 @@
           ]
         },
         {
+          "id": "MEM_POS_SURAT",
+          "when": {
+            "flags": [
+              "SQ_POS_DONE"
+            ],
+            "notFlags": [
+              "MEM_POS_SURAT"
+            ]
+          },
+          "actions": [
+            {
+              "do": "lines",
+              "lines": [
+                {
+                  "s": "pos",
+                  "e": "senang",
+                  "t": "Lima surat waktu itu sampai semua. Kurir terbaik kota, Bapak bilang juga apa."
+                }
+              ]
+            },
+            {
+              "do": "flag",
+              "id": "MEM_POS_SURAT"
+            }
+          ]
+        },
+        {
           "when": {
             "hours": [
               "10:00",
@@ -37706,6 +38095,60 @@
                   "t": "Kucing suka di plaza dan perumahan, anjing di taman, bebek di kolam dan danau. Dekati pelan-pelan."
                 }
               ]
+            }
+          ]
+        },
+        {
+          "id": "MEM_HARUN_TAMAN",
+          "when": {
+            "flags": [
+              "C02_PARK_FIRST"
+            ],
+            "notFlags": [
+              "MEM_HARUN_TAMAN"
+            ]
+          },
+          "actions": [
+            {
+              "do": "lines",
+              "lines": [
+                {
+                  "s": "harun",
+                  "e": "senyum",
+                  "t": "Kalian yang pagi-pagi ke taman waktu itu. Bapak sampai berhenti menyapu, ikut senang lihatnya."
+                }
+              ]
+            },
+            {
+              "do": "flag",
+              "id": "MEM_HARUN_TAMAN"
+            }
+          ]
+        },
+        {
+          "id": "MEM_HARUN_HEWAN",
+          "when": {
+            "flags": [
+              "SQ_HEWAN_DONE"
+            ],
+            "notFlags": [
+              "MEM_HARUN_HEWAN"
+            ]
+          },
+          "actions": [
+            {
+              "do": "lines",
+              "lines": [
+                {
+                  "s": "harun",
+                  "e": "tertawa",
+                  "t": "Kucing, anjing, sama bebek itu sekarang kalau lihat kalian langsung mendekat. Mereka ingat, lho."
+                }
+              ]
+            },
+            {
+              "do": "flag",
+              "id": "MEM_HARUN_HEWAN"
             }
           ]
         },
@@ -38246,6 +38689,33 @@
           ]
         },
         {
+          "id": "MEM_DARMO_KUE",
+          "when": {
+            "flags": [
+              "SQ_KUE_DONE"
+            ],
+            "notFlags": [
+              "MEM_DARMO_KUE"
+            ]
+          },
+          "actions": [
+            {
+              "do": "lines",
+              "lines": [
+                {
+                  "s": "darmo",
+                  "e": "senyum",
+                  "t": "Kue Bu Rini kemarin masih terasa manisnya. Terima kasih sudah jauh-jauh mengantar ke Kakek."
+                }
+              ]
+            },
+            {
+              "do": "flag",
+              "id": "MEM_DARMO_KUE"
+            }
+          ]
+        },
+        {
           "when": {
             "hours": [
               "06:00",
@@ -38499,6 +38969,71 @@
         }
       ],
       "dialogs": [
+        {
+          "id": "MEM_RARA_DATE",
+          "when": {
+            "flags": [
+              "C02_OUTFIT_DATE"
+            ],
+            "notFlags": [
+              "MEM_RARA_DATE"
+            ]
+          },
+          "actions": [
+            {
+              "do": "lines",
+              "lines": [
+                {
+                  "s": "rara",
+                  "e": "senang",
+                  "t": "Kak Sofia, baju waktu kencan itu cantik banget! Rara mau pakai yang kayak gitu nanti."
+                }
+              ]
+            },
+            {
+              "do": "lines",
+              "lines": [
+                {
+                  "s": "sofia",
+                  "e": "malu",
+                  "t": "Makasih, Rara. Kakak juga deg-degan waktu itu."
+                }
+              ],
+              "route": "sofia"
+            },
+            {
+              "do": "flag",
+              "id": "MEM_RARA_DATE"
+            }
+          ]
+        },
+        {
+          "id": "MEM_RARA_CASUAL",
+          "when": {
+            "flags": [
+              "C02_OUTFIT_CASUAL"
+            ],
+            "notFlags": [
+              "MEM_RARA_CASUAL"
+            ]
+          },
+          "actions": [
+            {
+              "do": "lines",
+              "lines": [
+                {
+                  "s": "rara",
+                  "e": "senyum",
+                  "t": "Kak Sofia waktu itu bajunya santai, tapi tetap keren. Rara suka yang nggak ribet."
+                }
+              ]
+            },
+            {
+              "do": "flag",
+              "id": "MEM_RARA_CASUAL"
+            }
+          ]
+        },
         {
           "when": {
             "hours": [
@@ -38931,7 +39466,8 @@
         "steps": [
           "C04_V464_S_GALLERY"
         ]
-      }
+      },
+      "dialogs": []
     },
     {
       "id": "v464_gallery_guest_raka",
@@ -38946,7 +39482,8 @@
         "steps": [
           "C04_V464_S_GALLERY"
         ]
-      }
+      },
+      "dialogs": []
     },
     {
       "id": "v464_gallery_guest_tika",
@@ -38961,7 +39498,8 @@
         "steps": [
           "C04_V464_S_GALLERY"
         ]
-      }
+      },
+      "dialogs": []
     }
   ],
   "comments": {

@@ -42,6 +42,28 @@ Batas yang ditemukan saat pengujian:
 Dengan model yang punya rig dan animasi (idle, jalan, gestur), `render_sheets.gd` bisa memutar
 AnimationPlayer per frame, sehingga gestur lengan menjadi utuh.
 
+## Upgrade 6 (U3b): lari, emosi, bergandengan, pelukan
+- **Siklus lari** 8 arah, 16 frame (`run_8dir_v53@2x.png`). Langkah lebih panjang, lutut menekuk lebih dalam,
+  badan condong ke depan. Actor memakainya saat berlari. Kalau file tidak ada, Actor kembali ke siklus jalan
+  yang dipercepat.
+- **5 pose emosi** (baris 16–20 `poses_v53@2x.png`): `senang`, `malu`, `sedih`, `marah`, `kaget`. Bahasa
+  tubuh (condong, bahu, tangan ≤22°) ditambah gerak kecil di Actor (lompat kecil, goyang, turun, getar,
+  tersentak). Saat dialog, pembicara otomatis memakai pose yang cocok dengan ekspresi baris
+  (`src/logic/acting.gd`). Pose dari cutscene selalu diutamakan.
+- **Pasangan dalam satu sprite** (`tests/charrender/render_couple.tscn`). Kedua GLB dirender bersama
+  dengan rig yang sama. Sofia diskalakan 0,9325 agar tingginya sama dengan sprite tunggalnya. Hasil:
+  `assets/characters/couple/hand_walk@2x.png` (12 frame × 4 arah), `hand_idle@2x.png`, `hug@2x.png`
+  (frame 160×144 @2x). Rig sekarang punya `arm_lk`/`arm_rk`, jadi tangan yang digandeng tidak ikut berayun.
+  - **Bergandengan**: mode "Bergandengan Tangan" (aksi romansa) sekarang benar-benar terlihat. Pemain
+    menggambar sprite pasangan, dan partner ikut tersembunyi di sisinya (`World._hand_walk`). Saat cutscene,
+    keduanya kembali menjadi dua sprite.
+  - **Pelukan**: perintah cutscene `pair` dengan `kind: hug` memakai sprite pelukan (kepala Sofia di bahu
+    Arland). Baris 0 dipakai bila Arland di kiri, baris 3 bila Sofia di kiri.
+  - Batasan: lengan model menyatu dengan badan, jadi tangan yang bergandengan bertemu di sela tubuh
+    (tidak terlihat jari bertaut), dan pelukan bekerja karena lengan tersembunyi di balik tubuh pasangan.
+- Mengulang: `KIND_ONLY=hand_walk|hand_idle|hug xvfb-run godot --path . --rendering-driver opengl3
+  tests/charrender/render_couple.tscn`, lalu `python3 tools/char_sheets.py --couple <charframes>`.
+
 ## Potret dialog (V8.4)
 - `tests/charrender/render_portrait.tscn` merender kepala dan bahu dari depan
   (env `P_SIZE=1.5 P_Y=1.40`), lalu `python3 tools/portraits.py "<folder user://portraitframes>"`

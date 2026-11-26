@@ -27,7 +27,8 @@ var emote = null
 var emote_time := 0.0
 var alpha := 1.0
 const POSES := ["sit", "wave", "give", "reach", "bow", "hold_l", "hold_r", "cheer",
-		"hug", "lean", "photo", "highfive", "dance", "read", "water", "sweep"]
+		"hug", "lean", "photo", "highfive", "dance", "read", "water", "sweep",
+		"senang", "malu", "sedih", "marah", "kaget"]       # U3b emotions (rows 16-20 of poses_v53)
 var _emote_sprite: Sprite2D
 var style := {"cadence": 1.0, "bounce": 1.0, "sway": 1.0, "breathing": 1.0, "phase": 0.0, "scale": 1.0}
 
@@ -40,6 +41,20 @@ var _squash_v := 0.0
 var _was_walking := false
 var _last_step := 0
 var _puffs: Array = []       # dust puffs kicked up while running: {node, pos, t}
+# U3b: both characters drawn together from assets/characters/couple (hand in hand while walking, a hug),
+# an umbrella in the rain, and hiding while the other half of the couple draws the pair
+var couple := ""             # "", "hand" or "hug"
+var couple_time := 0.0       # > 0: the couple pose ends by itself after this many seconds
+var couple_dx := 0.0         # extra x offset of the pair sprite (hug: centre between the two)
+var couple_dir := -1         # hug: fixed sheet row, -1 = follow dir
+var hidden_by_couple := false
+var _hide_t := 0.0
+var acting := false          # the current pose is a reaction to a dialog line (Acting), not a cutscene pose
+var umbrella := false
+var _umb: Sprite2D
+const CFW := 80              # couple frame width (world px); FH is the same
+# x of this character inside the pair frame, per dir (down, left, right, up), world px from the centre
+const COUPLE_X := {"arland": [10.4, 6.7, 6.7, -10.4], "sofia": [-10.4, -9.8, -3.6, 10.4]}
 static var _puff_tex: Texture2D
 
 const STYLES := {
@@ -66,6 +81,10 @@ func setup(id: String) -> Actor:
 	add_child(_sprite)
 	if _shadow.texture:
 		_shadow.scale = Vector2(26.0 / _shadow.texture.get_width(), 10.0 / _shadow.texture.get_height())
+	_umb = Sprite2D.new()
+	_umb.visible = false
+	_umb.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+	add_child(_umb)
 	_emote_sprite = Sprite2D.new()
 	_emote_sprite.visible = false
 	_emote_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
@@ -74,12 +93,33 @@ func setup(id: String) -> Actor:
 	return self
 
 
-func set_pose(p: String, seconds: float) -> void:
-	pose = p; pose_time = 0.0; pose_dur = seconds
+func set_pose(p: String, seconds: float, is_acting := false) -> void:
+	pose = p; pose_time = 0.0; pose_dur = seconds; acting = is_acting
 
 
 func clear_pose() -> void:
-	pose = null; pose_time = 0.0; pose_dur = 0.0
+	pose = null; pose_time = 0.0; pose_dur = 0.0; acting = false
+
+
+## U3b: draw the couple together ("hand" / "hug") or go back to the single sprite (""). seconds > 0
+## ends it by itself. Only Arland and Sofia have couple sheets.
+func set_couple(kind: String, seconds := 0.0, dx := 0.0, row := -1) -> void:
+	couple = kind if character in COUPLE_X else ""
+	couple_time = seconds; couple_dx = dx; couple_dir = row
+
+
+## Hidden while the other half of the couple draws the pair (a hug), back after `seconds`.
+func hide_for(seconds: float) -> void:
+	hidden_by_couple = true; _hide_t = seconds
+
+
+func set_umbrella(on: bool) -> void:
+	if on == umbrella:
+		return
+	umbrella = on
+	if on and _umb.texture == null:
+		var i := absi(character.hash()) % 4
+		_umb.texture = Data.tex("fx/umbrella_%d.png" % i)
 
 
 func show_emote(e: String, seconds: float) -> void:
@@ -156,6 +196,14 @@ func _process(delta: float) -> void:
 		emote_time -= dt
 		if emote_time <= 0:
 			emote = null
+	if _hide_t > 0.0:
+		_hide_t -= dt
+		if _hide_t <= 0.0:
+			hidden_by_couple = false; _hide_t = 0.0
+	if couple_time > 0.0:
+		couple_time -= dt
+		if couple_time <= 0.0:
+			couple = ""; couple_time = 0.0
 	if pose != null:
 		pose_time += dt
 		if walking and pose != "hold_l" and pose != "hold_r":
@@ -166,6 +214,8 @@ func _process(delta: float) -> void:
 
 
 func _update_frame() -> void:
+	if couple != "" and _couple_frame():
+		return
 	var eight := character == "arland" or character == "sofia"
 	var vdir8: int = facing8 if (facing8 & 1) == 1 else [0, 2, 6, 4][dir]
 	var sh: Dictionary
@@ -173,6 +223,10 @@ func _update_frame() -> void:
 	var col: int
 	if eight:
 		sh = _sheet("walk_8dir_v53" if walking else "idle_8dir_v53")
+		if walking and sprinting:
+			var rs := _sheet("run_8dir_v53")        # U3b: a real run cycle when it exists
+			if not rs.is_empty():
+				sh = rs
 		row = vdir8
 	else:
 		sh = _sheet("walk_v53" if walking else "idle_v53")
@@ -182,7 +236,7 @@ func _update_frame() -> void:
 		row = dir
 	if sh.is_empty():
 		return
-	col = posmod(int(anim) if walking else int((life + style.phase) * 3.0), sh.cols)
+	col = posmod(int(anim * sh.cols / 24.0) if walking and sh.cols < 24 else int(anim) if walking else int((life + style.phase) * 3.0), sh.cols)
 	var pi: int = POSES.find(pose) if pose != null else -1
 	if pi >= 0:
 		var ps := _sheet("poses_v53")
@@ -191,6 +245,8 @@ func _update_frame() -> void:
 		if not ps.is_empty() and pi < ps.rows:
 			var anim_pose: bool = pose in ["wave", "cheer", "hug", "lean", "photo", "highfive", "dance", "read", "water", "sweep"] or (pose in ["hold_l", "hold_r"] and walking)
 			var f := (int((anim if walking else pose_time) * 4.0) & 1) if anim_pose else 0
+			if pi >= 16:                                  # U3b emotions breathe slowly between 2 frames
+				f = int(pose_time * 1.6) & 1
 			sh = ps; row = pi; col = clampi(dir, 0, 3) * 2 + f
 	var k: int = sh.k
 	_sprite.texture = sh.tex
@@ -219,6 +275,14 @@ func _update_frame() -> void:
 			"shy": dx = sin(t * 3.5) * 0.85; lift = -1.0
 			"excited": lift = absf(sin(t * 11.0)) * 4.8
 			"ponder": dx = sin(t * 1.9) * 0.7; lift = sin(t * 2.2) * 0.45
+	if pose != null and pi >= 16:   # U3b emotions: the sheet pose plus a little motion that sells it
+		var t2 := pose_time
+		match pose:
+			"senang": lift += absf(sin(t2 * 7.0)) * 2.2 * maxf(0.0, 1.0 - t2 * 0.5)
+			"malu": dx += sin(t2 * 3.0) * 0.9
+			"sedih": lift -= minf(1.2, t2 * 2.0)
+			"marah": dx += sin(t2 * 26.0) * 0.8 * maxf(0.0, 1.0 - t2 * 0.8)
+			"kaget": lift += sin(t2 / 0.3 * PI) * 6.0 if t2 < 0.3 else 0.0
 	if pose == null:
 		dx += sin(life * 5.0 + style.phase) * turn_impulse * 1.5
 	# squash keeps the feet planted and the width roughly constant in volume
@@ -234,13 +298,64 @@ func _update_frame() -> void:
 		var sk := 1.0 - minf(0.4, lift / 20.0)
 		_shadow.scale = Vector2(26.0 * sk / _shadow.texture.get_width(), 10.0 / _shadow.texture.get_height())
 		_shadow.position = Vector2(0, 0)
-	modulate.a = alpha
+	modulate.a = 0.0 if hidden_by_couple else alpha
+	_place_umbrella(dx, lift, fh)
 	_emote_sprite.visible = emote != null and _emote_sprite.texture != null
 	if _emote_sprite.visible:
 		var pop := minf(1.0, (1.8 - emote_time) * 6.0)
 		var tw := _emote_sprite.texture.get_width()
 		_emote_sprite.scale = Vector2(22.0 / tw, 22.0 / tw) * pop
 		_emote_sprite.position = Vector2(0, -FH * style.scale - 12 - lift)
+
+
+## U3b: the pair sprite. Returns false when the sheet is missing (falls back to the single sprite).
+func _couple_frame() -> bool:
+	var name := "hug" if couple == "hug" else ("hand_walk" if walking else "hand_idle")
+	var key := "couple/" + name
+	var sh: Dictionary = _sheets.get(key, {})
+	if sh.is_empty():
+		var path := "res://assets/characters/couple/%s@2x.png" % name
+		if not ResourceLoader.exists(path):
+			return false
+		var t: Texture2D = load(path)
+		sh = {"tex": t, "k": 2, "cols": t.get_width() / (CFW * 2), "rows": t.get_height() / (FH * 2)}
+		_sheets[key] = sh
+	var d := couple_dir if couple_dir >= 0 else dir
+	var col := 0
+	if walking and couple == "hand":
+		col = posmod(int(anim / 2.0), sh.cols)
+	else:
+		col = int((life + style.phase) * (0.9 if couple == "hug" else 1.4)) % sh.cols
+	var k: int = sh.k
+	_sprite.texture = sh.tex
+	_sprite.region_enabled = true
+	_sprite.region_rect = Rect2(col * CFW * k, mini(d, sh.rows - 1) * FH * k, CFW * k, FH * k)
+	_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+	var lift := 0.0
+	if walking:
+		lift = absf(sin(anim * PI / 6.0)) * 1.0 * motion_blend
+	var sc := 1.0 / k
+	_sprite.scale = Vector2(sc, sc)
+	_sprite.rotation = 0.0
+	var own: float = COUPLE_X[character][d] if couple == "hand" else 0.0
+	_sprite.position = Vector2(-CFW / 2.0 - own + couple_dx, 1.0 - lift - FH)
+	if _shadow.texture:
+		_shadow.scale = Vector2(52.0 / _shadow.texture.get_width(), 12.0 / _shadow.texture.get_height())
+		_shadow.position = Vector2(couple_dx - own, 0)
+	modulate.a = alpha
+	_place_umbrella(couple_dx - own, lift, FH)
+	_emote_sprite.visible = false
+	return true
+
+
+func _place_umbrella(dx: float, lift: float, fh: float) -> void:
+	_umb.visible = umbrella and _umb.texture != null and not hidden_by_couple
+	if not _umb.visible:
+		return
+	var tw := float(_umb.texture.get_width())
+	var w := 64.0 if couple != "" else 44.0          # one big umbrella over the pair
+	_umb.scale = Vector2(w / tw, w / tw)
+	_umb.position = Vector2(dx, -fh * 0.86 - lift + sin(life * 2.3) * 0.6)
 
 
 func _spawn_puff() -> void:

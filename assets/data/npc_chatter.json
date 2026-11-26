@@ -1,0 +1,86 @@
+{
+  "_doc": "U3b: what town NPCs say to EACH OTHER when two of them stand close (src/game/npc_life.gd). Each talk: id, lines [[speaker, text]] where speaker 0/1 is the first/second NPC of the pair (or an NPC id in pairs), optional when {weather: rain|clear, hours, flags, notFlags, minChapter} checked with QuestEngine.check. Pair talks are keyed 'a|b' by NPC id in alphabetical order. Lines are short: they show as speech bubbles the player overhears.",
+  "generic": [
+    {"id": "g_pagi_1", "when": {"hours": ["06:00", "10:00"]}, "lines": [[0, "Pagi! Sudah sarapan?"], [1, "Belum. Nunggu kue Bu Rini keluar dari oven."], [0, "Sama. Kita antre bareng saja."]]},
+    {"id": "g_pagi_2", "when": {"hours": ["06:00", "10:00"]}, "lines": [[0, "Udaranya masih dingin, ya."], [1, "Nanti siang juga panas lagi. Nikmati saja selagi bisa."]]},
+    {"id": "g_pagi_3", "when": {"hours": ["06:00", "10:00"], "weather": "clear"}, "lines": [[0, "Cerah begini enaknya jemur kasur."], [1, "Jangan lupa diangkat. Minggu lalu kehujanan, kan?"], [0, "Ssst. Jangan diingat-ingat."]]},
+    {"id": "g_siang_1", "when": {"hours": ["10:00", "15:00"]}, "lines": [[0, "Panas, ya. Es teh di kafe masih ada nggak, ya?"], [1, "Ada. Tapi antreannya panjang."], [0, "Ya sudah, ngadem di bawah pohon dulu."]]},
+    {"id": "g_siang_2", "when": {"hours": ["10:00", "15:00"]}, "lines": [[0, "Tadi lihat kucing oranye lewat?"], [1, "Yang gendut itu? Lagi tidur di atas pos."], [0, "Pantas Pak Pos jalan sambil jinjit."]]},
+    {"id": "g_siang_3", "when": {"hours": ["11:00", "14:00"]}, "lines": [[0, "Makan siang di mana?"], [1, "Rumah. Sayur asem dari Bu Wulan masih banyak."], [0, "Bu Wulan masak sayur asem lagi? Untung kita tetangga."]]},
+    {"id": "g_sore_1", "when": {"hours": ["15:00", "18:00"]}, "lines": [[0, "Sore begini langitnya oranye banget."], [1, "Kak Nara bilang besok cerah. Bintangnya bakal kelihatan."], [0, "Wah, ke bukit, yuk."]]},
+    {"id": "g_sore_2", "when": {"hours": ["15:00", "18:00"]}, "lines": [[0, "Anak-anak sudah pulang sekolah, ramai lagi."], [1, "Tadi Dito lewat bawa tongkat, katanya pedang."], [0, "Pedang naga, kalau kata dia."]]},
+    {"id": "g_sore_3", "when": {"hours": ["16:00", "18:30"]}, "lines": [[0, "Mau pulang lewat mana?"], [1, "Lewat taman. Jalannya lebih jauh, tapi lebih enak."], [0, "Kamu memang suka yang jauh-jauh."]]},
+    {"id": "g_malam_1", "when": {"hours": ["18:00", "23:59"]}, "lines": [[0, "Lampu jalannya sudah nyala semua."], [1, "Kota kecil begini jadi kelihatan hangat, ya."]]},
+    {"id": "g_malam_2", "when": {"hours": ["18:30", "23:59"]}, "lines": [[0, "Sudah malam, masih di luar?"], [1, "Cari angin. Kepala penuh."], [0, "Jangan lama-lama. Pak Darto nanti menegur."]]},
+    {"id": "g_hujan_1", "when": {"weather": "rain"}, "lines": [[0, "Hujan lagi. Payungmu bocor nggak?"], [1, "Sedikit. Bagian kiri saja."], [0, "Ya sudah, jalan miring ke kanan."]]},
+    {"id": "g_hujan_2", "when": {"weather": "rain"}, "lines": [[0, "Bau tanah habis hujan itu enak, ya."], [1, "Petrikor. Bu Laras pernah bilang namanya."], [0, "Ah, kamu jadi pintar gara-gara perpustakaan."]]},
+    {"id": "g_hujan_3", "when": {"weather": "rain"}, "lines": [[0, "Jemuranku belum diangkat!"], [1, "Sudah basah. Anggap saja dibilas dua kali."]]},
+    {"id": "g_hujan_4", "when": {"weather": "rain"}, "lines": [[0, "Kafe Kak Raka pasti penuh orang berteduh."], [1, "Untung dia baik. Pesan satu teh pun boleh duduk lama."]]},
+    {"id": "g_cerah_1", "when": {"weather": "clear"}, "lines": [[0, "Langitnya biru sekali hari ini."], [1, "Cocok buat jalan ke danau."], [0, "Bebek-bebek pasti lagi rame."]]},
+    {"id": "g_cerah_2", "when": {"weather": "clear"}, "lines": [[0, "Bunga di depan toko Bu Melati mekar semua."], [1, "Iya, kuning-kuning. Kayak ikut senyum."]]},
+    {"id": "g_umum_1", "lines": [[0, "Harga cabai naik lagi, katanya."], [1, "Untung aku tanam sendiri di pot."], [0, "Bagi satu, dong."]]},
+    {"id": "g_umum_2", "lines": [[0, "Kamu sudah dengar? Pak Ujang punya balon bentuk baru."], [1, "Bentuk apa?"], [0, "Bebek. Laris katanya."]]},
+    {"id": "g_umum_3", "lines": [[0, "Radio di pos ronda masih rusak?"], [1, "Sudah diperbaiki Bang Juna. Sekarang cuma bisa satu stasiun."], [0, "Stasiun keroncong, ya?"], [1, "Kok tahu?"]]},
+    {"id": "g_umum_4", "lines": [[0, "Kemarin aku ketiduran di bangku taman."], [1, "Pak Harun yang bangunin?"], [0, "Bukan. Bebek."]]},
+    {"id": "g_umum_5", "lines": [[0, "Rasanya kota ini nggak pernah berubah, ya."], [1, "Berubah, kok. Pelan-pelan saja."]]},
+    {"id": "g_gosip_1", "when": {"minChapter": "C02"}, "lines": [[0, "Dua anak muda yang sering jalan berdua itu..."], [1, "Arland sama Sofia?"], [0, "Iya. Kayaknya lagi senang-senangnya."]]},
+    {"id": "g_gosip_2", "when": {"minChapter": "C03"}, "lines": [[0, "Aku lihat Sofia bawa bunga kering tadi."], [1, "Buat apa, ya?"], [0, "Ah, urusan anak muda. Jangan kepo."]]},
+    {"id": "g_gosip_3", "when": {"minChapter": "C04"}, "lines": [[0, "Pameran di galeri itu ramai, katanya."], [1, "Tapi ada kursi yang kosong, aku dengar."], [0, "Sudah, jangan dibahas. Semoga mereka baik-baik saja."]]},
+    {"id": "g_gosip_4", "when": {"minChapter": "C05"}, "lines": [[0, "Arland sama Sofia kelihatan lebih tenang sekarang."], [1, "Habis hujan biasanya memang begitu."]]},
+    {"id": "g_gosip_5", "when": {"minChapter": "EPI"}, "lines": [[0, "Festival lentera tahun ini rasanya paling hangat."], [1, "Karena banyak yang datang berdua, mungkin."], [0, "Kamu ngode?"], [1, "Nggak!"]]},
+    {"id": "g_ingat_arcade", "when": {"flags": ["C02_ARCADE_FIRST"]}, "lines": [[0, "Kata Bang Juna, ada yang kencan mulai dari arcade."], [1, "Romantis juga. Menang boneka dulu, baru jalan-jalan."]]},
+    {"id": "g_ingat_taman", "when": {"flags": ["C02_PARK_FIRST"]}, "lines": [[0, "Pak Harun cerita, ada pasangan pagi-pagi sudah di taman."], [1, "Pak Harun memang lihat semuanya. Taman itu matanya."]]},
+    {"id": "g_ingat_bunga", "when": {"flags": ["SQ_BUNGA_DONE"]}, "lines": [[0, "Nenek Sari dapat buket bunga, lho."], [1, "Dari siapa?"], [0, "Diantar dua anak muda. Nenek senyum-senyum terus."]]},
+    {"id": "g_ingat_mochi", "when": {"flags": ["SQ_MOCHI_DONE"]}, "lines": [[0, "Mochi, kucingnya Nenek Sari, sudah ketemu."], [1, "Syukurlah! Siapa yang nemu?"], [0, "Arland sama Sofia. Siapa lagi?"]]},
+    {"id": "g_ingat_ikan", "when": {"flags": ["SQ_IKAN_DONE"]}, "lines": [[0, "Pak Udin cerita terus soal pemancing pemula itu."], [1, "Lima jenis ikan, katanya. Aku sekali mancing dapat sandal."]]},
+    {"id": "g_ingat_kaset", "when": {"flags": ["SQ_V7_KASET_DONE"]}, "lines": [[0, "Dengar nggak? Ada keroncong dari rumah Nenek Sari tiap sore."], [1, "Kasetnya sudah diperbaiki. Lagunya bikin kangen."]]},
+    {"id": "g_ingat_mural", "when": {"flags": ["SQ_MURAL_DONE"]}, "lines": [[0, "Mural baru di dinding itu bagus, ya."], [1, "Dito yang gambar. Tapi catnya dicarikan Kakak-kakak itu."]]}
+  ],
+  "pairs": {
+    "darmo|rini": [
+      {"id": "p_rini_darmo_1", "lines": [["rini", "Kek, kuenya sudah dimakan?"], ["darmo", "Sudah. Yang hijau Kakek habiskan duluan."], ["rini", "Dari dulu sama, ya."]]},
+      {"id": "p_rini_darmo_2", "when": {"weather": "rain"}, "lines": [["darmo", "Hujan begini, Kakek ingat nenek."], ["rini", "Yang dilamar sambil basah kuyup itu?"], ["darmo", "Ha. Semua orang sudah dengar ceritanya, ya."]]}
+    ],
+    "darmo|udin": [
+      {"id": "p_udin_darmo_1", "lines": [["udin", "Dapat berapa ekor, Kek?"], ["darmo", "Satu. Tapi besar."], ["udin", "Kakek bilang begitu tiap hari."]]},
+      {"id": "p_udin_darmo_2", "lines": [["darmo", "Danau ini dulu lebih luas, Din."], ["udin", "Atau Kakek yang dulu lebih kecil?"], ["darmo", "Kurang ajar. Tapi mungkin benar."]]}
+    ],
+    "melati|sari": [
+      {"id": "p_melati_sari_1", "lines": [["melati", "Nek, mawarnya masih segar?"], ["sari", "Nenek siram tiap pagi. Sambil cerita."], ["melati", "Cerita apa, Nek?"], ["sari", "Rahasia. Bunga pandai menyimpan."]]}
+    ],
+    "ina|sari": [
+      {"id": "p_ina_sari_1", "lines": [["ina", "Sari, kamu masih ingat bangku ini?"], ["sari", "Bangku rebutan kita waktu SD."], ["ina", "Sekarang kita yang bawa cucu-cucu ke sini."]]},
+      {"id": "p_ina_sari_2", "lines": [["sari", "Ina, jalan paginya sudah?"], ["ina", "Sudah. Dokter bilang bagus untuk jantung."], ["sari", "Dan bagus untuk gosip."], ["ina", "Itu kata Oma, bukan dokter."]]}
+    ],
+    "juna|raka": [
+      {"id": "p_raka_juna_1", "lines": [["juna", "Ka, kopi satu. Yang pahit."], ["raka", "Rekor capit nggak pecah lagi?"], ["juna", "Pecah. Sama anak SD."]]},
+      {"id": "p_raka_juna_2", "when": {"weather": "rain"}, "lines": [["raka", "Hujan, arcade-mu pasti penuh."], ["juna", "Kafe-mu juga."], ["raka", "Bagus. Kita sama-sama nggak bisa tidur siang."]]}
+    ],
+    "dito|tika": [
+      {"id": "p_dito_tika_1", "lines": [["dito", "Tika, aku lihat kelinci di semak!"], ["tika", "Mana? Jangan lari, nanti kabur!"], ["dito", "Sudah kabur."]]},
+      {"id": "p_dito_tika_2", "when": {"weather": "rain"}, "lines": [["dito", "Genangan paling besar ada di dekat gazebo!"], ["tika", "Nanti dimarahi Ibu."], ["dito", "Ibu nggak usah tahu."]]}
+    ],
+    "bimo|rara": [
+      {"id": "p_rara_bimo_1", "lines": [["rara", "PR-mu sudah?"], ["bimo", "Sudah. Setengah."], ["rara", "Setengah itu belum, Bim."]]},
+      {"id": "p_rara_bimo_2", "lines": [["bimo", "Gimana caranya menang mesin capit?"], ["rara", "Kata Kak Sofia, sabar."], ["bimo", "Aku nggak punya itu."]]}
+    ],
+    "darto|pos": [
+      {"id": "p_pos_darto_1", "lines": [["pos", "Pak Darto, ada surat buat pos ronda."], ["darto", "Dari siapa?"], ["pos", "Dari Pak RT. Isinya jadwal ronda lagi."], ["darto", "Ah. Surat yang paling tidak ditunggu."]]}
+    ],
+    "pos|ujang": [
+      {"id": "p_ujang_pos_1", "lines": [["ujang", "Pak, balon satu? Bentuk amplop."], ["pos", "Ada bentuk amplop?"], ["ujang", "Belum. Tapi kalau Bapak pesan, besok ada."]]}
+    ],
+    "harun|tika": [
+      {"id": "p_harun_tika_1", "lines": [["tika", "Pak Harun, daunnya banyak sekali!"], ["harun", "Mau bantu? Satu daun satu permen."], ["tika", "Sepuluh daun sepuluh permen?"], ["harun", "Wah, Bapak bangkrut."]]}
+    ],
+    "eko|ina": [
+      {"id": "p_eko_ina_1", "lines": [["ina", "Eko, larinya jangan cepat-cepat."], ["eko", "Biar kepala kosong, Oma."], ["ina", "Kepala kosong bukan karena lari, Nak. Karena istirahat."]]}
+    ],
+    "laras|nara": [
+      {"id": "p_laras_nara_1", "lines": [["nara", "Bu Laras, ada buku peta bintang baru?"], ["laras", "Ada satu. Tapi halamannya ada yang hilang."], ["nara", "Pas. Aku suka mencari yang hilang."]]}
+    ],
+    "tigor|ujang": [
+      {"id": "p_tigor_ujang_1", "lines": [["tigor", "Jang, balon hati masih?"], ["ujang", "Buat siapa, Bang?"], ["tigor", "Buat motor. Biar laku."]]}
+    ]
+  }
+}

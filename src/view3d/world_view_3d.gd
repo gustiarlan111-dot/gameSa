@@ -111,9 +111,9 @@ func stand(x: float, y: float, h: float) -> Vector3:
 	return Vector3(x * S, cos(_tilt) * h * S + _lift(y), y * S + sin(_tilt) * h * S)
 
 
-## Rooms are painted as one picture in the classic 3/4 view, walls included. Indoors the camera
-## looks straight down on that picture and everything lies flat on it, so the room keeps its painted
-## look; small height steps by map y keep the old front-to-back order. Outdoors sprites stand up.
+## Flat rooms are painted as one picture in the classic 3/4 view, walls included: the camera looks
+## straight down on it and everything lies flat, with small height steps by map y keeping the old
+## front-to-back order. Rooms with "room3d" (tools/worldgen/rooms_hd.py ROOMS3D) and outdoors stand up.
 var _indoor := false
 var _tilt := TILT
 func _lift(y: float) -> float:
@@ -129,7 +129,8 @@ func rebuild() -> void:
 		_mirrors[k].pivot.queue_free(); _mirrors[k].base.queue_free()
 	_mirrors.clear()
 	_rustle.clear(); _alts.clear(); _lamps.clear()
-	_indoor = bool(world.area.get("indoor", false))
+	# rooms marked room3d are built like outdoor maps: furniture and the back wall stand up as sprites
+	_indoor = bool(world.area.get("indoor", false)) and not bool(world.area.get("room3d", false))
 	_tilt = -PI / 2.0 if _indoor else TILT
 	_build_ground()
 	_build_props()
@@ -159,7 +160,9 @@ func _build_ground() -> void:
 		mat.albedo_texture = s.texture
 		mat.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
 		mat.roughness = 0.95
-		mat.albedo_color = Color(0.84, 0.84, 0.84)
+		mat.albedo_color = Color(0.84, 0.84, 0.84) if not world.area.get("room3d", false) else Color(1.12, 1.1, 1.08)
+		if world.area.get("room3d", false):
+			mat.metallic_specular = 0.0
 		m.material_override = mat
 		m.position = at(s.position.x + w / 2.0, s.position.y + h / 2.0)
 		m.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
@@ -219,8 +222,24 @@ func _material(tex: Texture2D, img: String, standing: bool) -> Material:
 		mat.normal_enabled = true
 		mat.normal_texture = load(np_)
 		mat.normal_scale = 0.7
+	elif standing and world.area.get("room3d", false):
+		# room furniture is painted in 3/4 view with its own shading: bend the quad's normal up so it
+		# takes light like the floor it stands on instead of flaring when the key faces it
+		mat.normal_enabled = true
+		mat.normal_texture = _up_normal()
+		mat.normal_scale = 1.0
+		mat.metallic_specular = 0.0
 	_mats[key] = mat
 	return mat
+
+
+var _up_nm: Texture2D
+func _up_normal() -> Texture2D:
+	if _up_nm == null:
+		var im := Image.create(4, 4, false, Image.FORMAT_RGB8)
+		im.fill(Color(0.5, 0.88, 0.78))          # tangent-space normal leaning up the sprite
+		_up_nm = ImageTexture.create_from_image(im)
+	return _up_nm
 
 
 func _prop_basis(w: float, h: float, standing: bool, skew := 0.0) -> Basis:
@@ -518,7 +537,8 @@ func _update_light(delta: float) -> void:
 	var k := minf(1.0, delta * 3.0)
 	# ambient follows the day tint (night blue, dusk warm); indoors stays brighter
 	var amb := tint * Color(0.74, 0.77, 0.88)
-	var amb_e := 0.8 if a.indoor else (0.5 if cave else (0.48 if day else 0.6))
+	var r3 := a.indoor and not _indoor           # a room3d room: lit like a set, with real shadows
+	var amb_e := (0.25 if r3 else 0.8) if a.indoor else (0.5 if cave else (0.48 if day else 0.6))
 	env.ambient_light_color = env.ambient_light_color.lerp(amb, k)
 	env.ambient_light_energy = lerpf(env.ambient_light_energy, amb_e, k)
 	var sky := Color(0.55, 0.72, 0.9).lerp(Color(0.95, 0.62, 0.48), clampf((1.0 - e) * 1.2, 0, 1)) * tint
@@ -532,8 +552,8 @@ func _update_light(delta: float) -> void:
 	env.background_color = sky
 	env.fog_light_color = sky.lerp(Color(0.8, 0.85, 0.95) * tint, 0.4)
 	env.fog_density = 0.006 if rain else 0.002
-	env.fog_enabled = not _indoor
-	env.glow_enabled = not day or rain or e < 0.35
+	env.fog_enabled = not a.indoor
+	env.glow_enabled = (not day or rain or e < 0.35) and not (r3 and a.lamp_on < 0.5)
 	# sun by day (east in the morning, west at dusk), moon at night, a soft top light indoors
 	var az := lerpf(-70.0, 70.0, t)
 	var el := 14.0 + 56.0 * e
@@ -546,6 +566,10 @@ func _update_light(delta: float) -> void:
 			energy *= 0.15
 		elif a.weather == "berawan":
 			energy *= 0.55
+	elif r3:
+		# a soft key from the viewer's side and a little left (like the painted shading), so furniture
+		# fronts are lit and their shadows fall back toward the wall
+		az = 150.0; el = 50.0; energy = 0.16; col = Color(1.0, 0.97, 0.92)
 	elif a.indoor:
 		az = 15.0; el = 62.0; energy = 0.35; col = Color(1.0, 0.92, 0.82)
 	elif a.realm and not a.indoor:

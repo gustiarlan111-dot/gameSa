@@ -135,7 +135,103 @@
         ]
       ],
       "ellipses": [],
-      "props": [],
+      "props": [
+        {
+          "type": "room_arland_room_00_wall",
+          "x": 300,
+          "y": 96
+        },
+        {
+          "type": "room_arland_room_01_desk",
+          "x": 381,
+          "y": 131
+        },
+        {
+          "type": "room_arland_room_02_crate",
+          "x": 457,
+          "y": 119
+        },
+        {
+          "type": "room_arland_room_03_bed",
+          "x": 516,
+          "y": 189
+        },
+        {
+          "type": "room_arland_room_04_nightstand",
+          "x": 459,
+          "y": 183
+        },
+        {
+          "type": "room_arland_room_05_wardrobe",
+          "x": 62,
+          "y": 197
+        },
+        {
+          "type": "room_arland_room_06_bookshelf",
+          "x": 128,
+          "y": 163
+        },
+        {
+          "type": "room_arland_room_07_pot",
+          "x": 178,
+          "y": 131
+        },
+        {
+          "type": "room_arland_room_08_sofa",
+          "x": 88,
+          "y": 373
+        },
+        {
+          "type": "room_arland_room_09_table",
+          "x": 182,
+          "y": 379
+        },
+        {
+          "type": "room_arland_room_10_beanbag",
+          "x": 501,
+          "y": 386
+        },
+        {
+          "type": "room_arland_room_11_cabinet",
+          "x": 540,
+          "y": 311
+        },
+        {
+          "type": "room_arland_room_12_pot",
+          "x": 544,
+          "y": 251
+        },
+        {
+          "type": "room_arland_room_13_basket",
+          "x": 466,
+          "y": 319
+        },
+        {
+          "type": "room_arland_room_14_guitar",
+          "x": 149,
+          "y": 412
+        },
+        {
+          "type": "room_arland_room_15_lamp",
+          "x": 32,
+          "y": 321
+        },
+        {
+          "type": "room_arland_room_16_tv",
+          "x": 231,
+          "y": 147
+        },
+        {
+          "type": "room_arland_room_17_bookstack",
+          "x": 220,
+          "y": 312
+        },
+        {
+          "type": "room_arland_room_18_basket",
+          "x": 161,
+          "y": 289
+        }
+      ],
       "doors": [
         {
           "id": "arland_room_out",
@@ -307,7 +403,7 @@
       "visualStyle": "godot_hd_interior",
       "visualUpdate": "godot_rooms_hd",
       "v6Layout": {
-        "version": 3,
+        "version": 4,
         "generator": "tools/worldgen/rooms_hd.py",
         "hd": true
       },
@@ -380,7 +476,8 @@
           "g34w7g34",
           "g34w7g34"
         ]
-      }
+      },
+      "room3d": true
     },
     "sofia_room": {
       "name": "Kamar Sofia",
@@ -522,7 +619,108 @@
         ]
       ],
       "ellipses": [],
-      "props": [],
+      "props": [
+        {
+          "type": "room_sofia_room_00_wall",
+          "x": 300,
+          "y": 96
+        },
+        {
+          "type": "room_sofia_room_01_bed",
+          "x": 75,
+          "y": 189
+        },
+        {
+          "type": "room_sofia_room_02_nightstand",
+          "x": 131,
+          "y": 117
+        },
+        {
+          "type": "room_sofia_room_03_plush",
+          "x": 127,
+          "y": 215
+        },
+        {
+          "type": "room_sofia_room_04_vanity",
+          "x": 356,
+          "y": 132
+        },
+        {
+          "type": "room_sofia_room_05_basket",
+          "x": 411,
+          "y": 115
+        },
+        {
+          "type": "room_sofia_room_06_cabinet",
+          "x": 528,
+          "y": 141
+        },
+        {
+          "type": "room_sofia_room_07_wardrobe",
+          "x": 521,
+          "y": 327
+        },
+        {
+          "type": "room_sofia_room_08_pot",
+          "x": 550,
+          "y": 361
+        },
+        {
+          "type": "room_sofia_room_09_bookshelf",
+          "x": 79,
+          "y": 311
+        },
+        {
+          "type": "room_sofia_room_10_sofa",
+          "x": 82,
+          "y": 379
+        },
+        {
+          "type": "room_sofia_room_11_pot",
+          "x": 144,
+          "y": 411
+        },
+        {
+          "type": "room_sofia_room_12_desk",
+          "x": 468,
+          "y": 409
+        },
+        {
+          "type": "room_sofia_room_13_plush",
+          "x": 214,
+          "y": 331
+        },
+        {
+          "type": "room_sofia_room_14_pot",
+          "x": 170,
+          "y": 133
+        },
+        {
+          "type": "room_sofia_room_15_basket",
+          "x": 224,
+          "y": 117
+        },
+        {
+          "type": "room_sofia_room_16_pot",
+          "x": 224,
+          "y": 99
+        },
+        {
+          "type": "room_sofia_room_17_lamp",
+          "x": 150,
+          "y": 373
+        },
+        {
+          "type": "room_sofia_room_18_table",
+          "x": 422,
+          "y": 180
+        },
+        {
+          "type": "room_sofia_room_19_pot",
+          "x": 36,
+          "y": 215
+        }
+      ],
       "doors": [
         {
           "id": "sofia_room_out",
@@ -699,7 +897,7 @@
       "visualStyle": "godot_hd_interior",
       "visualUpdate": "godot_rooms_hd",
       "v6Layout": {
-        "version": 3,
+        "version": 4,
         "generator": "tools/worldgen/rooms_hd.py",
         "hd": true
       },
@@ -772,7 +970,8 @@
           "g34w7g34",
           "g34w7g34"
         ]
-      }
+      },
+      "room3d": true
     },
     "plaza": {
       "name": "Plaza Kota",
@@ -17327,7 +17526,188 @@
         ]
       ],
       "ellipses": [],
-      "props": [],
+      "props": [
+        {
+          "type": "room_cafe_00_wall",
+          "x": 480,
+          "y": 228
+        },
+        {
+          "type": "room_cafe_01_counter",
+          "x": 207,
+          "y": 341
+        },
+        {
+          "type": "room_cafe_02_box",
+          "x": 375,
+          "y": 339
+        },
+        {
+          "type": "room_cafe_03_cabinet",
+          "x": 70,
+          "y": 293
+        },
+        {
+          "type": "room_cafe_04_pot",
+          "x": 60,
+          "y": 241
+        },
+        {
+          "type": "room_cafe_05_bookshelf",
+          "x": 702,
+          "y": 303
+        },
+        {
+          "type": "room_cafe_06_table",
+          "x": 481,
+          "y": 482
+        },
+        {
+          "type": "room_cafe_07_table",
+          "x": 160,
+          "y": 576
+        },
+        {
+          "type": "room_cafe_08_table",
+          "x": 800,
+          "y": 576
+        },
+        {
+          "type": "room_cafe_09_table",
+          "x": 780,
+          "y": 436
+        },
+        {
+          "type": "room_cafe_10_table",
+          "x": 620,
+          "y": 616
+        },
+        {
+          "type": "room_cafe_11_table",
+          "x": 300,
+          "y": 616
+        },
+        {
+          "type": "room_cafe_12_sofa",
+          "x": 872,
+          "y": 481
+        },
+        {
+          "type": "room_cafe_13_plantbig",
+          "x": 42,
+          "y": 331
+        },
+        {
+          "type": "room_cafe_14_plantbig",
+          "x": 921,
+          "y": 331
+        },
+        {
+          "type": "room_cafe_15_plantbig",
+          "x": 40,
+          "y": 617
+        },
+        {
+          "type": "room_cafe_16_plantbig",
+          "x": 920,
+          "y": 617
+        },
+        {
+          "type": "room_cafe_17_bench",
+          "x": 595,
+          "y": 383
+        },
+        {
+          "type": "room_cafe_18_pot",
+          "x": 600,
+          "y": 361
+        },
+        {
+          "type": "room_cafe_19_displaycase",
+          "x": 496,
+          "y": 279
+        },
+        {
+          "type": "room_cafe_20_sack",
+          "x": 561,
+          "y": 294
+        },
+        {
+          "type": "room_cafe_21_sack",
+          "x": 585,
+          "y": 298
+        },
+        {
+          "type": "room_cafe_22_signstand",
+          "x": 612,
+          "y": 300
+        },
+        {
+          "type": "room_cafe_23_coatrack",
+          "x": 790,
+          "y": 297
+        },
+        {
+          "type": "room_cafe_24_umbrellastand",
+          "x": 814,
+          "y": 301
+        },
+        {
+          "type": "room_cafe_25_armchair",
+          "x": 49,
+          "y": 379
+        },
+        {
+          "type": "room_cafe_26_sidetable",
+          "x": 81,
+          "y": 385
+        },
+        {
+          "type": "room_cafe_27_armchair",
+          "x": 897,
+          "y": 381
+        },
+        {
+          "type": "room_cafe_28_lamp",
+          "x": 936,
+          "y": 425
+        },
+        {
+          "type": "room_cafe_29_table",
+          "x": 220,
+          "y": 428
+        },
+        {
+          "type": "room_cafe_30_plantbig",
+          "x": 520,
+          "y": 627
+        },
+        {
+          "type": "room_cafe_31_bin",
+          "x": 704,
+          "y": 625
+        },
+        {
+          "type": "room_cafe_32_stool",
+          "x": 471,
+          "y": 300
+        },
+        {
+          "type": "room_cafe_33_bookshelf",
+          "x": 48,
+          "y": 579
+        },
+        {
+          "type": "room_cafe_34_plantbig",
+          "x": 746,
+          "y": 627
+        },
+        {
+          "type": "room_cafe_35_plantbig",
+          "x": 362,
+          "y": 627
+        }
+      ],
       "doors": [
         {
           "id": "cafe_out",
@@ -17481,7 +17861,7 @@
       "elevationPlatforms": [],
       "v4Layout": null,
       "v6Layout": {
-        "version": 3,
+        "version": 4,
         "generator": "tools/worldgen/rooms_hd.py",
         "hd": true
       },
@@ -17578,7 +17958,8 @@
           "g120",
           "g120"
         ]
-      }
+      },
+      "room3d": true
     },
     "dapur": {
       "name": "Dapur Kafe",
@@ -17750,7 +18131,113 @@
         ]
       ],
       "ellipses": [],
-      "props": [],
+      "props": [
+        {
+          "type": "room_dapur_00_wall",
+          "x": 300,
+          "y": 96
+        },
+        {
+          "type": "room_dapur_01_counter",
+          "x": 100,
+          "y": 143
+        },
+        {
+          "type": "room_dapur_02_counter",
+          "x": 200,
+          "y": 143
+        },
+        {
+          "type": "room_dapur_03_counter",
+          "x": 295,
+          "y": 143
+        },
+        {
+          "type": "room_dapur_04_fridge",
+          "x": 408,
+          "y": 153
+        },
+        {
+          "type": "room_dapur_05_cabinet",
+          "x": 459,
+          "y": 145
+        },
+        {
+          "type": "room_dapur_06_counter",
+          "x": 284,
+          "y": 277
+        },
+        {
+          "type": "room_dapur_07_bookshelf",
+          "x": 548,
+          "y": 257
+        },
+        {
+          "type": "room_dapur_08_basket",
+          "x": 547,
+          "y": 291
+        },
+        {
+          "type": "room_dapur_09_table",
+          "x": 148,
+          "y": 361
+        },
+        {
+          "type": "room_dapur_10_pot",
+          "x": 42,
+          "y": 411
+        },
+        {
+          "type": "room_dapur_11_crate",
+          "x": 484,
+          "y": 375
+        },
+        {
+          "type": "room_dapur_12_crate",
+          "x": 514,
+          "y": 395
+        },
+        {
+          "type": "room_dapur_13_pot",
+          "x": 559,
+          "y": 411
+        },
+        {
+          "type": "room_dapur_14_sack",
+          "x": 471,
+          "y": 252
+        },
+        {
+          "type": "room_dapur_15_sack",
+          "x": 495,
+          "y": 258
+        },
+        {
+          "type": "room_dapur_16_boxstack",
+          "x": 53,
+          "y": 262
+        },
+        {
+          "type": "room_dapur_17_bin",
+          "x": 250,
+          "y": 411
+        },
+        {
+          "type": "room_dapur_18_cabinet",
+          "x": 105,
+          "y": 293
+        },
+        {
+          "type": "room_dapur_19_table",
+          "x": 420,
+          "y": 327
+        },
+        {
+          "type": "room_dapur_20_plantbig",
+          "x": 440,
+          "y": 421
+        }
+      ],
       "doors": [
         {
           "id": "dapur_out",
@@ -17802,7 +18289,7 @@
       "visualStyle": "godot_hd_interior",
       "visualUpdate": "godot_rooms_hd",
       "v6Layout": {
-        "version": 3,
+        "version": 4,
         "generator": "tools/worldgen/rooms_hd.py",
         "hd": true
       },
@@ -17875,7 +18362,8 @@
           "g34s7g34",
           "g34s7g34"
         ]
-      }
+      },
+      "room3d": true
     },
     "toko_bunga": {
       "name": "Toko Bunga Melati",
@@ -18059,7 +18547,153 @@
         ]
       ],
       "ellipses": [],
-      "props": [],
+      "props": [
+        {
+          "type": "room_toko_bunga_00_wall",
+          "x": 300,
+          "y": 96
+        },
+        {
+          "type": "room_toko_bunga_01_bookshelf",
+          "x": 78,
+          "y": 195
+        },
+        {
+          "type": "room_toko_bunga_02_flowertable",
+          "x": 236,
+          "y": 239
+        },
+        {
+          "type": "room_toko_bunga_03_counter",
+          "x": 440,
+          "y": 197
+        },
+        {
+          "type": "room_toko_bunga_04_bucket",
+          "x": 45,
+          "y": 405
+        },
+        {
+          "type": "room_toko_bunga_05_bucket",
+          "x": 67,
+          "y": 405
+        },
+        {
+          "type": "room_toko_bunga_06_bucket",
+          "x": 88,
+          "y": 405
+        },
+        {
+          "type": "room_toko_bunga_07_bucket",
+          "x": 111,
+          "y": 405
+        },
+        {
+          "type": "room_toko_bunga_08_bucket",
+          "x": 133,
+          "y": 405
+        },
+        {
+          "type": "room_toko_bunga_09_bucket",
+          "x": 154,
+          "y": 405
+        },
+        {
+          "type": "room_toko_bunga_10_bucket",
+          "x": 177,
+          "y": 405
+        },
+        {
+          "type": "room_toko_bunga_11_bucket",
+          "x": 560,
+          "y": 241
+        },
+        {
+          "type": "room_toko_bunga_12_bucket",
+          "x": 560,
+          "y": 265
+        },
+        {
+          "type": "room_toko_bunga_13_bucket",
+          "x": 560,
+          "y": 289
+        },
+        {
+          "type": "room_toko_bunga_14_bucket",
+          "x": 560,
+          "y": 313
+        },
+        {
+          "type": "room_toko_bunga_15_plantbig",
+          "x": 522,
+          "y": 301
+        },
+        {
+          "type": "room_toko_bunga_16_table",
+          "x": 526,
+          "y": 410
+        },
+        {
+          "type": "room_toko_bunga_17_pot",
+          "x": 42,
+          "y": 231
+        },
+        {
+          "type": "room_toko_bunga_18_flowertable",
+          "x": 372,
+          "y": 351
+        },
+        {
+          "type": "room_toko_bunga_19_pot",
+          "x": 44,
+          "y": 301
+        },
+        {
+          "type": "room_toko_bunga_20_pot",
+          "x": 64,
+          "y": 313
+        },
+        {
+          "type": "room_toko_bunga_21_pot",
+          "x": 86,
+          "y": 301
+        },
+        {
+          "type": "room_toko_bunga_22_pot",
+          "x": 110,
+          "y": 315
+        },
+        {
+          "type": "room_toko_bunga_23_pot",
+          "x": 52,
+          "y": 337
+        },
+        {
+          "type": "room_toko_bunga_24_pot",
+          "x": 96,
+          "y": 339
+        },
+        {
+          "type": "room_toko_bunga_25_crate",
+          "x": 190,
+          "y": 277
+        },
+        {
+          "type": "room_toko_bunga_26_sack",
+          "x": 161,
+          "y": 332
+        },
+        {
+          "type": "room_toko_bunga_27_flowertable",
+          "x": 407,
+          "y": 387
+        },
+        {
+          "type": "room_toko_bunga_28_boxstack",
+          "x": 483,
+          "y": 432
+        }
+      ],
       "doors": [
         {
           "id": "toko_bunga_out",
@@ -18110,7 +18744,7 @@
       "visualStyle": "godot_hd_interior",
       "visualUpdate": "godot_rooms_hd",
       "v6Layout": {
-        "version": 3,
+        "version": 4,
         "generator": "tools/worldgen/rooms_hd.py",
         "hd": true
       },
@@ -18183,7 +18817,8 @@
           "g34w8g33",
           "g34w8g33"
         ]
-      }
+      },
+      "room3d": true
     },
     "arcade": {
       "name": "Arcade Bintang",
@@ -18355,7 +18990,138 @@
         ]
       ],
       "ellipses": [],
-      "props": [],
+      "props": [
+        {
+          "type": "room_arcade_00_wall",
+          "x": 300,
+          "y": 96
+        },
+        {
+          "type": "room_arcade_01_arcadecab",
+          "x": 52,
+          "y": 127
+        },
+        {
+          "type": "room_arcade_02_arcadecab",
+          "x": 92,
+          "y": 127
+        },
+        {
+          "type": "room_arcade_03_arcadecab",
+          "x": 132,
+          "y": 127
+        },
+        {
+          "type": "room_arcade_04_arcadecab",
+          "x": 179,
+          "y": 127
+        },
+        {
+          "type": "room_arcade_05_arcadecab",
+          "x": 342,
+          "y": 127
+        },
+        {
+          "type": "room_arcade_06_arcadecab",
+          "x": 382,
+          "y": 127
+        },
+        {
+          "type": "room_arcade_07_arcadecab",
+          "x": 429,
+          "y": 127
+        },
+        {
+          "type": "room_arcade_08_claw",
+          "x": 256,
+          "y": 185
+        },
+        {
+          "type": "room_arcade_09_box",
+          "x": 58,
+          "y": 225
+        },
+        {
+          "type": "room_arcade_10_box",
+          "x": 109,
+          "y": 207
+        },
+        {
+          "type": "room_arcade_11_counter",
+          "x": 511,
+          "y": 197
+        },
+        {
+          "type": "room_arcade_12_plush",
+          "x": 499,
+          "y": 151
+        },
+        {
+          "type": "room_arcade_13_plush",
+          "x": 515,
+          "y": 151
+        },
+        {
+          "type": "room_arcade_14_plush",
+          "x": 531,
+          "y": 151
+        },
+        {
+          "type": "room_arcade_15_plush",
+          "x": 547,
+          "y": 151
+        },
+        {
+          "type": "room_arcade_16_bookshelf",
+          "x": 533,
+          "y": 291
+        },
+        {
+          "type": "room_arcade_17_box",
+          "x": 358,
+          "y": 289
+        },
+        {
+          "type": "room_arcade_18_box",
+          "x": 80,
+          "y": 421
+        },
+        {
+          "type": "room_arcade_19_box",
+          "x": 515,
+          "y": 411
+        },
+        {
+          "type": "room_arcade_20_box",
+          "x": 170,
+          "y": 417
+        },
+        {
+          "type": "room_arcade_21_vending",
+          "x": 488,
+          "y": 133
+        },
+        {
+          "type": "room_arcade_22_pinball",
+          "x": 531,
+          "y": 135
+        },
+        {
+          "type": "room_arcade_23_pinball",
+          "x": 456,
+          "y": 295
+        },
+        {
+          "type": "room_arcade_24_vending",
+          "x": 538,
+          "y": 357
+        },
+        {
+          "type": "room_arcade_25_bin",
+          "x": 452,
+          "y": 377
+        }
+      ],
       "doors": [
         {
           "id": "arcade_out",
@@ -18406,7 +19172,7 @@
       "visualStyle": "godot_hd_interior",
       "visualUpdate": "godot_rooms_hd",
       "v6Layout": {
-        "version": 3,
+        "version": 4,
         "generator": "tools/worldgen/rooms_hd.py",
         "hd": true
       },
@@ -18479,7 +19245,8 @@
           "g34s7g34",
           "g34s7g34"
         ]
-      }
+      },
+      "room3d": true
     },
     "memory_garden": {
       "name": "Memory Garden",
@@ -47968,7 +48735,198 @@
         ]
       ],
       "ellipses": [],
-      "props": [],
+      "props": [
+        {
+          "type": "room_perpustakaan_00_wall",
+          "x": 600,
+          "y": 195
+        },
+        {
+          "type": "room_perpustakaan_01_bookshelf",
+          "x": 130,
+          "y": 257
+        },
+        {
+          "type": "room_perpustakaan_02_globe",
+          "x": 197,
+          "y": 306
+        },
+        {
+          "type": "room_perpustakaan_03_sofa",
+          "x": 104,
+          "y": 375
+        },
+        {
+          "type": "room_perpustakaan_04_lamp",
+          "x": 46,
+          "y": 421
+        },
+        {
+          "type": "room_perpustakaan_05_bookshelf",
+          "x": 480,
+          "y": 473
+        },
+        {
+          "type": "room_perpustakaan_06_bookshelf",
+          "x": 185,
+          "y": 575
+        },
+        {
+          "type": "room_perpustakaan_07_bookshelf",
+          "x": 950,
+          "y": 531
+        },
+        {
+          "type": "room_perpustakaan_08_bookshelf",
+          "x": 950,
+          "y": 697
+        },
+        {
+          "type": "room_perpustakaan_09_table",
+          "x": 730,
+          "y": 491
+        },
+        {
+          "type": "room_perpustakaan_10_table",
+          "x": 155,
+          "y": 685
+        },
+        {
+          "type": "room_perpustakaan_11_counter",
+          "x": 441,
+          "y": 790
+        },
+        {
+          "type": "room_perpustakaan_12_cabinet",
+          "x": 265,
+          "y": 811
+        },
+        {
+          "type": "room_perpustakaan_13_bookshelf",
+          "x": 1103,
+          "y": 333
+        },
+        {
+          "type": "room_perpustakaan_14_plantbig",
+          "x": 62,
+          "y": 831
+        },
+        {
+          "type": "room_perpustakaan_15_plantbig",
+          "x": 1142,
+          "y": 831
+        },
+        {
+          "type": "room_perpustakaan_16_plantbig",
+          "x": 1142,
+          "y": 221
+        },
+        {
+          "type": "room_perpustakaan_17_plantbig",
+          "x": 702,
+          "y": 261
+        },
+        {
+          "type": "room_perpustakaan_18_lamp",
+          "x": 840,
+          "y": 411
+        },
+        {
+          "type": "room_perpustakaan_19_bench",
+          "x": 745,
+          "y": 783
+        },
+        {
+          "type": "room_perpustakaan_20_table",
+          "x": 505,
+          "y": 281
+        },
+        {
+          "type": "room_perpustakaan_21_bookshelf",
+          "x": 860,
+          "y": 291
+        },
+        {
+          "type": "room_perpustakaan_22_table",
+          "x": 949,
+          "y": 607
+        },
+        {
+          "type": "room_perpustakaan_23_table",
+          "x": 370,
+          "y": 641
+        },
+        {
+          "type": "room_perpustakaan_24_cardcatalog",
+          "x": 730,
+          "y": 665
+        },
+        {
+          "type": "room_perpustakaan_25_cardcatalog",
+          "x": 118,
+          "y": 785
+        },
+        {
+          "type": "room_perpustakaan_26_bookshelf",
+          "x": 1110,
+          "y": 731
+        },
+        {
+          "type": "room_perpustakaan_27_armchair",
+          "x": 947,
+          "y": 801
+        },
+        {
+          "type": "room_perpustakaan_28_sidetable",
+          "x": 977,
+          "y": 807
+        },
+        {
+          "type": "room_perpustakaan_29_armchair",
+          "x": 1009,
+          "y": 801
+        },
+        {
+          "type": "room_perpustakaan_30_lamp",
+          "x": 1050,
+          "y": 811
+        },
+        {
+          "type": "room_perpustakaan_31_sidetable",
+          "x": 226,
+          "y": 347
+        },
+        {
+          "type": "room_perpustakaan_32_bookstack",
+          "x": 478,
+          "y": 548
+        },
+        {
+          "type": "room_perpustakaan_33_bookstack",
+          "x": 497,
+          "y": 552
+        },
+        {
+          "type": "room_perpustakaan_34_crate",
+          "x": 515,
+          "y": 547
+        },
+        {
+          "type": "room_perpustakaan_35_plantbig",
+          "x": 600,
+          "y": 237
+        },
+        {
+          "type": "room_perpustakaan_36_bookshelf",
+          "x": 955,
+          "y": 365
+        },
+        {
+          "type": "room_perpustakaan_37_bookshelf",
+          "x": 62,
+          "y": 531
+        }
+      ],
       "doors": [
         {
           "id": "perpustakaan_out",
@@ -48112,7 +49070,7 @@
       "visualStyle": "godot_hd_interior",
       "visualUpdate": "godot_rooms_hd",
       "v6Layout": {
-        "version": 3,
+        "version": 4,
         "generator": "tools/worldgen/rooms_hd.py",
         "hd": true
       },
@@ -48248,7 +49206,8 @@
           "g69w12g69",
           "g69w12g69"
         ]
-      }
+      },
+      "room3d": true
     },
     "ruang_arsip": {
       "name": "Ruang Arsip Rahasia",
@@ -48390,7 +49349,88 @@
         ]
       ],
       "ellipses": [],
-      "props": [],
+      "props": [
+        {
+          "type": "room_ruang_arsip_00_wall",
+          "x": 300,
+          "y": 96
+        },
+        {
+          "type": "room_ruang_arsip_01_jarshelf",
+          "x": 151,
+          "y": 169
+        },
+        {
+          "type": "room_ruang_arsip_02_jarshelf",
+          "x": 300,
+          "y": 151
+        },
+        {
+          "type": "room_ruang_arsip_03_jarshelf",
+          "x": 441,
+          "y": 169
+        },
+        {
+          "type": "room_ruang_arsip_04_desk",
+          "x": 300,
+          "y": 267
+        },
+        {
+          "type": "room_ruang_arsip_05_cabinet",
+          "x": 528,
+          "y": 267
+        },
+        {
+          "type": "room_ruang_arsip_06_cabinet",
+          "x": 528,
+          "y": 347
+        },
+        {
+          "type": "room_ruang_arsip_07_bench",
+          "x": 85,
+          "y": 393
+        },
+        {
+          "type": "room_ruang_arsip_08_plinth",
+          "x": 56,
+          "y": 328
+        },
+        {
+          "type": "room_ruang_arsip_09_plinth",
+          "x": 490,
+          "y": 417
+        },
+        {
+          "type": "room_ruang_arsip_10_chest",
+          "x": 147,
+          "y": 287
+        },
+        {
+          "type": "room_ruang_arsip_11_boxstack",
+          "x": 163,
+          "y": 348
+        },
+        {
+          "type": "room_ruang_arsip_12_cardcatalog",
+          "x": 430,
+          "y": 245
+        },
+        {
+          "type": "room_ruang_arsip_13_boxstack",
+          "x": 435,
+          "y": 314
+        },
+        {
+          "type": "room_ruang_arsip_14_bookstack",
+          "x": 228,
+          "y": 400
+        },
+        {
+          "type": "room_ruang_arsip_15_crate",
+          "x": 96,
+          "y": 333
+        }
+      ],
       "doors": [
         {
           "id": "ruang_arsip_out",
@@ -48465,7 +49505,7 @@
       "visualStyle": "godot_hd_interior",
       "visualUpdate": "godot_rooms_hd",
       "v6Layout": {
-        "version": 3,
+        "version": 4,
         "generator": "tools/worldgen/rooms_hd.py",
         "hd": true
       },
@@ -48538,7 +49578,8 @@
           "g34s7g34",
           "g34s7g34"
         ]
-      }
+      },
+      "room3d": true
     },
     "dermaga": {
       "name": "Dermaga Danau",
@@ -76182,7 +77223,198 @@
         ]
       ],
       "ellipses": [],
-      "props": [],
+      "props": [
+        {
+          "type": "room_galeri_komunitas_00_wall",
+          "x": 480,
+          "y": 84
+        },
+        {
+          "type": "room_galeri_komunitas_01_pot",
+          "x": 141,
+          "y": 201
+        },
+        {
+          "type": "room_galeri_komunitas_02_pot",
+          "x": 360,
+          "y": 201
+        },
+        {
+          "type": "room_galeri_komunitas_03_pot",
+          "x": 600,
+          "y": 201
+        },
+        {
+          "type": "room_galeri_komunitas_04_pot",
+          "x": 821,
+          "y": 201
+        },
+        {
+          "type": "room_galeri_komunitas_05_plinth",
+          "x": 180,
+          "y": 177
+        },
+        {
+          "type": "room_galeri_komunitas_06_plinth",
+          "x": 248,
+          "y": 177
+        },
+        {
+          "type": "room_galeri_komunitas_07_box",
+          "x": 478,
+          "y": 143
+        },
+        {
+          "type": "room_galeri_komunitas_08_plinth",
+          "x": 696,
+          "y": 177
+        },
+        {
+          "type": "room_galeri_komunitas_09_plinth",
+          "x": 772,
+          "y": 177
+        },
+        {
+          "type": "room_galeri_komunitas_10_easel",
+          "x": 116,
+          "y": 266
+        },
+        {
+          "type": "room_galeri_komunitas_11_easel",
+          "x": 116,
+          "y": 386
+        },
+        {
+          "type": "room_galeri_komunitas_12_easel",
+          "x": 116,
+          "y": 506
+        },
+        {
+          "type": "room_galeri_komunitas_13_easel",
+          "x": 840,
+          "y": 276
+        },
+        {
+          "type": "room_galeri_komunitas_14_easel",
+          "x": 840,
+          "y": 396
+        },
+        {
+          "type": "room_galeri_komunitas_15_bench",
+          "x": 595,
+          "y": 583
+        },
+        {
+          "type": "room_galeri_komunitas_16_bench",
+          "x": 365,
+          "y": 583
+        },
+        {
+          "type": "room_galeri_komunitas_17_plantbig",
+          "x": 102,
+          "y": 601
+        },
+        {
+          "type": "room_galeri_komunitas_18_plantbig",
+          "x": 862,
+          "y": 601
+        },
+        {
+          "type": "room_galeri_komunitas_19_partition",
+          "x": 295,
+          "y": 261
+        },
+        {
+          "type": "room_galeri_komunitas_20_partition",
+          "x": 655,
+          "y": 261
+        },
+        {
+          "type": "room_galeri_komunitas_21_displaycase",
+          "x": 522,
+          "y": 443
+        },
+        {
+          "type": "room_galeri_komunitas_22_plinth",
+          "x": 188,
+          "y": 379
+        },
+        {
+          "type": "room_galeri_komunitas_23_plinth",
+          "x": 188,
+          "y": 471
+        },
+        {
+          "type": "room_galeri_komunitas_24_plinth",
+          "x": 748,
+          "y": 331
+        },
+        {
+          "type": "room_galeri_komunitas_25_stanchions",
+          "x": 210,
+          "y": 187
+        },
+        {
+          "type": "room_galeri_komunitas_26_stanchions",
+          "x": 735,
+          "y": 187
+        },
+        {
+          "type": "room_galeri_komunitas_27_counter",
+          "x": 205,
+          "y": 581
+        },
+        {
+          "type": "room_galeri_komunitas_28_signstand",
+          "x": 300,
+          "y": 590
+        },
+        {
+          "type": "room_galeri_komunitas_29_bin",
+          "x": 130,
+          "y": 601
+        },
+        {
+          "type": "room_galeri_komunitas_30_plantbig",
+          "x": 861,
+          "y": 471
+        },
+        {
+          "type": "room_galeri_komunitas_31_plantbig",
+          "x": 442,
+          "y": 201
+        },
+        {
+          "type": "room_galeri_komunitas_32_plantbig",
+          "x": 522,
+          "y": 201
+        },
+        {
+          "type": "room_galeri_komunitas_33_plantbig",
+          "x": 100,
+          "y": 317
+        },
+        {
+          "type": "room_galeri_komunitas_34_plantbig",
+          "x": 100,
+          "y": 437
+        },
+        {
+          "type": "room_galeri_komunitas_35_plantbig",
+          "x": 840,
+          "y": 315
+        },
+        {
+          "type": "room_galeri_komunitas_36_plantbig",
+          "x": 841,
+          "y": 435
+        },
+        {
+          "type": "room_galeri_komunitas_37_bench",
+          "x": 390,
+          "y": 529
+        }
+      ],
       "gates": [],
       "animals": [],
       "water": [],
@@ -76261,7 +77493,7 @@
       "visualUpdate": "godot_rooms_hd",
       "v4Layout": null,
       "v6Layout": {
-        "version": 3,
+        "version": 4,
         "generator": "tools/worldgen/rooms_hd.py",
         "hd": true
       },
@@ -76358,7 +77590,8 @@
           "g47w26g47",
           "g47w26g47"
         ]
-      }
+      },
+      "room3d": true
     },
     "rain_garden": {
       "name": "Rain Garden — Lima Cahaya yang Tak Terucap",
@@ -98548,7 +99781,158 @@
         ]
       ],
       "ellipses": [],
-      "props": [],
+      "props": [
+        {
+          "type": "room_ruang_dua_surat_00_wall",
+          "x": 480,
+          "y": 64
+        },
+        {
+          "type": "room_ruang_dua_surat_01_desk",
+          "x": 302,
+          "y": 335
+        },
+        {
+          "type": "room_ruang_dua_surat_02_desk",
+          "x": 652,
+          "y": 335
+        },
+        {
+          "type": "room_ruang_dua_surat_03_plinth",
+          "x": 480,
+          "y": 293
+        },
+        {
+          "type": "room_ruang_dua_surat_04_bookshelf",
+          "x": 99,
+          "y": 211
+        },
+        {
+          "type": "room_ruang_dua_surat_05_bookshelf",
+          "x": 861,
+          "y": 211
+        },
+        {
+          "type": "room_ruang_dua_surat_06_bookshelf",
+          "x": 99,
+          "y": 391
+        },
+        {
+          "type": "room_ruang_dua_surat_07_bookshelf",
+          "x": 861,
+          "y": 391
+        },
+        {
+          "type": "room_ruang_dua_surat_08_bookshelf",
+          "x": 99,
+          "y": 561
+        },
+        {
+          "type": "room_ruang_dua_surat_09_bookshelf",
+          "x": 861,
+          "y": 561
+        },
+        {
+          "type": "room_ruang_dua_surat_10_plinth",
+          "x": 200,
+          "y": 181
+        },
+        {
+          "type": "room_ruang_dua_surat_11_plinth",
+          "x": 760,
+          "y": 181
+        },
+        {
+          "type": "room_ruang_dua_surat_12_plantbig",
+          "x": 161,
+          "y": 617
+        },
+        {
+          "type": "room_ruang_dua_surat_13_plantbig",
+          "x": 800,
+          "y": 617
+        },
+        {
+          "type": "room_ruang_dua_surat_14_chest",
+          "x": 418,
+          "y": 177
+        },
+        {
+          "type": "room_ruang_dua_surat_15_chest",
+          "x": 542,
+          "y": 177
+        },
+        {
+          "type": "room_ruang_dua_surat_16_sofa",
+          "x": 195,
+          "y": 277
+        },
+        {
+          "type": "room_ruang_dua_surat_17_armchair",
+          "x": 717,
+          "y": 267
+        },
+        {
+          "type": "room_ruang_dua_surat_18_sidetable",
+          "x": 753,
+          "y": 273
+        },
+        {
+          "type": "room_ruang_dua_surat_19_cardcatalog",
+          "x": 178,
+          "y": 465
+        },
+        {
+          "type": "room_ruang_dua_surat_20_cardcatalog",
+          "x": 782,
+          "y": 465
+        },
+        {
+          "type": "room_ruang_dua_surat_21_sidetable",
+          "x": 232,
+          "y": 585
+        },
+        {
+          "type": "room_ruang_dua_surat_22_sidetable",
+          "x": 732,
+          "y": 585
+        },
+        {
+          "type": "room_ruang_dua_surat_23_plantbig",
+          "x": 862,
+          "y": 251
+        },
+        {
+          "type": "room_ruang_dua_surat_24_plantbig",
+          "x": 102,
+          "y": 251
+        },
+        {
+          "type": "room_ruang_dua_surat_25_bookstack",
+          "x": 628,
+          "y": 400
+        },
+        {
+          "type": "room_ruang_dua_surat_26_bookshelf",
+          "x": 305,
+          "y": 465
+        },
+        {
+          "type": "room_ruang_dua_surat_27_bookshelf",
+          "x": 655,
+          "y": 465
+        },
+        {
+          "type": "room_ruang_dua_surat_28_lamp",
+          "x": 340,
+          "y": 197
+        },
+        {
+          "type": "room_ruang_dua_surat_29_lamp",
+          "x": 620,
+          "y": 197
+        }
+      ],
       "gates": [],
       "animals": [],
       "water": [],
@@ -98575,7 +99959,7 @@
       "visualUpdate": "godot_rooms_hd",
       "v4Layout": null,
       "v6Layout": {
-        "version": 3,
+        "version": 4,
         "generator": "tools/worldgen/rooms_hd.py",
         "hd": true
       },
@@ -98672,7 +100056,8 @@
           "g54w12g54",
           "g54w12g54"
         ]
-      }
+      },
+      "room3d": true
     },
     "rumah_sari": {
       "name": "Rumah Nenek Sari",
@@ -98809,7 +100194,93 @@
         ]
       ],
       "ellipses": [],
-      "props": [],
+      "props": [
+        {
+          "type": "room_rumah_sari_00_wall",
+          "x": 300,
+          "y": 96
+        },
+        {
+          "type": "room_rumah_sari_01_bookshelf",
+          "x": 470,
+          "y": 147
+        },
+        {
+          "type": "room_rumah_sari_02_sofa",
+          "x": 362,
+          "y": 211
+        },
+        {
+          "type": "room_rumah_sari_03_table",
+          "x": 215,
+          "y": 270
+        },
+        {
+          "type": "room_rumah_sari_04_pot",
+          "x": 210,
+          "y": 141
+        },
+        {
+          "type": "room_rumah_sari_05_pot",
+          "x": 140,
+          "y": 141
+        },
+        {
+          "type": "room_rumah_sari_06_cabinet",
+          "x": 524,
+          "y": 283
+        },
+        {
+          "type": "room_rumah_sari_07_cabinet",
+          "x": 560,
+          "y": 181
+        },
+        {
+          "type": "room_rumah_sari_08_lamp",
+          "x": 560,
+          "y": 381
+        },
+        {
+          "type": "room_rumah_sari_09_basket",
+          "x": 48,
+          "y": 401
+        },
+        {
+          "type": "room_rumah_sari_10_pot",
+          "x": 116,
+          "y": 411
+        },
+        {
+          "type": "room_rumah_sari_11_cabinet",
+          "x": 62,
+          "y": 171
+        },
+        {
+          "type": "room_rumah_sari_12_pot",
+          "x": 50,
+          "y": 111
+        },
+        {
+          "type": "room_rumah_sari_13_armchair",
+          "x": 57,
+          "y": 219
+        },
+        {
+          "type": "room_rumah_sari_14_sidetable",
+          "x": 452,
+          "y": 375
+        },
+        {
+          "type": "room_rumah_sari_15_basket",
+          "x": 415,
+          "y": 379
+        },
+        {
+          "type": "room_rumah_sari_16_bookstack",
+          "x": 198,
+          "y": 384
+        }
+      ],
       "gates": [],
       "animals": [],
       "doors": [
@@ -99063,12 +100534,13 @@
       "visualStyle": "godot_hd_interior",
       "visualUpdate": "godot_rooms_hd",
       "v6Layout": {
-        "version": 3,
+        "version": 4,
         "generator": "tools/worldgen/rooms_hd.py",
         "hd": true
       },
       "v4Layout": null,
-      "elevationPlatforms": []
+      "elevationPlatforms": [],
+      "room3d": true
     },
     "arsip_memudar": {
       "name": "Arsip yang Memudar",

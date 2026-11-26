@@ -1,5 +1,13 @@
 # CHANGELOG — V8.0 "The Definitive Overhaul"
 
+## V8.4 — potret dialog dari model baru
+- 12 ekspresi potret untuk Arland dan Sofia dirender dari GLB yang sama, sehingga wajah di kotak dialog
+  kini cocok dengan karakter di dunia game. Ekspresi digambar di atas wajah model
+  (`tools/portraits.py`, inpainting OpenCV agar tidak ada tambalan warna), gaya pixel 2× seperti
+  potret lama. Arland kini juga punya `tersenyum` dan `pikir`, Sofia punya `serius`.
+- Potret V7 disimpan di `portraits_v7/` (tidak ikut APK). Diuji di dialog sungguhan (autopilot
+  kamar Sofia, prolog).
+
 ## V8.3 (tahap 4) — karakter dari model GLB
 - Model Arland & Sofia dari user (`Arland_Sofia_Cuby_3D_V5_Free`) dirender menjadi sprite 8 arah @2x:
   idle (12 frame), jalan (24 frame, kaki melangkah bergantian), dan 16 pose untuk cutscene.

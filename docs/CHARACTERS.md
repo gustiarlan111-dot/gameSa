@@ -42,5 +42,19 @@ Batas yang ditemukan saat pengujian:
 Dengan model yang punya rig dan animasi (idle, jalan, gestur), `render_sheets.gd` bisa memutar
 AnimationPlayer per frame, sehingga gestur lengan menjadi utuh.
 
+## Potret dialog (V8.4)
+- `tests/charrender/render_portrait.tscn` merender kepala dan bahu dari depan
+  (env `P_SIZE=1.5 P_Y=1.40`), lalu `python3 tools/portraits.py "<folder user://portraitframes>"`
+  membuat 12 ekspresi: normal, tersenyum, senang, tertawa, malu, kaget, sedih, khawatir, serius,
+  pikir, lega, jatuh_cinta.
+- Model hanya punya satu wajah, jadi ekspresi digambar di atasnya pada kanvas 88×110: mata asli
+  dihapus dengan inpainting OpenCV (gradasi kulit diteruskan, tanpa tambalan warna rata), lalu mata,
+  alis, mulut, rona pipi, air mata, keringat, dan hati digambar, kemudian diperbesar 2× tanpa
+  penghalusan (176×220, gaya pixel).
+- Posisi fitur per karakter ada di `FACE` dalam `tools/portraits.py`. Jika model diganti, ukur ulang
+  posisinya dari render dasar.
+- Potret gambar tangan V7 disimpan di `assets/characters/<id>/portraits_v7/` (tidak ikut APK).
+  Untuk kembali, salin isinya ke `portraits/`.
+
 ## Kembali ke sprite lama
 Hapus ketiga file `*@2x.png` di folder karakter. `Actor` otomatis memakai sprite 1x lama.

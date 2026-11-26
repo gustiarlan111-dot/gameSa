@@ -8,6 +8,12 @@ on:
 permissions:
   contents: write
 
+# One build at a time: when several PRs merge in a row, older builds are cancelled so they
+# never race each other replacing the "latest" release (only the newest main gets published).
+concurrency:
+  group: apk-latest
+  cancel-in-progress: true
+
 env:
   GODOT_VERSION: 4.3
   GODOT_RELEASE: stable

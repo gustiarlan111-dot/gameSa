@@ -7,7 +7,10 @@
   stair_planter()    tall stone planter with a clipped bay tree, flanks the bottom of a stair
 
 Every builder returns a Sprite whose bottom-centre is the prop's foot point on the map.
-Registered in tools/kit_extra.py (hd_balustrade, hd_balustrade_post, hd_pergola, hd_stair_planter).
+  swing()            playground swing (Perumahan, V8.7)
+  clothesline()      jemuran with shirts, towels and a batik sarong (Perumahan, V8.7)
+
+Registered in tools/kit_extra.py (hd_balustrade*, hd_pergola, hd_stair_planter, hd_swing, hd_clothesline).
 """
 import numpy as np
 from kit import Sprite, quant, bayer, outline, noise, hexrgb, ramp, STONE, LEAF, WOOD
@@ -133,4 +136,71 @@ def stair_planter(W=84, H=160, seed=2):
         sp.put(sp.ellipse(x, y, 3.4, 3), LEAF[int(np.clip(lit * 6, 1, 5))])
     sp.put(ball & (sp.a < 0.5), LEAF[2])
     outline(sp, hexrgb('#2c3a24'), width=2)
+    return sp
+
+
+def swing(W=200, H=170):
+    """Playground swing: painted steel A-frame, two wooden seats on chains, worn dirt patch below."""
+    sp = Sprite(W, H)
+    dith = bayer(H, W)
+    ground_shadow(sp, W / 2, H - 8, W / 2 - 6, 9, 0.24)
+    steel = ramp('#1f3c5e', '#2c5684', '#3b70a8', '#5a8fc6', '#8db6e0')
+    for x0, x1 in ((14, 34), (W - 14, W - 34)):           # A-frame legs (front pair, back pair offset)
+        for dx, k in ((0, 1.0), (10, 0.7)):
+            a, b = x0 + dx * (1 if x0 < W / 2 else -1), x1 + dx * (1 if x0 < W / 2 else -1)
+            pts = [(a - 3, H - 10), (a + 3, H - 10), (b + 3, 22), (b - 3, 22)]
+            sp.put(sp.poly(pts), steel[2] * k + steel[0] * (1 - k))
+    sp.put(sp.rect(24, 16, W - 48, 8), quant(vgrad(sp, 16, 24, 0.95, 0.35), steel, dith))     # top bar
+    sp.put(sp.rect(24, 16, W - 48, 2), steel[4])
+    wood = ramp('#5a3418', '#7b4a24', '#9b6232', '#b97c44', '#d29a5e')
+    chain = hexrgb('#9aa3ad')
+    for sx, sy in ((W * 0.34, H - 46), (W * 0.66, H - 40)):
+        for cx_ in (sx - 13, sx + 13):
+            for y in range(24, int(sy), 4):
+                sp.put(sp.rect(cx_ - 1, y, 2, 2.5), chain)
+        sp.put(sp.rect(sx - 17, sy, 34, 7), quant(vgrad(sp, sy, sy + 7, 0.9, 0.35), wood, dith))
+        sp.put(sp.rect(sx - 17, sy, 34, 1.5), wood[4])
+    outline(sp, hexrgb('#16222f'), inner=False, width=1)
+    return sp
+
+
+def clothesline(W=220, H=130, seed=6):
+    """Jemuran: two bamboo poles, a line with shirts, a sarong and towels drying in the sun."""
+    sp = Sprite(W, H)
+    dith = bayer(H, W)
+    ground_shadow(sp, W / 2, H - 6, W / 2 - 10, 7, 0.2)
+    bamboo = ramp('#6b5a2a', '#8f7a3a', '#b19a4e', '#cdb768', '#e4d38c')
+    for x in (12, W - 20):
+        sp.put(sp.rect(x, 14, 8, H - 20), quant(hgrad(sp, x, x + 8, 0.9, 0.3), bamboo, dith))
+        for y in range(30, H - 10, 22):
+            sp.put(sp.rect(x, y, 8, 2), bamboo[0])
+    xs = np.linspace(16, W - 16, 200)
+    sag = 22 + 10 * np.sin(np.linspace(0, np.pi, 200))
+    for x, y in zip(xs, sag):
+        sp.put(sp.rect(x, y, 1.6, 1.6), hexrgb('#e9e4d8'))
+    rng = np.random.default_rng(seed)
+    cloth = [('#f2f0ea', '#d8d4c8'), ('#e98aa4', '#c8607f'), ('#5c8fd1', '#3e6ea8'), ('#f2cf5b', '#d2a93a'),
+             ('#7cc08f', '#579c6c'), ('#b47ad6', '#8f55b0')]
+    x = 26
+    while x < W - 40:
+        w = rng.choice([22, 28, 34])
+        y0 = 22 + 10 * np.sin((x + w / 2 - 16) / (W - 32) * np.pi) + 1
+        hi, lo = cloth[rng.integers(0, len(cloth))]
+        kind = rng.integers(0, 3)
+        if kind == 0:                                    # shirt with sleeves
+            body = sp.rect(x + 5, y0, w - 10, w * 1.1) | sp.poly([(x, y0), (x + 6, y0), (x + 6, y0 + 12), (x, y0 + 10)]) \
+                | sp.poly([(x + w, y0), (x + w - 6, y0), (x + w - 6, y0 + 12), (x + w, y0 + 10)])
+        elif kind == 1:                                  # towel
+            body = sp.rect(x, y0, w, w * 1.4)
+        else:                                            # batik sarong, long
+            body = sp.rect(x, y0, w, w * 1.9)
+        shade = hgrad(sp, x, x + w, 0.0, 1.0)
+        sp.rgb[body] = np.where((shade[body] > 0.6)[:, None], hexrgb(lo), hexrgb(hi))
+        sp.a[body] = 1
+        if kind == 2:
+            pat = body & (((sp.xx.astype(int) // 3 + sp.yy.astype(int) // 3) % 4) == 0)
+            sp.rgb[pat] = hexrgb('#5a3418')
+        sp.put(sp.rect(x + 3, y0 - 2, 3, 4) | sp.rect(x + w - 6, y0 - 2, 3, 4), hexrgb('#d84a3a'))   # pegs
+        x += w + rng.integers(4, 9)
+    outline(sp, hexrgb('#3a3128'), inner=False, width=1)
     return sp

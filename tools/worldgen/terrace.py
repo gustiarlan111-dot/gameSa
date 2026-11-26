@@ -5,6 +5,7 @@ keep-clear rects and stairs entries go into a Terrace accumulator instead of mod
 generator can use it. The face is painted in the oblique view: the upper ground ends at y0, the
 wall face covers y0..y0+h, the lower ground starts at y0+h.
 """
+import json
 import numpy as np
 from hdmap import K, STONE
 from paint import rgb
@@ -77,3 +78,25 @@ class Terrace:
             if fx0 < x + w and x < fx0 + fw and fy0 < y + h and y < fy0 + fh:
                 return True
         return False
+
+
+def elev_dump(E):
+    """elevation.json layout: one primitive per line, areas in file order (same as the hand-kept file)."""
+    out = ['{', '  "_doc": %s,' % json.dumps(E['_doc'], ensure_ascii=False), '  "areas": {']
+    names = list(E['areas'])
+    for i, n in enumerate(names):
+        prims = E['areas'][n]
+        out.append('    %s: [' % json.dumps(n))
+        out += ['      %s%s' % (json.dumps(q, ensure_ascii=False), ',' if j < len(prims) - 1 else '') for j, q in enumerate(prims)]
+        out.append('    ]%s' % (',' if i < len(names) - 1 else ''))
+    out += ['  }', '}']
+    return '\n'.join(out) + '\n'
+
+
+def write_elevation(A, area, prims):
+    """Replace one area's height layer in assets/data/elevation.json."""
+    ep = A / 'data/elevation.json'
+    E = json.loads(ep.read_text(encoding='utf-8'))
+    E['areas'][area] = prims
+    ep.write_text(elev_dump(E), encoding='utf-8')
+    print('elevation.json:', area, len(prims), 'primitives')

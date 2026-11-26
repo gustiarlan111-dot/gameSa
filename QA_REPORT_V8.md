@@ -1,5 +1,15 @@
 # QA REPORT — V8.0
 
+## V8.7 — Perumahan (teras rumah, gang samping, Gang Melati) — ringkasan
+| Pemeriksaan | Hasil |
+|---|---|
+| Tes logika | 58 / 58 lulus |
+| Validator map (32 area) | 0 error; Perumahan: 7 primitif elevasi, 5 tangga (tiap tangga e=40 ↔ 0), 49 titik quest/amati/pintu, 0 tak terjangkau |
+| Jalan sungguhan di game | dari trotoar (802,600) lewat gang timur, teras depan, tangga, sampai Gang Melati (802,958): sampai |
+| `--apply` Perumahan | pintu, spawn, titik amati lama dan titik quest sama koordinatnya; map tumbuh 400 px ke selatan |
+| Route Sofia / Arland sampai tamat | `EPI_FREE` di frame 159.727 / 159.077, sama dengan V8.6; route Arland melewati 3 langkah di Perumahan (kunjungan Nenek Sari, kotak surat, balasan); 0 script error |
+| Screenshot | peta sebelum/sesudah dan dua tangkapan di game: `docs/screens/v8/perumahan_terrace.png` |
+
 ## V8.6 — Jalan Kota (teras + Alun-alun Bawah) — ringkasan
 | Pemeriksaan | Hasil |
 |---|---|

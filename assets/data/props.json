@@ -3512,6 +3512,18 @@
       "cw": 30,
       "ch": 12,
       "layer": "sort"
+    },
+    "hd_swing": {
+      "image": "props/hd/hd_swing@2x.png",
+      "cw": 84,
+      "ch": 10,
+      "layer": "sort"
+    },
+    "hd_clothesline": {
+      "image": "props/hd/hd_clothesline@2x.png",
+      "cw": 96,
+      "ch": 8,
+      "layer": "sort"
     }
   }
 }

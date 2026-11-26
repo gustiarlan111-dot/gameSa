@@ -1,7 +1,14 @@
 """Distrik Perumahan, HD rebuild (1200x896 world, 2 texels per unit). All drawn by code: city library
 (landmarks.library) with its door exactly on the old door rect, five houses (landmarks.house_variant)
 with front yards behind picket fences, quiet asphalt street, pavements, lamps, parked cars, the bus
-bench, community garden by Dito's pink house. Same size, doors, examine spots and quest points.
+bench, community garden by Dito's pink house. Same doors, examine spots and quest points.
+
+V8.7: the south houses face the camera, so their front doors now open onto something. The map grew
+south (896 -> 1296): the houses stand on a terrace (e=40, assets/data/elevation.json) with a front
+walk, each has stone steps down from its door, two side alleys between the houses lead from the
+street to the terrace (and down two more stairs) into Gang Melati, a lower lane with the warga
+green: pos ronda, community garden beds, a swing, a jemuran, a well, benches and trees.
+Everything north of the south fence keeps its coordinates.
 Usage: python3 tools/worldgen/perumahan_hd.py [--preview OUT.png] [--apply]
 """
 import sys, json, hashlib
@@ -13,8 +20,10 @@ sys.path.insert(0, str(HERE))
 from hdmap import HDMap, K, GRASS, STONE, PATH, SOIL, A   # noqa: E402
 from paint import rgb, wear, moss                          # noqa: E402
 from ground import noise                                   # noqa: E402
+import common                                              # noqa: E402
+from terrace import Terrace, write_elevation                                # noqa: E402
 
-AREA, W, H = 'perumahan', 1200, 896
+AREA, W, H = 'perumahan', 1200, 1296
 SEED = int(hashlib.sha256(b'perumahan_hd').hexdigest()[:8], 16)
 TILE_M = 11
 N_WALK = (25, 309, 1150, 57)
@@ -22,7 +31,36 @@ ROAD = (0, 372, 1200, 128)
 S_WALK = (25, 506, 1150, 69)
 NORTH = [('hd_house_mint', 190, 252), ('hd_library', 678, 304), ('hd_house_redbrick', 1020, 252)]
 SOUTH = [('hd_house_pink', 205, 862), ('hd_house_butter', 600, 870), ('hd_house_violet', 1000, 862)]
-WALLS = [[0, 0, 1200, 309], [0, 575, 1200, 321], [0, 309, 25, 166], [1175, 309, 25, 266]]
+FENCE_Y = 590                     # south picket fence (gates now at the two alleys)
+ALLEYS = [(355, 450), (750, 850)] # walkable gaps between the south houses (x0, x1)
+FACE_Y, FACE_H = 912, 40          # terrace wall in front of the south houses
+LOW_Y = FACE_Y + FACE_H
+LANE = (20, LOW_Y, 1160, 70)      # Gang Melati
+SOUTH_Y = 1256
+STAIRS_X = [(179, 52), (374, 56), (574, 52), (772, 56), (974, 52)]   # door steps + alley stairs
+TER = Terrace()
+# house blocks: you cannot walk behind a house (its picture covers that ground)
+BLOCKS = [[25, FENCE_Y + 4, 330, 862 - FENCE_Y - 4], [450, FENCE_Y + 4, 300, 870 - FENCE_Y - 4],
+          [850, FENCE_Y + 4, 325, 862 - FENCE_Y - 4]]
+WALLS = [[0, 0, 1200, 309], [0, 309, 25, 166], [1175, 309, 25, FACE_Y - 309], [0, 562, 25, FACE_Y - 562],
+         [0, LOW_Y, 20, H - LOW_Y], [1180, LOW_Y, 20, H - LOW_Y],
+         [0, SOUTH_Y, 1200, H - SOUTH_Y]] + BLOCKS
+EXAMINE = [
+    {'id': 'pos_ronda', 'x': 300, 'y': 1150, 'label': 'Pos Ronda', 'r': 70, 'lines': {
+        'arland': [{'s': 'arland', 'e': 'neutral', 't': 'Ada termos dan papan catur di sini. Bapak-bapak ronda pasti jago catur.'}],
+        'sofia': [{'s': 'sofia', 'e': 'senang', 't': 'Kentongannya masih ada. Dulu bunyinya jadi tanda sudah waktunya pulang.'}]}},
+    {'id': 'ayunan', 'x': 820, 'y': 1120, 'label': 'Ayunan', 'r': 60, 'lines': {
+        'arland': [{'s': 'arland', 'e': 'neutral', 't': 'Ayunannya berderit. Tetap saja, rasanya ingin duduk sebentar.'}],
+        'sofia': [{'s': 'sofia', 'e': 'senang', 't': 'Dorong aku sekali saja. Pelan-pelan, ya!'}]}},
+    {'id': 'jemuran', 'x': 560, 'y': 1196, 'label': 'Jemuran', 'r': 56, 'lines': {
+        'arland': [{'s': 'arland', 'e': 'neutral', 't': 'Bau sabun cuci. Matahari di sini cepat bikin kering.'}],
+        'sofia': [{'s': 'sofia', 'e': 'neutral', 't': 'Ada sarung batik yang motifnya mirip punya nenekku.'}]}},
+]
+ELEVATION = [
+    {'id': 'street_terrace', 'kind': 'plateau', 'rect': [0, 0, W, FACE_Y], 'e': FACE_H},
+    {'id': 'front_wall', 'kind': 'slope', 'rect': [0, FACE_Y, W, FACE_H], 'axis': 'y', 'from': FACE_H, 'to': 0},
+] + [{'id': 'st%d' % i, 'kind': 'slope', 'rect': [x, FACE_Y, w, FACE_H], 'axis': 'y', 'from': FACE_H, 'to': 0, 'stairs': True}
+     for i, (x, w) in enumerate(STAIRS_X)]
 
 
 def design(m):
@@ -62,12 +100,7 @@ def design(m):
         if t != 'hd_library':
             c.put(m.rect(hx - 24, hy, 48, 309 - hy), stone, STONE)
     c.put(m.rect(678 - 150, 300, 300, 9), stone, STONE)
-    for t, hx, hy in SOUTH:
-        c.put(m.rect(hx - 24, 575, 48, hy - 575), stone, STONE)
-    soil = c.dirt(('#6e5038', '#7a5a3f', '#866447', '#916f50'))
-    for x0, x1 in ((300, 410),):                                 # community garden beds
-        for k in range(3):
-            c.put(m.rect(x0, 612 + k * 30, x1 - x0, 20), soil, SOIL)
+    south_side(m, stone)
     hard = np.isin(c.mat, [STONE, TILE_M]) & ~road
     wear(c, hard, 0.06, salt=2)
     moss(c, hard, c.mat == GRASS, 0.35)
@@ -97,6 +130,29 @@ def design(m):
     c.img[edge < 8] *= 0.88
 
 
+def south_side(m, stone):
+    """Side alleys, the front walk of the south houses, terrace wall + stairs, Gang Melati, warga green."""
+    c = m.c
+    for x0, x1 in ALLEYS:                                        # alley paths from the fence gate to the front walk
+        cx = (x0 + x1) / 2
+        c.put(m.rect(cx - 26, 575, 52, FACE_Y - 575), stone, STONE)
+    c.put(m.rect(25, 858, W - 50, FACE_Y - 858), c.tiles('#d4ccbf', '#cac1b3', 26, grout='#a3978a', salt=12), TILE_M)
+    for t, hx, hy in SOUTH:                                      # porch slab under each front door
+        c.put(m.rect(hx - 40, hy - 6, 80, FACE_Y - hy + 6), c.tiles('#e0d6c4', '#d6cbb7', 20, grout='#a89a86', salt=hx), STONE)
+    # lower level: lane + green
+    lane = m.rect(*LANE)
+    c.put(lane, c.bricks(('#b9a08a', '#c2a993', '#cbb39c', '#d3bca6', '#bfa38c'), 30, 15, '#8a735f', salt=13), STONE)
+    c.img[m.rect(LANE[0], LANE[1] + LANE[3], LANE[2], 4)] *= 0.8
+    for x0, x1 in ((40, 140), (400, 470), (1040, 1150)):          # footpaths into the green
+        c.put(m.rect(x0, LOW_Y + LANE[3], x1 - x0, SOUTH_Y - LOW_Y - LANE[3]), stone, STONE)
+    c.put(m.rect(40, 1210, W - 80, 30), stone, STONE)              # south footpath along the hedge
+    c.put(c.rrect(200 * K, 1094 * K, 210 * K, 76 * K, 10 * K), c.tiles('#cfc4b1', '#c6baa6', 22, grout='#9a8c78', salt=14), STONE)  # pos ronda slab
+    sand = c.dirt(('#d8c59c', '#e0cea6', '#e7d6b0', '#cfbb92'))
+    c.put(m.ellipse(830, 1110, 80, 34), sand, PATH)               # worn sand under the swing
+    TER.__init__()
+    TER.run(m, c, 0, W, FACE_Y, FACE_H, STAIRS_X, 50)
+
+
 def fence_line(m, y, x0, x1, gaps, kinds=('hd_fence_picket', 'hd_fence_picket_b')):
     """Fill [x0, x1] minus the gate gaps with 98-unit fence pieces, ends flush with each segment."""
     segs, a = [], x0
@@ -122,7 +178,8 @@ def furnish(m, P):
     # picket fences along both pavements, gates at every front path
     fence_line(m, 307, 25, 520, [(160, 220)])
     fence_line(m, 307, 838, 1175, [(990, 1050)])
-    fence_line(m, 590, 40, 1175, [(175, 235), (570, 630), (970, 1030)], ('hd_fence_picket_b', 'hd_fence_picket'))
+    fence_line(m, FENCE_Y, 40, 1175, [(ALLEYS[0][0] + 20, ALLEYS[0][1] - 20), (ALLEYS[1][0] + 20, ALLEYS[1][1] - 20)],
+               ('hd_fence_picket_b', 'hd_fence_picket'))
     # yards north (behind the fence, out of reach): shrubs, flowers, bike, mailbox posts
     for x0, x1 in ((30, 520), (840, 1170)):
         for _ in range(16):
@@ -132,16 +189,7 @@ def furnish(m, P):
             pr(['hd_flowers_pink', 'hd_flowers_yellow', 'hd_flowers_white', 'hd_bush_rose', 'hd_bush_a'][rng.integers(0, 5)], x, rng.uniform(262, 298))
     pr('hd_tree_oak_a', 450, 250); pr('hd_tree_cherry_a', 520, 236); pr('hd_tree_oak_b', 860, 240); pr('hd_tree_big_a', 1170, 230)
     pr('hd_tree_oak_c', 30, 240); pr('hd_bicycle', 300, 290); pr('hd_bush_yellow', 520, 296); pr('hd_bush_b', 836, 296)
-    # yards south: community garden by Dito's house, washing line spot, trees at the back
-    pr('hd_garden_plot', 355, 655); pr('hd_garden_plot', 355, 700); pr('hd_birdbath', 800, 660)
-    pr('hd_bush_berry', 440, 620); pr('hd_flowerbed', 760, 625); pr('hd_bench', 1120, 640)
-    for x in (30, 420, 780, 1180):
-        pr(['hd_tree_cherry_b', 'hd_tree_oak_a', 'hd_tree_blossom', 'hd_tree_oak_b'][int(x) % 4], x, 760 + rng.uniform(-20, 20))
-    for _ in range(40):
-        x = rng.uniform(25, 1175)
-        if any(abs(x - hx) < 36 for _, hx, _y in SOUTH):
-            continue
-        pr(['hd_flowers_pink', 'hd_flowers_violet', 'hd_flowers_yellow', 'hd_grass_tall', 'hd_bush_a'][rng.integers(0, 5)], x, rng.uniform(600, 700))
+    lower_furnish(m, P, rng)
     # pavements
     for x in (130, 430, 930, 1130):
         pr('hd_lamp_gold', x, 362)
@@ -154,20 +202,67 @@ def furnish(m, P):
     pr('hd_car_red', 200, 400); pr('hd_car_green', 1080, 498)
 
 
+def lower_furnish(m, P, rng):
+    pr = m.prop
+    # side alleys: planters and flowers along the house walls, a bike, a lamp at each alley mouth
+    for x0, x1 in ALLEYS:
+        cx = (x0 + x1) / 2
+        pr('hd_lamp_gold', cx - 38, 868); pr('hd_planter_pink', cx + 36, 640)
+        for y in (700, 770, 840):
+            pr(['hd_flowers_pink', 'hd_flowers_yellow', 'hd_flowers_violet'][int(y) % 3], x0 + 10, y)
+            pr(['hd_flowers_white', 'hd_flowers_pink', 'hd_grass_tall'][int(y) % 3], x1 - 10, y + 12)
+    pr('hd_bicycle', 766, 760)
+    # front walk of the south houses: potted plants by the porches, lamps, a bench
+    for t, hx, hy in SOUTH:
+        pr('hd_planter_violet', hx - 56, hy + 26); pr('hd_planter_pink', hx + 56, hy + 26)
+    pr('hd_bench', 1110, 900); pr('hd_mailbox', 110, 896)
+    # Gang Melati
+    for x in (120, 480, 700, 1080):
+        pr('hd_lamp_gold', x, LOW_Y + LANE[3] - 4)
+    pr('hd_signpost_res', 1150, LOW_Y + 64)
+    # warga green: pos ronda (gazebo), well, garden beds, swing, jemuran, benches, trees, hedge
+    pr('hd_gazebo', 305, 1150); pr('hd_bench', 240, 1190); pr('hd_well', 180, 1110)
+    pr('hd_garden_plot', 600, 1072); pr('hd_garden_plot', 680, 1106); pr('hd_garden_plot', 600, 1140)   # community garden (moved from the old yard)
+    pr('hd_swing', 830, 1118); pr('hd_clothesline', 560, 1196); pr('hd_birdbath', 980, 1100)
+    pr('hd_bench', 960, 1200); pr('hd_bush_berry', 740, 1066); pr('hd_flowerbed', 1100, 1150)
+    for tx, ty in ((70, 1160), (500, 1080), (1150, 1080), (720, 1236), (1000, 1050)):
+        pr(['hd_tree_cherry_b', 'hd_tree_oak_a', 'hd_tree_blossom', 'hd_tree_oak_b'][int(tx) % 4], tx, ty)
+    blocked = m.c.mat != GRASS
+    m.rng = rng
+    m.scatter(['hd_flowers_pink', 'hd_flowers_violet', 'hd_flowers_yellow', 'hd_grass_tall', 'hd_bush_a'], [2, 1, 1, 2, 1],
+              50, (30, LOW_Y + 80, W - 60, SOUTH_Y - LOW_Y - 100), blocked, 7, P)
+    for row, y in enumerate((SOUTH_Y + 10, H - 6)):
+        for x in range(30 + row * 17, W, 34):
+            pr(['hd_bush_a', 'hd_bush_b', 'hd_bush_rose'][(int(x) // 34 + row) % 3 if row else int(x) % 2], x + rng.uniform(-5, 5), y)
+
+
 def main():
     P = json.loads((A / 'data/props.json').read_text(encoding='utf-8'))['props']
     Q = json.loads((A / 'data/quests.json').read_text(encoding='utf-8'))
     M = json.loads((A / 'data/maps.json').read_text(encoding='utf-8'))
-    base = M['areas'][AREA]
+    base = json.loads(json.dumps(M['areas'][AREA]))
+    ex = {e['id']: e for e in base.get('examine', [])}
+    for e in EXAMINE:
+        ex[e['id']] = e
+    base['examine'] = list(ex.values())
     m = HDMap(AREA, W, H, SEED)
     design(m)
     furnish(m, P)
+    keep = {'hd_fence_picket', 'hd_fence_picket_b'} | {t for t, _x, _y in NORTH + SOUTH}
+    dropped = [p for p in m.props if p['type'] not in keep and TER.hits(p, P)]
+    m.props = [p for p in m.props if p['type'] in keep or not TER.hits(p, P)]
+    print('terrace walls', len(TER.walls), 'stairs', len(TER.stairs), 'dropped', [(p['type'], p['x'], p['y']) for p in dropped])
     m.bake_shadows(P)
-    m.collision = lambda P_: WALLS
-    extra = dict(ellipses=[], water=[], stairs=[], visualStyle='godot_hd_dense', visualUpdate='godot_perumahan_hd',
+    m.collision = lambda P_: WALLS + TER.walls
+    animals = [a for a in base.get('animals', []) if a['type'] != 'chicken']
+    animals.append({'type': 'chicken', 'n': 3, 'region': [480, 1030, 300, 150]})
+    animals.append({'type': 'cat_grey', 'n': 1, 'region': [60, LOW_Y + 10, 1060, 90], 'day': False})
+    extra = dict(ellipses=[], water=[], stairs=TER.stairs, animals=animals, visualStyle='godot_hd_dense', visualUpdate='godot_perumahan_hd',
                  v6Layout=dict(version=3, generator='tools/worldgen/perumahan_hd.py', hd=True))
     prev = sys.argv[sys.argv.index('--preview') + 1] if '--preview' in sys.argv else None
-    m.write(base, extra, P, Q, apply='--apply' in sys.argv, preview=prev)
+    bad = m.write(base, extra, P, Q, apply='--apply' in sys.argv, preview=prev)
+    if '--apply' in sys.argv and not bad:
+        write_elevation(A, AREA, ELEVATION)
 
 
 if __name__ == '__main__':

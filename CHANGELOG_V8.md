@@ -1,5 +1,24 @@
 # CHANGELOG — V8.0 "The Definitive Overhaul"
 
+## V8.7 — remaster map Perumahan: teras rumah, gang samping, Gang Melati
+- Pintu depan tiga rumah di sisi selatan menghadap ke kamera, tetapi map dulu berakhir tepat di
+  pintunya dan jalan setapak dari pagar menuju bagian belakang rumah. Sekarang map diperluas ke
+  selatan (1200×896 → 1200×1296). Rumah-rumah itu berdiri di **teras** (elevasi nyata 40) dengan
+  jalan setapak depan, pot bunga di teras rumah, dan **tangga batu dari tiap pintu** turun ke bawah.
+- **Dua gang samping** di antara rumah kini bisa dilewati, dari gerbang pagar trotoar sampai teras.
+  Setiap gang punya tangga turun sendiri, jadi total ada 5 tangga.
+- Area bawah yang baru: **Gang Melati** (jalan bata dengan lampu) dan **taman warga** berisi
+  pos ronda (gazebo), sumur, kebun warga (dipindah dari halaman lama), ayunan, jemuran,
+  tempat minum burung, bangku, pohon, dan pagar tanaman. Ayam kini berkeliaran di kebun.
+- 3 titik amati baru: Pos Ronda, Ayunan, Jemuran. Masing-masing punya kalimat untuk route Arland
+  dan Sofia.
+- 2 prop baru digambar dari kode: ayunan dan jemuran (`tools/artkit/townsquare.py`).
+- Tidak bisa lagi berjalan "di belakang" rumah, yaitu di tanah yang tertutup gambar rumah.
+- Semua titik quest, titik amati lama, NPC, pintu (perpustakaan, rumah Nenek Sari, Jalan Kota)
+  dan spawn tetap di koordinat lama. Save schema 8, tanpa migrasi.
+- Tooling: penulis `elevation.json` dipindah ke `tools/worldgen/terrace.py` (`write_elevation`),
+  dipakai oleh Jalan Kota dan Perumahan.
+
 ## V8.6 — remaster map Jalan Kota: teras dan Alun-alun Bawah
 - Jalan Kota tidak lagi datar. Map diperluas ke selatan (1200×896 → 1200×1296). Jalan dan
   trotoar kini berada di atas **teras** setinggi satu tingkat (elevasi nyata 40, sistem yang sama

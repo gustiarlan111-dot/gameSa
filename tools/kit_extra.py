@@ -564,6 +564,9 @@ KIT = {
     'hd_balustrade_post_c': (lambda: tsq.balustrade_post(seed=2), 22, 8, 'sort'),
     'hd_pergola': (lambda: tsq.pergola(), 0, 0, 'sort'),              # walk-through
     'hd_stair_planter': (lambda: tsq.stair_planter(), 30, 12, 'sort'),
+    # V8.7: Perumahan lower lane (tools/artkit/townsquare.py)
+    'hd_swing': (lambda: tsq.swing(), 84, 10, 'sort'),
+    'hd_clothesline': (lambda: tsq.clothesline(), 96, 8, 'sort'),
     'hd_flower_stall': (lambda: lm.flower_stall(), 88, 14, 'sort'),
 }
 

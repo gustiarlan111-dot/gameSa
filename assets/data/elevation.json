@@ -33,6 +33,15 @@
       {"id": "terrace_wall", "kind": "slope", "rect": [0, 744, 1200, 40], "axis": "y", "from": 40, "to": 0},
       {"id": "st0", "kind": "slope", "rect": [288, 744, 64, 40], "axis": "y", "from": 40, "to": 0, "stairs": true},
       {"id": "st1", "kind": "slope", "rect": [848, 744, 64, 40], "axis": "y", "from": 40, "to": 0, "stairs": true}
+    ],
+    "perumahan": [
+      {"id": "street_terrace", "kind": "plateau", "rect": [0, 0, 1200, 912], "e": 40},
+      {"id": "front_wall", "kind": "slope", "rect": [0, 912, 1200, 40], "axis": "y", "from": 40, "to": 0},
+      {"id": "st0", "kind": "slope", "rect": [179, 912, 52, 40], "axis": "y", "from": 40, "to": 0, "stairs": true},
+      {"id": "st1", "kind": "slope", "rect": [374, 912, 56, 40], "axis": "y", "from": 40, "to": 0, "stairs": true},
+      {"id": "st2", "kind": "slope", "rect": [574, 912, 52, 40], "axis": "y", "from": 40, "to": 0, "stairs": true},
+      {"id": "st3", "kind": "slope", "rect": [772, 912, 56, 40], "axis": "y", "from": 40, "to": 0, "stairs": true},
+      {"id": "st4", "kind": "slope", "rect": [974, 912, 52, 40], "axis": "y", "from": 40, "to": 0, "stairs": true}
     ]
   }
 }

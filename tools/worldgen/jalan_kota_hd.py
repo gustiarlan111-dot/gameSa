@@ -21,7 +21,7 @@ from hdmap import HDMap, K, GRASS, STONE, A          # noqa: E402
 from paint import rgb, wear, moss                     # noqa: E402
 from ground import noise                              # noqa: E402
 import common                                         # noqa: E402
-from terrace import Terrace                           # noqa: E402
+from terrace import Terrace, write_elevation                           # noqa: E402
 
 AREA, W, H = 'jalan_kota', 1200, 1296
 SEED = int(hashlib.sha256(b'jalan_kota_hd').hexdigest()[:8], 16)
@@ -276,19 +276,6 @@ def lower_furnish(m, P, rng, trees):
             pr(['hd_bush_a', 'hd_bush_b', 'hd_bush_rose'][(int(x) // 34 + row) % 3 if row else int(x) % 2], x + rng.uniform(-5, 5), y)
 
 
-def common_elev_dump(E):
-    """elevation.json layout: one primitive per line, areas in file order (same as the hand-kept file)."""
-    out = ['{', '  "_doc": %s,' % json.dumps(E['_doc'], ensure_ascii=False), '  "areas": {']
-    names = list(E['areas'])
-    for i, n in enumerate(names):
-        prims = E['areas'][n]
-        out.append('    %s: [' % json.dumps(n))
-        out += ['      %s%s' % (json.dumps(q, ensure_ascii=False), ',' if j < len(prims) - 1 else '') for j, q in enumerate(prims)]
-        out.append('    ]%s' % (',' if i < len(names) - 1 else ''))
-    out += ['  }', '}']
-    return '\n'.join(out) + '\n'
-
-
 def main():
     P = json.loads((A / 'data/props.json').read_text(encoding='utf-8'))['props']
     Q = json.loads((A / 'data/quests.json').read_text(encoding='utf-8'))
@@ -321,11 +308,7 @@ def main():
     prev = sys.argv[sys.argv.index('--preview') + 1] if '--preview' in sys.argv else None
     bad = m.write(base, extra, P, Q, apply='--apply' in sys.argv, preview=prev)
     if '--apply' in sys.argv and not bad:
-        ep = A / 'data/elevation.json'
-        E = json.loads(ep.read_text(encoding='utf-8'))
-        E['areas'][AREA] = ELEVATION
-        ep.write_text(common_elev_dump(E), encoding='utf-8')
-        print('elevation.json:', AREA, len(ELEVATION), 'primitives')
+        write_elevation(A, AREA, ELEVATION)
 
 
 if __name__ == '__main__':

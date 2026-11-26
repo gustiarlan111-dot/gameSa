@@ -477,7 +477,15 @@
           "g34w7g34"
         ]
       },
-      "room3d": true
+      "room3d": true,
+      "windows": [
+        [
+          170,
+          20,
+          62,
+          46
+        ]
+      ]
     },
     "sofia_room": {
       "name": "Kamar Sofia",
@@ -971,7 +979,21 @@
           "g34w7g34"
         ]
       },
-      "room3d": true
+      "room3d": true,
+      "windows": [
+        [
+          160,
+          20,
+          64,
+          46
+        ],
+        [
+          386,
+          20,
+          62,
+          46
+        ]
+      ]
     },
     "plaza": {
       "name": "Plaza Kota",
@@ -18851,7 +18873,21 @@
           "g120"
         ]
       },
-      "room3d": true
+      "room3d": true,
+      "windows": [
+        [
+          60,
+          60,
+          110,
+          76
+        ],
+        [
+          480,
+          60,
+          96,
+          76
+        ]
+      ]
     },
     "dapur": {
       "name": "Dapur Kafe",
@@ -19255,7 +19291,15 @@
           "g34s7g34"
         ]
       },
-      "room3d": true
+      "room3d": true,
+      "windows": [
+        [
+          168,
+          18,
+          64,
+          40
+        ]
+      ]
     },
     "toko_bunga": {
       "name": "Toko Bunga Melati",
@@ -19710,7 +19754,21 @@
           "g34w8g33"
         ]
       },
-      "room3d": true
+      "room3d": true,
+      "windows": [
+        [
+          60,
+          18,
+          90,
+          46
+        ],
+        [
+          430,
+          18,
+          90,
+          46
+        ]
+      ]
     },
     "arcade": {
       "name": "Arcade Bintang",
@@ -20138,7 +20196,8 @@
           "g34s7g34"
         ]
       },
-      "room3d": true
+      "room3d": true,
+      "windows": []
     },
     "memory_garden": {
       "name": "Memory Garden",
@@ -51066,7 +51125,21 @@
           "g69w12g69"
         ]
       },
-      "room3d": true
+      "room3d": true,
+      "windows": [
+        [
+          418,
+          30,
+          70,
+          110
+        ],
+        [
+          568,
+          30,
+          70,
+          110
+        ]
+      ]
     },
     "ruang_arsip": {
       "name": "Ruang Arsip Rahasia",
@@ -51438,7 +51511,8 @@
           "g34s7g34"
         ]
       },
-      "room3d": true
+      "room3d": true,
+      "windows": []
     },
     "dermaga": {
       "name": "Dermaga Danau",
@@ -79750,7 +79824,8 @@
           "g47w26g47"
         ]
       },
-      "room3d": true
+      "room3d": true,
+      "windows": []
     },
     "rain_garden": {
       "name": "Rain Garden — Lima Cahaya yang Tak Terucap",
@@ -102261,7 +102336,8 @@
           "g54w12g54"
         ]
       },
-      "room3d": true
+      "room3d": true,
+      "windows": []
     },
     "rumah_sari": {
       "name": "Rumah Nenek Sari",
@@ -102744,7 +102820,21 @@
       },
       "v4Layout": null,
       "elevationPlatforms": [],
-      "room3d": true
+      "room3d": true,
+      "windows": [
+        [
+          96,
+          20,
+          64,
+          46
+        ],
+        [
+          250,
+          20,
+          64,
+          46
+        ]
+      ]
     },
     "arsip_memudar": {
       "name": "Arsip yang Memudar",

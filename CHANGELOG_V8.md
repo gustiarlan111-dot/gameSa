@@ -1,5 +1,34 @@
 # CHANGELOG — V8.0 "The Definitive Overhaul"
 
+## Upgrade 3, bagian U2a — interior 3D
+Detail teknis: `docs/WORLD3D.md`. Perbandingan sebelum/sesudah: `docs/screens/u2a/`.
+
+**Jendela hidup** di 7 ruangan (kamar Arland, kamar Sofia, kafe, dapur, toko bunga, perpustakaan, rumah Sari):
+- Kaca menampilkan langit yang mengikuti jam dan cuaca: pagi, siang, senja, malam berbintang dengan bulan,
+  mendung dan hujan, serta kilat. Langit digambar pada grid pixel yang sama dengan pixel art.
+- Sebelumnya, jendela selalu menampilkan langit biru siang, termasuk tengah malam.
+- Matahari masuk lewat jendela sebagai bercak cahaya di lantai yang miring ke kanan di pagi hari dan ke
+  kiri di sore hari, ditambah berkas cahaya, debu yang melayang, dan lampu sorot yang menghangatkan
+  perabot. Saat hujan, cahayanya redup dan abu-abu. Di malam hari hanya ada cahaya bulan yang lembut.
+
+**Perabot bervolume** (143 perabot di 11 ruangan, misalnya lemari, rak buku, kabinet, konter, meja, mesin
+arcade, peti, dan alas pajangan):
+- Saat kamera bergeser, sisi samping dan pita permukaan atas perabot terlihat lewat perspektif.
+- Dari sudut kamera biasa, lukisan pixel art tidak berubah sedikit pun.
+- Perabot memberi bayangan padat.
+- Karakter yang berdiri di depan perabot tidak pernah tertembus.
+
+**AO bake**: bayangan kontak arah tetap (huruf L di kanan-bawah) diganti oklusi lembut di sekeliling kaki
+perabot, karena arah cahaya sekarang berubah mengikuti jam.
+
+**Perbaikan kecil**:
+- 21 entri perabot kafe lama di `props.json` dihapus. Entri ini tidak dipakai dan gambarnya tidak ada.
+- `rooms_hd.py` kini membuang entri perabot yang tidak ada lagi, dan menulis `props.json` dengan format
+  aslinya (indentasi 2).
+
+**Dicoba lalu dibatalkan**: matahari yang masuk dari jendela untuk bayangan ke arah penonton. Hasilnya,
+muka depan perabot dan pasangan jadi gelap karena membelakangi cahaya.
+
 ## Upgrade 6 (U3b) — karakter dan NPC yang hidup
 **Arland & Sofia**
 - Siklus **lari** sungguhan, 8 arah, 16 frame.

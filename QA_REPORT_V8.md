@@ -1,5 +1,18 @@
 # QA REPORT — V8.0
 
+## Upgrade 3, bagian U2a — interior 3D — ringkasan
+| Pemeriksaan | Hasil |
+|---|---|
+| Tes logika | **79 / 79 lulus**. Ada 9 tes baru: langit jendela siang/malam/hujan, perubahan cahaya halus sepanjang hari, arah miring bercak matahari, 7 ruangan berjendela dengan kaca di dinding belakang, setiap perabot ruangan punya gambar, 143 blok 3D berada di dalam sprite-nya, rumus kedalaman blok, dan sisi prisma menempel di bidang sprite searah sinar kamera (siluet tidak berubah) |
+| Validator map | 0 error, 8 warning, sama dengan main (semuanya jumlah prop di peta luar) |
+| Route Sofia / Arland sampai tamat | `EPI_FREE` di frame 160.977 / 159.127, sama dengan U3b; 0 script error |
+| Sebelum/sesudah | `docs/screens/u2a/jendela_waktu.png` (kamar Sofia pagi, sore, malam, hujan), `ruangan_lain.png` (perpustakaan, kafe, dapur, toko bunga), `volume_perabot.png` (lemari dan rak buku dari dekat), `ao_lantai.png` (lantai: bayangan L lama vs AO) |
+| Ditemukan dan diperbaiki saat QA | (1) sisi prisma biru gelap: muka terbalik membalik normal → urutan titik mengikuti normal; (2) sisi kanan hitam karena bayangan muka depannya sendiri → prisma tidak menerima bayangan; (3) permukaan atas bergaris karena merentang barang di atas meja → satu texel; (4) dinding kafe di bawah jendela putih terbakar karena lampu sorot hanya 0,25 m dari dinding → lampu dipindah dan tidak menerangi dinding |
+| Ukuran | gambar ruangan +0,39 MB (11,26 → 11,65 MB): AO lembut dan langit tidak terkompresi serapat bayangan tajam |
+| FPS | tidak bisa diukur di server. Biaya tambahan: 7–24 mesh kecil per ruangan dan, siang hari, 1–2 lampu sorot tanpa bayangan. Lampu sorot mati di malam hari |
+| Catatan | Mode headless (renderer dummy) mencetak `mesh_get_surface_count: Parameter "m" is null` saat pindah area. Main juga mencetaknya (40 vs 54 di 3000 frame pertama, +14 = jumlah mesh baru di kamar Sofia). Dengan renderer OpenGL, cerita 3000 frame yang pindah dari kamar Sofia ke plaza mencetak 0 pesan |
+| Belum diuji | di HP sungguhan; tutup kaca etalase kafe tepat di bawah jendela menjadi sangat terang (kanal merah mentok, isi etalase tetap terlihat) |
+
 ## Upgrade 6 (U3b) — karakter & NPC hidup — ringkasan
 | Pemeriksaan | Hasil |
 |---|---|

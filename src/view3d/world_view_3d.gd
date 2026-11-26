@@ -16,6 +16,7 @@ const TILT := -(PI / 2.0 - PITCH) * 0.55  # standing sprites lean back toward th
 const FOV := 32.0
 const VOLUME := ["hd_shop_", "hd_house_", "hd_library", "hd_cafe", "hd_cottage"]
 const ELEV_K := 0.7812856                # tan(PITCH): picture pixels of wall face -> pixels of real height
+const WALL_LAYER := 2                    # U2a: render layer of a room's back wall (window spotlights skip it)
 
 var world: World
 var atmosphere: Atmosphere
@@ -42,6 +43,7 @@ const SWAY3D := preload("res://src/fx/sway3d.gdshader")
 const FADE3D := preload("res://src/fx/occlude_fade.gdshader")
 var _inst := {}                         # standing prop holder -> [MultiMesh, index, Transform3D, tex, img]
 var _faders := {}                       # holder -> {mesh, shadow, mat, fade, want}
+var _vols := {}                         # U2a: room piece holder -> its 3D side prism (FurnitureVolume)
 var reflect: WaterReflect               # V8.10 water reflections (null without water)
 
 
@@ -161,13 +163,15 @@ func rebuild() -> void:
 	_mirrors.clear()
 	_rustle.clear(); _alts.clear(); _lamps.clear()
 	reflect = null
-	_inst.clear(); _faders.clear()
+	_inst.clear(); _faders.clear(); _vols.clear()
 	# rooms marked room3d are built like outdoor maps: furniture and the back wall stand up as sprites
 	_indoor = bool(world.area.get("indoor", false)) and not bool(world.area.get("room3d", false))
 	_tilt = -PI / 2.0 if _indoor else TILT
 	_build_ground()
 	_build_props()
 	_build_lamps()
+	if bool(world.area.get("room3d", false)) and not world.area.get("windows", []).is_empty():
+		_static.add_child(RoomLight.new().setup(self))     # U2a: live sky in the windows, sunlight inside
 	if not _indoor:
 		var wf := WaterFx.new().setup(world)
 		if wf.active():
@@ -329,6 +333,12 @@ func _prop_basis(w: float, h: float, standing: bool, skew := 0.0) -> Basis:
 func _build_props() -> void:
 	_occ.clear()
 	var groups := {}                     # key -> {tex, img, standing, items: [[holder, xf]]}
+	var room3d := bool(world.area.get("room3d", false)) and not _indoor and OS.get_environment("SHOT_NOVOL") == ""
+	var wall_y := 0.0
+	if room3d:
+		for holder in world._prop_nodes:
+			if is_instance_valid(holder) and str(holder.get_meta("type", "")).ends_with("_wall"):
+				wall_y = maxf(wall_y, holder.position.y)
 	for holder in world._prop_nodes:
 		if not is_instance_valid(holder) or holder.is_queued_for_deletion() or holder.get_child_count() == 0:
 			continue
@@ -355,10 +365,15 @@ func _build_props() -> void:
 			continue
 		if standing and not building and h > 36.0:
 			_occ.append([holder.position, w, h, holder])
+		if room3d and standing:
+			var vm := FurnitureVolume.build(self, holder, s, w, h, wall_y, _mats)
+			if vm:
+				_static.add_child(vm)
+				_vols[holder] = vm
 		var b := Basis(Vector3.RIGHT, 0.0) * Basis.from_scale(Vector3(w * S, h * S, 1.0)) if building else _prop_basis(w, h, standing)
 		var key := "%s|%s|%s" % [img, standing, building]
 		if not groups.has(key):
-			groups[key] = {"tex": s.texture, "img": img, "standing": standing, "items": []}
+			groups[key] = {"tex": s.texture, "img": img, "standing": standing, "items": [], "wall": room3d and ptype.ends_with("_wall")}
 		groups[key].items.append([holder, Transform3D(b, foot)])
 		if building:
 			_add_volume(holder.position, s.texture, w, h)
@@ -379,6 +394,8 @@ func _build_props() -> void:
 		mmi.multimesh = mm
 		mmi.material_override = _material(gr.tex, gr.img, gr.standing)
 		mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON if gr.standing else GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		if gr.wall:
+			mmi.layers = WALL_LAYER
 		_static.add_child(mmi)
 	# only foliage needs per-frame transforms
 	var keep := {}
@@ -689,6 +706,8 @@ func _start_fade(hd: Node2D) -> void:
 	sh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY
 	_static.add_child(sh)
 	_faders[hd] = {"mesh": mi, "shadow": sh, "mat": mat, "fade": 1.0}
+	if _vols.has(hd):
+		_vols[hd].cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY
 
 
 func _end_fade(hd: Node2D) -> void:
@@ -698,11 +717,18 @@ func _end_fade(hd: Node2D) -> void:
 		(it[0] as MultiMesh).set_instance_transform(it[1], it[2])
 	f.mesh.queue_free(); f.shadow.queue_free()
 	_faders.erase(hd)
+	if _vols.has(hd):
+		_vols[hd].cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
 
 
 ## For QA and tests: how many props are faded right now.
 func faded_count() -> int:
 	return _faders.size()
+
+
+## For QA and tests: how many room pieces have a 3D side prism.
+func volume_count() -> int:
+	return _vols.size()
 
 
 # ------------------------------------------------------------------ light and camera
@@ -755,6 +781,8 @@ func _update_light(delta: float) -> void:
 		# a soft key from the viewer's side and a little left (like the painted shading), so furniture
 		# fronts are lit and their shadows fall back toward the wall
 		az = 150.0; el = 50.0; energy = 0.16; col = Color(1.0, 0.97, 0.92)
+		# (U2a tried the sun through the windows instead: lit from behind, the painted fronts and the
+		# couple went grey and self-shadowed, so the windows show the sun with patches, beams and dust)
 	elif a.indoor:
 		az = 15.0; el = 62.0; energy = 0.35; col = Color(1.0, 0.92, 0.82)
 	elif a.realm and not a.indoor:

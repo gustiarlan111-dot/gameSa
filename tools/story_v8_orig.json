@@ -1,0 +1,3122 @@
+{
+ "V49-WE-ARCHIVE_DUST-A": {
+  "title": "Debu yang Berpendar",
+  "route": "arland",
+  "chapter": "C05",
+  "location": "ruang_arsip",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Butiran debu bergerak di bawah lampu dan memperlihatkan lipatan surat."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin melihatnya sampai selesai, biar tidak melewatkan bagian kecilnya."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-ARCHIVE_DUST-S": {
+  "title": "Debu yang Berpendar",
+  "route": "sofia",
+  "chapter": "C05",
+  "location": "ruang_arsip",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Butiran debu bergerak di bawah lampu dan memperlihatkan lipatan surat."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mencatat bagaimana rasanya, bukan cuma bentuknya."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-BRIDGE_LISTEN-A": {
+  "title": "Suara di Bawah Jembatan",
+  "route": "arland",
+  "chapter": "C05",
+  "location": "memory_bridge",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Air di bawah jembatan membawa dua gema yang saling menyusul."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin melihatnya sampai selesai, biar tidak melewatkan bagian kecilnya."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-BRIDGE_LISTEN-S": {
+  "title": "Suara di Bawah Jembatan",
+  "route": "sofia",
+  "chapter": "C05",
+  "location": "memory_bridge",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Air di bawah jembatan membawa dua gema yang saling menyusul."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mencatat bagaimana rasanya, bukan cuma bentuknya."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-CAVE_ECHO-A": {
+  "title": "Langkah di Gua Kristal",
+  "route": "arland",
+  "chapter": "C05",
+  "location": "gua_kristal",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Langkah kaki bergaung, tetapi bunyinya berubah ketika kalian berjalan sejajar."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin melihatnya sampai selesai, biar tidak melewatkan bagian kecilnya."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-CAVE_ECHO-S": {
+  "title": "Langkah di Gua Kristal",
+  "route": "sofia",
+  "chapter": "C05",
+  "location": "gua_kristal",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Langkah kaki bergaung, tetapi bunyinya berubah ketika kalian berjalan sejajar."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mencatat bagaimana rasanya, bukan cuma bentuknya."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-CLOCKWORK_TEA-A": {
+  "title": "Istirahat di Stasiun",
+  "route": "arland",
+  "chapter": "C05",
+  "location": "clockwork_station",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Di dekat roda gigi yang berputar, ada sudut tenang untuk menenangkan pikiran."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin melihatnya sampai selesai, biar tidak melewatkan bagian kecilnya."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-CLOCKWORK_TEA-S": {
+  "title": "Istirahat di Stasiun",
+  "route": "sofia",
+  "chapter": "C05",
+  "location": "clockwork_station",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Di dekat roda gigi yang berputar, ada sudut tenang untuk menenangkan pikiran."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mencatat bagaimana rasanya, bukan cuma bentuknya."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-ETERNAL_BLOOM-A": {
+  "title": "Bunga Hari Esok",
+  "route": "arland",
+  "chapter": "C06",
+  "location": "eternal_garden",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Kuncup taman itu tetap tertutup; kalian sepakat tidak mempercepat mekarnya."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin melihatnya sampai selesai, biar tidak melewatkan bagian kecilnya."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-ETERNAL_BLOOM-S": {
+  "title": "Bunga Hari Esok",
+  "route": "sofia",
+  "chapter": "C06",
+  "location": "eternal_garden",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Kuncup taman itu tetap tertutup; kalian sepakat tidak mempercepat mekarnya."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mencatat bagaimana rasanya, bukan cuma bentuknya."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-FENCE_LIGHT-A": {
+  "title": "Lampu Teras",
+  "route": "arland",
+  "chapter": "C03",
+  "location": "perumahan",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Lampu di teras menyala satu demi satu seperti salam dari tetangga."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin melihatnya sampai selesai, biar tidak melewatkan bagian kecilnya."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-FENCE_LIGHT-S": {
+  "title": "Lampu Teras",
+  "route": "sofia",
+  "chapter": "C03",
+  "location": "perumahan",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Lampu di teras menyala satu demi satu seperti salam dari tetangga."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mencatat bagaimana rasanya, bukan cuma bentuknya."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-GALLERY_CORNER-A": {
+  "title": "Sudut Pameran Kecil",
+  "route": "arland",
+  "chapter": "C04",
+  "location": "galeri_komunitas",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Gambar di sudut galeri punya bagian yang baru tampak saat dilihat berdampingan."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin melihatnya sampai selesai, biar tidak melewatkan bagian kecilnya."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-GALLERY_CORNER-S": {
+  "title": "Sudut Pameran Kecil",
+  "route": "sofia",
+  "chapter": "C04",
+  "location": "galeri_komunitas",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Gambar di sudut galeri punya bagian yang baru tampak saat dilihat berdampingan."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mencatat bagaimana rasanya, bukan cuma bentuknya."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-GARDEN_BREEZE-A": {
+  "title": "Embun di Memory Garden",
+  "route": "arland",
+  "chapter": "C03",
+  "location": "memory_garden",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Embun menempel pada batu tempat kenangan lama terukir."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin melihatnya sampai selesai, biar tidak melewatkan bagian kecilnya."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-GARDEN_BREEZE-S": {
+  "title": "Embun di Memory Garden",
+  "route": "sofia",
+  "chapter": "C03",
+  "location": "memory_garden",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Embun menempel pada batu tempat kenangan lama terukir."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mencatat bagaimana rasanya, bukan cuma bentuknya."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-KITCHEN_STEAM-A": {
+  "title": "Uap di Dapur",
+  "route": "arland",
+  "chapter": "C03",
+  "location": "dapur",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Aroma hangat dari panci membuat waktu terasa berjalan lebih pelan."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin melihatnya sampai selesai, biar tidak melewatkan bagian kecilnya."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-KITCHEN_STEAM-S": {
+  "title": "Uap di Dapur",
+  "route": "sofia",
+  "chapter": "C03",
+  "location": "dapur",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Aroma hangat dari panci membuat waktu terasa berjalan lebih pelan."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mencatat bagaimana rasanya, bukan cuma bentuknya."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-LANTERN_GLOW49-A": {
+  "title": "Nyala Setelah Senja",
+  "route": "arland",
+  "chapter": "C05",
+  "location": "lantern_field",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Di ladang lentera, satu cahaya menunggu sampai cahaya lain menyala."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin melihatnya sampai selesai, biar tidak melewatkan bagian kecilnya."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-LANTERN_GLOW49-S": {
+  "title": "Nyala Setelah Senja",
+  "route": "sofia",
+  "chapter": "C05",
+  "location": "lantern_field",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Di ladang lentera, satu cahaya menunggu sampai cahaya lain menyala."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mencatat bagaimana rasanya, bukan cuma bentuknya."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-LETTER_LIGHT-A": {
+  "title": "Cahaya di Antara Surat",
+  "route": "arland",
+  "chapter": "C06",
+  "location": "ruang_dua_surat",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Lipatan surat mengubah arah cahaya tanpa mengubah satu pun kata di dalamnya."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin melihatnya sampai selesai, biar tidak melewatkan bagian kecilnya."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-LETTER_LIGHT-S": {
+  "title": "Cahaya di Antara Surat",
+  "route": "sofia",
+  "chapter": "C06",
+  "location": "ruang_dua_surat",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Lipatan surat mengubah arah cahaya tanpa mengubah satu pun kata di dalamnya."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mencatat bagaimana rasanya, bukan cuma bentuknya."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-MOONLIGHT_RIPPLE-A": {
+  "title": "Permukaan Bulan",
+  "route": "arland",
+  "chapter": "C05",
+  "location": "moonlight_lake",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Pantulan bulan terbelah oleh angin, lalu menyatu lagi."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin melihatnya sampai selesai, biar tidak melewatkan bagian kecilnya."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-MOONLIGHT_RIPPLE-S": {
+  "title": "Permukaan Bulan",
+  "route": "sofia",
+  "chapter": "C05",
+  "location": "moonlight_lake",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Pantulan bulan terbelah oleh angin, lalu menyatu lagi."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mencatat bagaimana rasanya, bukan cuma bentuknya."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-RAIN_SHELTER-A": {
+  "title": "Tempat Berteduh",
+  "route": "arland",
+  "chapter": "C04",
+  "location": "rain_garden",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Rintik hujan menutup suara sekitar. Kalian memilih duduk sebelum meneruskan perjalanan."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin melihatnya sampai selesai, biar tidak melewatkan bagian kecilnya."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-RAIN_SHELTER-S": {
+  "title": "Tempat Berteduh",
+  "route": "sofia",
+  "chapter": "C04",
+  "location": "rain_garden",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Rintik hujan menutup suara sekitar. Kalian memilih duduk sebelum meneruskan perjalanan."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mencatat bagaimana rasanya, bukan cuma bentuknya."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-ROOM_NOTE-A": {
+  "title": "Pesan di Ujung Meja",
+  "route": "arland",
+  "chapter": "C02",
+  "location": "arland_room",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Pagi dimulai dengan membaca ulang catatan kecil, bukan mengejar jadwal."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin melihatnya sampai selesai, biar tidak melewatkan bagian kecilnya."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Angin bergerak pelan, membawa suara kota yang akrab."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-ROOM_NOTE-S": {
+  "title": "Pesan di Ujung Meja",
+  "route": "sofia",
+  "chapter": "C02",
+  "location": "arland_room",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Pagi dimulai dengan membaca ulang catatan kecil, bukan mengejar jadwal."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mencatat bagaimana rasanya, bukan cuma bentuknya."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Angin bergerak pelan, membawa suara kota yang akrab."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-STAR_PATH_PAUSE-A": {
+  "title": "Berhenti di Jalur Bintang",
+  "route": "arland",
+  "chapter": "C05",
+  "location": "star_path",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Jalur sepi memberi ruang untuk memeriksa kompas dan bertanya arah."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin melihatnya sampai selesai, biar tidak melewatkan bagian kecilnya."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-STAR_PATH_PAUSE-S": {
+  "title": "Berhenti di Jalur Bintang",
+  "route": "sofia",
+  "chapter": "C05",
+  "location": "star_path",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Jalur sepi memberi ruang untuk memeriksa kompas dan bertanya arah."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mencatat bagaimana rasanya, bukan cuma bentuknya."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-STREET_BELLS-A": {
+  "title": "Lonceng Jalan Kota",
+  "route": "arland",
+  "chapter": "C03",
+  "location": "jalan_kota",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Lonceng yang berbeda berbunyi berurutan; kalian memilih mendengarnya sampai selesai."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin melihatnya sampai selesai, biar tidak melewatkan bagian kecilnya."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-STREET_BELLS-S": {
+  "title": "Lonceng Jalan Kota",
+  "route": "sofia",
+  "chapter": "C03",
+  "location": "jalan_kota",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Lonceng yang berbeda berbunyi berurutan; kalian memilih mendengarnya sampai selesai."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mencatat bagaimana rasanya, bukan cuma bentuknya."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-TOMORROW_CARDS-A": {
+  "title": "Tiga Kartu Kosong",
+  "route": "arland",
+  "chapter": "C06",
+  "location": "hall_of_tomorrow",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Tidak ada kartu yang memutuskan masa depan; hanya pertanyaan yang boleh dipikirkan."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin melihatnya sampai selesai, biar tidak melewatkan bagian kecilnya."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-TOMORROW_CARDS-S": {
+  "title": "Tiga Kartu Kosong",
+  "route": "sofia",
+  "chapter": "C06",
+  "location": "hall_of_tomorrow",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Tidak ada kartu yang memutuskan masa depan; hanya pertanyaan yang boleh dipikirkan."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mencatat bagaimana rasanya, bukan cuma bentuknya."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Tidak perlu buru-buru. Kita punya waktu untuk momen ini."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-WINDOW_STORY-A": {
+  "title": "Cerita di Jendela",
+  "route": "arland",
+  "chapter": "C02",
+  "location": "sofia_room",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Sinar sore jatuh di kaca dan membuat satu kalimat tampak lebih jelas."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin melihatnya sampai selesai, biar tidak melewatkan bagian kecilnya."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Angin bergerak pelan, membawa suara kota yang akrab."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "V49-WE-WINDOW_STORY-S": {
+  "title": "Cerita di Jendela",
+  "route": "sofia",
+  "chapter": "C02",
+  "location": "sofia_room",
+  "trigger": "Living World event v4.9",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Sinar sore jatuh di kaca dan membuat satu kalimat tampak lebih jelas."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mencatat bagaimana rasanya, bukan cuma bentuknya."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Kalau besok lewat sini lagi, apa kita akan menemukan sesuatu yang berbeda?"
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Boleh dicoba. Yang penting kita tidak melewatkan hari ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Angin bergerak pelan, membawa suara kota yang akrab."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suasana berbeda tiap hari, tetapi kenangan hari ini tetap menjadi milik kalian."
+   }
+  ],
+  "flags": []
+ },
+ "WE27-ARCADE-TIKET-A": {
+  "title": "Tiket yang Tertinggal",
+  "route": "arland",
+  "chapter": "C03",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suara mesin permainan menyisakan satu lembar tiket merah di lantai."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Kita harus mengembalikan tiket ini. Bisa jadi pemiliknya sedang mencari."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Tiket ini punya gambar bulan. Aku ingat siapa yang tadi memainkannya."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Sofia menemukan pemain yang kehilangan tiket di dekat mesin hadiah."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Pemilik tiket berterima kasih dan menukar beberapa koin hadiah untuk mereka."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-ARCADE-TIKET-S": {
+  "title": "Tiket yang Tertinggal",
+  "route": "sofia",
+  "chapter": "C03",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Suara mesin permainan menyisakan satu lembar tiket merah di lantai."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Tiket ini punya gambar bulan. Aku ingat siapa yang tadi memainkannya."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Kita harus mengembalikan tiket ini. Bisa jadi pemiliknya sedang mencari."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Arland menyerahkan tiket itu, lalu membuat pose kemenangan berlebihan."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Pemilik tiket berterima kasih dan menukar beberapa koin hadiah untuk mereka."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-ARLAN-PETA-A": {
+  "title": "Jalur Kecil untuk Dito",
+  "route": "arland",
+  "chapter": "C03",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Dito menatap peta kertas yang ujungnya sudah kusut karena hujan kemarin."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Aku bisa menggambar ulang tiga belokannya. Tapi kamu yang pilih tempat pentingnya."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Kalau kamu ingin, kita boleh memberi nama baru untuk jalan yang belum punya papan."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Sofia membantu menahan kertas agar garis Arland tidak bergeser."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Dito membawa peta itu pulang sambil menyebut bangku taman sebagai titik pulang."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-BUKIT-TELESKOP-A": {
+  "title": "Satu Bintang yang Sama",
+  "route": "arland",
+  "chapter": "C03",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Di Bukit Bintang, satu titik terang bertahan di sela awan."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Aku tidak hafal nama semua bintang. Tapi aku tahu mana yang kamu tunjuk tadi."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Kalau malam terasa panjang, aku ingin menyimpan koordinat satu titik ini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Sofia menghubungkan dua titik cahaya dengan ujung jarinya di udara."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Mereka menunggu bintang itu hilang bersama-sama, tanpa tergesa."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-BUKIT-TELESKOP-S": {
+  "title": "Satu Bintang yang Sama",
+  "route": "sofia",
+  "chapter": "C03",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Di Bukit Bintang, satu titik terang bertahan di sela awan."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Kalau malam terasa panjang, aku ingin menyimpan koordinat satu titik ini."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku tidak hafal nama semua bintang. Tapi aku tahu mana yang kamu tunjuk tadi."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Arland menggeser jaket agar mereka dapat duduk lebih dekat."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Mereka menunggu bintang itu hilang bersama-sama, tanpa tergesa."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-DERMAGA-PAPAN-A": {
+  "title": "Nama di Papan Dermaga",
+  "route": "arland",
+  "chapter": "C03",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Papan dermaga berderit pelan ketika angin datang dari seberang."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Kalau suatu hari kita lupa arah, aku tahu ada bangku yang bisa kita cari lagi."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku akan menandai bangku ini di peta kecil kenangan kita."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Sofia mengamati dua bekas cat berbentuk setengah hati pada sandaran."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Mereka meninggalkan dermaga sedikit lebih rapi daripada saat datang."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-DERMAGA-PAPAN-S": {
+  "title": "Nama di Papan Dermaga",
+  "route": "sofia",
+  "chapter": "C03",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Papan dermaga berderit pelan ketika angin datang dari seberang."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Aku akan menandai bangku ini di peta kecil kenangan kita."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Kalau suatu hari kita lupa arah, aku tahu ada bangku yang bisa kita cari lagi."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Arland membetulkan salah satu baut yang terasa longgar."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Mereka meninggalkan dermaga sedikit lebih rapi daripada saat datang."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-DESA-BINTANG-A": {
+  "title": "Lampu Jendela Starfall",
+  "route": "arland",
+  "chapter": "C05",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Satu per satu jendela Starfall Village menyala seperti titik-titik rasi."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Aku suka rumah yang selalu menyisakan satu lampu untuk orang yang belum pulang."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Setiap jendela punya cerita sendiri. Kita tidak perlu mengetahui semuanya."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Sofia menghitung lampu yang menyala, lalu berhenti di angka tujuh."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Mereka pulang saat lampu terakhir mulai redup, membawa hangat dari kejauhan."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-DESA-BINTANG-S": {
+  "title": "Lampu Jendela Starfall",
+  "route": "sofia",
+  "chapter": "C05",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Satu per satu jendela Starfall Village menyala seperti titik-titik rasi."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Setiap jendela punya cerita sendiri. Kita tidak perlu mengetahui semuanya."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku suka rumah yang selalu menyisakan satu lampu untuk orang yang belum pulang."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Arland membetulkan posisi lampu kecil yang hampir jatuh tertiup angin."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Mereka pulang saat lampu terakhir mulai redup, membawa hangat dari kejauhan."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-HALTE-HUJAN-A": {
+  "title": "Cerita di Bawah Atap Halte",
+  "route": "arland",
+  "chapter": "C04",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Hujan menabuh atap halte sementara orang-orang bergeser memberi tempat."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Dulu aku selalu ingin hujan cepat selesai. Sekarang aku bisa mendengarnya dulu."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Ada kalimat yang tidak sempat keluar waktu kita bertengkar. Aku ingin menaruhnya di sini."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Sofia menunggu sampai Arland selesai bicara tanpa memotong."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Setelah hujan mereda, mereka masih duduk sebentar untuk memastikan satu sama lain didengar."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-HALTE-HUJAN-S": {
+  "title": "Cerita di Bawah Atap Halte",
+  "route": "sofia",
+  "chapter": "C04",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Hujan menabuh atap halte sementara orang-orang bergeser memberi tempat."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Ada kalimat yang tidak sempat keluar waktu kita bertengkar. Aku ingin menaruhnya di sini."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Dulu aku selalu ingin hujan cepat selesai. Sekarang aku bisa mendengarnya dulu."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Arland mengulurkan tisu kering dan memilih untuk tidak mencari alasan."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Setelah hujan mereda, mereka masih duduk sebentar untuk memastikan satu sama lain didengar."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-HUTAN-GEMA-A": {
+  "title": "Gema di Hutan Bisik",
+  "route": "arland",
+  "chapter": "C05",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Pepohonan menahan suara langkah hingga terdengar seperti ada dua gema."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Kamu dengar? Kalau kita berhenti, gema itu juga berhenti."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Mungkin gema hanya mengulang hal yang berani kita ucapkan."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Sofia berdiri di dekat akar besar dan memanggil nama Arland pelan."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Di antara batang pohon, jawaban itu terasa cukup dekat."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-HUTAN-GEMA-S": {
+  "title": "Gema di Hutan Bisik",
+  "route": "sofia",
+  "chapter": "C05",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Pepohonan menahan suara langkah hingga terdengar seperti ada dua gema."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Mungkin gema hanya mengulang hal yang berani kita ucapkan."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Kamu dengar? Kalau kita berhenti, gema itu juga berhenti."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Arland membalas tanpa berteriak, agar burung-burung tidak terkejut."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Di antara batang pohon, jawaban itu terasa cukup dekat."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-IKAN-PONDOK-A": {
+  "title": "Penjaga Kolam Koi",
+  "route": "arland",
+  "chapter": "C02",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Seekor ikan koi muncul tiga kali dari bawah jembatan kayu."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Rasanya ikan itu menunggu seseorang membacakan cerita."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku menghitung tiga lingkar air tadi. Ada pola yang mirip halaman buku."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Sofia menamai ikan itu Si Penjaga Taman, lalu tertawa karena namanya terlalu resmi."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Ikan itu kembali menyelam ketika dua orang di atasnya sama-sama tersenyum."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-IKAN-PONDOK-S": {
+  "title": "Penjaga Kolam Koi",
+  "route": "sofia",
+  "chapter": "C02",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Seekor ikan koi muncul tiga kali dari bawah jembatan kayu."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Aku menghitung tiga lingkar air tadi. Ada pola yang mirip halaman buku."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Rasanya ikan itu menunggu seseorang membacakan cerita."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Arland menggerakkan tangannya seperti ikan yang sedang berenang."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Ikan itu kembali menyelam ketika dua orang di atasnya sama-sama tersenyum."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-KAFE-CATATAN-A": {
+  "title": "Pesan di Alas Cangkir",
+  "route": "arland",
+  "chapter": "C03",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Di Kafe Senja, secarik pesan terselip di bawah alas cangkir."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Kamu pernah menulis sesuatu lalu takut orang lain membacanya?"
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Tulisanku hari ini sederhana: aku senang ketika kita tak perlu selalu banyak bicara."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Sofia tersenyum kecil, lalu mengembalikan kertas itu tepat di antara kedua cangkir."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Kertas itu disimpan sebagai bukti bahwa diam juga bisa hangat."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-KAFE-CATATAN-S": {
+  "title": "Pesan di Alas Cangkir",
+  "route": "sofia",
+  "chapter": "C03",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Di Kafe Senja, secarik pesan terselip di bawah alas cangkir."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Tulisanku hari ini sederhana: aku senang ketika kita tak perlu selalu banyak bicara."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Kamu pernah menulis sesuatu lalu takut orang lain membacanya?"
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Arland mengangguk dan menuliskan tanggal pada sudut kertas."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Kertas itu disimpan sebagai bukti bahwa diam juga bisa hangat."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-MELATI-MERANGKAI-A": {
+  "title": "Belajar dari Bu Melati",
+  "route": "arland",
+  "chapter": "C02",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Bu Melati sedang merapikan pot bunga yang kelopaknya mulai jatuh."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Kalau kelopak ini layu, apa buketnya masih bisa terlihat indah?"
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Bunga yang layu pun bisa jadi penanda bahwa kita pernah merawatnya."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Sofia menyimpan satu kelopak yang terjatuh tanpa memetik bunga baru."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Bu Melati berterima kasih; mereka mendapat pita sisa sebagai tanda kecil."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-MELATI-MERANGKAI-S": {
+  "title": "Belajar dari Bu Melati",
+  "route": "sofia",
+  "chapter": "C02",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Bu Melati sedang merapikan pot bunga yang kelopaknya mulai jatuh."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Bunga yang layu pun bisa jadi penanda bahwa kita pernah merawatnya."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Kalau kelopak ini layu, apa buketnya masih bisa terlihat indah?"
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Arland membantu memindahkan pot dari pinggir pintu."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Bu Melati berterima kasih; mereka mendapat pita sisa sebagai tanda kecil."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-PAGI-PLAZA-A": {
+  "title": "Bunga di Pagi Plaza",
+  "route": "arland",
+  "chapter": "C02",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Pagi membuat genting-genting di Plaza tampak seperti dilapisi madu."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Aku tadi cuma mau lewat. Tapi lihat, ada bunga kecil yang tumbuh di sela batu."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin menggambar satu petak sinar sebelum orang-orang membuat plaza ramai."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Sofia mendekatkan telapak tangannya ke daun, berhati-hati tidak menyentuh pucuknya."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Mereka membiarkan bunga itu tetap tumbuh dan membawa pulang cerita paginya."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-PAGI-PLAZA-S": {
+  "title": "Bunga di Pagi Plaza",
+  "route": "sofia",
+  "chapter": "C02",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Pagi membuat genting-genting di Plaza tampak seperti dilapisi madu."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Aku ingin menggambar satu petak sinar sebelum orang-orang membuat plaza ramai."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku tadi cuma mau lewat. Tapi lihat, ada bunga kecil yang tumbuh di sela batu."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Arland memilih bangku yang paling terang, lalu menggeser tempat duduk untuk Sofia."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Mereka membiarkan bunga itu tetap tumbuh dan membawa pulang cerita paginya."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-PERPUSTAKAAN-SENYAP-A": {
+  "title": "Buku yang Dipinjamkan",
+  "route": "arland",
+  "chapter": "C02",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Bu Laras menaruh sebuah buku tanpa sampul di meja bacaan."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Aku kira buku tanpa judul itu rusak. Ternyata halaman depannya sengaja dibiarkan kosong."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Kalau buku ini punya judul, mungkin namanya Hal-Hal yang Belum Berani Diucapkan."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Sofia membalik halaman pertama dengan ujung jari."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Sebelum pulang, keduanya menulis satu kata pada kertas terpisah: lanjut."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-PERPUSTAKAAN-SENYAP-S": {
+  "title": "Buku yang Dipinjamkan",
+  "route": "sofia",
+  "chapter": "C02",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Bu Laras menaruh sebuah buku tanpa sampul di meja bacaan."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Kalau buku ini punya judul, mungkin namanya Hal-Hal yang Belum Berani Diucapkan."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku kira buku tanpa judul itu rusak. Ternyata halaman depannya sengaja dibiarkan kosong."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Arland mengambil pembatas kertas agar mereka tak kehilangan halaman."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Sebelum pulang, keduanya menulis satu kata pada kertas terpisah: lanjut."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-SENJA-DANAU-A": {
+  "title": "Cahaya di Permukaan Danau",
+  "route": "arland",
+  "chapter": "C02",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Senja pecah menjadi garis-garis keemasan di permukaan danau."
+   },
+   {
+    "s": "arland",
+    "e": "penasaran",
+    "t": "Aku ingin mengingat cahaya yang jatuh tepat di tempat kamu berdiri."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingat hari ini dari suara daun, bukan cuma warna langitnya."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Sofia menunjuk bayangan dua orang yang memanjang sampai dekat air."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Tak ada foto yang diambil. Mereka sepakat kenangan ini cukup dirasakan."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-SENJA-DANAU-S": {
+  "title": "Cahaya di Permukaan Danau",
+  "route": "sofia",
+  "chapter": "C02",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Senja pecah menjadi garis-garis keemasan di permukaan danau."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Aku ingat hari ini dari suara daun, bukan cuma warna langitnya."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin mengingat cahaya yang jatuh tepat di tempat kamu berdiri."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Arland membuka telapak tangannya, seolah bisa menangkap satu garis cahaya."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Tak ada foto yang diambil. Mereka sepakat kenangan ini cukup dirasakan."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "WE27-SOFIA-HALAMAN-S": {
+  "title": "Halaman untuk Bu Laras",
+  "route": "sofia",
+  "chapter": "C03",
+  "location": "",
+  "trigger": "",
+  "lines": [
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Bu Laras menunjukkan buku tamu dengan satu halaman kosong di tengahnya."
+   },
+   {
+    "s": "sofia",
+    "e": "penasaran",
+    "t": "Kamu bisa menulisnya tanpa nama. Perasaan itu tetap punya tempat."
+   },
+   {
+    "s": "arland",
+    "e": "senyum",
+    "t": "Aku ingin menulis cerita tentang orang yang bersedia menunggu sampai kita selesai bicara."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Arland menempelkan satu pembatas kecil di halaman tersebut."
+   },
+   {
+    "s": "sofia",
+    "e": "senyum",
+    "t": "Aku ingin mengingat momen ini tanpa harus membuatnya sempurna."
+   },
+   {
+    "s": "narrator",
+    "e": "neutral",
+    "t": "Bu Laras menyimpan buku tamu itu di rak yang mudah ditemukan semua orang."
+   }
+  ],
+  "flags": [],
+  "note": "",
+  "choices": []
+ },
+ "V472-C06-RECALL-DATE-A-SEE": {
+  "title": "Yang Kami Pilih untuk Diingat",
+  "chapter": "C06",
+  "route": "arland",
+  "location": "eternal_garden",
+  "trigger": "v4.7.2 real quest chapter6",
+  "lines": [
+   {
+    "s": "arland",
+    "t": "Dulu kita bisa memilih kapan dan bagaimana mau berkencan.",
+    "e": "serius"
+   },
+   {
+    "s": "narrator",
+    "t": "Kenangan itu tetap memiliki bekas yang tidak dipoles menjadi sempurna.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V472-C06-RECALL-DATE-A-REFUSE": {
+  "title": "Yang Kami Pilih untuk Diingat",
+  "chapter": "C06",
+  "route": "arland",
+  "location": "eternal_garden",
+  "trigger": "v4.7.2 real quest chapter6",
+  "lines": [
+   {
+    "s": "arland",
+    "t": "Aku nggak ingin ada jadwal sempurna kalau kita kehilangan hak bilang tidak.",
+    "e": "sedih"
+   },
+   {
+    "s": "narrator",
+    "t": "Kenangan itu tetap memiliki bekas yang tidak dipoles menjadi sempurna.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V472-C06-RECALL-DATE-S-SEE": {
+  "title": "Yang Kami Pilih untuk Diingat",
+  "chapter": "C06",
+  "route": "sofia",
+  "location": "eternal_garden",
+  "trigger": "v4.7.2 real quest chapter6",
+  "lines": [
+   {
+    "s": "sofia",
+    "t": "Dulu kita bisa memilih kapan dan bagaimana mau berkencan.",
+    "e": "serius"
+   },
+   {
+    "s": "narrator",
+    "t": "Kenangan itu tetap memiliki bekas yang tidak dipoles menjadi sempurna.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V472-C06-RECALL-DATE-S-REFUSE": {
+  "title": "Yang Kami Pilih untuk Diingat",
+  "chapter": "C06",
+  "route": "sofia",
+  "location": "eternal_garden",
+  "trigger": "v4.7.2 real quest chapter6",
+  "lines": [
+   {
+    "s": "sofia",
+    "t": "Aku nggak ingin ada jadwal sempurna kalau kita kehilangan hak bilang tidak.",
+    "e": "sedih"
+   },
+   {
+    "s": "narrator",
+    "t": "Kenangan itu tetap memiliki bekas yang tidak dipoles menjadi sempurna.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V472-C06-RECALL-PRESENCE-A-SEE": {
+  "title": "Yang Kami Pilih untuk Diingat",
+  "chapter": "C06",
+  "route": "arland",
+  "location": "eternal_garden",
+  "trigger": "v4.7.2 real quest chapter6",
+  "lines": [
+   {
+    "s": "arland",
+    "t": "Aku ingin mengingat waktumu dan batas kita, bukan jam yang sempurna.",
+    "e": "serius"
+   },
+   {
+    "s": "narrator",
+    "t": "Kenangan itu tetap memiliki bekas yang tidak dipoles menjadi sempurna.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V472-C06-RECALL-PRESENCE-A-REFUSE": {
+  "title": "Yang Kami Pilih untuk Diingat",
+  "chapter": "C06",
+  "route": "arland",
+  "location": "eternal_garden",
+  "trigger": "v4.7.2 real quest chapter6",
+  "lines": [
+   {
+    "s": "arland",
+    "t": "Kita boleh membuat janji dan juga boleh mengakui saat butuh pertolongan.",
+    "e": "serius"
+   },
+   {
+    "s": "narrator",
+    "t": "Kenangan itu tetap memiliki bekas yang tidak dipoles menjadi sempurna.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V472-C06-RECALL-PRESENCE-S-SEE": {
+  "title": "Yang Kami Pilih untuk Diingat",
+  "chapter": "C06",
+  "route": "sofia",
+  "location": "eternal_garden",
+  "trigger": "v4.7.2 real quest chapter6",
+  "lines": [
+   {
+    "s": "sofia",
+    "t": "Aku ingin mengingat waktumu dan batas kita, bukan jam yang sempurna.",
+    "e": "serius"
+   },
+   {
+    "s": "narrator",
+    "t": "Kenangan itu tetap memiliki bekas yang tidak dipoles menjadi sempurna.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V472-C06-RECALL-PRESENCE-S-REFUSE": {
+  "title": "Yang Kami Pilih untuk Diingat",
+  "chapter": "C06",
+  "route": "sofia",
+  "location": "eternal_garden",
+  "trigger": "v4.7.2 real quest chapter6",
+  "lines": [
+   {
+    "s": "sofia",
+    "t": "Kita boleh membuat janji dan juga boleh mengakui saat butuh pertolongan.",
+    "e": "serius"
+   },
+   {
+    "s": "narrator",
+    "t": "Kenangan itu tetap memiliki bekas yang tidak dipoles menjadi sempurna.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V472-C06-RECALL-AGREEMENT-A-SEE": {
+  "title": "Yang Kami Pilih untuk Diingat",
+  "chapter": "C06",
+  "route": "arland",
+  "location": "eternal_garden",
+  "trigger": "v4.7.2 real quest chapter6",
+  "lines": [
+   {
+    "s": "arland",
+    "t": "Kita boleh beda pendapat dan tetap saling menghormati.",
+    "e": "senyum"
+   },
+   {
+    "s": "narrator",
+    "t": "Kenangan itu tetap memiliki bekas yang tidak dipoles menjadi sempurna.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V472-C06-RECALL-AGREEMENT-A-REFUSE": {
+  "title": "Yang Kami Pilih untuk Diingat",
+  "chapter": "C06",
+  "route": "arland",
+  "location": "eternal_garden",
+  "trigger": "v4.7.2 real quest chapter6",
+  "lines": [
+   {
+    "s": "arland",
+    "t": "Aku tak mau diam hanya demi terlihat selalu rukun.",
+    "e": "neutral"
+   },
+   {
+    "s": "narrator",
+    "t": "Kenangan itu tetap memiliki bekas yang tidak dipoles menjadi sempurna.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V472-C06-RECALL-AGREEMENT-S-SEE": {
+  "title": "Yang Kami Pilih untuk Diingat",
+  "chapter": "C06",
+  "route": "sofia",
+  "location": "eternal_garden",
+  "trigger": "v4.7.2 real quest chapter6",
+  "lines": [
+   {
+    "s": "sofia",
+    "t": "Kita boleh beda pendapat dan tetap saling menghormati.",
+    "e": "senyum"
+   },
+   {
+    "s": "narrator",
+    "t": "Kenangan itu tetap memiliki bekas yang tidak dipoles menjadi sempurna.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V472-C06-RECALL-AGREEMENT-S-REFUSE": {
+  "title": "Yang Kami Pilih untuk Diingat",
+  "chapter": "C06",
+  "route": "sofia",
+  "location": "eternal_garden",
+  "trigger": "v4.7.2 real quest chapter6",
+  "lines": [
+   {
+    "s": "sofia",
+    "t": "Aku tak mau diam hanya demi terlihat selalu rukun.",
+    "e": "neutral"
+   },
+   {
+    "s": "narrator",
+    "t": "Kenangan itu tetap memiliki bekas yang tidak dipoles menjadi sempurna.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V474-RECALL-A_TEXT_HONEST": {
+  "title": "Janji yang Dikatakan",
+  "route": "arland",
+  "chapter": "PRO",
+  "location": "plaza",
+  "trigger": "V474 playable Prologue",
+  "lines": [
+   {
+    "s": "arland",
+    "t": "Aku memang bilang senang ketemu Sofia. Kali ini aku mau membuktikannya dengan hadir.",
+    "e": "senang"
+   },
+   {
+    "s": "narrator",
+    "t": "Kalimat itu tersimpan sebagai bagian dari ingatan, bukan sebagai jawaban yang paling benar.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V474-RECALL-A_TEXT_PLAYFUL": {
+  "title": "Kejutan yang Punya Tempat",
+  "route": "arland",
+  "chapter": "PRO",
+  "location": "plaza",
+  "trigger": "V474 playable Prologue",
+  "lines": [
+   {
+    "s": "arland",
+    "t": "Aku senang bisa bercanda dengannya. Tapi aku juga harus tahu kapan ia butuh jawaban serius.",
+    "e": "senang"
+   },
+   {
+    "s": "narrator",
+    "t": "Kalimat itu tersimpan sebagai bagian dari ingatan, bukan sebagai jawaban yang paling benar.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V474-RECALL-S_TEXT_OPEN": {
+  "title": "Cerita yang Sejak Awal Ditunggu",
+  "route": "sofia",
+  "chapter": "PRO",
+  "location": "plaza",
+  "trigger": "V474 playable Prologue",
+  "lines": [
+   {
+    "s": "sofia",
+    "t": "Aku pernah menulis kalau ingin banyak bercerita. Aku nggak mau kehilangan keberanian itu.",
+    "e": "sedih"
+   },
+   {
+    "s": "narrator",
+    "t": "Kalimat itu tersimpan sebagai bagian dari ingatan, bukan sebagai jawaban yang paling benar.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V474-RECALL-S_TEXT_GENTLE": {
+  "title": "Jangan Terburu-buru",
+  "route": "sofia",
+  "chapter": "PRO",
+  "location": "plaza",
+  "trigger": "V474 playable Prologue",
+  "lines": [
+   {
+    "s": "sofia",
+    "t": "Sejak awal aku mengingatkan Arland agar tidak terburu-buru. Sekarang aku juga belajar memintanya hadir.",
+    "e": "serius"
+   },
+   {
+    "s": "narrator",
+    "t": "Kalimat itu tersimpan sebagai bagian dari ingatan, bukan sebagai jawaban yang paling benar.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V474-RECALL-A_FOLD_REAL": {
+  "title": "Lipatan yang Dibiarkan Asli",
+  "route": "arland",
+  "chapter": "EPI",
+  "location": "riverside",
+  "trigger": "V474 playable Prologue",
+  "lines": [
+   {
+    "s": "arland",
+    "t": "Salah lipat itu masih ada. Sofia tidak pernah meminta aku memperbaiki semua hal.",
+    "e": "neutral"
+   },
+   {
+    "s": "narrator",
+    "t": "Kalimat itu tersimpan sebagai bagian dari ingatan, bukan sebagai jawaban yang paling benar.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V474-RECALL-A_FOLD_CARE": {
+  "title": "Merawat Bukan Mengulang",
+  "route": "arland",
+  "chapter": "EPI",
+  "location": "riverside",
+  "trigger": "V474 playable Prologue",
+  "lines": [
+   {
+    "s": "arland",
+    "t": "Aku pernah merapikan bunga tanpa merobeknya. Mungkin itu juga cara merawat hubungan.",
+    "e": "neutral"
+   },
+   {
+    "s": "narrator",
+    "t": "Kalimat itu tersimpan sebagai bagian dari ingatan, bukan sebagai jawaban yang paling benar.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V474-RECALL-S_DRAFT_THANK": {
+  "title": "Ucapan Terima Kasih",
+  "route": "sofia",
+  "chapter": "EPI",
+  "location": "riverside",
+  "trigger": "V474 playable Prologue",
+  "lines": [
+   {
+    "s": "sofia",
+    "t": "Kalimat pertamaku bukan tentang hadiah. Aku cuma ingin dia tahu bahwa aku merasa didengar.",
+    "e": "neutral"
+   },
+   {
+    "s": "narrator",
+    "t": "Kalimat itu tersimpan sebagai bagian dari ingatan, bukan sebagai jawaban yang paling benar.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V474-RECALL-S_DRAFT_TOMORROW": {
+  "title": "Cerita Hari Esok",
+  "route": "sofia",
+  "chapter": "EPI",
+  "location": "riverside",
+  "trigger": "V474 playable Prologue",
+  "lines": [
+   {
+    "s": "sofia",
+    "t": "Sejak kartu pertama, aku sudah ingin punya banyak cerita. Bukan kisah tanpa salah, melainkan kisah yang sungguh kami jalani.",
+    "e": "neutral"
+   },
+   {
+    "s": "narrator",
+    "t": "Kalimat itu tersimpan sebagai bagian dari ingatan, bukan sebagai jawaban yang paling benar.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V474-RECALL-A_RIBBON_CREAM": {
+  "title": "Pita Cahaya Pagi",
+  "route": "arland",
+  "chapter": "PRO",
+  "location": "plaza",
+  "trigger": "V474 playable Prologue",
+  "lines": [
+   {
+    "s": "arland",
+    "t": "Aku memilih pita seperti pagi. Awalnya aku pikir semuanya harus cerah setiap hari.",
+    "e": "serius"
+   },
+   {
+    "s": "narrator",
+    "t": "Kalimat itu tersimpan sebagai bagian dari ingatan, bukan sebagai jawaban yang paling benar.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V474-RECALL-A_RIBBON_VIOLET": {
+  "title": "Pita Langit Senja",
+  "route": "arland",
+  "chapter": "PRO",
+  "location": "plaza",
+  "trigger": "V474 playable Prologue",
+  "lines": [
+   {
+    "s": "arland",
+    "t": "Aku memilih pita ungu karena Sofia menyukai langit sore. Waktu itu aku ingat detail kecilnya.",
+    "e": "serius"
+   },
+   {
+    "s": "narrator",
+    "t": "Kalimat itu tersimpan sebagai bagian dari ingatan, bukan sebagai jawaban yang paling benar.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V474-RECALL-S_STAMP_STAR": {
+  "title": "Bintang di Kartu Pos",
+  "route": "sofia",
+  "chapter": "PRO",
+  "location": "plaza",
+  "trigger": "V474 playable Prologue",
+  "lines": [
+   {
+    "s": "sofia",
+    "t": "Aku memilih bintang tanpa tahu bahwa kelak kita akan mengikuti langit sampai Memory Bridge.",
+    "e": "serius"
+   },
+   {
+    "s": "narrator",
+    "t": "Kalimat itu tersimpan sebagai bagian dari ingatan, bukan sebagai jawaban yang paling benar.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V474-RECALL-S_STAMP_FLOWER": {
+  "title": "Bunga di Ujung Kalimat",
+  "route": "sofia",
+  "chapter": "PRO",
+  "location": "plaza",
+  "trigger": "V474 playable Prologue",
+  "lines": [
+   {
+    "s": "sofia",
+    "t": "Aku memilih gambar bunga. Sekarang aku tahu betapa lama Arland membuatnya dengan tangannya sendiri.",
+    "e": "serius"
+   },
+   {
+    "s": "narrator",
+    "t": "Kalimat itu tersimpan sebagai bagian dari ingatan, bukan sebagai jawaban yang paling benar.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V474-RECALL-A_NOTE_EVERYDAY": {
+  "title": "Terima Kasih untuk Hari Biasa",
+  "route": "arland",
+  "chapter": "EPI",
+  "location": "riverside",
+  "trigger": "V474 playable Prologue",
+  "lines": [
+   {
+    "s": "arland",
+    "t": "Aku menulis tentang hari-hari biasa. Setelah galeri, aku belajar bahwa hadir adalah cara menjaganya.",
+    "e": "serius"
+   },
+   {
+    "s": "narrator",
+    "t": "Kalimat itu tersimpan sebagai bagian dari ingatan, bukan sebagai jawaban yang paling benar.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V474-RECALL-A_NOTE_LISTEN": {
+  "title": "Janji untuk Mendengar",
+  "route": "arland",
+  "chapter": "EPI",
+  "location": "riverside",
+  "trigger": "V474 playable Prologue",
+  "lines": [
+   {
+    "s": "arland",
+    "t": "Aku menulis ingin mendengar saat Sofia sedih. Sekarang aku paham mendengar itu bukan sekadar menawarkan solusi.",
+    "e": "sedih"
+   },
+   {
+    "s": "narrator",
+    "t": "Kalimat itu tersimpan sebagai bagian dari ingatan, bukan sebagai jawaban yang paling benar.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V474-RECALL-S_NOTE_COMFORT": {
+  "title": "Boleh Menjadi Diri Sendiri",
+  "route": "sofia",
+  "chapter": "EPI",
+  "location": "riverside",
+  "trigger": "V474 playable Prologue",
+  "lines": [
+   {
+    "s": "sofia",
+    "t": "Aku menulis bahwa aku nyaman menjadi diriku. Sekarang aku juga berani bilang kalau sesuatu menyakitkan.",
+    "e": "serius"
+   },
+   {
+    "s": "narrator",
+    "t": "Kalimat itu tersimpan sebagai bagian dari ingatan, bukan sebagai jawaban yang paling benar.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ },
+ "V474-RECALL-S_NOTE_STORIES": {
+  "title": "Dua Cerita, Bukan Satu",
+  "route": "sofia",
+  "chapter": "EPI",
+  "location": "riverside",
+  "trigger": "V474 playable Prologue",
+  "lines": [
+   {
+    "s": "sofia",
+    "t": "Aku menulis agar kami saling bercerita. Sekarang aku tidak takut kalau versi kami berbeda.",
+    "e": "khawatir"
+   },
+   {
+    "s": "narrator",
+    "t": "Kalimat itu tersimpan sebagai bagian dari ingatan, bukan sebagai jawaban yang paling benar.",
+    "e": "neutral"
+   }
+  ],
+  "choices": [],
+  "flags": []
+ }
+}

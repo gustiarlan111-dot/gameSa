@@ -1,5 +1,18 @@
 # CHANGELOG — V8.0 "The Definitive Overhaul"
 
+## V8.5 — dialog: adegan bertemplat ditulis ulang (Phase 07, langkah 1)
+- Audit cerita lengkap dengan angka: `docs/STORY_AUDIT_V8.md`.
+- `tools/story_v8.py` (bisa dijalankan ulang, teks asli di `tools/story_v8_orig.json`):
+  - 36 adegan acara harian `V49-WE-*` yang 5 dari 6 barisnya identik kini masing-masing berupa
+    percakapan sendiri tentang tempat itu, dari sudut pandang route (Arland/Sofia), lengkap dengan
+    humor dan detail kecil (sup "secukupnya", kacamata berembun, kompas yang berputar, dan lainnya);
+  - 26 adegan `WE27-*`: kalimat generiknya diganti kalimat yang khas untuk adegan itu;
+  - 28 adegan kilas balik: vonis narator yang menggurui dihapus;
+  - 6 pasang kilas balik Bab 6 yang identik di kedua route kini berbeda per route dan merujuk
+    kejadian di cerita.
+- Baris berulang ≥3×: 18 → 8; "yang penting" 53 → 18; "kenangan" 114 → 66.
+- ID adegan, flag, dan pemicu tidak berubah (save aman). Kedua route tamat (EPI_FREE), 0 error.
+
 ## V8.4 — potret dialog dari model baru
 - 12 ekspresi potret untuk Arland dan Sofia dirender dari GLB yang sama, sehingga wajah di kotak dialog
   kini cocok dengan karakter di dunia game. Ekspresi digambar di atas wajah model

@@ -142,11 +142,23 @@ func show_title() -> void:
 			cont.custom_minimum_size = Vector2(380, 58)
 			cont.pressed.connect(func(): start_game.emit(ld.value, false))
 			mv.add_child(cont)
+	var opt := UiTheme.button("Pengaturan", 22)
+	opt.custom_minimum_size = Vector2(380, 58)
+	opt.pressed.connect(func(): _settings().open())
+	mv.add_child(opt)
 	play.grab_focus.call_deferred()
-	var ver := UiTheme.label("Versi HD-2D", 16, Color(UiTheme.TEXT_SOFT, 0.75), "pixel_soft")
+	var ver := UiTheme.label("Versi HD-2D  ·  V8.0", 16, Color(UiTheme.TEXT_SOFT, 0.75), "pixel_soft")
 	ver.add_theme_color_override("font_outline_color", Color(UiTheme.EDGE, 0.8))
 	ver.add_theme_constant_override("outline_size", 4)
 	box.add_child(ver)
+
+
+var _settings_menu: SettingsMenu
+func _settings() -> SettingsMenu:
+	if _settings_menu == null:
+		_settings_menu = SettingsMenu.new()
+		add_child(_settings_menu)
+	return _settings_menu
 
 
 func show_routes() -> void:

@@ -2,6 +2,8 @@ extends Node
 ## Boot. Title, slots and settings menus come in phase 3; for now a new Sofia game starts directly.
 ## Capture modes for automated QA (never used by players):
 ##   -- --shot  <route> <area> <x> <y> <frames> <out.png> [x:y;x:y waypoints]   free exploration
+##        (env SHOT_QUALITY=low|medium|high|ultra forces a graphics preset, SHOT_SETTINGS=1 opens the
+##        settings window, SHOT_LEFT=1 the left-handed layout; none of them is saved)
 ##   -- --story <route> <out_prefix> <frame,frame,...>                           new game, the story runs
 ##        by itself (dialogue advances every 50 frames, first choice taken) and a screenshot is saved
 ##        at each listed frame. Env STORY_STEP/STORY_AREA[/STORY_FLAGS/STORY_COMPANION] start it at a
@@ -19,9 +21,15 @@ var _shots: Array = []
 var _dlg := 0
 var _idle := 0
 var _rot := 0
+var _last_step := ""
 
 
 func _ready() -> void:
+	GameSettings.apply_global()          # V8: frame cap and volumes from user://settings.json
+	if OS.get_environment("SHOT_QUALITY") != "":       # QA captures: force a graphics preset (not saved)
+		GameSettings.get_all()["quality"] = OS.get_environment("SHOT_QUALITY")
+	if OS.get_environment("SHOT_LEFT") == "1":
+		GameSettings.get_all()["left_hand"] = true
 	var args := OS.get_cmdline_user_args()
 	var i := args.find("--shot")
 	var j := args.find("--story")
@@ -237,7 +245,11 @@ func _process(_delta: float) -> void:
 				get_tree().quit()
 		return
 	if _mode == "shot":
+		if game == null:                  # QA capture only: the game node is not there yet
+			return
 		var w := game.world
+		if _frame == 2 and OS.get_environment("SHOT_SETTINGS") == "1":
+			game.settings.open()          # QA: capture the V8 settings window over the scene
 		if _wp < _wps.size():
 			var d: Vector2 = _wps[_wp] - w.player.position
 			if d.length() < 8:
@@ -253,7 +265,12 @@ func _process(_delta: float) -> void:
 			get_tree().quit()
 	else:
 		_autoplay()
-		if _frame % 50 == 0:
+		if game.p.step != _last_step:        # QA log: every story step reached, to spot a softlock
+			_last_step = game.p.step
+			print("STEP> %s %s frame=%d" % [_last_step, game.p.area, _frame])
+		if _frame % 50 == 0 and _qa_overlay():
+			pass
+		elif _frame % 50 == 0:
 			if game.dialog.choosing():
 				# first choice, or rotate through them so a wrong answer is retried with the next one
 				game.dialog.choose(0 if OS.get_environment("STORY_ROTATE") != "1" else _rot % game.dialog._choices.size())
@@ -268,6 +285,32 @@ func _process(_delta: float) -> void:
 		if _frame >= _shots.max():
 			print("STEP ", game.p.step, " AREA ", game.p.area, " FLAGS ", game.p.flags.size())
 			get_tree().quit()
+
+
+## V8 QA: the autopilot also plays through the overlays that used to stop it (puzzle, minigame,
+## confirm, shop, romance), so a whole route can run to the ending. Each one is logged as "QA>".
+func _qa_overlay() -> bool:
+	var pz = game.puzzle
+	if pz.visible:
+		if pz._solved_t < 0 and pz._entered.size() < pz._order.size():
+			print("QA> puzzle %s: %s" % [game.p.step, pz._order[pz._entered.size()]])
+			pz._press(pz._order[pz._entered.size()])
+		return true
+	if game.minigame.visible:
+		print("QA> minigame %s auto-finished (score 3)" % game.p.step)
+		game.minigame._finish(3)
+		return true
+	if game.confirm.visible:
+		print("QA> confirm '%s' -> yes" % game.confirm._title.text)
+		game.confirm._close(game.confirm._on_yes)
+		return true
+	if game.shop.visible:
+		print("QA> shop closed"); game.shop.close()
+		return true
+	if game.romance.visible:
+		print("QA> romance closed"); game.romance.close()
+		return true
+	return false
 
 
 ## Story autopilot for captures: walk to the active step's marker (crossing doors when it is in
@@ -286,7 +329,7 @@ func _autoplay() -> void:
 			game._find_target()
 			game.interact()
 		else:
-			game.controls.vec = d.normalized()
+			game.controls.vec = _steer(t, float(it.get("r", 64)) * 0.6)
 		return
 	var goal := _goal_area()
 	if goal == "" or goal == game.p.area:
@@ -296,14 +339,110 @@ func _autoplay() -> void:
 		return
 	var r: Array = door.rect
 	var c := Vector2(r[0] + r[2] / 2.0, r[1] + r[3] / 2.0)
-	game.controls.vec = (c - w.player.position).normalized()
+	game.controls.vec = _steer(c, maxf(r[2], r[3]) * 0.5 + 14.0, Rect2(r[0], r[1], r[2], r[3]).grow(10))
+
+
+## V8 QA: the autopilot used to walk in a straight line and got stuck on trees (both routes stalled
+## at PRO_SHARDS in memory_garden). It now follows a breadth-first path over the real collision
+## (Data.blocked, 8 px cells), replanned when the target changes or the player stops moving.
+const NAV_CELL := 8.0
+var _nav_key := ""
+var _nav_pts: Array = []
+var _nav_last := Vector2.ZERO
+var _nav_still := 0
+
+
+func _steer(target: Vector2, radius: float, goal_rect := Rect2()) -> Vector2:
+	var w := game.world
+	var pos := w.player.position
+	var key := "%s|%d|%d" % [game.p.area, int(target.x), int(target.y)]
+	_nav_still = _nav_still + 1 if pos.distance_to(_nav_last) < 0.5 else 0
+	_nav_last = pos
+	if key != _nav_key or _nav_still > 40:
+		if key == _nav_key and not _nav_pts.is_empty():
+			# stuck on a collider the cell centres missed (ellipse edges are tested at 5 foot points):
+			# close the cell in front and route around it, as a player would
+			var g := _grid()
+			g.set_point_solid(_cell(g, _nav_pts[0]))
+		_nav_key = key
+		_nav_still = 0
+		_nav_pts = _plan(pos, target, radius, goal_rect)
+	if OS.get_environment("NAV_DEBUG") == "1" and _frame % 120 == 0:
+		print("NAV ", game.p.area, " pos=", pos, " target=", target, " pts=", _nav_pts.size(), " still=", _nav_still)
+	while not _nav_pts.is_empty() and pos.distance_to(_nav_pts[0]) < 6.0:
+		_nav_pts.pop_front()
+	var to: Vector2 = _nav_pts[0] if not _nav_pts.is_empty() else target
+	return (to - pos).normalized()
+
+
+var _nav_grid: AStarGrid2D
+var _nav_grid_key := ""
+
+
+## Walkable grid of the current area (native AStarGrid2D), rebuilt when the area or its open gates change.
+func _grid() -> AStarGrid2D:
+	var a: Dictionary = game.world.area
+	var flags: Dictionary = game.world.flags
+	var key := "%s|%d" % [a.get("id", ""), flags.size()]
+	if _nav_grid != null and key == _nav_grid_key:
+		return _nav_grid
+	var g := AStarGrid2D.new()
+	g.region = Rect2i(0, 0, int(ceil(float(a.get("w", 960)) / NAV_CELL)), int(ceil(float(a.get("h", 640)) / NAV_CELL)))
+	g.cell_size = Vector2(NAV_CELL, NAV_CELL)
+	g.offset = Vector2(NAV_CELL, NAV_CELL) * 0.5
+	g.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
+	g.update()
+	for y in g.region.size.y:
+		for x in g.region.size.x:
+			if Data.blocked(a, (x + 0.5) * NAV_CELL, (y + 0.5) * NAV_CELL, flags):
+				g.set_point_solid(Vector2i(x, y))
+	_nav_grid = g
+	_nav_grid_key = key
+	return g
+
+
+func _cell(g: AStarGrid2D, p: Vector2) -> Vector2i:
+	return Vector2i(clampi(int(p.x / NAV_CELL), 0, g.region.size.x - 1), clampi(int(p.y / NAV_CELL), 0, g.region.size.y - 1))
+
+
+## Nearest open cell to a point (targets often sit on an NPC, a table or a door at the map edge).
+func _open_near(g: AStarGrid2D, p: Vector2, rect := Rect2()) -> Vector2i:
+	var c := _cell(g, p)
+	for r in range(0, 40):
+		for dy in range(-r, r + 1):
+			for dx in range(-r, r + 1):
+				if maxi(absi(dx), absi(dy)) != r:
+					continue
+				var n := c + Vector2i(dx, dy)
+				if g.is_in_boundsv(n) and not g.is_point_solid(n):
+					return n
+	return c
+
+
+func _plan(from: Vector2, target: Vector2, _radius: float, goal_rect: Rect2) -> Array:
+	var g := _grid()
+	var start := _open_near(g, from)
+	var goal := _open_near(g, goal_rect.get_center() if goal_rect.size != Vector2.ZERO else target)
+	var path: PackedVector2Array = g.get_point_path(start, goal)
+	var pts: Array = []
+	for i in range(1, path.size()):
+		pts.append(path[i])
+	return pts
 
 
 func _goal_area() -> String:
 	var st := game.engine.step()
+	var first := ""
 	for it in st.get("interactables", []):
 		if it.get("route") == null or it.get("route") == game.p.route:
-			return Routes.resolve(it.get("area", ""), game.p.route)
+			var ar: String = Routes.resolve(it.get("area", ""), game.p.route)
+			if first == "":
+				first = ar
+			# V8 QA: go where something can still be done (free days spread their activities over areas)
+			if ar != game.p.area and not game.engine.interactables(ar).is_empty():
+				return ar
+	if first != "":
+		return first
 	var ea: Dictionary = st.get("enterArea", {})
 	return Routes.resolve(ea.get("area", ""), game.p.route) if ea.get("area") != null else ""
 

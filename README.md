@@ -23,6 +23,10 @@ APK dibuat otomatis oleh GitHub Actions setiap ada push ke `main`
 Kontrol di PC: WASD/panah untuk berjalan, Shift untuk lari, E/Spasi untuk interaksi,
 M untuk Memory Book, Esc untuk jeda.
 
+**Pengaturan** (layar judul atau menu Jeda): kualitas grafis Rendah/Sedang/Tinggi/Ultra, 30/60 FPS,
+volume musik/suasana/efek, ukuran kontrol sentuh, dan joystick kiri/kanan. Tersimpan di
+`user://settings.json`, terpisah dari save cerita.
+
 ## Build APK sendiri
 
 Di Godot: **Editor → Manage Export Templates** (unduh 4.3), atur Android SDK dan Java 17 di
@@ -34,7 +38,11 @@ Langkah lengkap yang dipakai CI ada di `.github/workflows/android.yml`.
 ```
 godot --headless --path . tests/logic_test.tscn
 ```
-Memeriksa aturan cerita, quest, save (schema 8), minigame, toko, puzzle, romance, cuaca dan musik.
+Memeriksa aturan cerita, quest, save (schema 8), minigame, toko, puzzle, romance, cuaca, musik,
+lapisan ketinggian (tangga) dan pengaturan.
+
+Uji alur cerita penuh (headless, cepat): `godot --headless --fixed-fps 60 --path . -- --story sofia out 1500000`
+menjalankan autopilot sampai tamat dan mencetak setiap langkah (`STEP>`). Lihat `QA_REPORT_V8.md`.
 
 ## Struktur
 

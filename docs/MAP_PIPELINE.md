@@ -31,11 +31,30 @@ Every sprite is drawn by code; nothing is pasted from old PNGs.
 - `surface` (RLE rows, 8-unit cells: g grass, r gravel, s stone, w wood) picks the footstep sound.
 - Grass, flowers, ferns, reeds and small bushes sway in the wind and rustle/shake when walked through.
 
+## Height layer (V8 Elevation 3.0)
+Terraces, retaining walls, cliffs and stairs have real height in the 3D view. Gameplay stays 2D.
+- Data: `assets/data/elevation.json` (kept apart from `maps.json`, so `--apply` in a map generator
+  never wipes it). Code: `src/logic/elevation.gd` (lookup), `src/view3d/world_view_3d.gd` (`ground()`,
+  `_elevated_tile()`, `_wall_push()`).
+- `e` = picture pixels of wall face above street level. A ground point (x, y) is drawn at
+  (x, e * tan 38°, y + e): same pixel for the gameplay camera, real height for shadows, cutscene
+  cameras and characters.
+- Primitives (rects in map px, highest value wins):
+  - `{"kind": "plateau", "rect": [x, y, w, h], "e": F}` raised ground (top surface as painted)
+  - `{"kind": "slope", "rect": [...], "axis": "y"|"x", "from": e0, "to": e1, "stairs": true?}` wall
+    faces (`from F to 0` over a strip as tall as the painted face), ramps and stairs. `stairs: true`
+    slows walking to 72% and plays `step_stairs`.
+- Adding a terrace: paint it as before (top, face, stairs), then add a plateau over the top, a slope
+  over the face (`from` = face height, `to` = 0, rect height = face height) and one `stairs` slope per
+  stair. Hide the plateau's open ends under canopy or give them a ramp so cutscene cameras see no gap.
+- `python3 tools/maptool.py check` fails when a stair has no stairs slope or both landings are at the
+  same height; `tests/logic_test.gd` checks the same at runtime.
+
 ## Status
-- Done: Plaza.
-- In progress: Hutan Bisik (`forest_hd.py` not applied yet).
-- Next: other outdoor areas (jalan_kota, taman_kota, riverside, perumahan, dermaga, bukit_bintang, memory maps), then interiors.
-- Known pre-existing validator errors: arland_room `a_frame`, jalan_kota 3 quest points, perpustakaan 2 quest points.
+- Done: Plaza, Hutan Bisik (both with the V8 height layer).
+- Next: other outdoor areas (jalan_kota, taman_kota, riverside, perumahan, dermaga, bukit_bintang),
+  and distinct landmarks for the dream maps (see docs/V8_AUDIT.md).
+- `maptool check`: 0 errors on all 32 areas (the old arland_room / jalan_kota / perpustakaan errors are fixed).
 
 ## 3D view (HD-2D, Godot)
 

@@ -10,7 +10,8 @@ Validators per area:
   navigation         spawn free, every door / quest point / examine spot reachable from spawn
   doors              door rect reachable, the arrival point (tx, ty) in the target map is free
   collision          prop colliders covering a door rect or a stair, props outside the map
-  stairs/elevation   each stair's top and bottom landing is walkable and both ends connect
+  stairs/elevation   each stair's top and bottom landing is walkable and both ends connect; with the
+                     V8 height layer (elevation.json) each stair has a stairs slope joining two heights
   pixel consistency  HD maps (tiles @2x) that still use 1x props, props with odd texel sizes
   performance        props, distinct textures, estimated texture memory per area
 """
@@ -37,6 +38,25 @@ def _img_size(rel, cache={}):
         p = A / rel
         cache[rel] = Image.open(p).size if p.exists() else None
     return cache[rel]
+
+
+ELEV_PATH = A / 'data/elevation.json'
+ELEV = json.loads(ELEV_PATH.read_text(encoding='utf-8')).get('areas', {}) if ELEV_PATH.exists() else {}
+
+
+def elev_at(prims, x, y):
+    """Height layer value at a map point (mirror of Elevation.at in src/logic/elevation.gd)."""
+    best = 0.0
+    for q in prims:
+        rx, ry, rw, rh = q['rect']
+        if rx <= x <= rx + rw and ry <= y <= ry + rh:
+            if q.get('kind') == 'slope':
+                t = (x - rx) / max(rw, 1e-3) if q.get('axis', 'y') == 'x' else (y - ry) / max(rh, 1e-3)
+                v = q['from'] + (q['to'] - q['from']) * min(1.0, max(0.0, t))
+            else:
+                v = q.get('e', 0)
+            best = max(best, v)
+    return best
 
 
 def overlap(a, b):
@@ -115,6 +135,35 @@ def check_area(name, M, P, Q):
             dd = P[p['type']]
             if dd.get('cw', 0) and dd.get('ch', 0) and overlap([p['x'] - dd['cw'] / 2, p['y'] - dd['ch'], dd['cw'], dd['ch']], s['rect']):
                 err.append('prop %s collider sits on stairs %s' % (p['type'], s.get('id', '?')))
+    # ---- V8 height layer (assets/data/elevation.json, same rules as src/logic/elevation.gd)
+    elev = ELEV.get(name, [])
+    if a.get('stairs') and not elev:
+        warn.append('stairs but no height layer in elevation.json: stairs are only painted, nobody climbs')
+    for s in a.get('stairs', []):
+        if not elev:
+            break
+        x, y, w, h = s['rect']
+        cov = [q for q in elev if q.get('stairs') and overlap(q['rect'], s['rect'])]
+        if not cov:
+            err.append('stairs %s: no stairs slope in elevation.json' % s.get('id', '?'))
+            continue
+        if s.get('dir', 'down') in ('down', 'up'):
+            lo_hi = [elev_at(elev, x + w / 2, y - 6), elev_at(elev, x + w / 2, y + h + 6)]
+        else:
+            lo_hi = [elev_at(elev, x - 6, y + h / 2), elev_at(elev, x + w + 6, y + h / 2)]
+        if abs(lo_hi[0] - lo_hi[1]) < 4:
+            err.append('stairs %s: both landings at the same height (%.0f / %.0f)' % (s.get('id', '?'), lo_hi[0], lo_hi[1]))
+        mid_e = elev_at(elev, x + w / 2, y + h / 2)
+        if not (min(lo_hi) - 0.5 <= mid_e <= max(lo_hi) + 0.5):
+            err.append('stairs %s: middle height %.0f outside its landings %s' % (s.get('id', '?'), mid_e, lo_hi))
+    for q in elev:
+        rx, ry, rw, rh = q['rect']
+        if rx < 0 or ry < 0 or rx + rw > a['w'] or ry + rh > a['h']:
+            err.append('elevation %s rect outside the map' % q.get('id', '?'))
+        if q.get('kind') == 'slope' and q.get('axis', 'y') not in ('x', 'y'):
+            err.append('elevation %s: axis must be x or y' % q.get('id', '?'))
+    if elev:
+        info['elev_prims'] = len(elev)
     # ---- props outside the map
     for p in a2['props']:
         if not (0 <= p['x'] <= a['w'] and 0 <= p['y'] <= a['h'] + 40):

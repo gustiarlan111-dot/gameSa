@@ -9,6 +9,7 @@ signal door_touched(door: Dictionary, old_pos: Vector2)
 
 const WALK_SPEED := 112.0
 const SPRINT_SPEED := 176.0
+const STAIRS_SPEED := 0.72      # V8: walking speed factor on stairs (Elevation 3.0)
 const VIEW_H := 428.0          # world units visible vertically at framing 1.0 (same as Java ExtendViewport)
 
 var area: Dictionary = {}
@@ -238,6 +239,16 @@ func step_sound(p: Vector2) -> String:
 	return "step_stone"
 
 
+## V8: true while standing on stairs (elevation.json slopes marked stairs, or maps.json stairs).
+func on_stairs(p: Vector2) -> bool:
+	return Elevation.on_stairs(area, p.x, p.y)
+
+
+## Height of a point above street level in picture pixels (0 indoors and on flat maps).
+func height_at(p: Vector2) -> float:
+	return Elevation.at(area, p.x, p.y)
+
+
 ## Walking into tall grass, flowers or against a bush rustles it: a sound and a little shake.
 func rustle(p: Vector2, delta: float) -> String:
 	var hit := ""
@@ -381,6 +392,8 @@ func _physics_process(delta: float) -> void:
 	else:
 		var dirv := v / len
 		var spd := (SPRINT_SPEED if sprint else WALK_SPEED) * maxf(0.45, minf(1.0, len)) * delta
+		if on_stairs(player.position):
+			spd *= STAIRS_SPEED          # climbing or going down steps takes a little longer
 		var o := player.position
 		var nx := o.x + dirv.x * spd
 		if Data.clear_segment(area, o.x, o.y, nx, o.y, flags):

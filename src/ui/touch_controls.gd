@@ -20,6 +20,8 @@ var _book: Button
 var _origin := Vector2.ZERO
 var _finger := -2           # -2 none, -1 mouse, >=0 touch index
 const RADIUS := 78.0
+var ui_scale := 1.0         # V8 settings: HUD size
+var left_hand := false      # V8 settings: joystick on the right, buttons on the left
 
 
 func _ready() -> void:
@@ -61,6 +63,24 @@ func _ready() -> void:
 	_book.pressed.connect(func(): book_pressed.emit())
 	add_child(_book)
 	resized.connect(_layout)
+	GameSettings.listen(_from_settings)
+	_from_settings()
+
+
+func _from_settings() -> void:
+	if not is_inside_tree():
+		return
+	apply_layout(float(GameSettings.value("hud_scale")), bool(GameSettings.value("left_hand")))
+
+
+## Size and side of the touch controls (Settings: HUD size, left-handed layout).
+func apply_layout(s: float, left: bool) -> void:
+	ui_scale = s
+	left_hand = left
+	_base.size = Vector2.ONE * 168 * s
+	_knob.size = Vector2.ONE * 74 * s
+	_act.size = Vector2.ONE * 112 * s
+	_run.size = Vector2.ONE * 84 * s
 	_layout()
 
 
@@ -87,12 +107,16 @@ func _btn(tex: Texture2D, s: float) -> TextureButton:
 
 
 func _rest() -> Vector2:
-	return Vector2(130, size.y - 130)
+	var m := 130.0 * ui_scale
+	return Vector2(size.x - m if left_hand else m, size.y - m)
 
 
 func _layout() -> void:
-	_act.position = Vector2(size.x - 150, size.y - 160)
-	_run.position = Vector2(size.x - 240, size.y - 104)
+	var s := ui_scale
+	var ax := size.x - 150 * s if not left_hand else 150 * s - _act.size.x
+	var rx := size.x - 240 * s if not left_hand else 240 * s - _run.size.x
+	_act.position = Vector2(ax, size.y - 160 * s)
+	_run.position = Vector2(rx, size.y - 104 * s)
 	_pause.position = Vector2(size.x - 74, 16)
 	_book.position = Vector2(size.x - 156, 16)
 	if _finger == -2:
@@ -125,7 +149,8 @@ func _input(event: InputEvent) -> void:
 		if idx == _finger:
 			_drag(pos)
 		return
-	if pressed and _finger == -2 and pos.x < size.x * 0.45 and pos.y > size.y * 0.25:
+	var stick_side := pos.x > size.x * 0.55 if left_hand else pos.x < size.x * 0.45
+	if pressed and _finger == -2 and stick_side and pos.y > size.y * 0.25:
 		_finger = idx
 		_origin = pos
 		_base.modulate.a = 0.8; _knob.modulate.a = 0.95
@@ -139,8 +164,9 @@ func _input(event: InputEvent) -> void:
 
 
 func _drag(pos: Vector2) -> void:
-	var off := (pos - _origin).limit_length(RADIUS)
-	vec = off / RADIUS
+	var r := RADIUS * ui_scale
+	var off := (pos - _origin).limit_length(r)
+	vec = off / r
 	if vec.length() < 0.18:
 		vec = Vector2.ZERO
 	_place(_origin, off)

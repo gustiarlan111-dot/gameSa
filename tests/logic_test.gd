@@ -200,5 +200,42 @@ func _ready() -> void:
 		and AreaSound.emitter_gain(snd_em, Vector2(500, 950)).x > 0.7, "air mancur/sungai makin keras saat didekati")
 	ok(Soundscape.music_for("dermaga", "town", "cerah", false, 600) == "harbor_day" and Soundscape.music_for("rumah_sari", "home_evening", "cerah", true, 600) == "grandma_house"
 		and ResourceLoader.exists("res://assets/audio/music/street_stroll.ogg") and ResourceLoader.exists("res://assets/audio/music/gallery_light.ogg"), "lagu baru per area")
+	# 16. V8 height layer (assets/data/elevation.json, src/logic/elevation.gd)
+	var ev_pz: Dictionary = Data.area("plaza")
+	ok(Elevation.at(ev_pz, 1200, 300) == 30.0 and Elevation.at(ev_pz, 1200, 700) == 0.0 and absf(Elevation.at(ev_pz, 1060, 451) - 15.0) < 0.6,
+		"plaza: taman utara 30, jalan 0, tengah tangga st1 ~15")
+	ok(Elevation.at(ev_pz, 1900, 900) == 34.0 and absf(Elevation.at(ev_pz, 1671, 918) - 17.0) < 1.0 and absf(Elevation.at(ev_pz, 2149, 918) - 17.0) < 1.0 and Elevation.at(ev_pz, 2166, 918) < 3.0,
+		"plaza: teras kafe 34, tangga samping naik/turun ke arah yang benar")
+	ok(Elevation.on_stairs(ev_pz, 1060, 451) and not Elevation.on_stairs(ev_pz, 1200, 700), "deteksi berdiri di tangga")
+	var ev_bad := []
+	var ev_cfg = JSON.parse_string(FileAccess.get_file_as_string("res://assets/data/elevation.json"))
+	for ev_aid in Data.maps:
+		var ev_a: Dictionary = Data.maps[ev_aid]
+		for ev_s in ev_a.get("stairs", []):
+			if not ev_cfg.areas.has(ev_aid):
+				ev_bad.append("%s tanpa lapisan tinggi" % ev_aid); break
+			var r: Array = ev_s.rect
+			var lo_hi: Array = [Elevation.at(ev_a, r[0] + r[2] / 2.0, r[1] - 6), Elevation.at(ev_a, r[0] + r[2] / 2.0, r[1] + r[3] + 6)] if ev_s.get("dir", "down") in ["down", "up"] \
+				else [Elevation.at(ev_a, r[0] - 6, r[1] + r[3] / 2.0), Elevation.at(ev_a, r[0] + r[2] + 6, r[1] + r[3] / 2.0)]
+			if absf(lo_hi[0] - lo_hi[1]) < 4.0 or not Elevation.on_stairs(ev_a, r[0] + r[2] / 2.0, r[1] + r[3] / 2.0):
+				ev_bad.append("%s/%s" % [ev_aid, ev_s.id])
+	ok(ev_bad.is_empty(), "setiap tangga menghubungkan dua ketinggian berbeda %s" % [ev_bad])
+	var ev_xs := Elevation.breaks(ev_pz, 0, 1024, Elevation.AXIS_X, 32.0)
+	ok(ev_xs.has(196.0) and ev_xs.has(256.0) and ev_xs[0] == 0.0 and ev_xs[-1] == 1024.0, "grid tanah punya garis di tepi tangga")
+	ok(Elevation.at(Data.area("cafe"), 400, 300) == 0.0 and not Elevation.has_any(Data.area("cafe")), "interior tetap datar")
+	# 17. V8 settings (user://settings.json, src/logic/game_settings.gd)
+	var gs := GameSettings.sanitize({"quality": "ultra", "fps": 30, "music": 2.0, "hud_scale": "besar", "left_hand": true, "x": 1})
+	ok(gs.quality == "ultra" and gs.fps == 30 and gs.music == 1.0 and gs.hud_scale == 1.0 and gs.left_hand and not gs.has("x"), "pengaturan dibersihkan & dibatasi")
+	ok(GameSettings.sanitize({"quality": "mega", "fps": 144}).quality == "high" and GameSettings.sanitize({"fps": 144}).fps == 60, "nilai tak dikenal kembali ke bawaan")
+	var gs_keep: Dictionary = GameSettings.get_all().duplicate()
+	GameSettings.set_value("quality", "low")
+	GameSettings.load_file()
+	ok(GameSettings.value("quality") == "low" and GameSettings.quality().shadows == false and GameSettings.quality().post == false, "preset Rendah tersimpan & mematikan bayangan/efek layar")
+	GameSettings.set_value("fps", 30)
+	ok(Engine.max_fps == 30, "frame rate 30 diterapkan")
+	var gs_f := FileAccess.open(GameSettings.PATH, FileAccess.WRITE); gs_f.store_string("{rusak"); gs_f.close()
+	GameSettings.load_file()
+	ok(GameSettings.value("quality") == "high", "file pengaturan rusak -> bawaan, tanpa crash")
+	GameSettings.current = gs_keep; GameSettings.save_file(); GameSettings.apply_global()
 	print("%s: %d pemeriksaan, %d gagal" % ["SEMUA LULUS" if fails == 0 else "ADA YANG GAGAL", checks, fails])
 	get_tree().quit(1 if fails > 0 else 0)

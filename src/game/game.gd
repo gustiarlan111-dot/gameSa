@@ -23,6 +23,7 @@ var _toast_time := 0.0
 var hud: Hud
 var controls: TouchControls
 var pause: PauseMenu
+var settings: SettingsMenu       # V8: graphics / audio / controls window, opened from the pause menu
 var minigame: MinigameOverlay
 var puzzle: PuzzleOverlay
 var shop: ShopOverlay
@@ -172,6 +173,9 @@ func _build_ui() -> void:
 		pause.visible = false
 		get_tree().paused = false
 		open_book())
+	settings = SettingsMenu.new()
+	root.add_child(settings)
+	pause.settings_requested.connect(func(): settings.open())
 
 
 ## Called right after the game node enters the tree for a new game.
@@ -252,9 +256,11 @@ func _footsteps(delta: float) -> void:
 		if hit != "":
 			Audio.sfx(("rustle_bush" if hit == "bush" else "rustle_grass") + ("_b" if randf() < 0.5 else ""), 0.5)
 	if pl.walking and _step_t <= 0:
-		var snd := world.step_sound(pl.position)
-		Audio.sfx(snd if snd != "" else Soundscape.footstep_for(p.area), 0.19)
-		_step_t = 0.22 if pl.sprinting else 0.35
+		var stairs := world.on_stairs(pl.position)
+		var snd := "step_stairs" if stairs else world.step_sound(pl.position)
+		Audio.sfx(snd if snd != "" else Soundscape.footstep_for(p.area), 0.24 if stairs else 0.19)
+		# on steps the feet land shorter and harder: a quicker, firmer rhythm
+		_step_t = (0.2 if pl.sprinting else 0.3) if stairs else (0.22 if pl.sprinting else 0.35)
 
 
 func _update_hud(delta: float, busy: bool) -> void:

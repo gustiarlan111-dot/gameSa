@@ -15,6 +15,7 @@ const PITCH := deg_to_rad(38.0)         # camera looks down this much
 const TILT := -(PI / 2.0 - PITCH) * 0.55  # standing sprites lean back toward the camera's view
 const FOV := 32.0
 const VOLUME := ["hd_shop_", "hd_house_", "hd_library", "hd_cafe", "hd_cottage"]
+const ELEV_K := 0.7812856                # tan(PITCH): picture pixels of wall face -> pixels of real height
 
 var world: World
 var atmosphere: Atmosphere
@@ -38,6 +39,9 @@ var _glow_tex: Texture2D
 var _quad: QuadMesh
 var _mats := {}
 const SWAY3D := preload("res://src/fx/sway3d.gdshader")
+const FADE3D := preload("res://src/fx/occlude_fade.gdshader")
+var _inst := {}                         # standing prop holder -> [MultiMesh, index, Transform3D, tex, img]
+var _faders := {}                       # holder -> {mesh, shadow, mat, fade, want}
 
 
 func _ready() -> void:
@@ -96,6 +100,8 @@ func _ready() -> void:
 	add_child(_rim_light)
 	_dyn = Node3D.new(); _dyn.name = "Dynamic"; add_child(_dyn)
 	world.area_entered.connect(func(_id): rebuild.call_deferred())
+	GameSettings.listen(_apply_quality)
+	_apply_quality()
 	world.camera.enabled = false
 	for n in [world._ground, world._floor, world._sorted]:
 		n.visible = false
@@ -106,9 +112,17 @@ static func at(x: float, y: float, h := 0.0) -> Vector3:
 	return Vector3(x * S, h, y * S)
 
 
+## A map point on the (possibly raised) ground, `h` metres above it. See src/logic/elevation.gd: the
+## point moves up by e * tan(PITCH) and back by e, which keeps it on the same pixel for the gameplay
+## camera while giving terraces, walls and stairs real height.
+func ground(x: float, y: float, h := 0.0) -> Vector3:
+	var e := 0.0 if _indoor else Elevation.at(world.area, x, y)
+	return Vector3(x * S, h + e * ELEV_K * S, (y + e) * S)
+
+
 ## A point `h` map pixels up a standing (tilted) sprite whose foot is at (x, y).
 func stand(x: float, y: float, h: float) -> Vector3:
-	return Vector3(x * S, cos(_tilt) * h * S + _lift(y), y * S + sin(_tilt) * h * S)
+	return ground(x, y, cos(_tilt) * h * S + _lift(y)) + Vector3(0, 0, sin(_tilt) * h * S)
 
 
 ## Flat rooms are painted as one picture in the classic 3/4 view, walls included: the camera looks
@@ -120,6 +134,22 @@ func _lift(y: float) -> float:
 	return 0.02 + y / 4000.0 if _indoor else 0.0
 
 
+var _q: Dictionary = {}
+static var _atlas_default := -1
+
+
+## V8 graphics preset (GameSettings.quality()): shadows, shadow resolution, glow, lamp lights, MSAA.
+func _apply_quality() -> void:
+	if not is_inside_tree():
+		return
+	_q = GameSettings.quality()
+	if _atlas_default < 0:
+		_atlas_default = int(ProjectSettings.get_setting("rendering/lights_and_shadows/directional_shadow/size", 4096))
+	var sz := int(_q.shadow_size) if int(_q.shadow_size) > 0 else _atlas_default
+	RenderingServer.directional_shadow_atlas_set_size(sz, true)
+	get_viewport().msaa_3d = Viewport.MSAA_2X if int(_q.msaa) >= 2 else Viewport.MSAA_DISABLED
+
+
 # ------------------------------------------------------------------ static scene
 func rebuild() -> void:
 	if _static:
@@ -129,6 +159,7 @@ func rebuild() -> void:
 		_mirrors[k].pivot.queue_free(); _mirrors[k].base.queue_free()
 	_mirrors.clear()
 	_rustle.clear(); _alts.clear(); _lamps.clear()
+	_inst.clear(); _faders.clear()
 	# rooms marked room3d are built like outdoor maps: furniture and the back wall stand up as sprites
 	_indoor = bool(world.area.get("indoor", false)) and not bool(world.area.get("room3d", false))
 	_tilt = -PI / 2.0 if _indoor else TILT
@@ -153,9 +184,13 @@ func _build_ground() -> void:
 		var w: float = s.texture.get_width() * s.scale.x
 		var h: float = s.texture.get_height() * s.scale.y
 		var m := MeshInstance3D.new()
-		var pm := PlaneMesh.new()
-		pm.size = Vector2(w * S, h * S)
-		m.mesh = pm
+		var raised := not _indoor and Elevation.touches(world.area, Rect2(s.position, Vector2(w, h)))
+		if raised:
+			m.mesh = _elevated_tile(s.position.x, s.position.y, w, h)
+		else:
+			var pm := PlaneMesh.new()
+			pm.size = Vector2(w * S, h * S)
+			m.mesh = pm
 		var mat := StandardMaterial3D.new()
 		mat.albedo_texture = s.texture
 		mat.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
@@ -164,8 +199,15 @@ func _build_ground() -> void:
 		if world.area.get("room3d", false):
 			mat.metallic_specular = 0.0
 		m.material_override = mat
-		m.position = at(s.position.x + w / 2.0, s.position.y + h / 2.0)
-		m.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		if raised:
+			# the sun stands behind the scene (shadows fall toward the camera), so a wall casting its own
+			# shadow would leave every south-facing wall and stair dark; the painting already has its
+			# contact shadow, so the ground only receives shadows from props and characters
+			m.position = Vector3.ZERO
+			m.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		else:
+			m.position = at(s.position.x + w / 2.0, s.position.y + h / 2.0)
+			m.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		_static.add_child(m)
 		if first:
 			first = false
@@ -191,6 +233,35 @@ func _build_ground() -> void:
 	out.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	out.visible = not world.area.get("indoor", false)
 	_static.add_child(out)
+
+
+## A ground tile as a grid that follows the height layer: rows/columns on every terrace, wall and stair
+## edge (see Elevation.breaks), so walls come out vertical and stairs climb, with the painted texture
+## mapped on unchanged. Normals stay pointing up: the painting already shades its walls and steps,
+## so the sun lights them like the ground around them (no dark band), while the geometry still gives
+## real depth, occlusion and cast shadows.
+func _elevated_tile(x0: float, y0: float, w: float, h: float) -> ArrayMesh:
+	var xs := Elevation.breaks(world.area, x0, x0 + w, Elevation.AXIS_X, 32.0)
+	var ys := Elevation.breaks(world.area, y0, y0 + h, Elevation.AXIS_Y, 32.0)
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var pts := []
+	for y in ys:
+		var row := []
+		for x in xs:
+			row.append([ground(x, y), Vector2((x - x0) / w, (y - y0) / h)])
+		pts.append(row)
+	for j in ys.size() - 1:
+		for i in xs.size() - 1:
+			var a: Array = pts[j][i]
+			var b: Array = pts[j][i + 1]
+			var c: Array = pts[j + 1][i + 1]
+			var d: Array = pts[j + 1][i]
+			for v in [a, b, c, a, c, d]:
+				st.set_normal(Vector3.UP)
+				st.set_uv(v[1])
+				st.add_vertex(v[0])
+	return st.commit()
 
 
 func _material(tex: Texture2D, img: String, standing: bool) -> Material:
@@ -265,7 +336,7 @@ func _build_props() -> void:
 		var building := false
 		for v in VOLUME:
 			building = (building or ptype.begins_with(v)) and not _indoor
-		var foot := at(holder.position.x, holder.position.y, _lift(holder.position.y) if standing else 0.012)
+		var foot := ground(holder.position.x, holder.position.y, _lift(holder.position.y) if standing else 0.012)
 		if holder.has_meta("alt"):
 			var mi := MeshInstance3D.new()
 			mi.mesh = _quad
@@ -276,7 +347,7 @@ func _build_props() -> void:
 			_alts.append({"sprite": s, "mesh": mi, "tex": s.texture, "standing": standing, "foot": foot})
 			continue
 		if standing and not building and h > 36.0:
-			_occ.append([holder.position, w, h])
+			_occ.append([holder.position, w, h, holder])
 		var b := Basis(Vector3.RIGHT, 0.0) * Basis.from_scale(Vector3(w * S, h * S, 1.0)) if building else _prop_basis(w, h, standing)
 		var key := "%s|%s|%s" % [img, standing, building]
 		if not groups.has(key):
@@ -294,6 +365,8 @@ func _build_props() -> void:
 		for it in gr.items:
 			mm.set_instance_transform(i, it[1])
 			_rustle[it[0]] = [mm, i, it[1]]
+			if gr.standing:
+				_inst[it[0]] = [mm, i, it[1], gr.tex, gr.img]
 			i += 1
 		var mmi := MultiMeshInstance3D.new()
 		mmi.multimesh = mm
@@ -337,7 +410,8 @@ func _add_volume(foot2d: Vector2, tex: Texture2D, w: float, h: float) -> void:
 	top.material_override = rm
 	top.position = Vector3(0, h * 0.31 * S, 0)
 	b.add_child(top)
-	b.position = at(foot2d.x, foot2d.y - depth / 2.0 - 2.0, h * 0.31 * S)
+	var g := ground(foot2d.x, foot2d.y)
+	b.position = at(foot2d.x, foot2d.y - depth / 2.0 - 2.0, h * 0.31 * S) + Vector3(0, g.y, g.z - foot2d.y * S)
 	_static.add_child(b)
 
 
@@ -391,6 +465,7 @@ func _process(delta: float) -> void:
 	_update_alts()
 	_update_rustle()
 	_update_mirrors()
+	_update_occlusion(delta)
 	_update_light(delta)
 	_update_camera(delta)
 
@@ -447,9 +522,9 @@ func _update_mirrors() -> void:
 			_dyn.add_child(base); _dyn.add_child(pivot)
 			_mirrors[id] = {"pivot": pivot, "base": base, "sprites": {}}
 		var m: Dictionary = _mirrors[id]
-		var foot := at(r.position.x, r.position.y)
+		var foot := ground(r.position.x, r.position.y)
 		m.pivot.rotation.x = _tilt
-		m.pivot.position = foot + Vector3(0, _lift(r.position.y) + 0.004, 0)
+		m.pivot.position = foot + Vector3(0, _lift(r.position.y) + 0.004, 0) + _wall_push(r.position)
 		m.base.position = foot + Vector3(0, _lift(r.position.y), 0)
 		m.pivot.visible = r.visible
 		m.base.visible = r.visible
@@ -512,12 +587,114 @@ func _mirror_sprites(root: Node2D, node: Node, xf: Transform2D, mod: Color, m: D
 			_hide_under(n, m)
 
 
+## Standing sprites lean back; with real walls and stairs behind them that lean would sink a
+## character's body into the wall face (only the head showed on stairs). Slide the sprite toward the
+## camera along its own view ray, by as much as the ground behind it rises: same pixel on screen,
+## but in front of the wall in depth. The flat contact shadow (base) stays on the ground.
+func _wall_push(p: Vector2) -> Vector3:
+	if _indoor or not Elevation.has_any(world.area):
+		return Vector3.ZERO
+	var e := Elevation.at(world.area, p.x, p.y)
+	var rise := 0.0
+	for k in range(4, 52, 6):
+		rise = maxf(rise, Elevation.at(world.area, p.x, p.y - k) - e)
+	if rise <= 0.5:
+		return Vector3.ZERO
+	var d := (rise * 0.55 + 4.0) * S
+	return Vector3(0, sin(PITCH), cos(PITCH)) * d
+
+
 func _hide_under(n: Node, m: Dictionary) -> void:
 	for c in n.get_children():
 		var sp: Sprite3D = m.sprites.get(c.get_instance_id())
 		if sp:
 			sp.visible = false
 		_hide_under(c, m)
+
+
+# ------------------------------------------------------------------ camera occlusion (V8)
+## Trees and tall props in front of Arland or Sofia fade to a dither so the couple never disappears
+## behind them (the spawn in Taman Kota used to put both behind a tree). Test in map pixels, like the
+## 2D picture: the prop stands south of the person and its height reaches over their body.
+const FADE_TO := 0.34
+
+
+func _occludes(o: Array, q: Vector2) -> bool:
+	var dy: float = o[0].y - q.y
+	if dy < 2.0 or dy > o[2] - 8.0:
+		return false
+	return absf(o[0].x - q.x) < o[1] * 0.4 + 8.0
+
+
+func _update_occlusion(delta: float) -> void:
+	if _indoor or world.player == null:
+		return
+	var people: Array = [world.player.position]
+	if world.partner and world.partner.visible:
+		people.append(world.partner.position)
+	var want := {}
+	for o in _occ:
+		var hd: Node2D = o[3]
+		if not _inst.has(hd) or _rustle.has(hd):
+			continue                         # bushes that rustle keep their own per-frame transform
+		for q in people:
+			if absf(o[0].x - q.x) < 260.0 and _occludes(o, q):
+				want[hd] = true
+				break
+	for hd in want:
+		if not _faders.has(hd):
+			_start_fade(hd)
+	var k := 1.0 - exp(-delta * 8.0)
+	for hd in _faders.keys():
+		var f: Dictionary = _faders[hd]
+		f.fade = lerpf(f.fade, FADE_TO if want.has(hd) else 1.0, k)
+		f.mat.set_shader_parameter("fade", f.fade)
+		if not want.has(hd) and f.fade > 0.985:
+			_end_fade(hd)
+
+
+func _start_fade(hd: Node2D) -> void:
+	var it: Array = _inst[hd]
+	var mm: MultiMesh = it[0]
+	mm.set_instance_transform(it[1], Transform3D(Basis.from_scale(Vector3.ZERO), it[2].origin))
+	var mat := ShaderMaterial.new()
+	mat.shader = FADE3D
+	mat.set_shader_parameter("albedo_tex", it[3])
+	var sway: Material = world._sway_for(it[4])
+	if sway:
+		mat.set_shader_parameter("amp", float(sway.get_shader_parameter("amp")) * 1.4 * S)
+		mat.set_shader_parameter("speed", sway.get_shader_parameter("speed"))
+	var nm := "res://assets/" + str(it[4]).get_base_dir() + "/n/" + str(it[4]).get_file().replace("@2x.png", "_n.png")
+	if ResourceLoader.exists(nm):
+		mat.set_shader_parameter("normal_tex", load(nm))
+		mat.set_shader_parameter("use_normal", true)
+	var mi := MeshInstance3D.new()
+	mi.mesh = _quad
+	mi.material_override = mat
+	mi.transform = it[2]
+	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	_static.add_child(mi)
+	var sh := MeshInstance3D.new()             # keeps the prop's full shadow while it fades
+	sh.mesh = _quad
+	sh.material_override = _material(it[3], it[4], true)
+	sh.transform = it[2]
+	sh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY
+	_static.add_child(sh)
+	_faders[hd] = {"mesh": mi, "shadow": sh, "mat": mat, "fade": 1.0}
+
+
+func _end_fade(hd: Node2D) -> void:
+	var f: Dictionary = _faders[hd]
+	var it: Array = _inst.get(hd, [])
+	if not it.is_empty():
+		(it[0] as MultiMesh).set_instance_transform(it[1], it[2])
+	f.mesh.queue_free(); f.shadow.queue_free()
+	_faders.erase(hd)
+
+
+## For QA and tests: how many props are faded right now.
+func faded_count() -> int:
+	return _faders.size()
 
 
 # ------------------------------------------------------------------ light and camera
@@ -553,7 +730,7 @@ func _update_light(delta: float) -> void:
 	env.fog_light_color = sky.lerp(Color(0.8, 0.85, 0.95) * tint, 0.4)
 	env.fog_density = 0.006 if rain else 0.002
 	env.fog_enabled = not a.indoor
-	env.glow_enabled = (not day or rain or e < 0.35) and not (r3 and a.lamp_on < 0.5)
+	env.glow_enabled = (not day or rain or e < 0.35) and not (r3 and a.lamp_on < 0.5) and bool(_q.get("glow", true))
 	# sun by day (east in the morning, west at dusk), moon at night, a soft top light indoors
 	var az := lerpf(-70.0, 70.0, t)
 	var el := 14.0 + 56.0 * e
@@ -583,13 +760,13 @@ func _update_light(delta: float) -> void:
 	sun.rotation_degrees = Vector3(-el, az + 180.0, 0)
 	sun.light_color = col
 	sun.light_energy = lerpf(sun.light_energy, energy, k)
-	sun.shadow_enabled = sun.light_energy > 0.08 and not _indoor
+	sun.shadow_enabled = sun.light_energy > 0.08 and not _indoor and bool(_q.get("shadows", true))
 	var lamp_on: float = a.lamp_on
 	for l in _lamps:
 		var flick := 1.0 + 0.06 * sin(a.time * 2.0 + float(l.x))
 		var on := (1.0 if l.crystal and cave else lamp_on) * flick
 		l.light.light_energy = (1.6 if l.crystal else 2.4) * on
-		l.light.visible = on > 0.02 and not l.light.has_meta("off")
+		l.light.visible = on > 0.02 and not l.light.has_meta("off") and bool(_q.get("lamps", true))
 		l.glow.visible = on > 0.02
 		l.mat.albedo_color = (Color(0.62, 0.82, 1.0) if l.crystal else Color(1.0, 0.82, 0.55)) * Color(1, 1, 1, 0.55 * minf(1.0, on))
 	var pl := world.player

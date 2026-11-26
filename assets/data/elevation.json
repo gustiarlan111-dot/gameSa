@@ -1,0 +1,32 @@
+{
+  "_doc": "V8 height layer. See src/logic/elevation.gd. e = picture pixels of wall face above street level. Kept apart from maps.json so the map generators can rewrite maps.json without losing it. Validated by tools/maptool.py check (stairs must connect two different heights).",
+  "areas": {
+    "plaza": [
+      {"id": "north_gardens", "kind": "plateau", "rect": [0, 0, 2400, 436], "e": 30},
+      {"id": "north_wall", "kind": "slope", "rect": [0, 436, 2400, 30], "axis": "y", "from": 30, "to": 0},
+      {"id": "st0", "kind": "slope", "rect": [196, 436, 60, 30], "axis": "y", "from": 30, "to": 0, "stairs": true},
+      {"id": "st1", "kind": "slope", "rect": [1032, 436, 56, 30], "axis": "y", "from": 30, "to": 0, "stairs": true},
+      {"id": "st2", "kind": "slope", "rect": [1632, 436, 56, 30], "axis": "y", "from": 30, "to": 0, "stairs": true},
+      {"id": "st3", "kind": "slope", "rect": [2176, 436, 56, 30], "axis": "y", "from": 30, "to": 0, "stairs": true},
+      {"id": "terrace", "kind": "plateau", "rect": [1690, 760, 440, 310], "e": 34},
+      {"id": "terrace_ramp", "kind": "slope", "rect": [1690, 720, 440, 40], "axis": "y", "from": 0, "to": 34},
+      {"id": "terrace_wall", "kind": "slope", "rect": [1690, 1070, 440, 34], "axis": "y", "from": 34, "to": 0},
+      {"id": "st4", "kind": "slope", "rect": [1878, 1070, 54, 34], "axis": "y", "from": 34, "to": 0, "stairs": true},
+      {"id": "st5", "kind": "slope", "rect": [1652, 884, 38, 68], "axis": "x", "from": 0, "to": 34, "stairs": true},
+      {"id": "st6", "kind": "slope", "rect": [2130, 884, 38, 68], "axis": "x", "from": 34, "to": 0, "stairs": true}
+    ],
+    "hutan_bisik": [
+      {"id": "west_terrace", "kind": "plateau", "rect": [120, 0, 1020, 584], "e": 80},
+      {"id": "west_cliff", "kind": "slope", "rect": [120, 584, 1020, 80], "axis": "y", "from": 80, "to": 0},
+      {"id": "cliff0", "kind": "slope", "rect": [580, 584, 100, 80], "axis": "y", "from": 80, "to": 0, "stairs": true},
+      {"id": "west_terrace_w", "kind": "slope", "rect": [0, 0, 120, 584], "axis": "x", "from": 0, "to": 80},
+      {"id": "west_terrace_e", "kind": "slope", "rect": [1140, 0, 160, 584], "axis": "x", "from": 80, "to": 0},
+      {"id": "east_terrace_a", "kind": "plateau", "rect": [2600, 0, 300, 760], "e": 80},
+      {"id": "east_cliff_a", "kind": "slope", "rect": [2600, 760, 300, 80], "axis": "y", "from": 80, "to": 0},
+      {"id": "cliff1", "kind": "slope", "rect": [2820, 760, 80, 80], "axis": "y", "from": 80, "to": 0, "stairs": true},
+      {"id": "east_terrace_b", "kind": "plateau", "rect": [2900, 0, 300, 776], "e": 64},
+      {"id": "east_cliff_b", "kind": "slope", "rect": [2900, 776, 300, 64], "axis": "y", "from": 64, "to": 0},
+      {"id": "east_terrace_ramp", "kind": "slope", "rect": [2480, 0, 120, 760], "axis": "x", "from": 0, "to": 80}
+    ]
+  }
+}

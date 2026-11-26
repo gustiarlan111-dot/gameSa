@@ -81,8 +81,10 @@ func _process(delta: float) -> void:
 	# screen pass
 	var t := (minute - 360.0) / 750.0
 	var outdoors := not indoor and not realm and not dark_cave()
+	var q := GameSettings.quality()
+	_post.visible = bool(q.post)
 	_post_mat.set_shader_parameter("blur_amt", 1.0)
-	_post_mat.set_shader_parameter("taps", true)
+	_post_mat.set_shader_parameter("taps", bool(q.taps))
 	_post_mat.set_shader_parameter("bloom", 0.3 if night > 0.3 else 0.18)
 	_post_mat.set_shader_parameter("warmth", (clampf((t - 0.75) * 4.0, 0.0, 1.0) * 0.45 if outdoors else 0.0))
 	_post_mat.set_shader_parameter("vignette", 0.42 if (night > 0.3 or dark_cave()) else 0.3)

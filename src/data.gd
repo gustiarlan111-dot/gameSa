@@ -23,8 +23,10 @@ func _ready() -> void:
 	story = _json("res://assets/data/story.json")
 	quests = _json("res://assets/data/quests.json")
 	memory_book = _json("res://assets/data/memory_book.json")
+	var elev: Dictionary = _json("res://assets/data/elevation.json").get("areas", {})
 	for id in maps:
 		_prepare_area(id, maps[id])
+		maps[id]["_elev"] = Elevation.prepare(elev.get(id, []))
 	for st in quests.get("steps", []):
 		steps[st.get("id", "?")] = st
 	for c in quests.get("chapters", []):

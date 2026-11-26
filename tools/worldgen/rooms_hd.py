@@ -5,6 +5,7 @@ reachable before anything is written.
 Run:  python3 tools/worldgen/rooms_hd.py <area|all> [--preview DIR] [--apply]
 """
 import sys, json, hashlib, math
+import numpy as np
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -805,17 +806,21 @@ def build(area, apply=False, preview=None):
     seed = int(hashlib.sha256(area.encode()).hexdigest()[:8], 16)
     m = HDMap(area, base['w'], base['h'], seed)
     r = Room(m, seed)
-    if area in PRE:
-        shell = r.shell
+    shell = r.shell
 
-        def shell_then_pre(*a, **k):
-            w = shell(*a, **k)
+    def shell_then_pre(*a, **k):
+        w = shell(*a, **k)
+        if area in ROOMS3D:
+            r.start_capture()
+        if area in PRE:
             PRE[area](r)
-            return w
-        r.shell = shell_then_pre
+        return w
+    r.shell = shell_then_pre
     ROOMS[area](r)
     if area in EXTRA:
         EXTRA[area](r)
+    if area in ROOMS3D:
+        stand_up(area, r, m, P, apply)
     keep = keep_points(area, base, Q, M)
     nshell = r.nshell
     for b in r.block[nshell:]:
@@ -829,7 +834,8 @@ def build(area, apply=False, preview=None):
     walls = [[int(round(v)) for v in b] for b in r.block]
     m.collision = lambda P_: walls
     extra = dict(visualStyle='godot_hd_interior', visualUpdate='godot_rooms_hd', v4Layout=None, indoor=True,
-                 v6Layout=dict(version=3, generator='tools/worldgen/rooms_hd.py', hd=True))
+                 room3d=area in ROOMS3D,
+                 v6Layout=dict(version=3 if area not in ROOMS3D else 4, generator='tools/worldgen/rooms_hd.py', hd=True))
     out = None
     if preview:
         Path(preview).mkdir(parents=True, exist_ok=True)
@@ -850,6 +856,49 @@ def build(area, apply=False, preview=None):
             d.line([0, gy * 2, 8, gy * 2], fill=(0, 0, 0, 255)); d.text((0, gy * 2 + 2), str(gy), fill=(255, 255, 255, 255))
         im.save(out.replace('.png', '_overlay.png'))
     return res
+
+
+ROOMS3D = set(ROOMS)      # rooms shown in full HD-2D 3D: furniture stands up, the back wall is a standing sprite
+
+
+def stand_up(area, r, m, P, apply):
+    """Cut the captured furniture pieces and the back wall out of the room picture as standing props
+    (assets/props/rooms/<area>_NN@2x.png); the floor picture keeps rugs, shadows and floor clutter."""
+    from PIL import Image
+    K = 2
+    floor, wall, pieces = r.finish_capture(r.wall_h, r.side)
+    img = r.img
+    outdir = A / 'props/rooms'
+    outdir.mkdir(parents=True, exist_ok=True)
+    for f in outdir.glob('%s_*' % area):
+        f.unlink()
+    cuts = [(dict(name='wall'), wall)] + pieces
+    for i, (pc, mask) in enumerate(cuts):
+        ys, xs = np.nonzero(mask)
+        x0, x1 = xs.min(), xs.max() + 1
+        y0, y1 = ys.min(), ys.max() + 1
+        x0 -= x0 % 2; y0 -= y0 % 2; y1 += y1 % 2
+        x1 += (-(x0 + x1)) % 4                     # foot centre lands on a whole map pixel
+        x1 = min(x1, img.shape[1]) if (x0 + x1) % 4 == 0 else x1
+        rgba = np.zeros((y1 - y0, x1 - x0, 4), np.uint8)
+        hh, ww = min(y1, img.shape[0]) - y0, min(x1, img.shape[1]) - x0
+        rgba[:hh, :ww, :3] = np.clip(img[y0:y0 + hh, x0:x0 + ww], 0, 255).astype(np.uint8)
+        rgba[:hh, :ww, 3] = mask[y0:y0 + hh, x0:x0 + ww] * 255
+        tag = 'lamp' if pc['name'] == 'floor_lamp' else pc['name'].replace('_', '')
+        pid = 'room_%s_%02d_%s' % (area, i, tag)
+        rel = 'props/rooms/%s_%02d_%s@2x.png' % (area, i, tag)
+        Image.fromarray(rgba, 'RGBA').save(A / rel, optimize=True)
+        P[pid] = dict(image=rel, cw=0, ch=0, layer='sort')
+        m.prop(pid, (x0 + x1) / 2 / K, y1 / K)
+    floor[wall] = np.asarray([20, 15, 26], np.float32)
+    img[:] = floor
+    if apply:
+        pj = A / 'data/props.json'
+        data = json.loads(pj.read_text(encoding='utf-8'))
+        data['props'] = {k: v for k, v in data['props'].items() if not k.startswith('room_%s_' % area)}
+        data['props'].update({k: v for k, v in P.items() if k.startswith('room_%s_' % area)})
+        pj.write_text(json.dumps(data, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
+    print(area, 'stood up', len(cuts), 'pieces (wall included)')
 
 
 CLEAR = 16      # furniture keeps this many world units free around every quest/examine/door point

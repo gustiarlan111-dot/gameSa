@@ -40,6 +40,9 @@ class Room:
         self.rng = np.random.default_rng(seed)
         self.block = []                    # world rects that stop walking
         self.nshell = 0
+        self.cap = None                    # 3D rooms: furniture capture state (start_capture)
+        self._defer = None
+        self._depth = 0
         self.seed = seed
 
     # ------------------------------------------------------------------ primitives (world units)
@@ -90,6 +93,9 @@ class Room:
 
     def drop(self, x, y, w, h, k=0.7, dx=4, dy=3):
         """Soft contact shadow below-right of a footprint (light from the top-left)."""
+        if self._defer is not None:
+            self._defer.append(('drop', (x, y, w, h, k, dx, dy)))
+            return
         m = self.R(x + dx, y + h - 2, w, dy + 3) | self.R(x + w, y + 6, dx, h - 4)
         self.img[m] *= k
 
@@ -139,6 +145,7 @@ class Room:
               floor_pal=None, door=(274, 52), wall_h=96, side=24, pattern='stripe', bottom=424, brick_pal=None):
         """Back wall band (top), side walls, floor, bottom wall with a door gap. Returns the walls."""
         c = self.c
+        self.wall_h, self.side, self.bottom = wall_h, side, bottom
         self.img[:] = rgb('#140f1a')
         fx, fy, fw, fh = side, wall_h, W - 2 * side, bottom - wall_h
         # floor
@@ -724,6 +731,9 @@ class Room:
         return [x, y + h * 0.6, w, h * 0.4]
 
     def glow(self, cx, cy, rx, ry, c='#ffe6a8', a=0.18):
+        if self._defer is not None:
+            self._defer.append(('glow', (cx, cy, rx, ry, c, a)))
+            return
         g = self.E(cx, cy, rx, ry)
         d = np.sqrt(((self.c.xx[g] / K - cx) / rx) ** 2 + ((self.c.yy[g] / K - cy) / ry) ** 2)
         t = ((1 - d) * a)[:, None]
@@ -1165,3 +1175,110 @@ class Room:
         self.rect(cx - 8, cy + 2, 7, 2, shade(c, 0.8))
         self.outline(self.E(cx, cy, 8, 5) | self.E(cx + 6, cy - 3, 4, 3.5), shade(c, 0.5))
         self.rect(cx + 5, cy - 3, 1, 0.6, '#2a1c1c'); self.rect(cx + 7.5, cy - 3, 1, 0.6, '#2a1c1c')
+
+
+    # ------------------------------------------------------------------ 3D rooms: furniture as pieces
+    # With capture on, every furniture call paints as before, but the pixels it changes are recorded
+    # as one "piece". Paint that lands later on a piece (a pot on a cabinet) joins that piece; paint
+    # on bare floor goes to the floor picture. Contact shadows and glows always go to the floor.
+    # rooms_hd.py then cuts each blocking piece out as a standing sprite and the floor stays flat.
+    def start_capture(self):
+        h, w = self.img.shape[:2]
+        self.cap = dict(snap=self.img.copy(), floor=self.img.copy(), owner=np.full((h, w), -1, np.int32), pieces=[])
+
+    def _sync(self):
+        cp = self.cap
+        diff = (self.img != cp['snap']).any(-1)
+        fl = diff & (cp['owner'] < 0)
+        cp['floor'][fl] = self.img[fl]
+        cp['snap'] = self.img.copy()
+
+    def _run_deferred(self, ops):
+        cp = self.cap
+        for kind, a in ops:
+            for target in (cp['floor'], self.img):
+                keep = self.img.copy() if target is self.img else None
+                img0 = self.img
+                self.img = target
+                (Room.drop if kind == 'drop' else Room.glow)(self, *a)
+                self.img = img0
+                if keep is not None:            # never shade a piece's own pixels
+                    own = cp['owner'] >= 0
+                    self.img[own] = keep[own]
+        cp['snap'] = self.img.copy()
+
+    def piece_call(self, fn, *a, **k):
+        if self.cap is None or self._depth > 0:
+            self._depth += 1
+            try:
+                return fn(self, *a, **k)
+            finally:
+                self._depth -= 1
+        self._sync()
+        self._defer = []
+        self._depth = 1
+        try:
+            res = fn(self, *a, **k)
+        finally:
+            self._depth = 0
+            ops, self._defer = self._defer, None
+        cp = self.cap
+        diff = (self.img != cp['snap']).any(-1)
+        pid = len(cp['pieces'])
+        under = cp['owner'][diff]
+        under = under[under >= 0]
+        if under.size > 0.25 * max(1, diff.sum()):
+            pid = int(np.bincount(under).argmax())         # sits on another piece (pot on a cabinet)
+        else:
+            cp['pieces'].append(dict(rect=res, name=fn.__name__))
+        cp['owner'][diff] = pid
+        cp['snap'] = self.img.copy()
+        self._run_deferred(ops)
+        return res
+
+    def finish_capture(self, wall_h, side):
+        """-> (floor image, wall mask, [(piece, mask)]) after dropping non-blocking pieces back to the floor."""
+        self._sync()
+        cp = self.cap
+        own = cp['owner']
+        keep = []
+        for i, pc in enumerate(cp['pieces']):
+            m = own == i
+            if not m.any():
+                continue
+            blocking = pc['rect'] is not None and any(b is pc['rect'] for b in self.block)
+            foot = np.nonzero(m.any(1))[0].max() / K
+            if (not blocking and pc['name'] not in STAND_FREE) or foot < wall_h + 2:
+                cp['floor'][m] = self.img[m]          # flat clutter, or hung on the back wall
+                own[m] = -1
+                continue
+            keep.append((pc, m))
+        wall = np.zeros_like(own, bool)
+        wall[:int(wall_h * K), :] = True
+        wall &= own < 0
+        return cp['floor'], wall, keep
+
+
+# small things that stand up even without blocking walking (they keep their own sprite)
+STAND_FREE = {'pot', 'plush', 'basket', 'guitar', 'floor_lamp', 'bucket', 'book_stack', 'stool', 'bin', 'sack',
+              'plant_big', 'umbrella_stand', 'coat_rack', 'sign_stand'}
+
+PIECES = ['pot', 'plush', 'box', 'basket', 'bed', 'nightstand', 'wardrobe', 'desk', 'bookshelf', 'vanity', 'sofa', 'beanbag', 'table',
+          'counter', 'fridge', 'plant_big', 'arcade_cab', 'claw', 'flower_table', 'bucket', 'crate', 'cabinet', 'pillar',
+          'easel', 'floor_lamp', 'guitar', 'tv', 'plinth', 'bench', 'globe', 'jar_shelf', 'side_table', 'armchair',
+          'stool', 'coat_rack', 'umbrella_stand', 'book_stack', 'box_stack', 'sack', 'display_case', 'card_catalog',
+          'stanchions', 'partition', 'sign_stand', 'bin', 'vending', 'pinball', 'chest', 'piano']
+
+
+def _wrap(name):
+    fn = getattr(Room, name)
+
+    def w(self, *a, **k):
+        return self.piece_call(fn, *a, **k)
+    w.__name__ = name
+    return w
+
+
+for _n in PIECES:
+    if hasattr(Room, _n):
+        setattr(Room, _n, _wrap(_n))

@@ -93,3 +93,9 @@ The game always draws in 3D; there is no graphics option.
   with blocked rects (red) and every quest/examine/door/spawn point (blue rings, 16-unit clearance).
   The run prints `CROWDED` when furniture sits inside that clearance and `INVALID` when a point is
   unreachable; `--apply` refuses to write while anything is invalid.
+- U2a (`docs/WORLD3D.md`): in `ROOMS3D` rooms the painter sets `Room.dynamic_light`.
+  - Unlit window glass goes to `maps.json` `windows`, and the painted sun patch is skipped.
+  - `drop()` becomes a direction-free AO falloff (`Room._ao`).
+  - `stand_up` stores each piece's main `box()` as `props.json` `vol` for the 3D side prisms.
+  - Regenerate with `python3 tools/worldgen/rooms_hd.py all --apply`. This takes about 3 minutes and
+    rewrites every room sprite.

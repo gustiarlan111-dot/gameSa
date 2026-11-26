@@ -39,9 +39,12 @@ class Room:
         self.img = m.c.img
         self.rng = np.random.default_rng(seed)
         self.block = []                    # world rects that stop walking
+        self.windows = []                  # U2a: glass rects [x, y, w, h] the game paints with the live sky
+        self.dynamic_light = False         # U2a: 3D rooms get their sunlight from the game, not painted
         self.nshell = 0
         self.cap = None                    # 3D rooms: furniture capture state (start_capture)
         self._defer = None
+        self._boxes = None                 # U2a: box() calls of the piece being painted
         self._depth = 0
         self.seed = seed
 
@@ -96,8 +99,28 @@ class Room:
         if self._defer is not None:
             self._defer.append(('drop', (x, y, w, h, k, dx, dy)))
             return
+        if self.dynamic_light:
+            self._ao(x, y, w, h, k)
+            return
         m = self.R(x + dx, y + h - 2, w, dy + 3) | self.R(x + w, y + 6, dx, h - 4)
         self.img[m] *= k
+
+    def _ao(self, x, y, w, h, k):
+        """U2a baked ambient occlusion: the floor darkens all around where a piece meets it, with no light
+        direction, because the game moves the sunlight with the clock (src/view3d/room_light.gd)."""
+        fd = min(12.0, max(4.0, h * 0.4))                # the floor band the piece stands on
+        fx0, fy0, fx1, fy1 = x, y + h - fd, x + w, y + h
+        pad = 12
+        H, W = self.img.shape[:2]
+        X0, X1 = max(0, int((fx0 - pad) * K)), min(W, int((fx1 + pad) * K) + 1)
+        Y0, Y1 = max(0, int((fy0 - pad) * K)), min(H, int((fy1 + pad) * K) + 1)
+        if X0 >= X1 or Y0 >= Y1:
+            return
+        yy, xx = np.mgrid[Y0:Y1, X0:X1].astype(np.float32) / K
+        ddx = np.maximum(np.maximum(fx0 - xx, xx - fx1), 0)
+        ddy = np.maximum(np.maximum(fy0 - yy, yy - fy1 - 1.5), 0)     # a little longer in front of the piece
+        a = 1.0 - (1.0 - k) * 1.15 * np.exp(-np.hypot(ddx, ddy) / 3.6)
+        self.img[Y0:Y1, X0:X1] *= a[..., None]
 
     def box(self, x, y, w, d, h, top, front, rim=None, light=True):
         """3/4-view block: top face (w x d) above the front face (w x h). Returns its full rect."""
@@ -228,6 +251,8 @@ class Room:
 
     # ------------------------------------------------------------------ wall decor (on the back wall)
     def window(self, x, y, w, h, curtain='#f4c6cf', sky=('#9fd3f0', '#e8f4fb'), lit=False, sill_plant=False):
+        if not lit:
+            self.windows.append([int(x), int(y), int(w), int(h)])
         self.rect(x - 4, y - 4, w + 8, h + 8, '#fbf3ea')
         self.outline(self.R(x - 4, y - 4, w + 8, h + 8), '#9b8478')
         if lit:
@@ -251,7 +276,7 @@ class Room:
         self.rect(x - 12, y - 10, w + 24, 3, '#a57a52')
         if sill_plant:
             self.pot(x + w - 12, y + h + 4, 0.55)
-        if not lit:   # sunlight falling onto the floor below, slanting to the right
+        if not lit and not self.dynamic_light:   # sunlight falling onto the floor below, slanting to the right
             fy = 98
             yy, xx = self.c.yy / K, self.c.xx / K
             t = (yy - fy) / 90.0
@@ -1209,6 +1234,8 @@ class Room:
 
     def piece_call(self, fn, *a, **k):
         if self.cap is None or self._depth > 0:
+            if self.cap is not None and self._depth == 1 and fn.__name__ == 'box' and self._boxes is not None:
+                self._boxes.append([float(v) for v in a[:5]])     # U2a: the piece's own body, for 3D volume
             self._depth += 1
             try:
                 return fn(self, *a, **k)
@@ -1216,12 +1243,14 @@ class Room:
                 self._depth -= 1
         self._sync()
         self._defer = []
+        self._boxes = [[float(v) for v in a[:5]]] if fn.__name__ == 'box' else []
         self._depth = 1
         try:
             res = fn(self, *a, **k)
         finally:
             self._depth = 0
             ops, self._defer = self._defer, None
+            boxes, self._boxes = self._boxes, None
         cp = self.cap
         diff = (self.img != cp['snap']).any(-1)
         pid = len(cp['pieces'])
@@ -1230,7 +1259,8 @@ class Room:
         if under.size > 0.25 * max(1, diff.sum()):
             pid = int(np.bincount(under).argmax())         # sits on another piece (pot on a cabinet)
         else:
-            cp['pieces'].append(dict(rect=res, name=fn.__name__))
+            body = max(boxes, key=lambda b: b[2] * (b[3] + b[4])) if boxes else None
+            cp['pieces'].append(dict(rect=res, name=fn.__name__, body=body))
         cp['owner'][diff] = pid
         cp['snap'] = self.img.copy()
         self._run_deferred(ops)

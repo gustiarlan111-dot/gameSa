@@ -318,5 +318,64 @@ func _ready() -> void:
 	var u_later: Dictionary = u_qe.npc_dialog(u_mel)
 	ok(u_before.get("id", "") != "MEM_MELATI_LAVENDER" and u_after.get("id", "") == "MEM_MELATI_LAVENDER" and u_later.get("id", "") != "MEM_MELATI_LAVENDER",
 		"Bu Melati ingat pita lavender sekali, lalu kembali ke obrolan biasa")
+	# 20. U2a 3D interiors (src/view3d/room_light.gd, src/view3d/furniture_volume.gd, tools/worldgen/rooms_hd.py)
+	var w_noon := RoomLight.sky_at(12 * 60, false)
+	var w_night := RoomLight.sky_at(0, false)
+	var w_rain := RoomLight.sky_at(12 * 60, true)
+	ok(w_noon.power > 0.8 and w_night.power <= 0.12 and w_night.stars > 0.5 and w_noon.stars < 0.05,
+		"langit jendela: siang terang tanpa bintang, tengah malam hanya cahaya bulan dan bintang")
+	ok(absf(w_rain.power - w_noon.power * 0.22) < 0.001 and w_rain.stars == 0.0 and w_rain.clouds == 1.0, "hujan meredupkan cahaya jendela dan menutup langit")
+	var w_mono := true
+	for w_m in range(0, 1440, 10):
+		var w_a := RoomLight.sky_at(w_m, false); var w_b := RoomLight.sky_at(w_m + 10, false)
+		if absf(w_b.power - w_a.power) > 0.2: w_mono = false
+	ok(w_mono, "cahaya jendela berubah halus sepanjang hari (tanpa lompatan)")
+	ok(RoomLight.skew_at(480) == 36.0 and RoomLight.skew_at(1080) == -36.0 and RoomLight.skew_at(780) == 0.0, "bercak matahari miring kanan pagi, kiri sore")
+	var w_rooms := 0
+	var w_wbad: Array = []
+	for w_id in Data.maps:
+		var w_ar: Dictionary = Data.maps[w_id]
+		if not w_ar.get("room3d", false):
+			continue
+		for w_r in w_ar.get("windows", []):
+			if w_r.size() != 4 or w_r[0] < 0 or w_r[0] + w_r[2] > w_ar.w or w_r[1] < 0 or w_r[1] + w_r[3] > 150 or w_r[2] < 30 or w_r[3] < 30:
+				w_wbad.append("%s %s" % [w_id, w_r])
+		if not w_ar.get("windows", []).is_empty(): w_rooms += 1
+	ok(w_rooms == 7 and w_wbad.is_empty(), "%d ruangan berjendela hidup, kaca di dinding belakang %s" % [w_rooms, w_wbad])
+	var w_missing: Array = []
+	var w_vbad: Array = []
+	var w_vols := 0
+	for w_k in Data.props:
+		if not str(w_k).begins_with("room_"):
+			continue
+		var w_d: Dictionary = Data.props[w_k]
+		if not ResourceLoader.exists("res://assets/" + w_d.image): w_missing.append(w_k)
+		if w_d.has("vol"):
+			w_vols += 1
+			var w_v: Array = w_d.vol
+			var w_tex: Texture2D = load("res://assets/" + w_d.image)
+			var w_tw := w_tex.get_width() * 0.5; var w_th := w_tex.get_height() * 0.5
+			if w_v.size() != 5 or w_v[2] < 14 or w_v[4] < 12 or w_v[0] < -w_tw / 2 - 1 or w_v[0] + w_v[2] > w_tw / 2 + 1 or -w_v[1] > w_th + 1 or w_v[1] + w_v[3] + w_v[4] > 0.5:
+				w_vbad.append("%s %s" % [w_k, w_v])
+	ok(w_missing.is_empty(), "setiap perabot ruangan punya gambar (%d hilang) %s" % [w_missing.size(), w_missing.slice(0, 3)])
+	ok(w_vols >= 120 and w_vbad.is_empty(), "%d perabot punya blok 3D di dalam sprite-nya %s" % [w_vols, w_vbad.slice(0, 3)])
+	ok(FurnitureVolume.depth_for([-35, -101, 70, 8, 92], 200.0) == 21.0 and FurnitureVolume.depth_for([-35, -101, 70, 8, 92], 10.0) == 10.0
+		and FurnitureVolume.depth_for([-48, -41, 96, 20, 20], 200.0) == 32.0 and FurnitureVolume.depth_for([-40, -20, 120, 30, 4], 200.0) == 34.0,
+		"kedalaman blok: dari lukisan atasnya, minimal sepertiga lebar, dibatasi tinggi dan ruang ke dinding")
+	var w_sv := WinStub.new()
+	var w_q := FurnitureVolume.side_quad(w_sv, 100.0, Vector2(100, 300), 0.0, 92.0, 21.0)
+	var w_ray := Vector3(0, -sin(WorldView3D.PITCH), -cos(WorldView3D.PITCH))
+	var w_f1b1: Vector3 = (w_q[2] as Vector3) - (w_q[1] as Vector3)
+	ok((w_q[0] as Vector3).is_equal_approx(w_sv.stand(100, 300, 0)) and (w_q[1] as Vector3).is_equal_approx(w_sv.stand(100, 300, 92))
+		and w_f1b1.normalized().is_equal_approx(w_ray) and is_equal_approx((w_q[3] as Vector3).z, (w_q[0] as Vector3).z - 21.0 * WorldView3D.S)
+		and (w_q[2] as Vector3).y > (w_q[3] as Vector3).y,
+		"sisi 3D perabot menempel di bidang sprite dan atasnya searah sinar kamera (siluet tidak berubah)")
 	print("%s: %d pemeriksaan, %d gagal" % ["SEMUA LULUS" if fails == 0 else "ADA YANG GAGAL", checks, fails])
 	get_tree().quit(1 if fails > 0 else 0)
+
+
+## A stand-in for WorldView3D.stand() on flat ground (room3d rooms have no elevation).
+class WinStub:
+	func stand(x: float, y: float, h: float) -> Vector3:
+		var t := WorldView3D.TILT
+		return Vector3(x * WorldView3D.S, cos(t) * h * WorldView3D.S, y * WorldView3D.S + sin(t) * h * WorldView3D.S)

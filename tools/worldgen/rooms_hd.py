@@ -816,6 +816,7 @@ def build(area, apply=False, preview=None):
             PRE[area](r)
         return w
     r.shell = shell_then_pre
+    r.dynamic_light = area in ROOMS3D          # U2a: sunlight comes from the game (time and weather)
     ROOMS[area](r)
     if area in EXTRA:
         EXTRA[area](r)
@@ -834,7 +835,7 @@ def build(area, apply=False, preview=None):
     walls = [[int(round(v)) for v in b] for b in r.block]
     m.collision = lambda P_: walls
     extra = dict(visualStyle='godot_hd_interior', visualUpdate='godot_rooms_hd', v4Layout=None, indoor=True,
-                 room3d=area in ROOMS3D,
+                 room3d=area in ROOMS3D, windows=r.windows if area in ROOMS3D else [],
                  v6Layout=dict(version=3 if area not in ROOMS3D else 4, generator='tools/worldgen/rooms_hd.py', hd=True))
     out = None
     if preview:
@@ -872,6 +873,8 @@ def stand_up(area, r, m, P, apply):
     outdir.mkdir(parents=True, exist_ok=True)
     for f in outdir.glob('%s_*' % area):
         f.unlink()
+    for k in [k for k in P if k.startswith('room_%s_' % area)]:
+        del P[k]                                   # pieces that no longer exist leave no dead entry behind
     cuts = [(dict(name='wall'), wall)] + pieces
     for i, (pc, mask) in enumerate(cuts):
         ys, xs = np.nonzero(mask)
@@ -889,6 +892,12 @@ def stand_up(area, r, m, P, apply):
         rel = 'props/rooms/%s_%02d_%s@2x.png' % (area, i, tag)
         Image.fromarray(rgba, 'RGBA').save(A / rel, optimize=True)
         P[pid] = dict(image=rel, cw=0, ch=0, layer='sort')
+        body = pc.get('body')
+        if body and body[2] >= 14 and body[4] >= 12:
+            # U2a: the piece's main block in map px from its foot (left, top, w, top depth, front height);
+            # src/view3d/furniture_volume.gd builds the 3D sides from it
+            fx, fy = (x0 + x1) / 2 / K, y1 / K
+            P[pid]['vol'] = [round(body[0] - fx, 1), round(body[1] - fy, 1), round(body[2], 1), round(body[3], 1), round(body[4], 1)]
         m.prop(pid, (x0 + x1) / 2 / K, y1 / K)
     floor[wall] = np.asarray([20, 15, 26], np.float32)
     img[:] = floor
@@ -897,7 +906,7 @@ def stand_up(area, r, m, P, apply):
         data = json.loads(pj.read_text(encoding='utf-8'))
         data['props'] = {k: v for k, v in data['props'].items() if not k.startswith('room_%s_' % area)}
         data['props'].update({k: v for k, v in P.items() if k.startswith('room_%s_' % area)})
-        pj.write_text(json.dumps(data, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
+        pj.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     print(area, 'stood up', len(cuts), 'pieces (wall included)')
 
 

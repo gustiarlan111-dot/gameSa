@@ -757,9 +757,13 @@ func _update_light(delta: float) -> void:
 			az = -55.0; el = 24.0; energy = 0.7; col = Color(1.0, 0.8, 0.62)
 	elif not cave:
 		az = 15.0; el = 66.0; energy = 0.22; col = Color(0.58, 0.68, 1.0)
+	if a.flash > 0.01:                  # V8 lightning: a cold flash from high up, then back
+		energy += 1.6 * a.flash
+		col = col.lerp(Color(0.78, 0.86, 1.0), minf(1.0, a.flash * 1.5))
+		el = 62.0
 	sun.rotation_degrees = Vector3(-el, az + 180.0, 0)
 	sun.light_color = col
-	sun.light_energy = lerpf(sun.light_energy, energy, k)
+	sun.light_energy = lerpf(sun.light_energy, energy, k) if a.flash <= 0.01 else energy
 	sun.shadow_enabled = sun.light_energy > 0.08 and not _indoor and bool(_q.get("shadows", true))
 	var lamp_on: float = a.lamp_on
 	for l in _lamps:

@@ -44,6 +44,12 @@ static func weather(day: int) -> String:
 	return CERAH
 
 
+## V8 Weather 3.0: about half of the rainy days are thunderstorms (lightning + thunder, heavier rain).
+## Separate from weather() so the day-by-day weather sequence (and saves, tests) stay exactly the same.
+static func storm(day: int) -> bool:
+	return weather(day) == HUJAN and posmod(day * 7919 + 13, 2) == 0
+
+
 static func _ushr(v: int, n: int) -> int:
 	return (v >> n) & ((1 << (64 - n)) - 1)
 

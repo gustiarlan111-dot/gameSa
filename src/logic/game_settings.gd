@@ -17,6 +17,7 @@ const DEFAULTS := {
 	"sfx": 0.9,
 	"hud_scale": 1.0,
 	"left_hand": false,      # joystick on the right, buttons on the left
+	"lightning": true,       # thunderstorm flashes (off for light-sensitive players; thunder stays)
 }
 
 static var current: Dictionary = {}
@@ -60,6 +61,8 @@ static func sanitize(d: Dictionary) -> Dictionary:
 		out.hud_scale = clampf(float(d.hud_scale), 0.7, 1.5)
 	if d.get("left_hand") is bool:
 		out.left_hand = d.left_hand
+	if d.get("lightning") is bool:
+		out.lightning = d.lightning
 	return out
 
 

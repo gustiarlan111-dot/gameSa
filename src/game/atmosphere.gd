@@ -16,6 +16,11 @@ var minute := 720
 var tint_mod := Color.WHITE       # day tint for the 3D ambient light
 var lamp_on := 0.0                # 0..1, street lamps and lanterns
 var night := 0.0                  # 0 day .. 1 full night (outdoors)
+var storm := false                # V8: thunderstorm on this rainy day (set by Game)
+var flash := 0.0                  # V8: lightning, 0..1 (WorldView3D lights the 3D world with it)
+var _next_bolt := 6.0
+var _thunder_in := -1.0
+var _bolt_rng := RandomNumberGenerator.new()
 var _post: ColorRect
 ## Cutscene colour moods: [tint, desaturation]
 const MOODS := {"": [Color(1, 1, 1), 0.0], "warm": [Color(1.1, 0.98, 0.84), 0.05], "cool": [Color(0.86, 0.96, 1.1), 0.1],
@@ -78,6 +83,7 @@ func _process(delta: float) -> void:
 	lamp_on = 1.0 if (realm or dark_cave()) else maxf(pow(night, 1.6), 0.5 if rain else 0.0)
 	if indoor and not dark_cave():
 		lamp_on = clampf(light.a * 2.0, 0.0, 0.6)
+	_update_storm(delta)
 	# screen pass
 	var t := (minute - 360.0) / 750.0
 	var outdoors := not indoor and not realm and not dark_cave()
@@ -100,6 +106,30 @@ func _process(delta: float) -> void:
 		_post_mat.set_shader_parameter("mood_a", c.mood_a)
 		_post_mat.set_shader_parameter("focus_y", 0.52)
 	queue_redraw()
+
+
+## Lightning: a soft double flicker every 9-26 s, thunder 0.5-2.5 s later (farther = later and
+## quieter). Flash strength stays gentle and never strobes; Settings > "Kilat petir" turns the flash
+## off (thunder stays).
+func _update_storm(delta: float) -> void:
+	flash = maxf(0.0, flash - delta * 3.2)
+	var active := storm and weather == "rain" and not indoor and not realm and not dark_cave()
+	if not active:
+		_thunder_in = -1.0
+		return
+	_next_bolt -= delta
+	if _next_bolt <= 0.0:
+		_next_bolt = _bolt_rng.randf_range(9.0, 26.0)
+		var dist := _bolt_rng.randf()
+		if bool(GameSettings.value("lightning")):
+			flash = lerpf(1.0, 0.45, dist)
+			get_tree().create_timer(0.11).timeout.connect(func(): flash = maxf(flash, lerpf(0.7, 0.3, dist)))
+		_thunder_in = lerpf(0.5, 2.5, dist)
+		set_meta("thunder_gain", lerpf(0.9, 0.4, dist))
+	if _thunder_in > 0.0:
+		_thunder_in -= delta
+		if _thunder_in <= 0.0:
+			Audio.sfx("thunder", float(get_meta("thunder_gain", 0.7)))
 
 
 func _view() -> Rect2:
@@ -140,7 +170,14 @@ func _draw() -> void:
 				draw_texture_rect(_sparkle, Rect2(pt - Vector2(3, 3), Vector2(7, 7)), false, Color(1, 0.96, 0.85, al))
 	# rain: slanted streaks and splash rings near the bottom of the view
 	if rain:
-		draw_rect(v, Color(0.2, 0.26, 0.38, 0.1))
+		draw_rect(v, Color(0.2, 0.26, 0.38, 0.16 if storm else 0.1))
+		if storm:                        # heavier, wind-driven sheets of rain
+			for i in _rain.size():
+				var r2: Vector2 = _rain[i]
+				var gx := fmod(r2.y * 1.7 + time * 0.12, 1.0) * (W + 120) - 60
+				var gy := fposmod(r2.x * 1.3 + time * 1.45, 1.0) * (H + 40) - 20
+				var q0 := Vector2(L + gx, T + gy)
+				draw_line(q0, q0 + Vector2(-7, 15), Color(0.85, 0.9, 1, 0.42), 1.2)
 		for i in _rain.size():
 			var r: Vector2 = _rain[i]
 			var fx := fmod(r.x + time * 0.05, 1.0) * (W + 60) - 30
@@ -170,3 +207,6 @@ func _draw() -> void:
 			draw_set_transform(Vector2(L + fx, T + fy), sin(time * 4 + i) * 0.8)
 			draw_rect(Rect2(-2, -1, 4, 2.4), lc)
 			draw_set_transform(Vector2.ZERO)
+
+	if flash > 0.01:                     # lightning lights the whole view for a moment
+		draw_rect(v, Color(0.86, 0.9, 1.0, 0.26 * flash))

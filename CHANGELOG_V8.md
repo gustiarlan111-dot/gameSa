@@ -1,4 +1,45 @@
-# CHANGELOG — V8.0 "The Definitive Overhaul" (tahap pertama)
+# CHANGELOG — V8.0 "The Definitive Overhaul"
+
+## V8.1 (tahap 2)
+Save schema tetap 8; tidak ada ID quest, map, karakter, atau flag yang berubah.
+
+### Clockwork Station punya identitas sendiri
+- Empat aset baru digambar dari kode (`tools/artkit/clockwork.py`, aturan kit v6, plus normal map):
+  **menara jam** (~7× tinggi karakter, jam berhenti di 10:10, roda gigi terlihat lewat jendela
+  bundar), **gerbong kereta tua** di atas rel, **lampu peron berjam**, dan **roda gigi kuningan**
+  setengah terkubur.
+- Menara berdiri di atas plaza teka-teki jam utama; gerbong terlihat langsung dari titik spawn;
+  lampu jam menggantikan lampu emas di sepanjang jalur; roda gigi menggantikan sebagian pohon.
+- `dream_hd.py`: zona `clear` agar pohon tidak tumbuh di belakang landmark tinggi. Hanya area
+  clockwork_station yang berubah; pintu, spawn, dan semua titik quest tetap sama (maptool 0 error).
+
+### Living NPC: datang dan pergi lewat pintu
+- Saat jadwal NPC berganti ketika pemain ada di area itu, NPC berjalan ke **pintu di rute
+  terpendek menuju area tujuannya** (`World.first_hop`). Contoh: Pak Pos keluar lewat timur
+  ke Jalan Kota. NPC yang datang muncul dari pintu asalnya (Kak Raka keluar dari pintu kafe) lalu
+  berjalan ke tempatnya. Sebelumnya NPC langsung hilang atau muncul di tempat.
+- NPC memakai pathfinding grid (A\*, sel 16 px) yang dibangun bertahap 3 baris per frame setelah masuk
+  area, jadi tidak ada patah-patah di HP. Jika jalan buntu, NPC menyerah dengan aman (batas waktu
+  sesuai jarak).
+- Saat masuk area, pergantian langkah cerita, atau lompat waktu, NPC tetap langsung ditempatkan,
+  supaya penempatan cerita tidak berubah.
+
+### Weather 3.0: badai petir
+- Sekitar separuh hari hujan menjadi badai: kilat (overlay lembut + cahaya 3D dingin dari atas,
+  kedipan ganda, tidak pernah berkedip cepat), guntur yang datang 0,5–2,5 detik kemudian (makin jauh
+  makin pelan), dan hujan lebih deras miring tertiup angin. Urutan cuaca harian tidak berubah.
+- Suara `thunder.wav` disintesis sendiri (`tools/sfx_v8.py`), tanpa aset pihak ketiga.
+- Pengaturan baru **Kilat petir: Nyala/Mati** untuk pemain yang peka terhadap kilatan (guntur tetap).
+
+### QA
+- Tes logika 54 → **58** (rute pintu NPC, badai hanya di sebagian hari hujan, opsi kilat, file suara).
+- `tests/qa_npc.tscn`: skenario NPC pergi (Pak Pos → timur, Rara → barat) dan datang
+  (Kak Raka dari kafe, Pak Harun dari barat) — semuanya OK.
+- Kedua route dijalankan ulang dengan autopilot sampai tamat (lihat QA_REPORT_V8.md).
+
+---
+
+## V8.0 (tahap pertama)
 
 Branch: `v8.0` (dari `main` @ `205879b`). Save schema tetap **8**: tidak ada ID quest, map, karakter,
 atau story flag yang diubah, jadi semua save lama langsung terbaca tanpa migrasi.

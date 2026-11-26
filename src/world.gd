@@ -41,6 +41,12 @@ var _alt_t := 0.0
 var _prop_nodes: Array[Node2D] = []   # prop holders; WorldView3D builds the 3D scene from them
 var atmo: Atmosphere               # set by Game; animals read night / rain from it
 var foliage: Array = []           # [{node, pos, r, kind: "grass"|"bush", t}] rustle when walked through
+# V8 Living NPC: walk grid for NPCs going to / coming from doors. Built a few rows per physics frame
+# after entering an area (no hitch on phones), 16 px cells over the real collision.
+const NAV_CELL := 16.0
+const NAV_ROWS_PER_FRAME := 3
+var _nav: AStarGrid2D
+var _nav_row := 0
 
 
 func _ready() -> void:
@@ -77,6 +83,13 @@ func enter_area(area_id: String, pos: Vector2, facing := "down") -> void:
 	_build_ground()
 	_build_props()
 	_load_surface()
+	_nav = AStarGrid2D.new()
+	_nav.region = Rect2i(0, 0, int(ceil(float(area.get("w", 960)) / NAV_CELL)), int(ceil(float(area.get("h", 640)) / NAV_CELL)))
+	_nav.cell_size = Vector2(NAV_CELL, NAV_CELL)
+	_nav.offset = Vector2(NAV_CELL, NAV_CELL) * 0.5
+	_nav.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
+	_nav.update()
+	_nav_row = 0
 	_spawn_animals(area_id)
 	if player.get_parent() == null:
 		_sorted.add_child(player); _sorted.add_child(partner)
@@ -330,6 +343,124 @@ func add_npc(id: String, sprite: String, pos: Vector2, facing: String, wander: f
 	return a
 
 
+## V8 Living NPC: a walkable point just inside the door that leads to `to_area` (or the door nearest
+## to `near` when no door goes there), or null in a map without doors.
+func door_point(to_area: String, near: Vector2):
+	var hop := first_hop(str(area.get("id", "")), to_area)
+	var best = null
+	var best_d := INF
+	for d in area.get("doors", []):
+		var r: Array = d.get("rect", [])
+		if r.size() < 4:
+			continue
+		var c := Vector2(r[0] + r[2] / 2.0, r[1] + r[3] / 2.0)
+		var inside := Vector2(clampf(c.x, 24.0, float(area.get("w", 960)) - 24.0), clampf(c.y, 24.0, float(area.get("h", 640)) - 24.0))
+		var dd := inside.distance_to(near) - (100000.0 if hop != "" and str(d.get("to", "")) == hop else 0.0)
+		if dd < best_d:
+			best_d = dd
+			best = nearest_open(inside)
+	return best
+
+
+## The neighbouring area on the shortest door route from `from` to `to` ("" when none).
+static func first_hop(from: String, to: String) -> String:
+	if to == "" or from == to or not Data.maps.has(to):
+		return ""
+	var prev := {from: ""}
+	var q: Array = [from]
+	while not q.is_empty():
+		var cur: String = q.pop_front()
+		if cur == to:
+			break
+		for d in Data.area(cur).get("doors", []):
+			var nx := str(d.get("to", ""))
+			if Data.maps.has(nx) and not prev.has(nx):
+				prev[nx] = cur
+				q.append(nx)
+	if not prev.has(to):
+		return ""
+	var step := to
+	while prev[step] != from:
+		step = prev[step]
+	return step
+
+
+## True when an NPC can get from a to b: a straight line, or a grid path once the grid is built.
+func clear_path(a: Vector2, b: Vector2) -> bool:
+	return Data.clear_segment(area, a.x, a.y, b.x, b.y, flags) or not nav_path(a, b).is_empty()
+
+
+func nav_ready() -> bool:
+	return _nav != null and _nav_row >= _nav.region.size.y
+
+
+func _nav_build_step() -> void:
+	if _nav == null or nav_ready():
+		return
+	var end := mini(_nav_row + NAV_ROWS_PER_FRAME, _nav.region.size.y)
+	for y in range(_nav_row, end):
+		for x in _nav.region.size.x:
+			if Data.blocked(area, (x + 0.5) * NAV_CELL, (y + 0.5) * NAV_CELL, flags):
+				_nav.set_point_solid(Vector2i(x, y))
+	_nav_row = end
+
+
+func _nav_open(p: Vector2) -> Vector2i:
+	var c := Vector2i(clampi(int(p.x / NAV_CELL), 0, _nav.region.size.x - 1), clampi(int(p.y / NAV_CELL), 0, _nav.region.size.y - 1))
+	for r in 4:
+		for dy in range(-r, r + 1):
+			for dx in range(-r, r + 1):
+				var n := c + Vector2i(dx, dy)
+				if _nav.is_in_boundsv(n) and not _nav.is_point_solid(n):
+					return n
+	return c
+
+
+## Waypoints from a to b over the NPC grid ([] when the grid is not ready or there is no way).
+func nav_path(a: Vector2, b: Vector2) -> Array:
+	if not nav_ready():
+		return []
+	var pts: PackedVector2Array = _nav.get_point_path(_nav_open(a), _nav_open(b))
+	var out: Array = []
+	for i in range(1, pts.size()):
+		out.append(pts[i])
+	if not out.is_empty():
+		out[-1] = b
+	return out
+
+
+## Give an NPC a route (used when walking in from a door).
+func npc_route(id: String, to: Vector2) -> void:
+	if npc_brain.has(id):
+		var b: Dictionary = npc_brain[id]
+		var a: Actor = npcs[id]
+		if not Data.clear_segment(area, a.position.x, a.position.y, to.x, to.y, flags):
+			var path := nav_path(a.position, to)
+			if not path.is_empty():
+				b.path = path
+
+
+## Send a town NPC out through the door toward `to_area`. False when there is no clear way out.
+func npc_leave(id: String, to_area: String) -> bool:
+	if not npcs.has(id):
+		return false
+	var a: Actor = npcs[id]
+	var out = door_point(to_area, a.position)
+	if out == null or not clear_path(a.position, out):
+		return false
+	var b: Dictionary = npc_brain[id]
+	b.target = out; b.home = out; b.radius = 0.0; b.pause = 0.0
+	var dist := a.position.distance_to(out)
+	if not Data.clear_segment(area, a.position.x, a.position.y, out.x, out.y, flags):
+		b.path = nav_path(a.position, out)
+		dist = 0.0
+		var prev := a.position
+		for q in b.path:
+			dist += prev.distance_to(q); prev = q
+	b.leaving = dist / 46.0 + 5.0      # walk time + slack, then give up (someone stands in the way)
+	return true
+
+
 func remove_npc(id: String) -> void:
 	if npcs.has(id):
 		npcs[id].queue_free()
@@ -345,6 +476,19 @@ func _update_npcs(delta: float, talking_to: String) -> void:
 		if locked and (id == talking_to or (cine and cine.active)):
 			a.walking = false
 			continue
+		if b.has("path"):
+			var path: Array = b.path
+			while not path.is_empty() and a.position.distance_to(path[0]) < 4.0:
+				path.pop_front()
+			if path.is_empty():
+				b.erase("path")
+			else:
+				b.target = path[0]; b.pause = 0.0
+		if b.has("leaving"):
+			b.leaving = float(b.leaving) - delta
+			if b.leaving <= 0.0 or (not b.has("path") and a.position.distance_to(b.target) <= 3.0):
+				remove_npc.call_deferred(id)    # through the door
+				continue
 		var d: Vector2 = b.target - a.position
 		if d.length() > 2.0:
 			var n := a.position + d.normalized() * minf(d.length(), 46.0 * delta)
@@ -352,7 +496,9 @@ func _update_npcs(delta: float, talking_to: String) -> void:
 			if Data.clear_segment(area, a.position.x, a.position.y, n.x, n.y, flags) and not near_player:
 				a.position = n; a.face(d.x, d.y); a.walking = true
 			else:
-				b.target = a.position; b.pause = 0.55; a.walking = false
+				if not b.has("leaving"):
+					b.target = a.position
+				b.pause = 0.55; a.walking = false
 		else:
 			a.walking = false
 			b.pause -= delta
@@ -379,6 +525,7 @@ func _physics_process(delta: float) -> void:
 	if player == null:
 		return
 	door_cooldown = maxf(0.0, door_cooldown - delta)
+	_nav_build_step()
 	_update_npcs(delta, talking_to)
 	var v := Vector2.ZERO if locked else Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	if v == Vector2.ZERO and not locked:

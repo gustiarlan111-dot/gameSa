@@ -240,7 +240,7 @@ func _tick_clock(delta: float) -> void:
 		_clock_acc -= 1.0
 		p.minute += 1
 		if p.minute % 10 == 0:
-			refresh_npcs()
+			refresh_npcs(true)
 			sync_soundscape()
 		if p.minute >= WorldClock.DAY_END:
 			pass_out()
@@ -389,7 +389,7 @@ func realm() -> bool:
 
 func weather() -> String:
 	var w := engine.weather_now()
-	return "rain" if w == "hujan" else w
+	return "rain" if w == "hujan" or w == "storm" else w
 
 
 ## Effective light: the story step's tint when it has one, else the clock. a = strength.
@@ -407,6 +407,7 @@ func light_now() -> Color:
 func _update_atmosphere() -> void:
 	atmosphere.light = light_now()
 	atmosphere.weather = weather()
+	atmosphere.storm = atmosphere.weather == "rain" and (WorldClock.storm(p.day) or engine.step().get("weather") == "storm")
 	atmosphere.minute = p.minute
 
 
@@ -479,19 +480,44 @@ func bed_spot_of(area_id: String) -> Vector2:
 
 
 ## Town NPCs by schedule, and the partner when the active step places them in this area.
-func refresh_npcs() -> void:
+## `live` (the 10-minute clock tick while the player is here): V8 Living NPC 3.0 - someone whose
+## schedule takes them elsewhere walks out through the door that leads there, and someone arriving
+## comes in through a door and walks to their spot, instead of popping in or out in front of you.
+var _npc_where := {}             # npc id -> area of its last schedule place (to pick the right door)
+
+
+func refresh_npcs(live := false) -> void:
 	var keep := {}
 	for n in engine.town_npcs_now(p.area):
 		var pl := engine.npc_place(n)
 		var id: String = n.get("id", "?")
 		keep[id] = true
+		var home := Vector2(pl.x, pl.y)
 		if not world.npcs.has(id):
-			world.add_npc(id, n.get("sprite", id), Vector2(pl.x, pl.y), pl.dir, pl.wander)
+			var from: String = str(_npc_where.get(id, ""))
+			var door_pt = world.door_point(from, home) if live else null
+			if door_pt != null and world.clear_path(door_pt, home):
+				var a := world.add_npc(id, n.get("sprite", id), door_pt, pl.dir, pl.wander)
+				var b: Dictionary = world.npc_brain[id]
+				b.home = world.nearest_open(home); b.target = b.home; b.pause = 0.0
+				world.npc_route(id, b.home)
+				a.face(home.x - door_pt.x, home.y - door_pt.y)
+			else:
+				world.add_npc(id, n.get("sprite", id), home, pl.dir, pl.wander)
 		else:
 			var b: Dictionary = world.npc_brain[id]
-			b.home = world.nearest_open(Vector2(pl.x, pl.y)); b.target = b.home; b.radius = pl.wander
+			b.erase("leaving")
+			b.home = world.nearest_open(home); b.target = b.home; b.radius = pl.wander
+	for n in Data.quests.get("townNpcs", []):
+		var pl2 := engine.npc_place(n)
+		var nid: String = n.get("id", "?")
+		var dest: String = str(pl2.get("area", "")) if not pl2.is_empty() else ""
+		if live and world.npcs.has(nid) and not keep.has(nid) and not _spawned.has(nid):
+			if not world.npc_leave(nid, dest):
+				world.remove_npc(nid)
+		_npc_where[nid] = dest if dest != "" else _npc_where.get(nid, "")
 	for id in world.npcs.keys():
-		if not keep.has(id) and not _spawned.has(id):
+		if not keep.has(id) and not _spawned.has(id) and not world.npc_brain[id].has("leaving"):
 			world.remove_npc(id)
 	if world.partner_mode != 2:
 		world.partner_mode = 0

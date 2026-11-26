@@ -1,4 +1,24 @@
-# QA REPORT — V8.0 tahap 1
+# QA REPORT — V8.0
+
+## V8.1 (tahap 2) — ringkasan
+| Pemeriksaan | Hasil |
+|---|---|
+| Tes logika | **58 / 58 lulus** |
+| Validator map (32 area) | 0 error |
+| `--apply` Clockwork Station | hanya area itu yang berubah; pintu, spawn, 26 titik quest sama; 0 titik tak terjangkau |
+| Route Sofia sampai tamat | `EPI_FREE` di frame 160.077, 118 langkah, 0 script error |
+| Route Arland sampai tamat | `EPI_FREE` di frame 159.427, 115 langkah, 0 script error |
+| NPC pergi (qa_npc) | Pak Pos 10:00 → pintu timur (Jalan Kota); Rara 17:00 → pintu barat (Taman Kota) — OK |
+| NPC datang (qa_npc) | Kak Raka 14:30 dari pintu kafe; Pak Harun 11:00 dari pintu barat — sampai di tempatnya, OK |
+| Badai | screenshot hari ke-9 (badai) dengan dan tanpa kilat: `docs/screens/v8/storm.png` |
+| Clockwork Station | screenshot spawn, plaza tengah, malam: `docs/screens/v8/clockwork_station.png` |
+
+Tidak diuji: kilat dan pathfinding NPC di perangkat Android nyata (beban CPU grid NPC: 3 baris
+sel per frame), dan bermain manual.
+
+---
+
+# V8.0 tahap 1
 
 Lingkungan: Linux x86_64, **Godot 4.3-stable** (official), renderer `opengl3` di Xvfb dengan Mesa
 llvmpipe (render CPU). Semua hasil di bawah berasal dari perintah yang benar-benar dijalankan pada

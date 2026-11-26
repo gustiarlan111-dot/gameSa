@@ -3,7 +3,7 @@ extends Node
 ## Capture modes for automated QA (never used by players):
 ##   -- --shot  <route> <area> <x> <y> <frames> <out.png> [x:y;x:y waypoints]   free exploration
 ##        (env SHOT_QUALITY=low|medium|high|ultra forces a graphics preset, SHOT_SETTINGS=1 opens the
-##        settings window, SHOT_LEFT=1 the left-handed layout; none of them is saved)
+##        settings window, SHOT_LEFT=1 the left-handed layout, SHOT_FLASH=1 a lightning flash; none is saved)
 ##   -- --story <route> <out_prefix> <frame,frame,...>                           new game, the story runs
 ##        by itself (dialogue advances every 50 frames, first choice taken) and a screenshot is saved
 ##        at each listed frame. Env STORY_STEP/STORY_AREA[/STORY_FLAGS/STORY_COMPANION] start it at a
@@ -251,6 +251,8 @@ func _process(_delta: float) -> void:
 		var w := game.world
 		if _frame == 2 and OS.get_environment("SHOT_SETTINGS") == "1":
 			game.settings.open()          # QA: capture the V8 settings window over the scene
+		if OS.get_environment("SHOT_FLASH") == "1" and _frame == int(_args[4]) - 3:
+			game.atmosphere.flash = 1.0   # QA: capture a lightning flash
 		if _wp < _wps.size():
 			var d: Vector2 = _wps[_wp] - w.player.position
 			if d.length() < 8:

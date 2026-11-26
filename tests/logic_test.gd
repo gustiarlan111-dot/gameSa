@@ -237,5 +237,19 @@ func _ready() -> void:
 	GameSettings.load_file()
 	ok(GameSettings.value("quality") == "high", "file pengaturan rusak -> bawaan, tanpa crash")
 	GameSettings.current = gs_keep; GameSettings.save_file(); GameSettings.apply_global()
+	# 18. V8 Living NPC routing + Weather 3.0
+	ok(World.first_hop("plaza", "perumahan") == "jalan_kota" and World.first_hop("cafe", "taman_kota") == "plaza"
+		and World.first_hop("plaza", "plaza") == "" and World.first_hop("plaza", "tidak_ada") == "", "NPC memilih pintu di rute terpendek")
+	var wx_storm := 0
+	var wx_rain := 0
+	for wx_d in range(1, 120):
+		if WorldClock.weather(wx_d) == WorldClock.HUJAN:
+			wx_rain += 1
+			if WorldClock.storm(wx_d): wx_storm += 1
+		elif WorldClock.storm(wx_d):
+			wx_storm = -999
+	ok(wx_rain > 0 and wx_storm > 0 and wx_storm < wx_rain, "badai hanya di sebagian hari hujan (%d dari %d)" % [wx_storm, wx_rain])
+	ok(GameSettings.sanitize({"lightning": false}).lightning == false and GameSettings.sanitize({}).lightning == true, "opsi kilat petir")
+	ok(ResourceLoader.exists("res://assets/audio/sfx/thunder.wav") and ResourceLoader.exists("res://assets/audio/sfx/step_stairs.wav"), "suara guntur & tangga ada")
 	print("%s: %d pemeriksaan, %d gagal" % ["SEMUA LULUS" if fails == 0 else "ADA YANG GAGAL", checks, fails])
 	get_tree().quit(1 if fails > 0 else 0)

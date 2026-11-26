@@ -41,5 +41,18 @@ def step_stairs(seed=8):
     return click * 0.9 + knock * 1.1 + grit
 
 
+def thunder(seed=21):
+    """Distant thunder: a short crack, then a rolling low rumble that swells and fades (3.6 s)."""
+    rng = np.random.default_rng(seed)
+    n = int(SR * 3.6)
+    t = np.arange(n) / SR
+    crack = bandpass(rng.standard_normal(n), 300, 3200) * env(n, 0.003, 0.09)
+    brown = np.cumsum(rng.standard_normal(n)); brown -= np.convolve(brown, np.ones(2000) / 2000, 'same')
+    rumble = bandpass(brown, 25, 180)
+    roll = (0.35 + 0.65 * np.abs(np.sin(2 * np.pi * 0.9 * t + 0.6)) ** 2) * np.minimum(1, t / 0.25) * np.exp(-t / 1.4)
+    return crack * 0.5 + rumble / (np.abs(rumble).max() + 1e-9) * roll
+
+
 if __name__ == '__main__':
     save('step_stairs', step_stairs(), 0.55)
+    save('thunder', thunder(), 0.7)

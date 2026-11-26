@@ -22,6 +22,7 @@ var _dlg := 0
 var _idle := 0
 var _rot := 0
 var _last_step := ""
+var _choice_seen := {}
 
 
 func _ready() -> void:
@@ -273,7 +274,15 @@ func _process(_delta: float) -> void:
 		elif _frame % 50 == 0:
 			if game.dialog.choosing():
 				# first choice, or rotate through them so a wrong answer is retried with the next one
-				game.dialog.choose(0 if OS.get_environment("STORY_ROTATE") != "1" else _rot % game.dialog._choices.size())
+				# first choice; when the same question comes back (a wrong answer in an echo or quiz),
+				# try the next option, as a player would (STORY_ROTATE=1 rotates every choice)
+				var ck := str(game.dialog._choices)
+				var seen := int(_choice_seen.get(ck, 0))
+				_choice_seen[ck] = seen + 1
+				var n: int = maxi(1, game.dialog._choices.size())
+				game.dialog.choose(seen % n if OS.get_environment("STORY_ROTATE") != "1" else _rot % n)
+				if seen > 0:
+					print("QA> retry choice #%d at %s" % [seen % n, game.p.step])
 				_rot += 1
 			elif game.dialog.active:
 				game.dialog.advance()

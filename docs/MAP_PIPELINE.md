@@ -93,6 +93,8 @@ The game always draws in 3D; there is no graphics option.
   with blocked rects (red) and every quest/examine/door/spawn point (blue rings, 16-unit clearance).
   The run prints `CROWDED` when furniture sits inside that clearance and `INVALID` when a point is
   unreachable; `--apply` refuses to write while anything is invalid.
+- U2c: dream map landmarks live in `dream_hd.py` THEMES (`specials` + `clear`); `dream_hd.py` reproduces the
+  committed maps exactly, so regenerate with `--apply`. `tools/lantern_unlit_u2c.py` makes the HD unlit story lantern.
 - U2b (`docs/WORLD3D.md` §4–7):
   - `python3 tools/extrude_u2b.py` writes the outdoor props' 3D contours (`props.json` `ext`).
     `kit_extra.py` and `artkit/registry.py` rerun it when they redraw sprites.

@@ -429,6 +429,26 @@ func _ready() -> void:
 	for x_pp in x_tk.props + x_pz.props:
 		if (x_pp.type == "hd_fence_h" and x_pp.x == 1450) or ((x_pp.type == "hd_pier_post" or x_pp.type == "hd_bollard") and x_pp.y in [1332.0, 1420.0]): x_posts += 1
 	ok(x_posts == 14, "pagar dan tiang jembatan terpasang (%d dari 14)" % x_posts)
+	# 22. U2c dream maps (tools/worldgen/dream_hd.py themes, world_particles.gd / world_mist.gd presets, tools/lantern_unlit_u2c.py)
+	var c_need := {"lantern_field": ["hd_stall_red", "hd_stall_blue", "hd_lantern_string", "hd_bunting"], "star_path": ["hd_observatory", "hd_log_bench"],
+		"starfall_village": ["hd_stall_blue", "hd_lantern_string"], "eternal_garden": ["hd_fountain_tiered", "hd_pergola", "hd_swing"], "moonlight_lake": ["hd_bench", "hd_lily_a"]}
+	var c_miss: Array = []
+	for c_a in c_need:
+		var c_types := {}
+		for c_p in Data.area(c_a).props: c_types[c_p.type] = true
+		for c_t in c_need[c_a]:
+			if not c_types.has(c_t): c_miss.append("%s:%s" % [c_a, c_t])
+	ok(c_miss.is_empty(), "landmark khas tiap map mimpi terpasang %s" % [c_miss])
+	ok(WorldParticles.DREAM.size() == 6 and WorldParticles.DREAM.lantern_field.sky_lanterns > 0 and WorldParticles.DREAM.starfall_village.smoke
+		and WorldParticles.DREAM.gua_kristal.has("motes") and WorldMist.DREAM.moonlight_lake[0] > 0.5, "efek khas: lentera terbang, asap cerobong, debu kristal, kabut danau")
+	var c_low: Array = []
+	for c_a in ["star_path", "starfall_village", "eternal_garden", "moonlight_lake", "lantern_field", "gua_kristal"]:
+		for c_p in Data.area(c_a).props:
+			var c_d: Dictionary = Data.props.get(c_p.type, {})
+			if not str(c_d.get("image", "@2x")).contains("@2x") and not c_low.has(c_p.type): c_low.append(c_p.type)
+			if c_p.has("alt") and not str(Data.props.get(c_p.alt, {}).get("image", "@2x")).contains("@2x") and not c_low.has(c_p.alt): c_low.append(c_p.alt)
+	ok(c_low.is_empty() and not str(Data.props.lantern_off.image).contains("lantern_post"), "map mimpi tanpa sprite 1x; lentera padam tidak ikut menyala %s" % [c_low])
+	ok(ResourceLoader.exists("res://assets/props/lantern_off.png") and ResourceLoader.exists("res://assets/props/lantern_post.png"), "file lentera lama tetap ada untuk minigame")
 	print("%s: %d pemeriksaan, %d gagal" % ["SEMUA LULUS" if fails == 0 else "ADA YANG GAGAL", checks, fails])
 	get_tree().quit(1 if fails > 0 else 0)
 

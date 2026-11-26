@@ -1,4 +1,4 @@
-# Dunia 3D (Upgrade 3) — interior (U2a) dan luar ruang (U2b)
+# Dunia 3D (Upgrade 3) — interior (U2a), luar ruang (U2b), map mimpi (U2c)
 
 Ruangan bertanda `room3d` (11 ruangan, `tools/worldgen/rooms_hd.py` `ROOMS3D`) dibangun seperti map luar:
 lantai datar, dinding belakang dan perabot berdiri sebagai sprite yang condong ke belakang (`TILT`), sama
@@ -173,3 +173,28 @@ idempoten, hanya mengganti entrinya sendiri:
   dan daftar prop berbeda), jadi Plaza **tidak** dibuat ulang. Tambalan hanya menyentuh data.
 
 **Uji di layar:** `SHOT_NOVOL=1` mematikan sisi 3D luar ruang, sama seperti prisma interior.
+
+---
+
+# U2c — identitas 6 map mimpi
+
+Setiap map mimpi kini punya ciri yang tidak bisa tertukar. Semuanya tetap masuk akal sebagai tempat
+nyata, sebab ada kemungkinan cerita dibuat realistis nanti (opsi A/B, belum diputuskan).
+
+| Map | Landmark (`dream_hd.py` THEMES `specials` + `clear`) | Efek (`world_particles.gd` / `world_mist.gd` `DREAM`) |
+|---|---|---|
+| Lantern Field | dua lapak festival, bendera segitiga, untaian lentera | 30 lentera terbang naik ke langit, kunang-kunang, kabut tipis hangat |
+| Star Path | observatorium di ujung bukit, bangku kayu di samping teleskop | debu bintang biru-putih, bintang jatuh tiap ±4,5 detik (`atmosphere.gd`, ambience *stars*) |
+| Starfall Village | lapak pasar dan untaian lentera di dekat alun-alun | asap dari cerobong tiap pondok, percik hangat, kabut tipis, bintang jatuh |
+| Eternal Garden | air mancur bertingkat, pergola wisteria, ayunan | kelopak sakura gugur dari pohonnya |
+| Moonlight Lake | bangku menghadap danau, teratai di dekat tepi | kabut tebal di atas air (0,6), kunang-kunang |
+| Gua Kristal | (tata letak gua tetap) | 48 butir debu kristal toska yang melayang |
+
+- **Lentera cerita Lantern Field.** Enam lentera yang dinyalakan pasangan di Bab 4 adalah sprite 1x
+  terakhir di map HD. `tools/lantern_unlit_u2c.py` menggambar versi padam dari `hd_lantern_post`:
+  kap kertasnya kusam tanpa halo, dan nama filenya sengaja tanpa "lantern_post" agar tidak diberi
+  cahaya oleh `world.gd`. Versi menyala sekarang `hd_lantern_post`. File 1x lama tetap ada karena
+  minigame lentera memakainya.
+- **Regenerasi.** `dream_hd.py` menghasilkan ulang map yang ter-commit secara identik (dicek di awal
+  U2c, berbeda dengan `plaza_hd.py`). Karena itu kelima map dibuat ulang dengan `--apply`. Zona
+  `clear` menggeser sebaran pohon di sekitar landmark.

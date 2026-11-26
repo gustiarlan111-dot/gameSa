@@ -43,7 +43,10 @@ THEMES = {
         lights='hd_lantern_post', light_every=230,
         ring=['hd_flowers_yellow', 'hd_grass_tall', 'hd_mushrooms_glow', 'hd_stone_lantern'],
         small=(['hd_grass_tall', 'hd_grass_tall_b', 'hd_flowers_yellow', 'hd_flowers_white', 'hd_mushrooms_glow', 'hd_fern_a'], [4, 3, 2, 2, 1, 1]),
-        specials=[('hd_bench', 1250, 720), ('hd_stone_lantern', 1180, 980), ('hd_stone_lantern', 1220, 1030)],
+        specials=[('hd_bench', 1250, 720), ('hd_stone_lantern', 1180, 980), ('hd_stone_lantern', 1220, 1030),
+                  # U2c: a lantern festival - two stalls, a string of lanterns and bunting by the middle clearing
+                  ('hd_stall_red', 1350, 960), ('hd_bunting', 1400, 860), ('hd_stall_blue', 1460, 1190), ('hd_lantern_string', 1000, 960)],
+        clear=[(1350, 920, 90), (1460, 1150, 90), (1000, 930, 100)],
         density=1.0),
     'star_path': dict(
         grass=('#1f2550', '#252c5c', '#2c3468', '#343d74', '#3d4680', '#47508c'),
@@ -52,7 +55,10 @@ THEMES = {
         lights='hd_star_stone', light_every=260,
         ring=['hd_crystal', 'hd_crystal_cyan', 'hd_star_stone', 'hd_mushrooms_glow'],
         small=(['hd_crystal_cyan', 'hd_mushrooms_glow', 'hd_flowers_white', 'hd_grass_tall_b'], [1, 4, 3, 4]),
-        specials=[('hd_carving_star', 1275, 520), ('hd_telescope', 2075, 460), ('hd_carving_moon', 475, 372)],
+        specials=[('hd_carving_star', 1275, 520), ('hd_telescope', 2075, 460), ('hd_carving_moon', 475, 372),
+                  # U2c: the path climbs to a stargazing hill - an observatory and a bench by the telescope
+                  ('hd_observatory', 2260, 380), ('hd_log_bench', 1990, 420)],
+        clear=[(2260, 300, 180), (1990, 400, 60)],
         density=0.9, stars=True),
     'starfall_village': dict(
         grass=('#2a3a5c', '#304266', '#374a70', '#3f537a', '#485c84', '#52668e'),
@@ -62,7 +68,10 @@ THEMES = {
         ring=['hd_flowers_white', 'hd_bush_a', 'hd_star_stone', 'hd_planter_violet'],
         small=(['hd_flowers_white', 'hd_flowers_violet', 'hd_bush_a', 'hd_bush_b', 'hd_mushrooms_glow', 'hd_grass_tall'], [2, 2, 2, 2, 1, 2]),
         specials=[('hd_cottage_blue', 900, 600), ('hd_cottage_red', 1520, 600), ('hd_cottage_green', 900, 1120),
-                  ('hd_well', 1200, 760), ('hd_star_stone', 1200, 1210), ('hd_mailbox', 980, 640), ('hd_crate_stack', 1600, 640)],
+                  ('hd_well', 1200, 760), ('hd_star_stone', 1200, 1210), ('hd_mailbox', 980, 640), ('hd_crate_stack', 1600, 640),
+                  # U2c: a little market by the square
+                  ('hd_stall_blue', 1360, 520), ('hd_lantern_string', 1120, 500)],
+        clear=[(1360, 480, 90), (1120, 470, 100)],
         density=0.8, stars=True),
     'eternal_garden': dict(
         grass=('#4f8f5a', '#57995f', '#5fa264', '#68ab69', '#72b46f', '#7dbd76'),
@@ -72,7 +81,10 @@ THEMES = {
         ring=['hd_flowerbed', 'hd_bush_rose', 'hd_flowers_pink', 'hd_flowers_white'],
         small=(['hd_flowers_pink', 'hd_flowers_white', 'hd_flowers_yellow', 'hd_bush_rose', 'hd_bush_a', 'hd_grass_tall'], [3, 3, 2, 2, 2, 1]),
         specials=[('hd_tree_lantern_b', 1200, 780), ('hd_gazebo', 1875, 1240), ('hd_arch', 1200, 1460), ('hd_arch', 525, 1040),
-                  ('hd_bench', 1350, 660), ('hd_bench', 1050, 790)],
+                  ('hd_bench', 1350, 660), ('hd_bench', 1050, 790),
+                  # U2c: a flower garden's centrepieces - a tiered fountain, a pergola walk and a swing
+                  ('hd_fountain_tiered', 1600, 560), ('hd_pergola', 800, 760), ('hd_swing', 1750, 880)],
+        clear=[(1600, 520, 100), (800, 700, 110), (1750, 850, 80)],
         density=1.0),
     'rain_garden': dict(
         grass=('#3a5a52', '#40625a', '#476b61', '#4f7468', '#577d70', '#608678'),
@@ -106,7 +118,10 @@ THEMES = {
         lights='hd_stone_lantern', light_every=240,
         ring=['hd_reeds', 'hd_flowers_white', 'hd_crystal_cyan', 'hd_mushrooms_glow'],
         small=(['hd_reeds', 'hd_flowers_white', 'hd_grass_tall', 'hd_fern_a', 'hd_mushrooms_glow'], [2, 2, 3, 1, 1]),
-        specials=[('hd_rowboat', 1300, 860), ('hd_pier_post', 860, 760), ('hd_pier_post', 920, 760)],
+        specials=[('hd_rowboat', 1300, 860), ('hd_pier_post', 860, 760), ('hd_pier_post', 920, 760),
+                  # U2c: a bench facing the water, water lilies near the shores
+                  ('hd_bench', 1500, 625), ('hd_lily_a', 1050, 950), ('hd_lily_b', 1090, 965), ('hd_lily_a', 1560, 940), ('hd_lily_b', 560, 780)],
+        clear=[(1500, 600, 60)],
         lakes=[(1260, 880, 430, 220), (560, 800, 200, 110)], density=0.9, stars=True),
     'memory_bridge': dict(
         grass=('#3b3a62', '#42416c', '#4a4976', '#525180', '#5b5a8a', '#646394'),

@@ -13,12 +13,19 @@ extends Node3D
 const SHEETS := [[0.08, 0.42], [0.3, 0.26], [0.62, 0.14]]       # height (m), share of the strength
 const NATURE := ["hutan_bisik", "taman_kota", "riverside", "dermaga", "bukit_bintang"]
 const SIZE := 48.0                                                # metres, square
+## U2c: dream maps with mist of their own, whatever the hour: [strength, colour]
+const DREAM := {
+	"moonlight_lake": [0.6, Color(0.7, 0.78, 0.95)],
+	"lantern_field": [0.3, Color(0.9, 0.82, 0.74)],
+	"starfall_village": [0.25, Color(0.72, 0.76, 0.92)],
+}
 
 var view
 var _mats: Array = []
 var _sheets: Array = []
 var _area := 1.0
 var _nature := false
+var _dream: Array = []
 var strength := 0.0                                               # last value (QA / fog)
 
 
@@ -27,6 +34,7 @@ func setup(v) -> WorldMist:
 	name = "Mist"
 	var id: String = v.world.current_id
 	_nature = NATURE.has(id)
+	_dream = DREAM.get(id, [])
 	_area = 0.8 if _nature else 0.5
 	var shader := preload("res://src/fx/mist.gdshader")
 	var plane := PlaneMesh.new()
@@ -81,13 +89,16 @@ func _process(_delta: float) -> void:
 		return
 	var at: Atmosphere = view.atmosphere
 	# Hutan Bisik and Bukit Bintang play with dream lighting but are real places: they get mist too
-	var off := at.indoor or (at.realm and not _nature) or at.dark_cave()
+	var off := at.indoor or (at.realm and not _nature and _dream.is_empty()) or at.dark_cave()
 	var s := 0.0 if off else strength_at(float(at.minute), at.weather) * _area
+	if not off and not _dream.is_empty():
+		s = maxf(s, float(_dream[0]))
 	strength = s
 	visible = s > 0.01
 	if not visible:
 		return
-	var c := colour_at(float(at.minute), at.weather) * Color(at.tint_mod.r, at.tint_mod.g, at.tint_mod.b).lerp(Color.WHITE, 0.75)
+	var base: Color = _dream[1] if not _dream.is_empty() else colour_at(float(at.minute), at.weather)
+	var c := base * Color(at.tint_mod.r, at.tint_mod.g, at.tint_mod.b).lerp(Color.WHITE, 0.75)
 	var focus: Vector3 = view._cam_target
 	for i in _sheets.size():
 		(_sheets[i] as MeshInstance3D).position = Vector3(focus.x, SHEETS[i][0], focus.z)    # over street level

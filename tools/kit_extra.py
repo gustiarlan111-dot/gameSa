@@ -597,7 +597,10 @@ def build(only=None, sheet=None):
         data['props'][pid] = {'image': rel, 'cw': cw, 'ch': ch, 'layer': layer}
         shots.append((pid, img))
         print(pid, img.size)
-    pj.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import extrude_u2b, propsjson                     # U2b: redrawn props get fresh 3D sides
+    extrude_u2b.refresh(data)
+    pj.write_text(propsjson.dumps(data), encoding='utf-8')
     if sheet:
         kit.sheet(shots, sheet)
 

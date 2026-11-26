@@ -1,5 +1,37 @@
 # CHANGELOG — V8.0 "The Definitive Overhaul"
 
+## Upgrade 3, bagian U2b — dunia luar 3D
+Detail teknis: `docs/WORLD3D.md` §4–7. Perbandingan sebelum/sesudah: `docs/screens/u2b/`.
+
+**Objek padat bervolume**:
+- Ada 1.768 objek di semua map luar (85 jenis, misalnya batu, tiang lampu, bangku, pagar, pot, tong,
+  peti, kios, mobil, sumur, dan air mancur).
+- Saat kamera bergeser, sisi dan permukaan atas objek terlihat lewat perspektif dan diterangi matahari.
+- Dari sudut kamera biasa, lukisannya tidak berubah.
+- Bayangannya padat.
+- Pada pot dan tiang berguci, hanya pot atau tiangnya yang bervolume; tanamannya tetap sprite.
+
+**Kabut pagi**:
+- Gumpalan kabut tanah yang hanyut, paling tebal pukul 05.00–07.00 dan hilang pukul 09.00.
+- Tipis saat senja dan malam, lebih tebal saat hujan, menipis saat berangin.
+- Terkumpul di tanah rendah; teras berada di atasnya.
+
+**Partikel 3D**:
+- Daun dan kelopak gugur dari pohon yang ada di sekitar. Kelopak merah muda dari sakura, daun oranye
+  dari pohon musim gugur.
+- Kunang-kunang bercahaya di berbagai kedalaman dari senja sampai subuh.
+- Kunang-kunang 2D datar yang dulu muncul juga di siang hari kini digantikan.
+
+**Jembatan**:
+- Jembatan papan Taman Kota punya pagar kayu di kedua sisi dan dek yang sedikit lebih tinggi.
+- Tiga jembatan kanal Plaza melengkung dan punya tiang di keempat sudutnya.
+- Pasangan berjalan naik ke jembatan.
+
+**Alat**:
+- `tools/extrude_u2b.py`, `tools/bridges_u2b.py`, dan `tools/propsjson.py` (penulis `props.json`
+  bersama).
+- `kit_extra.py` dan `artkit/registry.py` menghitung ulang sisi 3D setiap kali menggambar ulang sprite.
+
 ## Upgrade 3, bagian U2a — interior 3D
 Detail teknis: `docs/WORLD3D.md`. Perbandingan sebelum/sesudah: `docs/screens/u2a/`.
 

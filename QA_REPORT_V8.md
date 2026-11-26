@@ -1,5 +1,18 @@
 # QA REPORT — V8.0
 
+## Upgrade 3, bagian U2b — dunia luar 3D — ringkasan
+| Pemeriksaan | Hasil |
+|---|---|
+| Tes logika | **89 / 89 lulus**. Ada 10 tes baru: 85 kontur sah; sisi 3D tidak mengubah gambar dari kamera permainan (setiap titik belakang dicek terhadap alpha PNG); arah dorongan; batu dan pagar bervolume tetapi pohon dan semak tidak; pot hanya potnya; jadwal kabut; warna kabut; warna dan jumlah daun; tinggi jembatan; 14 pagar dan tiang terpasang |
+| Validator map | 0 error, 8 warning (sama dengan main) |
+| Cerita Sofia / Arland sampai tamat | `EPI_FREE` di frame 160.977 / 159.127, sama dengan main; 0 script error |
+| Sebelum/sesudah | `docs/screens/u2b/waktu_cuaca.png` (Taman Kota subuh, siang, malam; Hutan Bisik subuh), `objek_3d.png` (Jalan Kota, jembatan Plaza, Dermaga, Riverside malam), `volume_objek.png`, `jembatan.png` |
+| Ditemukan dan diperbaiki saat QA | (1) tanaman di pot dan guci terekstrusi jadi balok dan tong hijau → masker badan padat; (2) kabut pertama menutup seluruh tanah, lalu kabut jarak memudarkan seluruh layar → gumpalan saja dan kabut jarak +0,0025; (3) dither Bayer mirip semut televisi → kabut halus per sel; (4) daun terlalu sedikit untuk terlihat → 12–40 per area; (5) di Riverside kunang-kunang 3D lebih sedikit daripada versi 2D → `preprocess`, 50 ekor, terbang sampai 2 m; (6) toleransi siluet di alat ternyata ±1,25 px, bukan ±0,75 px (tertangkap tes) → diperketat |
+| Ukuran | `props.json` 96 → 194 KB (kontur). Tidak ada tekstur baru |
+| FPS | tidak bisa diukur di server. Biaya tambahan: ≤30 draw call dan ≤11 ribu segitiga per map untuk sisi 3D; 3 lembar kabut transparan saat subuh/senja/malam/hujan (disembunyikan saat kekuatan 0); 12–40 daun + 50 kunang-kunang (CPU) |
+| Catatan | `plaza_hd.py` tidak menghasilkan ulang Plaza yang ter-commit, jadi jembatan Plaza ditambal lewat data saja |
+| Belum diuji | di HP sungguhan (biaya transparansi kabut di layar penuh); kamera cutscene di atas jembatan |
+
 ## Upgrade 3, bagian U2a — interior 3D — ringkasan
 | Pemeriksaan | Hasil |
 |---|---|

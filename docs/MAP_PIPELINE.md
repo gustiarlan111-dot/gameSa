@@ -93,6 +93,13 @@ The game always draws in 3D; there is no graphics option.
   with blocked rects (red) and every quest/examine/door/spawn point (blue rings, 16-unit clearance).
   The run prints `CROWDED` when furniture sits inside that clearance and `INVALID` when a point is
   unreachable; `--apply` refuses to write while anything is invalid.
+- U2b (`docs/WORLD3D.md` §4–7):
+  - `python3 tools/extrude_u2b.py` writes the outdoor props' 3D contours (`props.json` `ext`).
+    `kit_extra.py` and `artkit/registry.py` rerun it when they redraw sprites.
+  - `python3 tools/bridges_u2b.py` adds the bridges' heights and rails. `taman_kota_hd.py` and
+    `plaza_hd.py` call it on `--apply`.
+  - Write `props.json` through `tools/propsjson.py`.
+  - Do not regenerate the Plaza with `plaza_hd.py`: it no longer reproduces the committed map.
 - U2a (`docs/WORLD3D.md`): in `ROOMS3D` rooms the painter sets `Room.dynamic_light`.
   - Unlit window glass goes to `maps.json` `windows`, and the painted sun patch is skipped.
   - `drop()` becomes a direction-free AO falloff (`Room._ao`).

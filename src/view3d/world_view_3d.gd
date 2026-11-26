@@ -44,7 +44,10 @@ const FADE3D := preload("res://src/fx/occlude_fade.gdshader")
 var _inst := {}                         # standing prop holder -> [MultiMesh, index, Transform3D, tex, img]
 var _faders := {}                       # holder -> {mesh, shadow, mat, fade, want}
 var _vols := {}                         # U2a: room piece holder -> its 3D side prism (FurnitureVolume)
+var _ext := {}                          # U2b: outdoor prop holder -> [MultiMesh, index, Transform3D] of its sides
 var reflect: WaterReflect               # V8.10 water reflections (null without water)
+var mist: WorldMist                     # U2b ground mist (null indoors)
+var particles: WorldParticles           # U2b falling leaves and fireflies (null indoors)
 
 
 func _ready() -> void:
@@ -163,7 +166,10 @@ func rebuild() -> void:
 	_mirrors.clear()
 	_rustle.clear(); _alts.clear(); _lamps.clear()
 	reflect = null
-	_inst.clear(); _faders.clear(); _vols.clear()
+	mist = null; particles = null
+	if atmosphere:
+		atmosphere.fireflies3d = false
+	_inst.clear(); _faders.clear(); _vols.clear(); _ext.clear()
 	# rooms marked room3d are built like outdoor maps: furniture and the back wall stand up as sprites
 	_indoor = bool(world.area.get("indoor", false)) and not bool(world.area.get("room3d", false))
 	_tilt = -PI / 2.0 if _indoor else TILT
@@ -172,6 +178,11 @@ func rebuild() -> void:
 	_build_lamps()
 	if bool(world.area.get("room3d", false)) and not world.area.get("windows", []).is_empty():
 		_static.add_child(RoomLight.new().setup(self))     # U2a: live sky in the windows, sunlight inside
+	if not _indoor and not bool(world.area.get("indoor", false)):
+		mist = WorldMist.new().setup(self)              # U2b: morning mist, dusk haze
+		_static.add_child(mist)
+		particles = WorldParticles.new().setup(self)    # U2b: leaves from the trees, fireflies
+		_static.add_child(particles)
 	if not _indoor:
 		var wf := WaterFx.new().setup(world)
 		if wf.active():
@@ -334,6 +345,8 @@ func _build_props() -> void:
 	_occ.clear()
 	var groups := {}                     # key -> {tex, img, standing, items: [[holder, xf]]}
 	var room3d := bool(world.area.get("room3d", false)) and not _indoor and OS.get_environment("SHOT_NOVOL") == ""
+	var extrude := not _indoor and not room3d and OS.get_environment("SHOT_NOVOL") == ""
+	var ext_groups := {}                 # U2b: prop type -> {tex, w, h, items: [[holder, xf]]}
 	var wall_y := 0.0
 	if room3d:
 		for holder in world._prop_nodes:
@@ -370,6 +383,10 @@ func _build_props() -> void:
 			if vm:
 				_static.add_child(vm)
 				_vols[holder] = vm
+		if extrude and standing and not building and PropExtrude.has(ptype) and world._sway_for(img) == null:
+			if not ext_groups.has(ptype):
+				ext_groups[ptype] = {"tex": s.texture, "w": w, "h": h, "items": []}
+			ext_groups[ptype].items.append([holder, Transform3D(Basis.IDENTITY, foot)])
 		var b := Basis(Vector3.RIGHT, 0.0) * Basis.from_scale(Vector3(w * S, h * S, 1.0)) if building else _prop_basis(w, h, standing)
 		var key := "%s|%s|%s" % [img, standing, building]
 		if not groups.has(key):
@@ -397,12 +414,41 @@ func _build_props() -> void:
 		if gr.wall:
 			mmi.layers = WALL_LAYER
 		_static.add_child(mmi)
+	for ptype in ext_groups:
+		_add_extrusions(ptype, ext_groups[ptype])
 	# only foliage needs per-frame transforms
 	var keep := {}
 	for f in world.foliage:
 		if _rustle.has(f.node):
 			keep[f.node] = _rustle[f.node]
 	_rustle = keep
+
+
+## U2b: the 3D sides of one outdoor prop type, one MultiMesh for all its instances (PropExtrude).
+func _add_extrusions(ptype: String, gr: Dictionary) -> void:
+	var mesh := PropExtrude.mesh_for(ptype, gr.w, gr.h)
+	if mesh.get_surface_count() == 0:
+		return
+	var mm := MultiMesh.new()
+	mm.transform_format = MultiMesh.TRANSFORM_3D
+	mm.mesh = mesh
+	mm.instance_count = gr.items.size()
+	var i := 0
+	for it in gr.items:
+		mm.set_instance_transform(i, it[1])
+		_ext[it[0]] = [mm, i, it[1]]
+		i += 1
+	var mmi := MultiMeshInstance3D.new()
+	mmi.multimesh = mm
+	mmi.material_override = PropExtrude.material(gr.tex)
+	mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
+	mmi.name = "Ext_" + ptype
+	_static.add_child(mmi)
+
+
+## For QA and tests: how many outdoor props have 3D sides.
+func extrusion_count() -> int:
+	return _ext.size()
 
 
 ## Shops and houses: a box behind the facade so the building has depth, side walls and a real shadow.
@@ -708,6 +754,9 @@ func _start_fade(hd: Node2D) -> void:
 	_faders[hd] = {"mesh": mi, "shadow": sh, "mat": mat, "fade": 1.0}
 	if _vols.has(hd):
 		_vols[hd].cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY
+	if _ext.has(hd):
+		var ex: Array = _ext[hd]
+		(ex[0] as MultiMesh).set_instance_transform(ex[1], Transform3D(Basis.from_scale(Vector3.ZERO), (ex[2] as Transform3D).origin))
 
 
 func _end_fade(hd: Node2D) -> void:
@@ -719,6 +768,9 @@ func _end_fade(hd: Node2D) -> void:
 	_faders.erase(hd)
 	if _vols.has(hd):
 		_vols[hd].cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
+	if _ext.has(hd):
+		var ex: Array = _ext[hd]
+		(ex[0] as MultiMesh).set_instance_transform(ex[1], ex[2])
 
 
 ## For QA and tests: how many props are faded right now.
@@ -762,7 +814,7 @@ func _update_light(delta: float) -> void:
 		sky = Color(0.008, 0.006, 0.012)
 	env.background_color = sky
 	env.fog_light_color = sky.lerp(Color(0.8, 0.85, 0.95) * tint, 0.4)
-	env.fog_density = 0.006 if rain else 0.002
+	env.fog_density = (0.006 if rain else 0.002) + (0.0025 * mist.strength if mist else 0.0)   # U2b: a little hazier with the mist
 	env.fog_enabled = not a.indoor
 	env.glow_enabled = (not day or rain or e < 0.35) and not (r3 and a.lamp_on < 0.5) and bool(_q.get("glow", true))
 	# sun by day (east in the morning, west at dusk), moon at night, a soft top light indoors

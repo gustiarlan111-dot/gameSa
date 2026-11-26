@@ -1,5 +1,16 @@
 # QA REPORT — V8.0
 
+## Upgrade 3, bagian U2c — identitas map mimpi — ringkasan
+| Pemeriksaan | Hasil |
+|---|---|
+| Tes logika | **93 / 93 lulus**. Ada 4 tes baru: landmark tiap map terpasang; preset efek; map mimpi tanpa sprite 1x dan lentera padam tidak ikut menyala; file lentera lama tetap ada untuk minigame |
+| Validator map | 0 error, **7** warning (main: 8; warning sprite 1x Lantern Field hilang) |
+| Cerita Sofia / Arland sampai tamat | `EPI_FREE` di frame 161.077 / 159.027 (U2b: 160.977 / 159.127). Urutan 118 / 115 langkah dan areanya identik; pergeseran ±100 frame berasal dari jarak jalan, karena pohon bergeser di map yang dibuat ulang. 0 script error |
+| Determinisme generator | `dream_hd.py` diuji dulu pada 3 map sebelum diubah: hasilnya identik piksel per piksel |
+| Sebelum/sesudah | `docs/screens/u2c/map_mimpi_1.png`, `map_mimpi_2.png`, `landmark.png` |
+| Ditemukan dan diperbaiki | lentera terbang mirip kunang-kunang → lebih besar dan jingga; asap cerobong tak terlihat → lebih pekat; garis abu-abu di tiang lentera padam → batas kap digeser |
+| FPS | tidak bisa diukur di server. Tambahan: 1–3 sistem partikel CPU per map (18–48 butir, asap 10 per pondok) dan 3 lembar kabut di 3 map |
+
 ## Upgrade 3, bagian U2b — dunia luar 3D — ringkasan
 | Pemeriksaan | Hasil |
 |---|---|

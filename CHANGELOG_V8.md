@@ -1,5 +1,17 @@
 # CHANGELOG — V8.0 "The Definitive Overhaul"
 
+## Upgrade 3, bagian U2c — identitas map mimpi
+Detail: `docs/WORLD3D.md` (U2c). Gambar: `docs/screens/u2c/`.
+- **Lantern Field:** festival lentera dengan lapak, bendera, untaian lentera, dan lentera terbang yang
+  naik ke langit malam. Enam lentera cerita kini HD.
+- **Star Path:** bukit pengamatan dengan observatorium di ujung jalan, bangku kayu di samping
+  teleskop, debu bintang, dan bintang jatuh.
+- **Starfall Village:** pasar kecil di dekat alun-alun dan asap dari cerobong tiap pondok.
+- **Eternal Garden:** air mancur bertingkat, pergola wisteria, ayunan, dan kelopak sakura yang gugur.
+- **Moonlight Lake:** kabut di atas air, kunang-kunang, bangku menghadap danau, dan teratai.
+- **Gua Kristal:** debu kristal yang melayang.
+- Semua unsur baru tetap masuk akal di tempat nyata, jadi tetap terpakai kalau cerita dibuat realistis.
+
 ## Upgrade 3, bagian U2b — dunia luar 3D
 Detail teknis: `docs/WORLD3D.md` §4–7. Perbandingan sebelum/sesudah: `docs/screens/u2b/`.
 

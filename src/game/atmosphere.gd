@@ -171,6 +171,20 @@ func _draw() -> void:
 			elif _sparkle:
 				var al := 0.3 + 0.6 * maxf(0, sin(time * 1.5 + i * 2))
 				draw_texture_rect(_sparkle, Rect2(pt - Vector2(3, 3), Vector2(7, 7)), false, Color(1, 0.96, 0.85, al))
+	# U2c: shooting stars over the starry maps, one every few seconds, high in the view
+	if ambient == "stars" and not rain:
+		var period := 4.5
+		var k := int(time / period)
+		var ph := fmod(time, period) / 0.7
+		if ph < 1.0:
+			var sx := L + W * (0.15 + 0.7 * fposmod(k * 0.618, 1.0))
+			var sy := T + H * (0.05 + 0.22 * fposmod(k * 0.382, 1.0))
+			var dirv := Vector2(-1.0 if k % 2 == 0 else 1.0, 0.45).normalized()
+			var head := Vector2(sx, sy) + dirv * 260.0 * ph
+			var fade := sin(ph * PI)
+			for j in 6:
+				var a := head - dirv * (j * 9.0)
+				draw_rect(Rect2(a - Vector2(1, 1), Vector2(3 - j * 0.35, 2)), Color(0.9, 0.95, 1.0, fade * (1.0 - j / 6.0)))
 	# rain: slanted streaks and splash rings near the bottom of the view
 	if rain:
 		draw_rect(v, Color(0.2, 0.26, 0.38, 0.16 if storm else 0.1))

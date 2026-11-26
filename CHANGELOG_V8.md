@@ -1,5 +1,14 @@
 # CHANGELOG — V8.0 "The Definitive Overhaul"
 
+## V8.3 (tahap 4) — karakter dari model GLB
+- Model Arland & Sofia dari user (`Arland_Sofia_Cuby_3D_V5_Free`) dirender menjadi sprite 8 arah @2x:
+  idle (12 frame), jalan (24 frame, kaki melangkah bergantian), dan 16 pose untuk cutscene.
+  Alat: `tests/charrender/render_sheets.tscn` + `tools/char_sheets.py`; panduan di `docs/CHARACTERS.md`.
+- Model tanpa rig, jadi gerak dibuat dengan rig prosedural di shader. Gestur lengan dibatasi ±22°
+  karena lengan menyatu dengan badan pada model ini (lihat docs/CHARACTERS.md).
+- Sprite lama tidak dihapus (dipakai lagi bila file @2x dihapus). GLB sumber tidak ikut APK.
+- Potret dialog masih gambar lama.
+
 ## V8.2 (tahap 3)
 Save schema tetap 8; hanya prop di tiga map mimpi yang berubah (pintu, spawn, titik quest sama).
 

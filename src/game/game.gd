@@ -86,6 +86,7 @@ func _build_ui() -> void:
 	var root := Control.new()
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST     # crisp pixel UI frames
 	_ui.add_child(root)
 	_overlay = CutsceneOverlay.new()
 	_overlay.cine = cine
@@ -104,22 +105,25 @@ func _build_ui() -> void:
 	controls.book_pressed.connect(open_book)
 	# interaction prompt (bottom centre)
 	_prompt = PanelContainer.new()
-	var pp := UiTheme.panel(UiTheme.PINK_DEEP, Color("a8456a"), 20, 2, 8)
-	pp.content_margin_left = 20; pp.content_margin_right = 20; pp.content_margin_top = 8; pp.content_margin_bottom = 9
+	var pp: StyleBoxTexture = UiTheme.button_box("accent").duplicate()
+	pp.content_margin_left = 22; pp.content_margin_right = 22; pp.content_margin_top = 9; pp.content_margin_bottom = 12
 	_prompt.add_theme_stylebox_override("panel", pp)
-	_prompt_label = UiTheme.label("", 20, Color.WHITE, "bold")
+	_prompt_label = UiTheme.label("", 20, UiTheme.TEXT, "pixel")
+	_prompt_label.add_theme_color_override("font_outline_color", UiTheme.EDGE)
+	_prompt_label.add_theme_constant_override("outline_size", 5)
 	_prompt.add_child(_prompt_label)
 	_prompt.visible = false
 	root.add_child(_prompt)
 	# toast
-	_toast = UiTheme.label("", 21, UiTheme.CREAM, "bold")
+	_toast = UiTheme.label("", 21, UiTheme.TEXT, "pixel")
 	_toast.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_toast.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.6))
 	_toast.add_theme_constant_override("shadow_offset_y", 2)
 	_toast.add_theme_constant_override("shadow_outline_size", 6)
 	_toast.set_anchors_preset(Control.PRESET_CENTER_TOP)
-	var tst := UiTheme.panel(Color(0.16, 0.12, 0.2, 0.78), Color(1, 1, 1, 0.25), 14, 2, 0)
-	tst.content_margin_left = 18; tst.content_margin_right = 18; tst.content_margin_top = 6; tst.content_margin_bottom = 7
+	var tst: StyleBoxTexture = UiTheme.button_box("plain").duplicate()
+	tst.modulate_color = Color(1, 1, 1, 0.92)
+	tst.content_margin_left = 20; tst.content_margin_right = 20; tst.content_margin_top = 8; tst.content_margin_bottom = 11
 	_toast.add_theme_stylebox_override("normal", tst)
 	root.add_child(_toast)
 	# dialogue
@@ -190,6 +194,7 @@ func _process(delta: float) -> void:
 	world.input_vec = controls.vec if not busy else Vector2.ZERO
 	world.sprint_held = controls.sprint
 	controls.visible = not cine.letterboxed()
+	controls.set_talking(dialog.active)    # tapping the box advances; no stick/buttons over the text
 	Audio.duck(dialog.active or cine.active)
 	_update_atmosphere()
 	sync_clock_to_step()
@@ -826,7 +831,7 @@ func _fade_through(mid: Callable, end: Callable) -> void:
 func _show_card(title: String, sub: String, done: Callable) -> void:
 	for c in _card.get_children():
 		c.queue_free()
-	var bg := ColorRect.new(); bg.color = Color(UiTheme.BG, 0.94); bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	var bg := ColorRect.new(); bg.color = Color(0.07, 0.05, 0.12, 0.95); bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_card.add_child(bg)
 	var center := CenterContainer.new()
 	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -834,13 +839,15 @@ func _show_card(title: String, sub: String, done: Callable) -> void:
 	var box := VBoxContainer.new()
 	box.alignment = BoxContainer.ALIGNMENT_CENTER
 	box.add_theme_constant_override("separation", 14)
-	var t := UiTheme.label(title, 46, UiTheme.CREAM, "title")
+	var t := UiTheme.label(title, 52, UiTheme.TEXT, "title")
 	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	var line_r := ColorRect.new(); line_r.color = Color(UiTheme.GOLD, 0.7); line_r.custom_minimum_size = Vector2(220, 2)
+	t.add_theme_color_override("font_outline_color", UiTheme.EDGE)
+	t.add_theme_constant_override("outline_size", 9)
+	var line_r := UiTheme.divider(300)
 	line_r.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	var s := UiTheme.label(sub, 22, UiTheme.GOLD, "body")
+	var s := UiTheme.label(sub, 24, UiTheme.GILD, "pixel_soft")
 	s.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	var hint := UiTheme.label("Ketuk untuk lanjut", 16, Color(UiTheme.LAVENDER, 0.85), "body")
+	var hint := UiTheme.label("Ketuk untuk lanjut", 16, Color(UiTheme.TEXT_DIM, 0.95), "pixel_soft")
 	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	for c in [t, line_r, s, hint]:
 		box.add_child(c)

@@ -94,21 +94,21 @@ func _unhandled_key_input(e: InputEvent) -> void:
 
 
 func _draw() -> void:
-	draw_rect(Rect2(Vector2.ZERO, size), Color(UiTheme.BG, 0.73))
+	draw_rect(Rect2(Vector2.ZERO, size), Color(0.05, 0.03, 0.1, 0.66))
 	var p := _panel
-	UiTheme.panel(Color("2f2545"), Color("57476f"), 22, 3, 10).draw(get_canvas_item(), p)
-	UiTheme.draw_text(self, str(_shop.get("title", "")), p.position.x + 27, p.position.y + 18, 28, UiTheme.CREAM, "left", 0, "title")
-	UiTheme.draw_text(self, "Penjual: %s    •    Saldo: %d koin" % [_shop.get("keeper", ""), engine.p.coins], p.position.x + 30, p.position.y + 84, 20, UiTheme.GOLD)
+	UiTheme.window().draw(get_canvas_item(), p)
+	UiTheme.draw_text(self, str(_shop.get("title", "")), p.position.x + 30, p.position.y + 20, 30, UiTheme.GILD, "left", 0, "title", 6)
+	UiTheme.draw_text(self, "Penjual: %s    •    Saldo: %d koin" % [_shop.get("keeper", ""), engine.p.coins], p.position.x + 32, p.position.y + 84, 20, UiTheme.TEXT_SOFT)
 	var goods: Array = _shop.get("goods", [])
 	for i in goods.size():
 		var g: Dictionary = goods[i]
 		var top := p.position.y + 138 + i * _gap()    # row panel: Java (yy - 10, 84) with yy = y + h - 171 - i*gap
 		var row := Rect2(p.position.x + 24, top, p.size.x - 48, 84)
-		UiTheme.panel(Color(1, 0.975, 0.965), Color("d9c6e0"), 14, 2, 0).draw(get_canvas_item(), row)
-		draw_circle(row.position + Vector2(39, 44), 30, Color("f3e6ef"))
+		UiTheme.button_box("inset").draw(get_canvas_item(), row)
+		draw_circle(row.position + Vector2(39, 42), 30, Color(UiTheme.WIN_TOP, 0.9))
 		var t := Data.tex(_icon(g.item))
 		if t:
 			draw_texture_rect(t, Rect2(row.position.x + 13, row.position.y + 18, 52, 52), false)
-		UiTheme.draw_text(self, "%s — %d koin" % [g.name, int(g.price)], row.position.x + 78, row.position.y + 12, 22, UiTheme.INK, "left", p.size.x - 340, "bold")
-		UiTheme.draw_text(self, str(g.get("desc", "")), row.position.x + 78, row.position.y + 44, 17, UiTheme.INK_SOFT, "left", p.size.x - 350)
-	UiTheme.draw_text(self, _status, p.position.x + 28, p.position.y + p.size.y - 44, 18, UiTheme.GOLD, "left", p.size.x - 50)
+		UiTheme.draw_text(self, "%s — %d koin" % [g.name, int(g.price)], row.position.x + 78, row.position.y + 12, 22, UiTheme.TEXT, "left", p.size.x - 340, "pixel")
+		UiTheme.draw_text(self, str(g.get("desc", "")), row.position.x + 78, row.position.y + 44, 17, UiTheme.TEXT_SOFT, "left", p.size.x - 350)
+	UiTheme.draw_text(self, _status, p.position.x + 28, p.position.y + p.size.y - 46, 18, UiTheme.GILD, "left", p.size.x - 50)

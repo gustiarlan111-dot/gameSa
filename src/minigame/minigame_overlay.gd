@@ -17,6 +17,7 @@ var ph := 0.0
 
 
 func _ready() -> void:
+	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS   # board art keeps its smooth scaling
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	visible = false
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -110,7 +111,7 @@ func _draw() -> void:
 		return
 	var H := size.y
 	draw_rect(Rect2(Vector2.ZERO, size), Color(UiTheme.BG, 0.7))
-	UiTheme.panel(Color("2f2545"), Color("57476f"), 22, 3, 10).draw(get_canvas_item(), Rect2(px, H - py - ph, pw, ph))
+	UiTheme.window().draw(get_canvas_item(), Rect2(px, H - py - ph, pw, ph))
 	game.canvas = self
 	game.text(_title, px + 28, py + ph - 24, UiTheme.CREAM, 0.55, "left", 0, "title")
 	game.text(_desc, px + 28, py + ph - 84, UiTheme.LAVENDER, 0.75, "left", pw - 220)

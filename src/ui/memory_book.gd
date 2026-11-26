@@ -32,8 +32,9 @@ func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	visible = false
 	mouse_filter = Control.MOUSE_FILTER_STOP
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	for i in TABS.size():
-		var b := UiTheme.button(TABS[i], 19)
+		var b := UiTheme.button(TABS[i], 17)
 		b.pressed.connect(func(): tab = i; page = 0; _rebuild())
 		add_child(b)
 		_tabs.append(b)
@@ -199,19 +200,19 @@ func _build_confirm() -> void:
 	_confirm.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_confirm.visible = false
 	add_child(_confirm)
-	var dim := ColorRect.new(); dim.color = Color(UiTheme.BG, 0.55); dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	var dim := ColorRect.new(); dim.color = Color(0.05, 0.03, 0.1, 0.55); dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_confirm.add_child(dim)
 	var center := CenterContainer.new(); center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_confirm.add_child(center)
-	var pc := PanelContainer.new()
-	var st := UiTheme.panel()
-	st.content_margin_left = 30; st.content_margin_right = 30; st.content_margin_top = 24; st.content_margin_bottom = 24
-	pc.add_theme_stylebox_override("panel", st)
+	var pc := UiTheme.window_panel(Vector4(34, 28, 34, 28), Color.WHITE, 1.0)
 	center.add_child(pc)
 	var v := VBoxContainer.new(); v.add_theme_constant_override("separation", 14)
 	pc.add_child(v)
-	v.add_child(UiTheme.label("Main ulang?", 28, UiTheme.INK, "title"))
-	var t := UiTheme.label("", 19, UiTheme.INK_SOFT)
+	var head := UiTheme.label("Main ulang?", 30, UiTheme.GILD, "title")
+	head.add_theme_color_override("font_outline_color", UiTheme.EDGE)
+	head.add_theme_constant_override("outline_size", 6)
+	v.add_child(head)
+	var t := UiTheme.label("", 19, UiTheme.TEXT)
 	_confirm_text = t
 	t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	t.custom_minimum_size = Vector2(480, 0)
@@ -219,9 +220,11 @@ func _build_confirm() -> void:
 	var row := HBoxContainer.new(); row.alignment = BoxContainer.ALIGNMENT_END; row.add_theme_constant_override("separation", 12)
 	v.add_child(row)
 	var no := UiTheme.button("Batal", 20)
+	no.custom_minimum_size = Vector2(130, 52)
 	no.pressed.connect(func(): _confirm.visible = false)
 	row.add_child(no)
 	var yes := UiTheme.button("Main ulang", 20, true)
+	yes.custom_minimum_size = Vector2(160, 52)
 	yes.pressed.connect(func():
 		_confirm.visible = false
 		var ch := _confirm_ch
@@ -260,12 +263,7 @@ func _set_accent(b: Button, on: bool) -> void:
 	if _accent_cache.get(b) == on:
 		return
 	_accent_cache[b] = on
-	var fresh := UiTheme.button(b.text, 19, on)
-	for s in ["normal", "hover", "pressed", "focus"]:
-		b.add_theme_stylebox_override(s, fresh.get_theme_stylebox(s))
-	for c in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
-		b.add_theme_color_override(c, fresh.get_theme_color(c))
-	fresh.free()
+	UiTheme.style_button(b, on)
 
 
 func _unhandled_key_input(e: InputEvent) -> void:
@@ -280,12 +278,13 @@ func _unhandled_key_input(e: InputEvent) -> void:
 func _draw() -> void:
 	if p == null:
 		return
-	draw_rect(Rect2(Vector2.ZERO, size), Color(UiTheme.BG, 0.6))
+	draw_rect(Rect2(Vector2.ZERO, size), Color(0.05, 0.03, 0.1, 0.6))
 	var pr := _panel
 	var o := pr.position
-	UiTheme.panel().draw(get_canvas_item(), pr)
-	UiTheme.draw_text(self, "Our Memory Book", o.x + 30, o.y + 16, 28, UiTheme.INK, "left", 0, "title")
-	UiTheme.draw_text(self, _subtitle(), o.x + pr.size.x - 540, o.y + 24, 17, UiTheme.INK_SOFT, "right", 510)
+	UiTheme.window().draw(get_canvas_item(), pr)
+	UiTheme.draw_text(self, "Our Memory Book", o.x + 32, o.y + 16, 32, UiTheme.GILD, "left", 0, "title", 7)
+	UiTheme.draw_text(self, _subtitle(), o.x + pr.size.x - 560, o.y + 26, 17, UiTheme.TEXT_SOFT, "right", 524)
+	draw_rect(Rect2(o.x + 24, o.y + 122, pr.size.x - 48, UiTheme.PX), Color(UiTheme.WIN_LINE, 0.9))
 	var left := o.x + 30
 	var top := o.y + 128
 	if tab == 2:
@@ -298,23 +297,22 @@ func _draw() -> void:
 		var c: Array = _cells[i]
 		_entry(Rect2(left + (k % 2) * (cw + 20), top + (k / 2) * (chh + 12), cw, chh), c[0], c[1], c[2], c[3])
 	if _pages > 1:
-		UiTheme.draw_text(self, "Hal. %d/%d" % [page + 1, _pages], o.x + 30, o.y + pr.size.y - 56, 19, UiTheme.INK_SOFT)
+		UiTheme.draw_text(self, "Hal. %d/%d" % [page + 1, _pages], o.x + 32, o.y + pr.size.y - 58, 19, UiTheme.TEXT_SOFT, "left", 0, "pixel")
 
 
 ## state 0 = locked, 1 = other side, 2 = open.
 func _entry(r: Rect2, icon, title: String, text: String, state: int) -> void:
-	var bg := Color(0.92, 0.9, 0.93) if state == 0 else (Color(1, 0.94, 1) if state == 1 else Color(1, 0.97, 1))
-	draw_rect(r, bg)
-	draw_rect(Rect2(r.position, Vector2(6, r.size.y)), UiTheme.PINK if state == 2 else (UiTheme.LAVENDER if state == 1 else UiTheme.INK_SOFT))
-	var tx := r.position.x + 20
+	UiTheme.button_box("inset").draw(get_canvas_item(), r)
+	_gem(r, UiTheme.GEM if state == 2 else (UiTheme.SKY if state == 1 else UiTheme.TEXT_DIM))
+	var tx := r.position.x + 34
 	var t: Texture2D = Data.tex(str(icon)) if icon != null and str(icon) != "" else null
 	if t:
-		draw_texture_rect(t, Rect2(r.position.x + 18, r.position.y + (r.size.y - 64) / 2, 64, 64), false)
-		tx = r.position.x + 96
+		draw_texture_rect(t, Rect2(r.position.x + 30, r.position.y + (r.size.y - 64) / 2, 64, 64), false)
+		tx = r.position.x + 106
 	var tw := r.position.x + r.size.x - tx - 14
-	UiTheme.draw_text(self, title, tx, r.position.y + 12, 20, UiTheme.INK_SOFT if state == 0 else UiTheme.INK, "left", 0, "bold")
+	UiTheme.draw_text(self, _fit(title, tw, 20), tx, r.position.y + 12, 20, UiTheme.TEXT_DIM if state == 0 else UiTheme.TEXT, "left", 0, "pixel")
 	var f := UiTheme.font("body")
-	draw_multiline_string(f, Vector2(tx, r.position.y + 46 + f.get_ascent(16) * 0.82), text, HORIZONTAL_ALIGNMENT_LEFT, tw, 16, 3, UiTheme.INK_SOFT)
+	draw_multiline_string(f, Vector2(tx, r.position.y + 46 + f.get_ascent(16) * 0.82), text, HORIZONTAL_ALIGNMENT_LEFT, tw, 16, 3, UiTheme.TEXT_SOFT if state != 0 else UiTheme.TEXT_DIM)
 
 
 func _draw_chapters(left: float, top: float) -> void:
@@ -325,10 +323,32 @@ func _draw_chapters(left: float, top: float) -> void:
 		var r := Rect2(left + (i / 4) * col_w, top + (i % 4) * 104, col_w - 12, 94)
 		var done := p.chapters.has(ch)
 		var playing := now == ch and not done
-		draw_rect(r, Color(1, 0.97, 1))
-		draw_rect(Rect2(r.position, Vector2(6, r.size.y)), UiTheme.PINK if done else (UiTheme.LAVENDER if playing else UiTheme.INK_SOFT))
+		UiTheme.button_box("inset").draw(get_canvas_item(), r)
+		_gem(r, UiTheme.GEM if done else (UiTheme.GILD if playing else UiTheme.TEXT_DIM))
 		var has_btn: bool = _replay_btns[i].visible
-		UiTheme.draw_text(self, Data.chapter_title(ch), r.position.x + 18, r.position.y + 12, 17, UiTheme.INK, "left", col_w - (250 if has_btn else 50), "bold")
-		UiTheme.draw_text(self, "✓ Tamat" if done else ("Sedang dimainkan" if playing else "Belum dibuka"), r.position.x + 18, r.position.y + 64, 16, UiTheme.PINK_DEEP if done else UiTheme.INK_SOFT)
+		UiTheme.draw_text(self, Data.chapter_title(ch), r.position.x + 32, r.position.y + 12, 17, UiTheme.TEXT if done or playing else UiTheme.TEXT_DIM, "left", col_w - (260 if has_btn else 60), "bold")
+		UiTheme.draw_text(self, "✓ Tamat" if done else ("Sedang dimainkan" if playing else "Belum dibuka"), r.position.x + 32, r.position.y + 62, 16, UiTheme.GEM if done else (UiTheme.GILD if playing else UiTheme.TEXT_DIM), "left", 0, "pixel_soft")
 	UiTheme.draw_text(self, "Main ulang memakai salinan progres di awal chapter: progres utama dan save-mu tidak berubah.",
-		left, _panel.position.y + _panel.size.y - 58, 16, UiTheme.INK_SOFT, "left", _panel.size.x - 300)
+		left, _panel.position.y + _panel.size.y - 58, 16, UiTheme.TEXT_SOFT, "left", _panel.size.x - 300)
+
+
+## Pixel gem on the left edge of an entry card (rose = open, blue = other side, grey = locked).
+func _gem(r: Rect2, c: Color) -> void:
+	var p := float(UiTheme.PX)
+	var cx := r.position.x + p * 5
+	var cy := r.position.y + r.size.y / 2
+	draw_rect(Rect2(cx - p, cy - p * 2, p * 3, p * 5), UiTheme.EDGE)
+	draw_rect(Rect2(cx - p * 2, cy - p, p * 5, p * 3), UiTheme.EDGE)
+	draw_rect(Rect2(cx, cy - p, p, p * 3), c)
+	draw_rect(Rect2(cx - p, cy, p * 3, p), c)
+	draw_rect(Rect2(cx, cy - p, p, p), c.lightened(0.45))
+
+
+## Shortens a one-line title with an ellipsis so it never runs past its card.
+func _fit(t: String, w: float, fs: int) -> String:
+	var f := UiTheme.font("pixel")
+	if f.get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x <= w:
+		return t
+	while t.length() > 1 and f.get_string_size(t + "…", HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x > w:
+		t = t.left(-1)
+	return t.strip_edges() + "…"

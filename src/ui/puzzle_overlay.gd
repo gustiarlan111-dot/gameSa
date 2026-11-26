@@ -126,22 +126,22 @@ func _unhandled_key_input(e: InputEvent) -> void:
 
 
 func _draw() -> void:
-	draw_rect(Rect2(Vector2.ZERO, size), Color(UiTheme.BG, 0.6))
+	draw_rect(Rect2(Vector2.ZERO, size), Color(0.05, 0.03, 0.1, 0.6))
 	var p := _panel
-	UiTheme.panel().draw(get_canvas_item(), p)
-	UiTheme.draw_text(self, str(_pz.get("title", "Puzzle")), p.position.x + 36, p.position.y + 26, 30, UiTheme.INK, "left", 0, "title")
-	UiTheme.draw_text(self, "Susun tiga simbol di meja sesuai urutan petunjukmu.", p.position.x + 36, p.position.y + 82, 20, UiTheme.INK_SOFT, "left", p.size.x - 72)
+	UiTheme.window().draw(get_canvas_item(), p)
+	UiTheme.draw_text(self, str(_pz.get("title", "Puzzle")), p.position.x + 36, p.position.y + 26, 30, UiTheme.GILD, "left", 0, "title", 6)
+	UiTheme.draw_text(self, "Susun tiga simbol di meja sesuai urutan petunjukmu.", p.position.x + 36, p.position.y + 82, 20, UiTheme.TEXT_SOFT, "left", p.size.x - 72)
 	var slot := 96.0
 	var gap := 34.0
 	var x0 := p.position.x + (p.size.x - (slot * 3 + gap * 2)) / 2
 	var sy := p.position.y + 154
 	for i in _order.size():
 		var r := Rect2(x0 + i * (slot + gap), sy, slot, slot)
-		UiTheme.panel(Color("3a2e52"), Color("57476f"), 14, 2, 0).draw(get_canvas_item(), r)
+		UiTheme.button_box("inset").draw(get_canvas_item(), r)
 		if i < _entered.size():
 			draw_texture_rect(Data.tex(icon_path(_entered[i])), r.grow(-12), false)
 		else:
-			UiTheme.draw_text(self, str(i + 1), r.position.x, r.position.y + 30, 26, UiTheme.CREAM, "center", slot)
-	UiTheme.draw_text(self, _msg, p.position.x + 30, p.position.y + 268, 20, UiTheme.INK, "center", p.size.x - 60)
+			UiTheme.draw_text(self, str(i + 1), r.position.x, r.position.y + 30, 26, UiTheme.TEXT_DIM, "center", slot, "pixel")
+	UiTheme.draw_text(self, _msg, p.position.x + 30, p.position.y + 268, 20, UiTheme.TEXT, "center", p.size.x - 60)
 	if hint_visible() and _has_hint:
-		UiTheme.draw_text(self, "Petunjuk mural: " + " → ".join(_order), p.position.x + 30, p.position.y + 300, 20, UiTheme.PINK_DEEP, "center", p.size.x - 60)
+		UiTheme.draw_text(self, "Petunjuk mural: " + " → ".join(_order), p.position.x + 30, p.position.y + 300, 20, UiTheme.GEM, "center", p.size.x - 60)

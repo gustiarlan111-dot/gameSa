@@ -9,12 +9,16 @@ var _cache := {}
 var _bus := {}            # "music"/"ambience" -> {id, active, outgoing, in, out, env}
 var _duck := false
 var _duck_level := 1.0
+var area_sound: AreaSound      # layered per-area soundscape (beds, random spots, positional loops)
 
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	for name in ["music", "ambience"]:
 		_bus[name] = {"id": "", "active": null, "outgoing": null, "in": 0.0, "out": 0.0, "env": name == "ambience"}
+	area_sound = AreaSound.new()
+	area_sound.name = "AreaSound"
+	add_child(area_sound)
 
 
 func _stream(paths: Array) -> AudioStream:
@@ -44,7 +48,24 @@ func current_music() -> String:
 
 
 func current_ambience() -> String:
-	return _bus.ambience.id
+	return _bus.ambience.id if _bus.ambience.id != "" else area_sound.current()
+
+
+## Per-area soundscape: area = the maps.json dictionary of the area the player is in.
+func area(id: String, a: Dictionary, weather: String, minute: int) -> void:
+	if area_sound.has_area(id):
+		ambience("")
+		area_sound.sync(id, a, weather, minute)
+	else:
+		area_sound.stop_all()
+
+
+func listen(pos: Vector2) -> void:
+	area_sound.listener = pos
+
+
+func area_stop() -> void:
+	area_sound.stop_all()
 
 
 func duck(speech: bool) -> void:
@@ -85,6 +106,7 @@ func _process(dt: float) -> void:
 	_duck_level += ((0.62 if _duck else 1.0) - _duck_level) * minf(1.0, dt * 3.0)
 	_advance(_bus.music, dt, music_volume * _duck_level)
 	_advance(_bus.ambience, dt, ambience_volume * 0.55 * (0.8 + 0.2 * _duck_level))
+	area_sound.level = ambience_volume * (0.75 + 0.25 * _duck_level)
 
 
 func _advance(b: Dictionary, dt: float, level: float) -> void:

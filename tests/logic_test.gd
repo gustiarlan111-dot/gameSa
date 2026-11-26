@@ -172,5 +172,33 @@ func _ready() -> void:
 		and Soundscape.music_for("plaza", "town", "cerah", false, 17 * 60) == "city_evening" and Soundscape.music_for("cafe", "cafe", "rain", true, 600, "cinema_quiet") == "cinema_quiet", "musik per tempat, cuaca, jam, dan override cerita")
 	ok(Soundscape.ambience_for("cafe", "rain", true, 600) == "rain_window" and Soundscape.ambience_for("taman_kota", "cerah", false, 21 * 60) == "night_crickets"
 		and Soundscape.ambience_for("sofia_room", "cerah", true, 600) == "" and Soundscape.footstep_for("cafe") == "step_wood", "ambience dan langkah kaki")
+	# 15. layered area soundscape (assets/audio/area_sound.json)
+	var snd_cfg = JSON.parse_string(FileAccess.get_file_as_string("res://assets/audio/area_sound.json"))
+	var snd_miss := []
+	for snd_aid in Data.maps:
+		var snd_prof: Dictionary = snd_cfg.areas.get(snd_aid, {})
+		if snd_prof.get("layers", []).is_empty():
+			snd_miss.append(snd_aid + ":tanpa lapisan")
+		for snd_l in snd_prof.get("layers", []):
+			if not ResourceLoader.exists("res://assets/audio/amb/%s.ogg" % snd_l.id): snd_miss.append(snd_l.id)
+		for snd_sp in snd_prof.get("spots", []):
+			for snd_v in int(snd_cfg.spot_variants):
+				if not ResourceLoader.exists("res://assets/audio/spots/%s_%d.ogg" % [snd_sp.id, snd_v + 1]): snd_miss.append(snd_sp.id)
+		for snd_k in ["flow", "lake"]:
+			if snd_prof.has(snd_k) and not ResourceLoader.exists("res://assets/audio/amb/%s.ogg" % snd_prof[snd_k].id): snd_miss.append(snd_prof[snd_k].id)
+		if not snd_cfg.reverb.has(str(snd_prof.get("reverb", ""))): snd_miss.append(snd_aid + ":gema")
+	for snd_e in snd_cfg.emitters.values():
+		if not ResourceLoader.exists("res://assets/audio/amb/%s.ogg" % snd_e.id): snd_miss.append(snd_e.id)
+	ok(snd_miss.is_empty(), "semua %d area punya suara berlapis & semua file ada %s" % [Data.maps.size(), snd_miss])
+	var snd_day := AreaSound.layer_targets(snd_cfg.areas.plaza, AreaSound.tokens_for("cerah", 10 * 60))
+	var snd_night := AreaSound.layer_targets(snd_cfg.areas.plaza, AreaSound.tokens_for("cerah", 22 * 60))
+	var snd_wet := AreaSound.layer_targets(snd_cfg.areas.hutan_bisik, AreaSound.tokens_for("hujan", 10 * 60))
+	ok(snd_day.has("birds_town") and not snd_day.has("crickets") and snd_night.has("crickets") and not snd_night.has("birds_town") and snd_night.city_crowd < snd_day.city_crowd
+		and snd_wet.has("rain_leaves") and not snd_wet.has("birds_forest") and AreaSound.tokens_for("berangin", 600).wind, "lapisan suara ikut jam & cuaca")
+	var snd_em := {"points": [[Vector2(100, 100), 400.0, 1.0]], "rects": [[Rect2(0, 900, 1000, 100), 300.0, 0.8]]}
+	ok(AreaSound.emitter_gain(snd_em, Vector2(120, 100)).x > AreaSound.emitter_gain(snd_em, Vector2(400, 100)).x and AreaSound.emitter_gain(snd_em, Vector2(500, 500)).x == 0.0
+		and AreaSound.emitter_gain(snd_em, Vector2(500, 950)).x > 0.7, "air mancur/sungai makin keras saat didekati")
+	ok(Soundscape.music_for("dermaga", "town", "cerah", false, 600) == "harbor_day" and Soundscape.music_for("rumah_sari", "home_evening", "cerah", true, 600) == "grandma_house"
+		and ResourceLoader.exists("res://assets/audio/music/street_stroll.ogg") and ResourceLoader.exists("res://assets/audio/music/gallery_light.ogg"), "lagu baru per area")
 	print("%s: %d pemeriksaan, %d gagal" % ["SEMUA LULUS" if fails == 0 else "ADA YANG GAGAL", checks, fails])
 	get_tree().quit(1 if fails > 0 else 0)

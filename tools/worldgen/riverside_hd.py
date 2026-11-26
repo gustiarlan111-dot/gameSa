@@ -2,7 +2,12 @@
 lake with depth ramp, foam and lilies, stone promenade with iron railings, wooden viewing deck and
 fishing pier, sandy west beach with a pulled-up boat, islet, fishing hut on the east shore, meadow
 paths to the plaza and dermaga through a dense mixed wood. Same size, doors, examine spot and quest
-points as before.  Usage: python3 tools/worldgen/riverside_hd.py [--preview OUT.png] [--apply]
+points as before.
+
+V8.9: the wood and meadow sit on a terrace (e=34, assets/data/elevation.json) behind a stone retaining
+wall along the north edge of the promenade: a grand staircase down to the viewing deck, a west stair
+where the beach path comes down, an east stair by the benches; railing along the top.
+Usage: python3 tools/worldgen/riverside_hd.py [--preview OUT.png] [--apply]
 """
 import sys, json, hashlib
 from pathlib import Path
@@ -14,10 +19,20 @@ from hdmap import HDMap, K, GRASS, PATH, STONE, WATER, DECK, SAND, A   # noqa: E
 from paint import rgb, wear, moss                                     # noqa: E402
 from ground import dist_from, noise                                   # noqa: E402
 import common                                                         # noqa: E402
+from terrace import Terrace, write_elevation                          # noqa: E402
 
 AREA, W, H = 'riverside', 2400, 1360
 SEED = int(hashlib.sha256(b'riverside_hd').hexdigest()[:8], 16)
-PROM_TOP = 790
+PROM_TOP = 786
+FACE_Y, FACE_H, FACE_X1 = 752, 34, 2260       # terrace wall along the promenade (x 0..FACE_X1)
+STAIRS_X = [(276, 60), (1000, 312), (1872, 60)]   # beach path, grand stair to the deck, east stair
+TER = Terrace()
+ELEVATION = [
+    {'id': 'wood_terrace', 'kind': 'plateau', 'rect': [0, 0, FACE_X1, FACE_Y], 'e': FACE_H},
+    {'id': 'prom_wall', 'kind': 'slope', 'rect': [0, FACE_Y, FACE_X1, FACE_H], 'axis': 'y', 'from': FACE_H, 'to': 0},
+    {'id': 'east_ramp', 'kind': 'slope', 'rect': [FACE_X1, 0, 120, FACE_Y + FACE_H], 'axis': 'x', 'from': FACE_H, 'to': 0},
+] + [{'id': 'st%d' % i, 'kind': 'slope', 'rect': [x, FACE_Y, w, FACE_H], 'axis': 'y', 'from': FACE_H, 'to': 0, 'stairs': True}
+     for i, (x, w) in enumerate(STAIRS_X)]
 DECK_R = (1184, 880, 544, 120)
 PIER = (1490, 1000, 70, 110)
 HUT_JETTY = (2196, 890, 64, 96)
@@ -121,6 +136,10 @@ def design(m):
             c.img[y:y + 2, x:x + 2] = rgb(('#fbf6ec', '#f7c9d9', '#f4d870', '#c4b2f2')[rng.integers(0, 4)])
     edge = np.minimum.reduce([c.xx, c.yy, c.w - 1 - c.xx, c.h - 1 - c.yy])
     c.img[edge < 10] *= 0.86
+    TER.__init__()
+    TER.run(m, c, 0, FACE_X1, FACE_Y, FACE_H, STAIRS_X, 60)
+    # east end of the wall: a short return so the wall does not just stop in the grass
+    c.put(m.rect(FACE_X1 - 6, FACE_Y - 7, 8, FACE_H + 7), c.bricks(('#8d877b', '#999285'), 20, 14, '#5f5a51', salt=61), STONE)
     return water
 
 
@@ -139,15 +158,27 @@ def furnish(m, P, water):
     # east shore: fishing hut + jetty
     pr('hd_fishing_hut', 2230, 884); pr('hd_crate', 2150, 880); pr('hd_barrel', 2306, 870); pr('hd_pier_post', 2198, 984); pr('hd_pier_post', 2258, 984)
     # promenade: benches facing the lake, lamps, railings at the water edge
-    for x, y in ((700, 786), (980, 786), (1190, 782), (1620, 786), (1880, 786)):
+    for x, y in ((700, 812), (900, 812), (1420, 812), (1660, 812), (2040, 812)):
         pr('hd_bench', x, y)
+    # top of the terrace wall: iron railing with stone urn piers at the grand staircase
+    xa = 20
+    for sx, sw in STAIRS_X + [(FACE_X1 + 14, 0)]:
+        xb = sx - 12
+        n = max(1, int(round((xb - xa) / 96)))
+        for k in range(n):
+            pr('hd_railing_iron', xa + (xb - xa) * (k + 0.5) / n, FACE_Y)
+        xa = sx + sw + 12
+    for x in (STAIRS_X[1][0] - 14, STAIRS_X[1][0] + STAIRS_X[1][1] + 14):
+        pr('hd_balustrade_post', x, FACE_Y + 1)
+    for x in (STAIRS_X[1][0] + 30, STAIRS_X[1][0] + STAIRS_X[1][1] - 30):
+        pr('hd_stair_planter', x, FACE_Y + FACE_H + 40)
     for x in range(600, 2300, 230):
         pr('hd_lamp_gold', x, 800)
     for x in list(range(570, 1080, 100)) + list(range(1782, 2140, 100)):
         pr('hd_railing_iron', x, int(shore(x)) + 6)
     pr('hd_signpost_lake', 1260, 150); pr('hd_signpost', 2290, 700)
-    pr('hd_picnic', 260, 330); pr('hd_bin', 1260, 790); pr('hd_bin', 2060, 792)
-    pr('hd_flowerbed', 840, 792); pr('hd_flowerbed', 1420, 792); pr('hd_flowerbed', 1760, 792)
+    pr('hd_picnic', 260, 330); pr('hd_bin', 1340, 812); pr('hd_bin', 2090, 812)
+    pr('hd_flowerbed', 800, 806); pr('hd_flowerbed', 1540, 806); pr('hd_flowerbed', 1780, 806)
     # islet
     pr('hd_tree_willow', 580, 1196); pr('hd_tree_pine_a', 640, 1186); pr('hd_bush_berry', 545, 1212); pr('hd_reeds', 690, 1214)
     # shoreline reeds and lilies
@@ -168,7 +199,7 @@ def furnish(m, P, water):
     m.scatter(trees, [4, 4, 3, 3, 3, 2, 2, 2, 2, 2, 2, 1], 130, (20, 180, 2360, 560), blocked, 30, P)
     m.scatter(['hd_tree_willow', 'hd_tree_cherry_a', 'hd_tree_cherry_b'], [2, 1, 1], 14, (20, 700, 520, 140), blocked, 26, P)
     m.scatter(['hd_bush_a', 'hd_bush_b', 'hd_bush_berry', 'hd_bush_rose', 'hd_bush_yellow'], [3, 3, 1, 1, 1], 150, (20, 30, 2360, 760), blocked, 14, P)
-    m.scatter(['hd_flowers_pink', 'hd_flowers_yellow', 'hd_flowers_violet', 'hd_flowers_white'], [1, 1, 1, 1], 220, (20, 30, 2360, 760), blocked, 8, P)
+    m.scatter(['hd_flowers_pink', 'hd_flowers_yellow', 'hd_flowers_violet', 'hd_flowers_white'], [1, 1, 1, 1], 200, (20, 30, 2360, 760), blocked, 8, P)
     m.scatter(['hd_grass_tall', 'hd_grass_tall_b', 'hd_fern_a', 'hd_mushrooms'], [3, 2, 1, 1], 160, (20, 30, 2360, 760), blocked, 10, P)
     m.scatter(['hd_rock_a', 'hd_rock_b', 'hd_stump', 'hd_log'], [3, 2, 2, 1], 26, (20, 30, 2360, 760), blocked, 22, P)
 
@@ -186,14 +217,20 @@ def main():
     m.keep_out = [(x, y, 46) for x, y in pts] + [(1200, 40, 80), (2360, 762, 70)]
     water = design(m)
     furnish(m, P, water)
+    keep = {'hd_railing_iron', 'hd_balustrade_post'}
+    dropped = [p for p in m.props if p['type'] not in keep and TER.hits(p, P)]
+    m.props = [p for p in m.props if p['type'] in keep or not TER.hits(p, P)]
+    print('terrace walls', len(TER.walls), 'stairs', len(TER.stairs), 'props dropped', len(dropped))
     m.bake_shadows(P)
     water_walls = HDMap.collision(m, P)
-    m.collision = lambda P_: EDGE_WALLS + water_walls
-    extra = dict(ellipses=[], stairs=[], water=base.get('water', []), animals=base.get('animals', []),
+    m.collision = lambda P_: EDGE_WALLS + water_walls + TER.walls
+    extra = dict(ellipses=[], stairs=TER.stairs, water=base.get('water', []), animals=base.get('animals', []),
                  visualStyle='godot_hd_dense', visualUpdate='godot_riverside_dense',
                  v6Layout=dict(version=3, generator='tools/worldgen/riverside_hd.py', hd=True))
     prev = sys.argv[sys.argv.index('--preview') + 1] if '--preview' in sys.argv else None
-    m.write(base, extra, P, Q, apply='--apply' in sys.argv, preview=prev)
+    bad = m.write(base, extra, P, Q, apply='--apply' in sys.argv, preview=prev)
+    if '--apply' in sys.argv and not bad:
+        write_elevation(A, AREA, ELEVATION)
 
 
 if __name__ == '__main__':

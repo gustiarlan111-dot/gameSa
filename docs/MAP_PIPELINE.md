@@ -59,7 +59,9 @@ Terraces, retaining walls, cliffs and stairs have real height in the 3D view. Ga
   (V8.6) grew from 1200x896 to 1200x1296: the street is a terrace (e=40) above the new Alun-alun
   Bawah. Perumahan (V8.7) grew the same way: the south houses stand on a terrace with steps from
   each front door and two side alleys down to Gang Melati and the warga green.
-- Next: other outdoor areas (taman_kota, riverside, dermaga, bukit_bintang),
+- V8.9: Riverside (terrace wall along the promenade, grand stair), Taman Kota (NE terrace with the
+  gazebo court), Bukit Bintang (hilltop e=70 above the valley, observatory dais).
+- Next: dermaga,
   and distinct landmarks for the dream maps (see docs/V8_AUDIT.md).
 - `maptool check`: 0 errors on all 32 areas (the old arland_room / jalan_kota / perpustakaan errors are fixed).
 

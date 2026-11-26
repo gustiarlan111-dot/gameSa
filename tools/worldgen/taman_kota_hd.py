@@ -4,6 +4,10 @@ v6 art kit; every quest point of the area stays where it is and is validated rea
 Districts: koi lake with island + lookout deck (panorama point), stream to the south crossed by a
 plank bridge exactly where the lake loop path meets it, gazebo rose court + Rain Garden arch,
 picnic meadow, community garden, pine grove NW, cherry walk around the lake.
+
+V8.9: the north-east quarter (gazebo rose court, Rain Garden gate, autumn wood) is a terrace
+(e=30, assets/data/elevation.json) behind a stone retaining wall with a flower border, reached by
+stone steps where the gazebo path comes up from the east lawn.
 """
 import sys, json, hashlib
 from pathlib import Path
@@ -14,6 +18,7 @@ sys.path.insert(0, str(HERE))
 from hdmap import HDMap, K, GRASS, PATH, STONE, WATER, DECK, SAND, SOIL, A   # noqa: E402
 from paint import rgb                                                        # noqa: E402
 from ground import dist_from                                                 # noqa: E402
+from terrace import Terrace, write_elevation                                 # noqa: E402
 
 AREA, W, H = 'taman_kota', 2400, 1760
 SEED = int(hashlib.sha256(b'taman_kota_hd').hexdigest()[:8], 16)
@@ -34,6 +39,15 @@ COURT = (1875, 590, 190, 120)
 GARDEN = (930, 1545, 380, 130)
 LOOKOUT = (970, 742, 60, 110)       # x, y, w, h deck from the north shore into the lake
 VIEW_POINT = (1000, 820)
+NE_X0, NE_Y, NE_F = 1700, 712, 30            # NE terrace: x from NE_X0 to the east edge, wall face below NE_Y
+NE_STAIRS = [(1856, 64)]                     # where the gazebo path climbs from the east lawn
+TER = Terrace()
+ELEVATION = [
+    {'id': 'ne_terrace', 'kind': 'plateau', 'rect': [NE_X0, 0, 2400 - NE_X0, NE_Y], 'e': NE_F},
+    {'id': 'ne_west_ramp', 'kind': 'slope', 'rect': [NE_X0 - 80, 0, 80, NE_Y], 'axis': 'x', 'from': 0, 'to': NE_F},
+    {'id': 'ne_wall', 'kind': 'slope', 'rect': [NE_X0, NE_Y, 2400 - NE_X0, NE_F], 'axis': 'y', 'from': NE_F, 'to': 0},
+] + [{'id': 'st%d' % i, 'kind': 'slope', 'rect': [x, NE_Y, w, NE_F], 'axis': 'y', 'from': NE_F, 'to': 0, 'stairs': True}
+     for i, (x, w) in enumerate(NE_STAIRS)]
 
 
 def design(m, P):
@@ -245,8 +259,20 @@ def main():
         x, y, w, h = d['rect']; m.points.append((x + w / 2, y + h / 2, max(w, h) / 2 + 40))
     m.points.append((*VIEW_POINT, 60))
     design(m, P)
+    # V8.9 NE terrace wall, painted over the finished ground; props on the wall/stairs are dropped
+    TER.__init__()
+    TER.run(m, m.c, NE_X0, 2380, NE_Y, NE_F, NE_STAIRS, 80)
+    m.c.img[m.rect(NE_X0 - 6, NE_Y - 7, 8, NE_F + 7)] = rgb('#8d877b')         # west return of the wall
+    for x in range(NE_X0 + 10, 2380, 26):                                      # flower border on top
+        if not any(sx - 16 < x < sx + sw + 16 for sx, sw in NE_STAIRS):
+            m.prop(('hd_flowers_pink', 'hd_flowers_white', 'hd_flowers_yellow', 'hd_flowers_violet')[(x // 26) % 4], x, NE_Y - 4)
+    dropped = [p for p in m.props if TER.hits(p, P) and not p['type'].startswith('hd_flowers')]
+    m.props = [p for p in m.props if p not in dropped]
+    print('terrace walls', len(TER.walls), 'stairs', len(TER.stairs), 'dropped', [(p['type'], p['x'], p['y']) for p in dropped])
+    base_collision = m.collision
+    m.collision = lambda P_: base_collision(P_) + TER.walls
     m.bake_shadows(P)
-    extra = dict(visualStyle='godot_hd_dense', visualUpdate='godot_taman_dense', water=[dict(cx=800, cy=950, rx=350, ry=188), dict(cx=1075, cy=1075, rx=175, ry=112)],
+    extra = dict(stairs=TER.stairs, visualStyle='godot_hd_dense', visualUpdate='godot_taman_dense', water=[dict(cx=800, cy=950, rx=350, ry=188), dict(cx=1075, cy=1075, rx=175, ry=112)],
                  v6Layout=dict(version=3, generator='tools/worldgen/taman_kota_hd.py', hd=True,
                                districts=['koi lake + island + lookout deck', 'stream + plank bridge on the loop path',
                                           'gazebo rose court + Rain Garden gate', 'picnic meadow', 'community garden',
@@ -262,6 +288,7 @@ def main():
     if '--apply' in sys.argv and not bad:
         (A / 'data/quests.json').write_text(json.dumps(Q, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
         print('panorama point moved', moved)
+        write_elevation(A, AREA, ELEVATION)
 
 
 if __name__ == '__main__':

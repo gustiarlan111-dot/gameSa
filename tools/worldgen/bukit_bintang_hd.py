@@ -3,7 +3,12 @@ hilltop meadow under the stars, a gravel ridge path from the forest gate up to t
 terrace and on to the stargazing lookout in the east, a fenced cliff edge in the south with rock
 ledges dropping to a dark pine valley, star stones and stone lanterns along the way, a hidden
 clearing with the treasure chest in the north-west. Same size, door, examine spots and quest points
-as before.  Usage: python3 tools/worldgen/bukit_bintang_hd.py [--preview OUT.png] [--apply]
+as before.
+
+V8.9: real height (assets/data/elevation.json). The hilltop stands 70 above the valley, so the cliff
+is a true drop for shadows and cutscene cameras, and the observatory rises on a stone dais (+20)
+reached by front steps; the forecourt benches moved down to the lower paving.
+Usage: python3 tools/worldgen/bukit_bintang_hd.py [--preview OUT.png] [--apply]
 """
 import sys, json, hashlib
 from pathlib import Path
@@ -15,6 +20,7 @@ from hdmap import HDMap, K, GRASS, PATH, STONE, A   # noqa: E402
 from paint import rgb, wear, moss                   # noqa: E402
 from ground import noise                            # noqa: E402
 import common                                       # noqa: E402
+from terrace import Terrace, write_elevation        # noqa: E402
 
 AREA, W, H = 'bukit_bintang', 2400, 1600
 SEED = int(hashlib.sha256(b'bukit_bintang_hd').hexdigest()[:8], 16)
@@ -29,6 +35,18 @@ PATHS = [[(0, 775), (220, 790), (480, 800), (760, 830), (1000, 860), (1200, 850)
          [(1000, 860), (1060, 1000), (1125, 1170)],
          [(1930, 920), (2100, 700), (2200, 420)],
          [(220, 790), (275, 860)]]
+DAIS = (1215, 640, 320, 140)           # observatory dais top (x, y, w, h); front wall below it
+DAIS_F = 20
+DAIS_STAIRS = [(1345, 60)]
+TER = Terrace()
+CLIFF_Y, CLIFF_H, HILL_E = EDGE_Y + 14, 70, 70
+ELEVATION = [
+    {'id': 'hilltop', 'kind': 'plateau', 'rect': [0, 0, 2400, CLIFF_Y], 'e': HILL_E},
+    {'id': 'cliff', 'kind': 'slope', 'rect': [0, CLIFF_Y, 2400, CLIFF_H], 'axis': 'y', 'from': HILL_E, 'to': 0},
+    {'id': 'obs_dais', 'kind': 'plateau', 'rect': list(DAIS), 'e': HILL_E + DAIS_F},
+    {'id': 'obs_front', 'kind': 'slope', 'rect': [DAIS[0], DAIS[1] + DAIS[3], DAIS[2], DAIS_F], 'axis': 'y', 'from': HILL_E + DAIS_F, 'to': HILL_E},
+] + [{'id': 'st%d' % i, 'kind': 'slope', 'rect': [x, DAIS[1] + DAIS[3], w, DAIS_F], 'axis': 'y', 'from': HILL_E + DAIS_F, 'to': HILL_E, 'stairs': True}
+     for i, (x, w) in enumerate(DAIS_STAIRS)]
 WALLS = [[0, 0, 20, 700], [0, 850, 20, 750], [2380, 0, 20, 1600], [20, 0, 2360, 20], [0, EDGE_Y, 2400, H - EDGE_Y]]
 
 
@@ -71,6 +89,17 @@ def design(m):
     for k in range(8):                                                                    # star rays
         a = k * np.pi / 4
         c.img[m.path([(lx, ly), (lx + np.cos(a) * lrx * 0.33, ly + np.sin(a) * lry * 0.33)], 4)] = rgb('#e8c97a')
+    # observatory dais: pale slabs, front wall with steps, thin side walls, coping at the back
+    dx, dy, dw, dh = DAIS
+    c.put(m.rect(dx, dy, dw, dh), c.tiles('#e2dace', '#d8cfc1', 30, grout='#a99e8c', salt=16), STONE)
+    TER.__init__()
+    TER.run(m, c, dx, dx + dw, dy + dh, DAIS_F, DAIS_STAIRS, 70)
+    for sx in (dx - 8, dx + dw):
+        c.img[m.rect(sx, dy - 4, 8, dh + DAIS_F + 4)] = rgb('#8d877b')
+        c.img[m.rect(sx + (6 if sx > dx else 0), dy - 4, 2, dh + DAIS_F + 4)] = rgb('#d8d2c5')
+        TER.walls.append([int(sx), int(dy - 4), 8, int(dh + DAIS_F + 4)])
+    c.img[m.rect(dx - 8, dy - 6, dw + 16, 4)] = rgb('#d8d2c5')
+    TER.walls.append([int(dx - 8), int(dy - 8), int(dw + 16), 6])
     # NW clearing with the chest: soft moss ring
     c.put(m.ellipse(330, 400, 120, 70, 6, 3), c.dirt(('#7a9a62', '#86a66c', '#92b276')), PATH)
     gm = c.mat == GRASS
@@ -105,7 +134,9 @@ def furnish(m, P, below):
     c = m.c
     pr('hd_observatory', *OBS)
     tx, ty = TERRACE[:2]
-    pr('hd_bench', tx - 150, ty - 40); pr('hd_bench', tx + 160, ty - 30)
+    pr('hd_bench', tx - 140, ty + 30); pr('hd_bench', tx + 140, ty + 30)
+    for x in (DAIS_STAIRS[0][0] - 20, DAIS_STAIRS[0][0] + DAIS_STAIRS[0][1] + 20):
+        pr('hd_balustrade_post', x, DAIS[1] + DAIS[3] + 1)
     pr('hd_stone_lantern', tx - 170, ty + 20); pr('hd_stone_lantern', tx + 180, ty + 24)
     pr('hd_flowerbed', tx - 90, ty - 62); pr('hd_flowerbed', tx + 96, ty - 60)
     lx, ly = LOOKOUT[:2]
@@ -159,13 +190,19 @@ def main():
     m.keep_out = [(x, y, 46) for x, y in pts] + [(40, 775, 80), (1375, 760, 90)]
     below = design(m)
     furnish(m, P, below)
+    keep = {'hd_observatory', 'hd_balustrade_post'}
+    dropped = [p for p in m.props if p['type'] not in keep and TER.hits(p, P)]
+    m.props = [p for p in m.props if p['type'] in keep or not TER.hits(p, P)]
+    print('terrace walls', len(TER.walls), 'stairs', len(TER.stairs), 'dropped', [(p['type'], p['x'], p['y']) for p in dropped])
     m.bake_shadows(P)
-    m.collision = lambda P_: WALLS
-    extra = dict(ellipses=[], stairs=[], water=[], animals=base.get('animals', []),
+    m.collision = lambda P_: WALLS + TER.walls
+    extra = dict(ellipses=[], stairs=TER.stairs, water=[], animals=base.get('animals', []),
                  visualStyle='godot_hd_dense', visualUpdate='godot_bukit_bintang_dense',
                  v6Layout=dict(version=3, generator='tools/worldgen/bukit_bintang_hd.py', hd=True))
     prev = sys.argv[sys.argv.index('--preview') + 1] if '--preview' in sys.argv else None
-    m.write(base, extra, P, Q, apply='--apply' in sys.argv, preview=prev)
+    bad = m.write(base, extra, P, Q, apply='--apply' in sys.argv, preview=prev)
+    if '--apply' in sys.argv and not bad:
+        write_elevation(A, AREA, ELEVATION)
 
 
 if __name__ == '__main__':

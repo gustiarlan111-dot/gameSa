@@ -1,5 +1,16 @@
 # QA REPORT — V8.0
 
+## V8.9 — Riverside, Taman Kota, Bukit Bintang (elevasi) — ringkasan
+| Pemeriksaan | Hasil |
+|---|---|
+| Tes logika | 58 / 58 lulus |
+| Validator map | 0 error di ketiga map; titik quest/amati/pintu 54 / 88 / 23, 0 tak terjangkau; Riverside kembali di bawah 900 prop (895), Bukit Bintang tetap 1 peringatan prop (960, sudah ada sebelumnya) |
+| `--apply` | hanya ketiga area itu yang berubah; ukuran, pintu, spawn dan titik amati sama |
+| Jalan sungguhan di game | Riverside turun tangga besar sampai promenade (1150,836); Taman Kota naik tangga ke pelataran gazebo (1874,657); Bukit Bintang naik ke panggung observatorium (1375,773): semua sampai |
+| Route Sofia sampai tamat | `EPI_FREE` di frame 160.977 (V8.8: 159.727). Selisih +1.250 frame (±21 detik) terutama di perjalanan dari titik `V470_C04_S_PROOF` di Taman Kota (+900 frame): autopilot memutar ke tangga. Tidak ada macet atau titik yang ditandai buntu; 0 script error |
+| Route Arland sampai tamat | `EPI_FREE` di frame 159.127 (V8.8: 159.077), 0 script error |
+| Screenshot di game | `docs/screens/v8/city_terraces.png` |
+
 ## V8.8 — Memory Garden, Arsip Memudar, Kenangan Gazebo — ringkasan
 | Pemeriksaan | Hasil |
 |---|---|

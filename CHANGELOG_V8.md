@@ -1,5 +1,26 @@
 # CHANGELOG — V8.0 "The Definitive Overhaul"
 
+## V8.9 — map kota: Riverside, Taman Kota, Bukit Bintang bertingkat
+Ketiga map kini punya elevasi nyata (sistem yang sama dengan Plaza), tanpa memindahkan titik
+quest, pintu, atau spawn.
+- **Riverside**:
+  - hutan dan padang di utara kini berada di teras (+34) di balik dinding batu, tepat di tepi
+    promenade, dengan pagar besi di atasnya;
+  - **tangga besar** selebar 312 turun dari jalan setapak tengah ke dek pandang, diapit tiang
+    ber-pot bunga dan pot pohon;
+  - tangga barat di jalur ke pantai dan tangga timur di dekat bangku;
+  - bangku, tempat sampah dan bedeng bunga dipindah ke promenade.
+- **Taman Kota**: kuartal timur laut (pelataran gazebo, gerbang Rain Garden, hutan musim gugur)
+  menjadi teras (+30) dengan dinding batu dan barisan bunga di atasnya. Tangga batu berada di
+  tempat jalan gazebo naik dari halaman timur.
+- **Bukit Bintang**:
+  - puncak bukit kini benar-benar 70 lebih tinggi dari lembah, jadi tebing di selatan adalah jurang
+    sungguhan (bayangan, kamera cutscene);
+  - observatorium berdiri di **panggung batu** (+20) dengan tangga depan dan tiang ber-pot bunga;
+  - bangku pelataran dipindah ke lantai bawah.
+- Dermaga belum diubah. Garis pantainya rapat dengan titik quest, jadi saya kerjakan terpisah.
+- Validator: Riverside kembali di bawah 900 prop (895) setelah ditambah pagar.
+
 ## V8.8 — tiga map mimpi cerita mendapat identitas sendiri
 Sebelumnya, dari titik spawn, map-map ini tampak seperti hutan mimpi yang sama (audit V8, poin 5).
 Sekarang landmark setiap map mengikuti perannya di cerita. 10 prop baru digambar dari kode

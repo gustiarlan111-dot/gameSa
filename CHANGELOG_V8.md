@@ -1,5 +1,16 @@
 # CHANGELOG — V8.0 "The Definitive Overhaul"
 
+## Upgrade 5, bagian U5c — cerita fantasi diperjelas
+Detail: `docs/STORY_CLARITY.md`. Alur, pilihan, dan ending tetap sama. Hanya penjelasan yang ditambahkan.
+- **Prolog:** saat buku pertama kali terbuka, narator menjelaskan dalam 3 kalimat apa itu Buku Kenangan,
+  apa itu dunia kenangan, dan kenapa halaman bisa memudar.
+- **Lumi:** saat pertama bicara, ia menyebut tugasnya dan menjelaskan bahwa Kabut Lupa dan
+  "The Quiet" adalah hal yang sama.
+- **Kartu bab:** setiap bab dibuka dengan "Sebelumnya: …", ringkasan 2–3 kalimat.
+- **Nama tempat:** 10 map mimpi kini bernama Indonesia, misalnya Padang Lentera dan Jalan Bintang.
+  Nama lama ditulis di dalam kurung.
+- **Buku → tab "Istilah":** 9 istilah dunia cerita. Setiap istilah terbuka saat babnya tercapai.
+
 ## Upgrade 3, bagian U2c — identitas map mimpi
 Detail: `docs/WORLD3D.md` (U2c). Gambar: `docs/screens/u2c/`.
 - **Lantern Field:** festival lentera dengan lapak, bendera, untaian lentera, dan lentera terbang yang

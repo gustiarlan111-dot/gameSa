@@ -748,7 +748,9 @@ func warp(area_id: String, x: float, y: float, facing: String, done: Callable) -
 
 
 func chapter_card(chapter: String, done: Callable) -> void:
-	_show_card(Data.chapter_title(chapter), p.route.to_upper() + " ROUTE", done)
+	# U5c: a short "previously" so a player who stopped for a while (or does not read fantasy) keeps up
+	var recap := Data.chapter_recap(chapter)
+	_show_card(Data.chapter_title(chapter), p.route.to_upper() + " ROUTE", done, ("Sebelumnya: " + recap) if recap != "" else "")
 
 
 func chapter_end(chapter: String, done: Callable) -> void:
@@ -877,7 +879,7 @@ func _fade_through(mid: Callable, end: Callable) -> void:
 			end.call())
 
 
-func _show_card(title: String, sub: String, done: Callable) -> void:
+func _show_card(title: String, sub: String, done: Callable, body := "") -> void:
 	for c in _card.get_children():
 		c.queue_free()
 	var bg := ColorRect.new(); bg.color = Color(0.07, 0.05, 0.12, 0.95); bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -898,14 +900,22 @@ func _show_card(title: String, sub: String, done: Callable) -> void:
 	s.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	var hint := UiTheme.label("Ketuk untuk lanjut", 16, Color(UiTheme.TEXT_DIM, 0.95), "pixel_soft")
 	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	for c in [t, line_r, s, hint]:
+	for c in [t, line_r, s]:
 		box.add_child(c)
+	if body != "":
+		var bl := UiTheme.label(body, 21, UiTheme.TEXT, "pixel_soft")
+		bl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		bl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		bl.custom_minimum_size = Vector2(minf(900.0, get_viewport().get_visible_rect().size.x - 120.0), 0)
+		box.add_child(bl)
+	box.add_child(hint)
 	center.add_child(box)
 	_card.modulate.a = 0
 	_card.visible = true
 	_card_done = done
 	create_tween().tween_property(_card, "modulate:a", 1.0, 0.35)
-	get_tree().create_timer(3.2).timeout.connect(func():
+	# a recap stays until it can be read (about 4 words a second), tapping still skips it
+	get_tree().create_timer(3.2 + body.split(" ", false).size() * 0.25).timeout.connect(func():
 		if _card.visible and _card_done == done:
 			_finish_card())
 

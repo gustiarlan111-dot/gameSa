@@ -20270,7 +20270,7 @@
       "windows": []
     },
     "memory_garden": {
-      "name": "Memory Garden",
+      "name": "Taman Kenangan (Memory Garden)",
       "image": "maps/memory_garden.png",
       "w": 2000,
       "h": 1500,
@@ -25047,7 +25047,7 @@
       }
     },
     "lantern_field": {
-      "name": "Lantern Field",
+      "name": "Padang Lentera (Lantern Field)",
       "image": "maps/lantern_field.png",
       "w": 2400,
       "h": 1600,
@@ -31099,7 +31099,7 @@
       }
     },
     "star_path": {
-      "name": "Star Path",
+      "name": "Jalan Bintang (Star Path)",
       "image": "maps/star_path.png",
       "w": 2560,
       "h": 1280,
@@ -35963,7 +35963,7 @@
       }
     },
     "starfall_village": {
-      "name": "Starfall Village",
+      "name": "Desa Bintang Jatuh (Starfall Village)",
       "image": "maps/starfall_village.png",
       "w": 2400,
       "h": 1600,
@@ -41750,7 +41750,7 @@
       }
     },
     "eternal_garden": {
-      "name": "Eternal Garden",
+      "name": "Taman Abadi (Eternal Garden)",
       "image": "maps/eternal_garden.png",
       "w": 2400,
       "h": 1760,
@@ -79963,7 +79963,7 @@
       "windows": []
     },
     "rain_garden": {
-      "name": "Rain Garden — Lima Cahaya yang Tak Terucap",
+      "name": "Taman Hujan — Lima Cahaya yang Tak Terucap",
       "image": "maps/rain_garden.png",
       "w": 1920,
       "h": 1280,
@@ -84851,7 +84851,7 @@
       }
     },
     "clockwork_station": {
-      "name": "Clockwork Station — Waktu yang Tidak Bisa Kembali",
+      "name": "Stasiun Jam — Waktu yang Tidak Bisa Kembali",
       "image": "maps/clockwork_station.png",
       "w": 1920,
       "h": 1280,
@@ -88467,7 +88467,7 @@
       }
     },
     "moonlight_lake": {
-      "name": "Moonlight Lake — Dua Pantulan",
+      "name": "Danau Cahaya Bulan — Dua Pantulan",
       "image": "maps/moonlight_lake.png",
       "w": 1920,
       "h": 1280,
@@ -92880,7 +92880,7 @@
       }
     },
     "memory_bridge": {
-      "name": "Memory Bridge — Lima Konstelasi",
+      "name": "Jembatan Kenangan — Lima Konstelasi",
       "image": "maps/memory_bridge.png",
       "w": 1920,
       "h": 1280,
@@ -97952,7 +97952,7 @@
       }
     },
     "hall_of_tomorrow": {
-      "name": "Balai Hari Esok — Three Futures",
+      "name": "Balai Hari Esok — Tiga Masa Depan",
       "image": "maps/hall_of_tomorrow.png",
       "w": 1920,
       "h": 1280,

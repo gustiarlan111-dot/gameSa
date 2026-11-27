@@ -7,7 +7,7 @@ signal replay_requested(chapter: String)
 signal closed
 
 const PER_PAGE := 6
-const TABS := ["Kenangan", "Tas", "Bab", "Misi", "Prestasi", "Jelajah"]
+const TABS := ["Kenangan", "Tas", "Bab", "Misi", "Prestasi", "Jelajah", "Istilah"]
 
 var p: Progress
 var g: Dictionary
@@ -173,6 +173,14 @@ func _rebuild() -> void:
 			_cells.append([null, ("✓ " + str(place.get("name", id))) if found else "◇ Belum ditemukan",
 				(status + vertical) if found else "Jelajahi kota dan ikuti cerita untuk menemukannya.",
 				2 if (secret_found or view_done) else (1 if found else 0)])
+	elif tab == 6:
+		# U5c: the words of this world in plain language, opening with the chapters that use them
+		var now_i := Data.chapter_index(_chapter_now())
+		for gl in Data.memory_book.get("glossary", []):
+			if now_i >= Data.chapter_index(str(gl.get("chapter", "PRO"))):
+				_cells.append([null, str(gl.get("term", "")), str(gl.get("text", "")), 2])
+			else:
+				_cells.append([null, "◇ Belum muncul", "Istilah ini terbuka di " + Data.chapter_title(str(gl.get("chapter", ""))) + ".", 0])
 	_pages = maxi(1, (_cells.size() + PER_PAGE - 1) / PER_PAGE)
 	page = mini(page, _pages - 1)
 
@@ -240,7 +248,7 @@ func _process(_dt: float) -> void:
 	var h := minf(640, size.y - 40)
 	_panel = Rect2((size.x - w) / 2, (size.y - h) / 2, w, h)
 	var o := _panel.position
-	var tw := minf(126, (w - 245) / 6.0 - 9)
+	var tw := minf(126, (w - 245) / float(TABS.size()) - 9)
 	for i in _tabs.size():
 		_tabs[i].position = o + Vector2(20 + i * (tw + 8), 62); _tabs[i].size = Vector2(tw, 50)
 		_set_accent(_tabs[i], tab == i)

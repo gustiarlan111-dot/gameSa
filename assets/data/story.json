@@ -886,7 +886,7 @@
         },
         {
           "s": "narrator",
-          "t": "Buku itu adalah Buku Kenangan milik mereka berdua. Setiap kenangan yang mereka buat bersama tertulis di dalamnya sebagai satu halaman.",
+          "t": "Buku itu adalah Memory Book, Buku Kenangan milik mereka berdua. Setiap kenangan yang mereka buat bersama tertulis di dalamnya sebagai satu halaman.",
           "e": "neutral",
           "u5c": true
         },
@@ -2933,7 +2933,7 @@
         {
           "s": "narrator",
           "e": "neutral",
-          "t": "Arland mengangguk, tidak memaksa. Hujan masih turun. Memory Book kehilangan warna pada satu halaman, lalu membuka portal ke Rain Garden."
+          "t": "Arland mengangguk, tidak memaksa. Hujan masih turun. Memory Book kehilangan warna pada satu halaman, lalu membuka portal ke Taman Hujan."
         }
       ],
       "flags": [],
@@ -3078,7 +3078,7 @@
         {
           "s": "lumi",
           "e": "sedih",
-          "t": "Ini Rain Garden. Lentera di sini menyala dari kata-kata yang saling didengar."
+          "t": "Ini Taman Hujan. Lentera di sini menyala dari kata-kata yang saling didengar."
         },
         {
           "s": "lumi",
@@ -3194,7 +3194,7 @@
         {
           "s": "narrator",
           "e": "neutral",
-          "t": "Di Rain Garden, kelima cahaya menyala saat mereka menerima dua versi dari hari yang sama."
+          "t": "Di Taman Hujan, kelima cahaya menyala saat mereka menerima dua versi dari hari yang sama."
         },
         {
           "s": "sofia",
@@ -3398,7 +3398,7 @@
         {
           "s": "lumi",
           "e": "senyum",
-          "t": "Ini Star Path. Nyalakan batu-batu bintang di sepanjang jalan. Mereka akan menunjukkan arah."
+          "t": "Ini Jalan Bintang. Nyalakan batu-batu bintang di sepanjang jalan. Mereka akan menunjukkan arah."
         },
         {
           "s": "arland",
@@ -3408,7 +3408,7 @@
         {
           "s": "lumi",
           "e": "neutral",
-          "t": "Sofia sedang menempuh jalurnya sendiri. Kalian akan bertemu di Starfall Village."
+          "t": "Sofia sedang menempuh jalurnya sendiri. Kalian akan bertemu di Desa Bintang Jatuh."
         }
       ],
       "flags": [],
@@ -3523,7 +3523,7 @@
         {
           "s": "narrator",
           "e": "neutral",
-          "t": "Permukaan kolam berpendar. Sofia menyentuhnya, dan Lantern Field terbentang lagi, kini terang benderang."
+          "t": "Permukaan kolam berpendar. Sofia menyentuhnya, dan Padang Lentera terbentang lagi, kini terang benderang."
         },
         {
           "s": "sofia",
@@ -3601,7 +3601,7 @@
         {
           "s": "narrator",
           "e": "neutral",
-          "t": "Starfall Village. Rumah-rumah kecil bercahaya, dan bintang jatuh pelan seperti salju."
+          "t": "Desa Bintang Jatuh. Rumah-rumah kecil bercahaya, dan bintang jatuh pelan seperti salju."
         },
         {
           "s": "sofia",
@@ -3653,7 +3653,7 @@
         {
           "s": "lumi",
           "e": "neutral",
-          "t": "Selamat datang di Starfall Village. Setiap bintang di sini menyimpan lebih dari satu sudut pandang."
+          "t": "Selamat datang di Desa Bintang Jatuh. Setiap bintang di sini menyimpan lebih dari satu sudut pandang."
         },
         {
           "s": "sofia",
@@ -3799,7 +3799,7 @@
         {
           "s": "narrator",
           "e": "neutral",
-          "t": "Gerbang Eternal Garden terbuka. Dua jejak cahaya melintasi ambangnya."
+          "t": "Gerbang Taman Abadi terbuka. Dua jejak cahaya melintasi ambangnya."
         },
         {
           "s": "sofia",
@@ -3841,7 +3841,7 @@
         {
           "s": "narrator",
           "e": "neutral",
-          "t": "Eternal Garden. Bunga dari semua musim mekar bersamaan. Di tengahnya, pohon besar bercahaya berdiri tenang."
+          "t": "Taman Abadi. Bunga dari semua musim mekar bersamaan. Di tengahnya, pohon besar bercahaya berdiri tenang."
         },
         {
           "s": "sofia",
@@ -4112,7 +4112,7 @@
               {
                 "s": "sofia",
                 "e": "senyum",
-                "t": "Aku ingin kita selalu mendengar sampai selesai, seperti di Lantern Field."
+                "t": "Aku ingin kita selalu mendengar sampai selesai, seperti di Padang Lentera."
               }
             ]
           }
@@ -8357,7 +8357,7 @@
         {
           "s": "narrator",
           "e": "neutral",
-          "t": "Cahaya di Starfall Village meredup sebentar, lalu berubah hangat seperti lampu kamar."
+          "t": "Cahaya di Desa Bintang Jatuh meredup sebentar, lalu berubah hangat seperti lampu kamar."
         },
         {
           "s": "sofia",
@@ -8387,7 +8387,7 @@
         {
           "s": "narrator",
           "e": "neutral",
-          "t": "Dari jauh terdengar lonceng lembut. Starfall Village tidak meminta mereka menjadi orang yang sama."
+          "t": "Dari jauh terdengar lonceng lembut. Desa Bintang Jatuh tidak meminta mereka menjadi orang yang sama."
         }
       ],
       "flags": [],
@@ -8528,7 +8528,7 @@
         {
           "s": "narrator",
           "e": "neutral",
-          "t": "Di seberang bangku, tiga garis menyatu dan mengarah ke pesan terakhir sebelum Eternal Garden."
+          "t": "Di seberang bangku, tiga garis menyatu dan mengarah ke pesan terakhir sebelum Taman Abadi."
         }
       ],
       "flags": [],
@@ -9621,7 +9621,7 @@
         {
           "s": "sofia",
           "e": "malu",
-          "t": "Sejujurnya, tadi di Lantern Field aku agak takut sendirian."
+          "t": "Sejujurnya, tadi di Padang Lentera aku agak takut sendirian."
         },
         {
           "s": "arland",
@@ -11773,7 +11773,7 @@
       "choices": []
     },
     "WE27-DESA-BINTANG-A": {
-      "title": "Lampu Jendela Starfall",
+      "title": "Lampu Jendela Desa Bintang Jatuh",
       "route": "arland",
       "chapter": "C05",
       "location": "",
@@ -11782,7 +11782,7 @@
         {
           "s": "narrator",
           "e": "neutral",
-          "t": "Satu per satu jendela Starfall Village menyala seperti titik-titik rasi."
+          "t": "Satu per satu jendela Desa Bintang Jatuh menyala seperti titik-titik rasi."
         },
         {
           "s": "arland",
@@ -11815,7 +11815,7 @@
       "choices": []
     },
     "WE27-DESA-BINTANG-S": {
-      "title": "Lampu Jendela Starfall",
+      "title": "Lampu Jendela Desa Bintang Jatuh",
       "route": "sofia",
       "chapter": "C05",
       "location": "",
@@ -11824,7 +11824,7 @@
         {
           "s": "narrator",
           "e": "neutral",
-          "t": "Satu per satu jendela Starfall Village menyala seperti titik-titik rasi."
+          "t": "Satu per satu jendela Desa Bintang Jatuh menyala seperti titik-titik rasi."
         },
         {
           "s": "sofia",
@@ -17562,7 +17562,7 @@
         {
           "s": "narrator",
           "e": "neutral",
-          "t": "Memory Bridge memperlihatkan Arland dengan tangan kotor oli, berusaha menyalakan proyektor."
+          "t": "Jembatan Kenangan memperlihatkan Arland dengan tangan kotor oli, berusaha menyalakan proyektor."
         },
         {
           "s": "arland",
@@ -17601,7 +17601,7 @@
         {
           "s": "narrator",
           "e": "neutral",
-          "t": "Memory Bridge menunjukkan kursi kosong yang tidak pernah berhenti Sofia perhatikan."
+          "t": "Jembatan Kenangan menunjukkan kursi kosong yang tidak pernah berhenti Sofia perhatikan."
         },
         {
           "s": "sofia",
@@ -17679,7 +17679,7 @@
         {
           "s": "narrator",
           "e": "neutral",
-          "t": "Eternal Garden memunculkan gambar kursi kosong. Di sebelahnya tumbuh halaman baru: dua orang duduk melihat matahari terbenam."
+          "t": "Taman Abadi memunculkan gambar kursi kosong. Di sebelahnya tumbuh halaman baru: dua orang duduk melihat matahari terbenam."
         },
         {
           "s": "sofia",
@@ -18578,7 +18578,7 @@
         {
           "s": "narrator",
           "e": "neutral",
-          "t": "Di sampingnya ada gambar bangku yang mereka perbaiki bersama di Memory Realm."
+          "t": "Di sampingnya ada gambar bangku yang mereka perbaiki bersama di dunia kenangan."
         },
         {
           "s": "sofia",
@@ -23315,7 +23315,7 @@
       "lines": [
         {
           "s": "narrator",
-          "t": "Jauh di atas Starfall Village, sebuah jam bintang tersendat. Jembatan yang terlihat kemarin kini hanya separuh.",
+          "t": "Jauh di atas Desa Bintang Jatuh, sebuah jam bintang tersendat. Jembatan yang terlihat kemarin kini hanya separuh.",
           "e": "neutral"
         },
         {
@@ -24132,7 +24132,7 @@
         },
         {
           "s": "narrator",
-          "t": "Di ujung jembatan, sebuah pintu menuju Eternal Garden menyala; halaman terakhir tetap tertutup.",
+          "t": "Di ujung jembatan, sebuah pintu menuju Taman Abadi menyala; halaman terakhir tetap tertutup.",
           "e": "neutral"
         }
       ],
@@ -24182,7 +24182,7 @@
       "lines": [
         {
           "s": "lumi",
-          "t": "Gerbang Eternal Garden akan terbuka ketika kalian siap. Halaman berikutnya belum memberikan jawaban.",
+          "t": "Gerbang Taman Abadi akan terbuka ketika kalian siap. Halaman berikutnya belum memberikan jawaban.",
           "e": "neutral"
         },
         {
@@ -27883,7 +27883,7 @@
       "lines": [
         {
           "s": "sofia",
-          "t": "Aku memilih bintang tanpa tahu bahwa kelak kita akan mengikuti langit sampai Memory Bridge.",
+          "t": "Aku memilih bintang tanpa tahu bahwa kelak kita akan mengikuti langit sampai Jembatan Kenangan.",
           "e": "serius"
         }
       ],
@@ -28760,7 +28760,7 @@
         {
           "s": "narrator",
           "e": "neutral",
-          "t": "Rumah-rumah Starfall punya lagu kecil untuk menyambut malam."
+          "t": "Rumah-rumah Desa Bintang Jatuh punya lagu kecil untuk menyambut malam."
         },
         {
           "s": "arland",
@@ -28790,7 +28790,7 @@
         {
           "s": "narrator",
           "e": "neutral",
-          "t": "Rumah-rumah Starfall punya lagu kecil untuk menyambut malam."
+          "t": "Rumah-rumah Desa Bintang Jatuh punya lagu kecil untuk menyambut malam."
         },
         {
           "s": "sofia",
@@ -30031,7 +30031,7 @@
       "flags": []
     },
     "V49-WE-GARDEN_BREEZE-A": {
-      "title": "Embun di Memory Garden",
+      "title": "Embun di Taman Kenangan",
       "route": "arland",
       "chapter": "C03",
       "location": "memory_garden",
@@ -30071,7 +30071,7 @@
       "flags": []
     },
     "V49-WE-GARDEN_BREEZE-S": {
-      "title": "Embun di Memory Garden",
+      "title": "Embun di Taman Kenangan",
       "route": "sofia",
       "chapter": "C03",
       "location": "memory_garden",
@@ -31936,7 +31936,7 @@
       "flags": []
     },
     "V50-VIEW-STARFALL_VILLAGE-ARLAND": {
-      "title": "Atap Cahaya Starfall",
+      "title": "Atap Cahaya Desa Bintang Jatuh",
       "route": "arland",
       "chapter": "C05",
       "location": "starfall_village",
@@ -31981,7 +31981,7 @@
       "flags": []
     },
     "V50-VIEW-STARFALL_VILLAGE-SOFIA": {
-      "title": "Atap Cahaya Starfall",
+      "title": "Atap Cahaya Desa Bintang Jatuh",
       "route": "sofia",
       "chapter": "C05",
       "location": "starfall_village",

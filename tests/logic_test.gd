@@ -472,6 +472,12 @@ func _ready() -> void:
 	for u_g in u_gl:
 		if Data.chapter_index(str(u_g.chapter)) < 0 or str(u_g.text).length() < 30 or str(u_g.text).length() > 135: u_glbad += 1
 	ok(u_gl.size() >= 9 and u_glbad == 0 and str(u_gl[0].chapter) == "PRO", "kamus istilah: %d istilah, terbuka per bab, muat 3 baris (≤135 huruf)" % u_gl.size())
+	# 24. U5d one name per place: no old English dream-place name in any text a player reads
+	var n_hits: Array = []
+	for n_src in [Data.story, Data.quests, Data.memory_book, {"areas": Data.maps}]:
+		_eng_names(n_src, "", n_hits)
+	ok(n_hits.is_empty(), "nama tempat lama tidak tersisa di pintu, misi, dan dialog %s" % [n_hits.slice(0, 3)])
+	ok(str(Data.memory_book.glossary[0].term).contains("Memory Book") and str(Data.scene("P-X02").lines.filter(func(l): return l.get("u5c", false))[0].t).contains("Memory Book, Buku Kenangan"), "Memory Book dan Buku Kenangan disebut sebagai satu benda")
 	print("%s: %d pemeriksaan, %d gagal" % ["SEMUA LULUS" if fails == 0 else "ADA YANG GAGAL", checks, fails])
 	get_tree().quit(1 if fails > 0 else 0)
 
@@ -481,3 +487,20 @@ class WinStub:
 	func stand(x: float, y: float, h: float) -> Vector3:
 		var t := WorldView3D.TILT
 		return Vector3(x * WorldView3D.S, cos(t) * h * WorldView3D.S, y * WorldView3D.S + sin(t) * h * WorldView3D.S)
+
+
+const OLD_PLACES := ["Starfall", "Lantern Field", "Star Path", "Eternal Garden", "Rain Garden", "Clockwork Station", "Moonlight Lake", "Memory Bridge", "Hall of Tomorrow", "Memory Garden"]
+const SHOWN := ["t", "text", "sub", "label", "title", "desc", "hint", "arland", "sofia", "objective"]
+
+
+func _eng_names(o, key: String, hits: Array) -> void:
+	if o is Dictionary:
+		for k in o:
+			_eng_names(o[k], str(k), hits)
+	elif o is Array:
+		for v in o:
+			_eng_names(v, key, hits)
+	elif o is String and SHOWN.has(key):
+		for n in OLD_PLACES:
+			if o.contains(n):
+				hits.append(o.left(60))

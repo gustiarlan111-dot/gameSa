@@ -1,5 +1,11 @@
 # CHANGELOG — V8.0 "The Definitive Overhaul"
 
+## Upgrade 5, bagian U5d — satu nama untuk satu tempat
+- Nama Inggris lama tempat mimpi kini diganti di semua teks yang dibaca pemain: label pintu, misi,
+  keterangan, teka-teki, isi Buku, dan dialog (104 teks). Contoh: "Ke Starfall Village" menjadi
+  "Ke Desa Bintang Jatuh", "Nyalakan 5 batu bintang di Star Path" menjadi "… di Jalan Bintang".
+- Prolog dan tab Istilah menyebut "Memory Book" dan "Buku Kenangan" sebagai benda yang sama.
+
 ## Upgrade 5, bagian U5c — cerita fantasi diperjelas
 Detail: `docs/STORY_CLARITY.md`. Alur, pilihan, dan ending tetap sama. Hanya penjelasan yang ditambahkan.
 - **Prolog:** saat buku pertama kali terbuka, narator menjelaskan dalam 3 kalimat apa itu Buku Kenangan,

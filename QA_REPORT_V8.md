@@ -1,5 +1,15 @@
 # QA REPORT — V8.0
 
+## Upgrade 5, bagian U5d — satu nama untuk satu tempat — ringkasan
+| Pemeriksaan | Hasil |
+|---|---|
+| Tes logika | **99 / 99 lulus**. Ada 2 tes baru: tidak ada nama tempat lama di teks pemain (dicoba dengan menanam satu label lama, dan tesnya gagal seperti seharusnya); Memory Book dan Buku Kenangan disebut sebagai satu benda |
+| Cerita Sofia / Arland sampai tamat | langkah, area, **dan frame** identik dengan U5c (118 / 115 langkah, `EPI_FREE` 161.327 / 159.277). Jumlah baris dialog tidak berubah. 0 script error |
+| Idempoten | `names_u5d.py` dijalankan dua kali; jalan kedua mengganti 0 teks |
+| Sebelum/sesudah | `docs/screens/u5d/misi.png` |
+| Save | tidak berubah |
+| Sisa | "Memory Book" (150×) dibiarkan dalam bahasa Inggris; hanya diberi jembatan di prolog dan tab Istilah |
+
 ## Upgrade 5, bagian U5c — cerita fantasi diperjelas — ringkasan
 | Pemeriksaan | Hasil |
 |---|---|

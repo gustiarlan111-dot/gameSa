@@ -1504,7 +1504,7 @@
                   "c": "fade"
                 },
                 {
-                  "text": "Memory Garden",
+                  "text": "Taman Kenangan",
                   "sub": "Dunia di dalam Memory Book",
                   "t": 2.8,
                   "c": "caption"
@@ -8185,7 +8185,7 @@
           },
           {
             "do": "toast",
-            "text": "Bawa kelima cahaya ke altar Rain Garden."
+            "text": "Bawa kelima cahaya ke altar Taman Hujan."
           },
           {
             "do": "step",
@@ -8202,8 +8202,8 @@
       "chapter": "C04",
       "quest": "Q_C04_LANTERN",
       "objective": {
-        "arland": "Satukan lima cahaya di altar Rain Garden",
-        "sofia": "Satukan lima cahaya di altar Rain Garden"
+        "arland": "Satukan lima cahaya di altar Taman Hujan",
+        "sofia": "Satukan lima cahaya di altar Taman Hujan"
       },
       "interactables": [
         {
@@ -9039,8 +9039,8 @@
       "chapter": "C05",
       "quest": "Q_C05_STARS",
       "objective": {
-        "arland": "Nyalakan 5 batu bintang di Star Path",
-        "sofia": "Nyalakan 5 batu bintang di Star Path"
+        "arland": "Nyalakan 5 batu bintang di Jalan Bintang",
+        "sofia": "Nyalakan 5 batu bintang di Jalan Bintang"
       },
       "interactables": [
         {
@@ -9364,8 +9364,8 @@
       "chapter": "C05",
       "quest": "Q_C05_STARS",
       "objective": {
-        "arland": "Tangkap 4 percik cahaya di Lantern Field",
-        "sofia": "Tangkap 4 percik cahaya di Lantern Field"
+        "arland": "Tangkap 4 percik cahaya di Padang Lentera",
+        "sofia": "Tangkap 4 percik cahaya di Padang Lentera"
       },
       "interactables": [
         {
@@ -9569,15 +9569,15 @@
       "chapter": "C05",
       "quest": "Q_C05_STARS",
       "objective": {
-        "arland": "Lanjutkan jalur ke timur menuju Starfall Village",
-        "sofia": "Lanjutkan jalur ke timur menuju Starfall Village"
+        "arland": "Lanjutkan jalur ke timur menuju Desa Bintang Jatuh",
+        "sofia": "Lanjutkan jalur ke timur menuju Desa Bintang Jatuh"
       },
       "enterArea": {
         "area": "starfall_village",
         "actions": [
           {
             "do": "toast",
-            "text": "Starfall Village"
+            "text": "Desa Bintang Jatuh"
           },
           {
             "do": "step",
@@ -10021,8 +10021,8 @@
       "chapter": "C05",
       "quest": "Q_C05_STARS",
       "objective": {
-        "arland": "Kumpulkan tiga potongan kalimat di Starfall Village",
-        "sofia": "Kumpulkan tiga potongan kalimat di Starfall Village"
+        "arland": "Kumpulkan tiga potongan kalimat di Desa Bintang Jatuh",
+        "sofia": "Kumpulkan tiga potongan kalimat di Desa Bintang Jatuh"
       },
       "interactables": [
         {
@@ -10468,8 +10468,8 @@
       "chapter": "C06",
       "quest": "Q_C06_TOMORROW",
       "objective": {
-        "arland": "Kumpulkan 3 Kelopak Esok di Eternal Garden",
-        "sofia": "Kumpulkan 3 Kelopak Esok di Eternal Garden"
+        "arland": "Kumpulkan 3 Kelopak Esok di Taman Abadi",
+        "sofia": "Kumpulkan 3 Kelopak Esok di Taman Abadi"
       },
       "interactables": [
         {
@@ -15483,8 +15483,8 @@
       "chapter": "C05",
       "quest": "Q_V471_C05",
       "objective": {
-        "arland": "Temukan Clockwork Station dari peta yang memudar di Starfall Village",
-        "sofia": "Temukan Clockwork Station dari peta yang memudar di Starfall Village"
+        "arland": "Temukan Stasiun Jam dari peta yang memudar di Desa Bintang Jatuh",
+        "sofia": "Temukan Stasiun Jam dari peta yang memudar di Desa Bintang Jatuh"
       },
       "interactables": [
         {
@@ -15493,7 +15493,7 @@
           "x": 1788,
           "y": 1112,
           "r": 95,
-          "label": "Masuki Clockwork Station",
+          "label": "Masuki Stasiun Jam",
           "actions": [
             {
               "do": "music",
@@ -15521,7 +15521,7 @@
                 },
                 {
                   "c": "caption",
-                  "text": "Clockwork Station",
+                  "text": "Stasiun Jam",
                   "sub": "Waktu yang terlewat tak bisa diputar kembali",
                   "t": 3.0
                 },
@@ -15924,8 +15924,8 @@
       "chapter": "C05",
       "quest": "Q_V471_C05",
       "objective": {
-        "arland": "Atur kedua sakelar untuk menggerakkan Clockwork Station",
-        "sofia": "Atur kedua sakelar untuk menggerakkan Clockwork Station"
+        "arland": "Atur kedua sakelar untuk menggerakkan Stasiun Jam",
+        "sofia": "Atur kedua sakelar untuk menggerakkan Stasiun Jam"
       },
       "interactables": [
         {
@@ -16032,8 +16032,8 @@
       "chapter": "C05",
       "quest": "Q_V471_C05",
       "objective": {
-        "arland": "Lihat kenangan dari sudut pandang Arland di Moonlight Lake",
-        "sofia": "Lihat kenangan dari sudut pandang Arland di Moonlight Lake"
+        "arland": "Lihat kenangan dari sudut pandang Arland di Danau Cahaya Bulan",
+        "sofia": "Lihat kenangan dari sudut pandang Arland di Danau Cahaya Bulan"
       },
       "interactables": [
         {
@@ -16121,8 +16121,8 @@
       "chapter": "C05",
       "quest": "Q_V471_C05",
       "objective": {
-        "arland": "Lihat kenangan dari sudut pandang Sofia di Moonlight Lake",
-        "sofia": "Lihat kenangan dari sudut pandang Sofia di Moonlight Lake"
+        "arland": "Lihat kenangan dari sudut pandang Sofia di Danau Cahaya Bulan",
+        "sofia": "Lihat kenangan dari sudut pandang Sofia di Danau Cahaya Bulan"
       },
       "interactables": [
         {
@@ -16484,8 +16484,8 @@
       "chapter": "C05",
       "quest": "Q_V471_C05",
       "objective": {
-        "arland": "Kumpulkan lima fragmen konstelasi di Memory Bridge",
-        "sofia": "Kumpulkan lima fragmen konstelasi di Memory Bridge"
+        "arland": "Kumpulkan lima fragmen konstelasi di Jembatan Kenangan",
+        "sofia": "Kumpulkan lima fragmen konstelasi di Jembatan Kenangan"
       },
       "interactables": [
         {
@@ -17129,8 +17129,8 @@
       "chapter": "C05",
       "quest": "Q_V471_C05",
       "objective": {
-        "arland": "Sambungkan dua sisi Memory Bridge tanpa menghapus retaknya",
-        "sofia": "Sambungkan dua sisi Memory Bridge tanpa menghapus retaknya"
+        "arland": "Sambungkan dua sisi Jembatan Kenangan tanpa menghapus retaknya",
+        "sofia": "Sambungkan dua sisi Jembatan Kenangan tanpa menghapus retaknya"
       },
       "interactables": [
         {
@@ -17301,8 +17301,8 @@
       "chapter": "C05",
       "quest": "Q_V471_C05",
       "objective": {
-        "arland": "Melangkah bersama dan kembali ke Starfall Village",
-        "sofia": "Melangkah bersama dan kembali ke Starfall Village"
+        "arland": "Melangkah bersama dan kembali ke Desa Bintang Jatuh",
+        "sofia": "Melangkah bersama dan kembali ke Desa Bintang Jatuh"
       },
       "interactables": [
         {
@@ -18338,8 +18338,8 @@
       "chapter": "C06",
       "quest": "Q_V472_C06",
       "objective": {
-        "arland": "Dengarkan pasangan, kemudian buka jalan kembali ke Eternal Garden",
-        "sofia": "Dengarkan pasangan, kemudian buka jalan kembali ke Eternal Garden"
+        "arland": "Dengarkan pasangan, kemudian buka jalan kembali ke Taman Abadi",
+        "sofia": "Dengarkan pasangan, kemudian buka jalan kembali ke Taman Abadi"
       },
       "interactables": [
         {
@@ -18939,7 +18939,7 @@
           "x": 1288,
           "y": 750,
           "r": 105,
-          "label": "Surat dari Eternal Garden",
+          "label": "Surat dari Taman Abadi",
           "actions": [
             {
               "do": "if",
@@ -20316,8 +20316,8 @@
       "chapter": "C05",
       "quest": "Q_V471_C05",
       "objective": {
-        "arland": "Ikuti halaman abu-abu ke timur Starfall Village",
-        "sofia": "Ikuti halaman abu-abu ke timur Starfall Village"
+        "arland": "Ikuti halaman abu-abu ke timur Desa Bintang Jatuh",
+        "sofia": "Ikuti halaman abu-abu ke timur Desa Bintang Jatuh"
       },
       "interactables": [
         {
@@ -27652,7 +27652,7 @@
       "x": 1200,
       "y": 1288,
       "r": 69,
-      "label": "Lampu Jendela Starfall",
+      "label": "Lampu Jendela Desa Bintang Jatuh",
       "actions": [
         {
           "do": "sfx",
@@ -31284,7 +31284,7 @@
       "x": 412,
       "y": 605,
       "r": 74,
-      "label": "✦ Embun di Memory Garden",
+      "label": "✦ Embun di Taman Kenangan",
       "when": {
         "worldEventReady": "v49_garden_breeze"
       },
@@ -32489,7 +32489,7 @@
             {
               "c": "caption",
               "text": "Pijakan Menuju Bintang",
-              "sub": "Panorama baru • Star Path",
+              "sub": "Panorama baru • Jalan Bintang",
               "t": 2.5
             },
             {
@@ -32707,7 +32707,7 @@
             {
               "c": "caption",
               "text": "Teras Ingatan",
-              "sub": "Panorama baru • Memory Garden",
+              "sub": "Panorama baru • Taman Kenangan",
               "t": 2.5
             },
             {
@@ -32816,7 +32816,7 @@
             {
               "c": "caption",
               "text": "Teras Lentera",
-              "sub": "Panorama baru • Lantern Field",
+              "sub": "Panorama baru • Padang Lentera",
               "t": 2.5
             },
             {
@@ -32881,7 +32881,7 @@
       "x": 1316,
       "y": 780,
       "r": 49,
-      "label": "✦ Panorama: Atap Cahaya Starfall",
+      "label": "✦ Panorama: Atap Cahaya Desa Bintang Jatuh",
       "hideIfFlag": "V50_VIEW_STARFALL_VILLAGE_DONE",
       "marker": true,
       "when": {
@@ -32924,8 +32924,8 @@
             },
             {
               "c": "caption",
-              "text": "Atap Cahaya Starfall",
-              "sub": "Panorama baru • Starfall Village",
+              "text": "Atap Cahaya Desa Bintang Jatuh",
+              "sub": "Panorama baru • Desa Bintang Jatuh",
               "t": 2.5
             },
             {
@@ -32980,7 +32980,7 @@
         },
         {
           "do": "toast",
-          "text": "Panorama: Atap Cahaya Starfall tersimpan."
+          "text": "Panorama: Atap Cahaya Desa Bintang Jatuh tersimpan."
         }
       ]
     },
@@ -33034,7 +33034,7 @@
             {
               "c": "caption",
               "text": "Pelataran Hari Esok",
-              "sub": "Panorama baru • Eternal Garden",
+              "sub": "Panorama baru • Taman Abadi",
               "t": 2.5
             },
             {
@@ -33143,7 +33143,7 @@
             {
               "c": "caption",
               "text": "Pijakan dalam Hujan",
-              "sub": "Panorama baru • Rain Garden",
+              "sub": "Panorama baru • Taman Hujan",
               "t": 2.5
             },
             {
@@ -40154,7 +40154,7 @@
   "minigames": {
     "v26_night_compass": {
       "type": "code",
-      "title": "Kunci Jarak Starfall",
+      "title": "Kunci Jarak Desa Bintang Jatuh",
       "desc": "Uji tiga simbol dari denah Pak Wira di bawah langit desa.",
       "answer": [
         0,
@@ -40165,7 +40165,7 @@
     },
     "v26_night_pages": {
       "type": "pages",
-      "title": "Surat di Langit Starfall",
+      "title": "Surat di Langit Desa Bintang Jatuh",
       "desc": "Urutkan empat potongan kalimat yang dikumpulkan Sofia.",
       "pages": [
         "Ketika langit",
@@ -41926,7 +41926,7 @@
     },
     {
       "id": "desa_bintang",
-      "title": "Lampu Jendela Starfall",
+      "title": "Lampu Jendela Desa Bintang Jatuh",
       "area": "starfall_village",
       "x": 1200,
       "y": 1288,
@@ -42103,7 +42103,7 @@
     },
     {
       "id": "v49_garden_breeze",
-      "title": "Embun di Memory Garden",
+      "title": "Embun di Taman Kenangan",
       "area": "memory_garden",
       "x": 412,
       "y": 605,
@@ -42533,7 +42533,7 @@
       "id": "V49_DISC_STARFALL_VILLAGE",
       "area": "starfall_village",
       "title": "Jendela Bernyanyi",
-      "hint": "Rumah-rumah Starfall punya lagu kecil untuk menyambut malam.",
+      "hint": "Rumah-rumah Desa Bintang Jatuh punya lagu kecil untuk menyambut malam.",
       "minChapter": "C05",
       "flag": "V49_DISC_STARFALL_VILLAGE_FOUND",
       "minigame": ""

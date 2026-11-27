@@ -41,6 +41,8 @@ var _markers := {}                # interactable id -> Node2D
 var _time := 0.0
 var atmosphere: Atmosphere
 var view3d: WorldView3D
+var stage: RenderStage                    # U1: null when the world draws natively
+var _fps_label: Label
 var npc_life: NpcLife           # U3b: neighbour chatter bubbles, umbrellas, lightning flinch
 var confirm: ConfirmBox
 var _clock_step := ""
@@ -60,7 +62,13 @@ func _ready() -> void:
 	engine.both_routes_completed = SaveStore.both_completed("C06")
 	runner = ActionRunner.new(engine, self)
 	world = World.new()
-	add_child(world)
+	# U1: on 2x screens the world is drawn at the design size (render_stage.gd), the UI stays native
+	if RenderStage.wanted(Vector2(get_window().size)):
+		stage = RenderStage.new()
+		add_child(stage)
+		stage.viewport.add_child(world)
+	else:
+		add_child(world)
 	cine = Cutscene.new()
 	cine.host = self
 	world.add_child(cine)
@@ -77,7 +85,7 @@ func _ready() -> void:
 	view3d = WorldView3D.new()
 	view3d.world = world
 	view3d.atmosphere = atmosphere
-	add_child(view3d)
+	world.get_parent().add_child(view3d)
 	npc_life = NpcLife.new().setup(self)
 	_ui.add_child(npc_life)
 	_ui.move_child(npc_life, 0)          # under the HUD, dialog and menus
@@ -119,6 +127,13 @@ func _build_ui() -> void:
 	_prompt.add_child(_prompt_label)
 	_prompt.visible = false
 	root.add_child(_prompt)
+	# U1: frame counter (Pengaturan → Penghitung FPS), with the size the world is drawn at
+	_fps_label = UiTheme.label("", 15, UiTheme.TEXT, "pixel")
+	_fps_label.add_theme_color_override("font_outline_color", UiTheme.EDGE)
+	_fps_label.add_theme_constant_override("outline_size", 4)
+	_fps_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_fps_label.visible = false
+	root.add_child(_fps_label)
 	# toast
 	_toast = UiTheme.label("", 21, UiTheme.TEXT, "pixel")
 	_toast.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -196,6 +211,7 @@ func resume_game() -> void:
 
 # ------------------------------------------------------------------ frame
 func _process(delta: float) -> void:
+	_update_fps_label(delta)
 	_time += delta
 	var busy := dialog.active or minigame.visible or puzzle.visible or shop.visible or book.visible or romance.visible or confirm.visible or cine.active or runner.busy() or _card.visible or _fade.color.a > 0.02
 	world.locked = busy
@@ -935,3 +951,20 @@ func _finish_card() -> void:
 
 func _exit_tree() -> void:
 	Audio.area_stop()      # back to the title: let the area soundscape fade out
+
+
+var _fps_t := 0.0
+
+
+func _update_fps_label(delta: float) -> void:
+	var on: bool = GameSettings.value("show_fps")
+	_fps_label.visible = on
+	if not on:
+		return
+	_fps_t -= delta
+	if _fps_t > 0.0:
+		return
+	_fps_t = 0.5
+	var px := RenderStage.world_pixels(self)
+	_fps_label.text = "%d FPS · %dx%d" % [int(round(Engine.get_frames_per_second())), px.x, px.y]
+	_fps_label.position = Vector2(22, hud.bottom() + 6)

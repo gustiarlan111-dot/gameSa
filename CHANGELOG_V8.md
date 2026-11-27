@@ -1,5 +1,13 @@
 # CHANGELOG — V8.0 "The Definitive Overhaul"
 
+## Upgrade 1, bagian U1a — panggung resolusi dan penghitung FPS
+Detail: `docs/PERFORMANCE.md`.
+- **Tablet 2.5K** (misalnya Redmi Pad 2, 2560×1600): dunia game kini digambar pada 1280×800 lalu
+  diperbesar 2×. Beban GPU untuk dunia turun ±2/3. Pixel art tetap tajam, dan UI serta teks tetap
+  digambar pada resolusi layar.
+- Ponsel 1080p tidak berubah.
+- **Pengaturan → Penghitung FPS:** menampilkan FPS dan ukuran gambar dunia di bawah HUD (bawaan: mati).
+
 ## Upgrade 3, bagian U2e — suasana 3D untuk 7 map mimpi yang tertinggal
 Detail: `docs/WORLD3D.md` (U2e). Gambar: `docs/screens/u2e/`.
 - **Taman Kenangan:** kelopak lavender, biru, dan merah muda gugur dari pohonnya, ditambah kilau dan kabut tipis.

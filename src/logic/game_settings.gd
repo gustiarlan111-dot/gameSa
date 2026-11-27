@@ -18,6 +18,7 @@ const DEFAULTS := {
 	"hud_scale": 1.0,
 	"left_hand": false,      # joystick on the right, buttons on the left
 	"lightning": true,       # thunderstorm flashes (off for light-sensitive players; thunder stays)
+	"show_fps": false,       # U1: frame counter in the corner, to report performance on a device
 }
 
 static var current: Dictionary = {}
@@ -63,6 +64,8 @@ static func sanitize(d: Dictionary) -> Dictionary:
 		out.left_hand = d.left_hand
 	if d.get("lightning") is bool:
 		out.lightning = d.lightning
+	if d.get("show_fps") is bool:
+		out.show_fps = d.show_fps
 	return out
 
 

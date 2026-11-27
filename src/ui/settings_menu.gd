@@ -43,6 +43,7 @@ func _ready() -> void:
 	_choice("Ukuran kontrol", "hud_scale", [["Kecil", 0.85], ["Normal", 1.0], ["Besar", 1.15], ["Sangat besar", 1.3]])
 	_choice("Joystick", "left_hand", [["Kiri", false], ["Kanan", true]])
 	_choice("Kilat petir", "lightning", [["Nyala", true], ["Mati", false]])
+	_choice("Penghitung FPS", "show_fps", [["Nyala", true], ["Mati", false]])
 	var note := UiTheme.label("Rendah: tanpa bayangan dan efek layar, untuk ponsel lama. 30 FPS menghemat baterai.", 15, UiTheme.TEXT_DIM, "body")
 	note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	note.custom_minimum_size = Vector2(560, 0)

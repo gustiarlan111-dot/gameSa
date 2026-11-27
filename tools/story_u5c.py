@@ -22,7 +22,7 @@ A = Path(__file__).resolve().parents[1] / 'assets/data'
 INSERT = {
     # scene id: (insert after the line whose text starts with ..., [(speaker, text, emotion)])
     'P-X02': ('Halaman pertama menampilkan', [
-        ('narrator', 'Buku itu adalah Buku Kenangan milik mereka berdua. Setiap kenangan yang mereka buat bersama tertulis di dalamnya sebagai satu halaman.', 'neutral'),
+        ('narrator', 'Buku itu adalah Memory Book, Buku Kenangan milik mereka berdua. Setiap kenangan yang mereka buat bersama tertulis di dalamnya sebagai satu halaman.', 'neutral'),
         ('narrator', 'Kalau sebuah halaman dibuka bersama, mereka bisa masuk ke dunia kenangan: tempat yang terbentuk dari kenangan itu. Rasanya seperti mimpi, dan mereka bisa pulang kapan saja.', 'neutral'),
         ('narrator', 'Tapi halaman bisa memudar, yaitu saat ada hal yang dipendam dan tidak diceritakan. Cara menjaganya sederhana: jujur, dan saling mendengar.', 'neutral'),
     ]),
@@ -60,7 +60,7 @@ NAMES = {
 }
 
 GLOSSARY = [
-    ('PRO', 'Buku Kenangan', 'Buku milik Arland dan Sofia. Setiap kenangan yang mereka buat bersama menjadi satu halaman.'),
+    ('PRO', 'Memory Book (Buku Kenangan)', 'Buku milik Arland dan Sofia. Setiap kenangan yang mereka buat bersama menjadi satu halaman.'),
     ('PRO', 'Dunia kenangan', 'Tempat yang terbentuk dari sebuah kenangan, seperti mimpi. Mereka masuk lewat halaman buku dan bisa pulang kapan saja.'),
     ('PRO', 'Halaman memudar', 'Tanda ada hal yang dipendam dan belum diceritakan. Halaman berwarna lagi saat mereka jujur dan saling mendengar.'),
     ('C01', 'Surat dua sisi', 'Surat tua Kakek Wira untuk Nenek Sari. Satu cerita dari dua sudut pandang, seperti cara game ini bercerita lewat dua route.'),

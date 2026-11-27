@@ -12584,7 +12584,7 @@
         },
         {
           "id": "park_to_rain_garden",
-          "label": "Gerbang Rain Garden",
+          "label": "Gerbang Taman Hujan",
           "rect": [
             2043,
             547,
@@ -30782,7 +30782,7 @@
             18,
             150
           ],
-          "label": "Ke Starfall Village",
+          "label": "Ke Desa Bintang Jatuh",
           "to": "starfall_village",
           "tx": 75,
           "ty": 800,
@@ -30807,7 +30807,7 @@
         },
         {
           "id": "legacy_lantern_to_rain_garden",
-          "label": "Jejak hujan menuju Rain Garden",
+          "label": "Jejak hujan menuju Taman Hujan",
           "rect": [
             131,
             1465,
@@ -35722,7 +35722,7 @@
             18,
             138
           ],
-          "label": "Ke Starfall Village",
+          "label": "Ke Desa Bintang Jatuh",
           "to": "starfall_village",
           "tx": 60,
           "ty": 640,
@@ -41473,7 +41473,7 @@
           "to": "clockwork_station",
           "tx": 190,
           "ty": 1070,
-          "label": "Clockwork Station",
+          "label": "Stasiun Jam",
           "dir": "up",
           "locked": [
             {
@@ -88231,7 +88231,7 @@
           "to": "starfall_village",
           "tx": 1562,
           "ty": 1150,
-          "label": "Kembali ke Starfall Village",
+          "label": "Kembali ke Desa Bintang Jatuh",
           "dir": "up"
         },
         {
@@ -88245,7 +88245,7 @@
           "to": "moonlight_lake",
           "tx": 190,
           "ty": 1050,
-          "label": "Ke Moonlight Lake",
+          "label": "Ke Danau Cahaya Bulan",
           "dir": "up",
           "locked": [
             {
@@ -92644,7 +92644,7 @@
           "to": "clockwork_station",
           "tx": 260,
           "ty": 1090,
-          "label": "Kembali ke Clockwork Station",
+          "label": "Kembali ke Stasiun Jam",
           "dir": "up"
         },
         {
@@ -92658,7 +92658,7 @@
           "to": "memory_bridge",
           "tx": 185,
           "ty": 1090,
-          "label": "Ke Memory Bridge",
+          "label": "Ke Jembatan Kenangan",
           "dir": "up",
           "locked": [
             {
@@ -97716,7 +97716,7 @@
           "to": "moonlight_lake",
           "tx": 250,
           "ty": 1090,
-          "label": "Kembali ke Moonlight Lake",
+          "label": "Kembali ke Danau Cahaya Bulan",
           "dir": "up"
         },
         {
@@ -101775,7 +101775,7 @@
           "to": "eternal_garden",
           "tx": 1200,
           "ty": 888,
-          "label": "Kembali ke Eternal Garden",
+          "label": "Kembali ke Taman Abadi",
           "dir": "down"
         }
       ],
@@ -105628,7 +105628,7 @@
             120,
             44
           ],
-          "label": "Kembali ke Starfall Village",
+          "label": "Kembali ke Desa Bintang Jatuh",
           "to": "starfall_village",
           "tx": 1788,
           "ty": 1060,
@@ -109122,7 +109122,7 @@
             120,
             44
           ],
-          "label": "Kembali ke Eternal Garden",
+          "label": "Kembali ke Taman Abadi",
           "to": "eternal_garden",
           "tx": 1200,
           "ty": 900,

@@ -622,7 +622,7 @@ static func caption_art(title: String, sub):
 	match title:
 		"Sabtu pagi": return "sofia_morning" if sub != null and str(sub).contains("Sofia") else "arland_morning"
 		"Plaza Kota": return "plaza_intro"
-		"Memory Garden": return "garden_portal"
+		"Memory Garden", "Taman Kenangan": return "garden_portal"
 		"Perpustakaan Kota": return "library"
 		"Arsip No. 7": return "archive"
 		"Dermaga Danau": return "pier"

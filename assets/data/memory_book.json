@@ -601,7 +601,7 @@
       "unlock": "V26_C05_A_SOLVED",
       "icon": "items/compass.png",
       "title": "Peta yang Bisa Mendengar",
-      "text": "Tiga titik di Starfall Village mengubah cara Arland melihat arah."
+      "text": "Tiga titik di Desa Bintang Jatuh mengubah cara Arland melihat arah."
     },
     {
       "id": "m_v26_night_s",
@@ -1830,7 +1830,7 @@
       "type": "fictional_memory",
       "unlock": "WORLD_EVENT_DESA_BINTANG_ONCE",
       "icon": "items/memory_page.png",
-      "title": "Lampu Jendela Starfall",
+      "title": "Lampu Jendela Desa Bintang Jatuh",
       "text": "Kisah dunia yang hidup pada waktu dan suasana tertentu."
     },
     {
@@ -2470,7 +2470,7 @@
       "type": "fictional_memory",
       "unlock": "V470_LIGHT_UPDATE",
       "icon": "items/v470_c04_lantern.png",
-      "title": "Lima Cahaya Rain Garden",
+      "title": "Lima Cahaya Taman Hujan",
       "text": "Mendengar, jujur, hadir, ruang, dan memberi kabar adalah lima hal yang mereka pelajari."
     },
     {
@@ -3391,7 +3391,7 @@
       "unlock": "V474_S_STAMP_STAR",
       "icon": "items/v474_postcard.png",
       "title": "Bintang di Kartu Pos",
-      "text": "Aku memilih bintang tanpa tahu bahwa kelak kita akan mengikuti langit sampai Memory Bridge."
+      "text": "Aku memilih bintang tanpa tahu bahwa kelak kita akan mengikuti langit sampai Jembatan Kenangan."
     },
     {
       "id": "v474_pro_choice_s_stamp_flower",
@@ -3581,7 +3581,7 @@
       "unlock": "V49_DISC_STARFALL_VILLAGE_FOUND",
       "icon": "items/symbol_star.png",
       "title": "Jendela Bernyanyi",
-      "text": "Penemuan di starfall village. Rumah-rumah Starfall punya lagu kecil untuk menyambut malam."
+      "text": "Penemuan di Desa Bintang Jatuh. Rumah-rumah Desa Bintang Jatuh punya lagu kecil untuk menyambut malam."
     },
     {
       "id": "v49_discovery_eternal_garden",
@@ -3780,7 +3780,7 @@
       "type": "world_event",
       "unlock": "WORLD_EVENT_V49_GARDEN_BREEZE_ONCE",
       "icon": "items/symbol_star.png",
-      "title": "Embun di Memory Garden",
+      "title": "Embun di Taman Kenangan",
       "text": "Momen harian di memory garden. Kenangan pertama tetap tersimpan."
     },
     {
@@ -3984,7 +3984,7 @@
   "glossary": [
     {
       "chapter": "PRO",
-      "term": "Buku Kenangan",
+      "term": "Memory Book (Buku Kenangan)",
       "text": "Buku milik Arland dan Sofia. Setiap kenangan yang mereka buat bersama menjadi satu halaman."
     },
     {

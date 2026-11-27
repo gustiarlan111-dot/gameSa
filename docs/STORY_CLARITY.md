@@ -50,3 +50,28 @@ python3 tools/story_u5c.py                                     # data (idempoten
 SHOT_CARD=C05 godot --fixed-fps 60 --path . -- --shot sofia plaza 1450 1112 70 card.png
 SHOT_BOOK=6 SHOT_STEP=C04_A_WAKE godot --path . -- --shot sofia plaza 1450 1112 70 book.png
 ```
+
+## U5d — satu nama untuk satu tempat
+U5c baru mengganti judul map. Pintu, misi, keterangan, dan dialog masih memakai nama Inggris lama.
+Contohnya, judul map tertulis "Desa Bintang Jatuh", tetapi pintunya "Ke Starfall Village".
+`python3 tools/names_u5d.py` mengganti 104 teks yang terlihat pemain:
+
+| File | Jumlah teks |
+|---|---|
+| `story.json` (dialog dan judul adegan) | 33 |
+| `quests.json` (misi, label, keterangan, teka-teki) | 52 |
+| `maps.json` (label pintu dan gerbang) | 13 |
+| `memory_book.json` (isi Buku) | 6 |
+
+Selain itu, ada dua perubahan di kode:
+- Urutan minigame kini "Plaza → Taman Kenangan → Kafe Senja → Festival".
+- Gambar keterangan Taman Kenangan dikenali dengan nama lama maupun nama baru.
+
+Yang tetap memakai bahasa Inggris:
+- Id area dan catatan desain.
+- Judul map, yang mencantumkan nama lama di dalam kurung.
+- "Memory Book". Nama ini muncul 150× dan dibiarkan. Sebagai jembatan, prolog kini berbunyi
+  "Buku itu adalah Memory Book, Buku Kenangan milik mereka berdua", dan istilahnya ditulis
+  "Memory Book (Buku Kenangan)".
+
+Gambar: `docs/screens/u5d/misi.png`. Tes §24 gagal kalau ada nama tempat lama yang muncul lagi di teks pemain.

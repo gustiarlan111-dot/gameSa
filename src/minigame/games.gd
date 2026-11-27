@@ -113,7 +113,7 @@ class Bouquet extends Minigame:
 
 # ============================================================ SCRAPBOOK KENANGAN
 class Scrapbook extends Minigame:
-	const MOMENTS := ["Plaza", "Memory Garden", "Kafe Senja", "Festival"]
+	const MOMENTS := ["Plaza", "Taman Kenangan", "Kafe Senja", "Festival"]
 	const ICONS := ["items/postcard.png", "items/memory_page.png", "items/letter_two_sides.png", "items/lantern_paper.png"]
 	var order := [2, 0, 3, 1]
 	var selected := -1
@@ -162,7 +162,7 @@ class Scrapbook extends Minigame:
 			select(i)
 
 	func draw() -> void:
-		text("Urutan: Plaza → Memory Garden → Kafe Senja → Festival", x, y + h - 16, GOLD, .79, "center", w)
+		text("Urutan: Plaza → Taman Kenangan → Kafe Senja → Festival", x, y + h - 16, GOLD, .79, "center", w)
 		var by := y + h * .34
 		for i in 4:
 			var bx := _sx() + i * 148

@@ -1,5 +1,16 @@
 # CHANGELOG — V8.0 "The Definitive Overhaul"
 
+## Upgrade 3, bagian U2e — suasana 3D untuk 7 map mimpi yang tertinggal
+Detail: `docs/WORLD3D.md` (U2e). Gambar: `docs/screens/u2e/`.
+- **Taman Kenangan:** kelopak lavender, biru, dan merah muda gugur dari pohonnya, ditambah kilau dan kabut tipis.
+- **Taman Hujan:** kabut taman basah dan kunang-kunang.
+- **Stasiun Jam:** debu emas melayang di cahaya lampu.
+- **Jembatan Kenangan:** kabut biru di atas air dan debu bintang.
+- **Balai Hari Esok:** kelopak gugur dan kilau emas.
+- **Arsip yang Memudar:** kabut abu-abu dan debu kertas.
+- **Gazebo, Empat Puluh Tahun Lalu:** kabut siang yang hangat.
+- Kini ke-13 map mimpi punya suasana 3D sendiri.
+
 ## Upgrade 5, bagian U5d — satu nama untuk satu tempat
 - Nama Inggris lama tempat mimpi kini diganti di semua teks yang dibaca pemain: label pintu, misi,
   keterangan, teka-teki, isi Buku, dan dialog (104 teks). Contoh: "Ke Starfall Village" menjadi

@@ -439,7 +439,7 @@ func _ready() -> void:
 		for c_t in c_need[c_a]:
 			if not c_types.has(c_t): c_miss.append("%s:%s" % [c_a, c_t])
 	ok(c_miss.is_empty(), "landmark khas tiap map mimpi terpasang %s" % [c_miss])
-	ok(WorldParticles.DREAM.size() == 6 and WorldParticles.DREAM.lantern_field.sky_lanterns > 0 and WorldParticles.DREAM.starfall_village.smoke
+	ok(WorldParticles.DREAM.size() >= 6 and WorldParticles.DREAM.lantern_field.sky_lanterns > 0 and WorldParticles.DREAM.starfall_village.smoke
 		and WorldParticles.DREAM.gua_kristal.has("motes") and WorldMist.DREAM.moonlight_lake[0] > 0.5, "efek khas: lentera terbang, asap cerobong, debu kristal, kabut danau")
 	var c_low: Array = []
 	for c_a in ["star_path", "starfall_village", "eternal_garden", "moonlight_lake", "lantern_field", "gua_kristal"]:
@@ -478,6 +478,21 @@ func _ready() -> void:
 		_eng_names(n_src, "", n_hits)
 	ok(n_hits.is_empty(), "nama tempat lama tidak tersisa di pintu, misi, dan dialog %s" % [n_hits.slice(0, 3)])
 	ok(str(Data.memory_book.glossary[0].term).contains("Memory Book") and str(Data.scene("P-X02").lines.filter(func(l): return l.get("u5c", false))[0].t).contains("Memory Book, Buku Kenangan"), "Memory Book dan Buku Kenangan disebut sebagai satu benda")
+	# 25. U2e: every dream map has an atmosphere of its own (particles or mist), dream trees shed their colour
+	var e_none: Array = []
+	for e_a in ["memory_garden", "lantern_field", "star_path", "starfall_village", "eternal_garden", "rain_garden", "clockwork_station",
+			"moonlight_lake", "memory_bridge", "hall_of_tomorrow", "arsip_memudar", "kenangan_gazebo", "gua_kristal"]:
+		if not WorldParticles.DREAM.has(e_a) and not WorldMist.DREAM.has(e_a): e_none.append(e_a)
+	ok(e_none.is_empty() and WorldParticles.DREAM.size() == 12 and WorldMist.DREAM.size() == 8, "13 map mimpi punya suasana 3D sendiri %s" % [e_none])
+	ok(WorldParticles.palette_for("hd_tree_dream_c") == WorldParticles.DREAM_C and WorldParticles.palette_for("hd_tree_dream_b") == WorldParticles.DREAM_B
+		and WorldParticles.palette_for("hd_tree_dream_a") == WorldParticles.DREAM_A and WorldParticles.palette_for("hd_tree_cherry_a") == WorldParticles.PINK, "kelopak pohon mimpi mengikuti warna tajuknya")
+	var e_ok := true
+	for e_k in WorldParticles.DREAM:
+		var e_m = WorldParticles.DREAM[e_k].get("motes", [])
+		if e_m.size() > 0 and (int(e_m[1]) > 60 or float(e_m[2]) >= float(e_m[3]) or (e_m.size() > 4 and float(e_m[4]) > 0.4)): e_ok = false
+	for e_k in WorldMist.DREAM:
+		if float(WorldMist.DREAM[e_k][0]) > 0.6: e_ok = false
+	ok(e_ok, "batas biaya: ≤60 butir per map, ukuran ≤0,4 m, kabut ≤0,6")
 	print("%s: %d pemeriksaan, %d gagal" % ["SEMUA LULUS" if fails == 0 else "ADA YANG GAGAL", checks, fails])
 	get_tree().quit(1 if fails > 0 else 0)
 

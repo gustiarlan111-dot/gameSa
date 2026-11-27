@@ -198,3 +198,37 @@ nyata, sebab ada kemungkinan cerita dibuat realistis nanti (opsi A/B, belum dipu
 - **Regenerasi.** `dream_hd.py` menghasilkan ulang map yang ter-commit secara identik (dicek di awal
   U2c, berbeda dengan `plaza_hd.py`). Karena itu kelima map dibuat ulang dengan `--apply`. Zona
   `clear` menggeser sebaran pohon di sekitar landmark.
+
+# U2e — suasana 3D untuk 7 map mimpi yang tertinggal
+
+U2c hanya memberi efek 3D pada 6 map. Tujuh map mimpi lainnya sudah punya landmark dari V8.2 dan
+V8.8, tetapi belum punya partikel atau kabut 3D. U2e hanya menambah efek. Tata letak dan gambar map
+tidak diubah, dan setiap efek tetap masuk akal di tempat nyata.
+
+| Map | Partikel (`world_particles.gd` `DREAM`) | Kabut (`world_mist.gd` `DREAM`) |
+|---|---|---|
+| Taman Kenangan | kelopak gugur dari pohon mimpi, 50 kilau lavender | 0,25 lavender |
+| Taman Hujan | kunang-kunang | 0,55 hijau keabu-abuan (taman basah) |
+| Stasiun Jam | 50 butir debu emas di cahaya lampu | — |
+| Jembatan Kenangan | 60 butir debu bintang | 0,5 biru di atas air |
+| Balai Hari Esok | kelopak dari pohon mimpi, 44 kilau emas | — |
+| Arsip yang Memudar | 54 butir debu kertas | 0,42 abu-abu (arsip yang memudar) |
+| Gazebo, Empat Puluh Tahun Lalu | daun gugur (sudah ada sejak U2b, karena map ini bukan dunia mimpi) | 0,3 hangat (siang yang samar) |
+
+- **Kelopak pohon mimpi.**
+  - Sebelumnya pohon mimpi tidak menggugurkan apa pun.
+  - Kini warna kelopaknya mengikuti tajuk pohonnya. Warna diambil dari median piksel tajuk:
+    `dream_a` lavender, `dream_b` biru, `dream_c` merah muda.
+  - Ini hanya berlaku di map yang presetnya `leaves: true`.
+  - Taman Abadi tidak terpengaruh karena tidak punya pohon mimpi.
+- **Ukuran kilau.**
+  - `motes` kini bisa menerima ukuran sebagai nilai ke-5 (bawaan 0,22 m).
+  - Di versi pertama U2e, 24–40 butir berukuran 0,22 m hampir tidak terlihat di gambar diam.
+  - Karena itu jumlahnya dinaikkan ke 44–60 butir dan ukurannya ke 0,3 m. Kabut juga dipertebal.
+- **Batas biaya** (dijaga tes):
+  - Partikel ≤60 per sistem, ukuran ≤0,4 m, kabut ≤0,6.
+  - Paling berat: Taman Kenangan, dengan 40 daun, 50 kilau, dan 3 lembar kabut.
+- **Galeri Komunitas tidak diberi jendela.**
+  - Dinding belakangnya hanya setinggi 84 px, dan seluruhnya terisi 7 lukisan serta papan nama galeri.
+  - Menambah jendela berarti mencopot lukisan, dan itu menunggu izin pemilik game.
+  - Selain jendela, galeri sudah mendapat semua bagian U2a (perabot 3D dan cahaya ruangan).

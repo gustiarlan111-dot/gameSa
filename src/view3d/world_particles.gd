@@ -23,12 +23,24 @@ const DREAM := {
 	"eternal_garden": {"leaves": true},
 	"moonlight_lake": {"fireflies": true},
 	"gua_kristal": {"motes": [Color(0.62, 1.0, 1.0), 48, 0.2, 2.0]},
+	# U2e: the dream maps U2c left out (again things a real place has: pollen and petals in a garden,
+	# dust in lamplight at a station, stars over a bridge, paper dust in an archive; Gazebo already drops leaves as a real park)
+	"memory_garden": {"leaves": true, "motes": [Color(0.88, 0.82, 1.0), 50, 0.3, 2.2, 0.3]},
+	"rain_garden": {"fireflies": true},
+	"clockwork_station": {"motes": [Color(1.0, 0.82, 0.5), 50, 0.5, 2.8, 0.32]},
+	"memory_bridge": {"motes": [Color(0.8, 0.88, 1.0), 60, 0.4, 2.6, 0.3]},
+	"hall_of_tomorrow": {"leaves": true, "motes": [Color(1.0, 0.9, 0.68), 44, 0.8, 3.0, 0.32]},
+	"arsip_memudar": {"motes": [Color(0.93, 0.9, 0.82), 54, 0.3, 2.4, 0.3]},
 }
 const REACH := Vector2(560.0, 340.0)          # map px around the camera focus that drops leaves
 const PINK := [Color(1.0, 0.78, 0.86), Color(0.98, 0.66, 0.78), Color(1.0, 0.88, 0.92)]
 const ORANGE := [Color(0.95, 0.58, 0.25), Color(0.86, 0.42, 0.2), Color(0.98, 0.76, 0.32)]
 const GREEN := [Color(0.45, 0.68, 0.32), Color(0.58, 0.76, 0.36), Color(0.36, 0.56, 0.28)]
 const DARK := [Color(0.3, 0.46, 0.3), Color(0.24, 0.4, 0.3)]
+## U2e: petals of the dream trees, sampled from their crowns (a lavender, b blue, c rose)
+const DREAM_A := [Color(0.6, 0.53, 0.84), Color(0.74, 0.67, 0.93), Color(0.82, 0.76, 0.96)]
+const DREAM_B := [Color(0.38, 0.6, 0.8), Color(0.53, 0.71, 0.88), Color(0.66, 0.8, 0.93)]
+const DREAM_C := [Color(0.8, 0.44, 0.56), Color(0.94, 0.71, 0.77), Color(0.88, 0.55, 0.65)]
 
 var view
 var leaves: CPUParticles3D
@@ -45,6 +57,8 @@ var _preset := {}
 
 
 static func palette_for(ptype: String) -> Array:
+	if ptype.contains("tree_dream_"):
+		return DREAM_C if ptype.ends_with("_c") else (DREAM_B if ptype.ends_with("_b") else DREAM_A)
 	if ptype.contains("cherry") or ptype.contains("blossom"):
 		return PINK
 	if ptype.contains("autumn"):
@@ -65,12 +79,16 @@ func setup(v) -> WorldParticles:
 	name = "Particles"
 	_rng.seed = hash(str(v.world.current_id))
 	var world: World = v.world
+	var id: String = world.current_id
+	_nature = NATURE.has(id)
+	_preset = DREAM.get(id, {})
+	var dream_petals: bool = _preset.get("leaves", false)      # U2e: dream trees shed petals where asked
 	var trees := 0
 	for holder in world._prop_nodes:
 		if not is_instance_valid(holder) or holder.get_child_count() == 0:
 			continue
 		var t := str(holder.get_meta("type", ""))
-		if not t.contains("tree") or t.contains("planter") or t.contains("dream") or t.contains("lantern"):
+		if not t.contains("tree") or t.contains("planter") or (t.contains("dream") and not dream_petals) or t.contains("lantern"):
 			continue
 		var s := holder.get_child(0) as Sprite2D
 		if s == null or s.texture == null:
@@ -83,15 +101,12 @@ func setup(v) -> WorldParticles:
 	if n > 0:
 		leaves = _make_leaves(n)
 		add_child(leaves)
-	var id: String = world.current_id
-	_nature = NATURE.has(id)
-	_preset = DREAM.get(id, {})
 	if _nature or str(world.area.get("ambient", "")) == "fireflies" or _preset.get("fireflies", false):
 		fireflies = _make_fireflies()
 		add_child(fireflies)
 	if _preset.has("motes"):
 		var mp: Array = _preset.motes
-		motes = _make_motes(mp[0], mp[1], mp[2], mp[3])
+		motes = _make_motes(mp[0], mp[1], mp[2], mp[3], float(mp[4]) if mp.size() > 4 else 0.22)
 		add_child(motes)
 	if _preset.has("sky_lanterns"):
 		lanterns = _make_lanterns(_preset.sky_lanterns)
@@ -193,7 +208,7 @@ func _make_fireflies() -> CPUParticles3D:
 
 
 ## Slow glints that drift and twinkle (star dust on Star Path, sparks in Starfall Village, cave dust).
-func _make_motes(col: Color, n: int, y0: float, y1: float) -> CPUParticles3D:
+func _make_motes(col: Color, n: int, y0: float, y1: float, size := 0.22) -> CPUParticles3D:
 	var p := _make_fireflies()
 	p.name = "Motes"
 	p.amount = n
@@ -207,7 +222,7 @@ func _make_motes(col: Color, n: int, y0: float, y1: float) -> CPUParticles3D:
 	ramp.set_color(0, Color(col, 0)); ramp.set_color(1, Color(col, 0))
 	ramp.add_point(0.3, Color(col, 0.9)); ramp.add_point(0.55, Color(col, 0.25)); ramp.add_point(0.8, Color(col, 0.8))
 	p.color_ramp = ramp
-	(p.mesh as QuadMesh).size = Vector2(0.22, 0.22)
+	(p.mesh as QuadMesh).size = Vector2(size, size)
 	return p
 
 

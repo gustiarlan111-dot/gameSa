@@ -1,5 +1,17 @@
 # QA REPORT — V8.0
 
+## Upgrade 3, bagian U2e — suasana 7 map mimpi — ringkasan
+| Pemeriksaan | Hasil |
+|---|---|
+| Tes logika | **102 / 102 lulus**. Ada 3 tes baru: 13 map mimpi punya partikel atau kabut sendiri; kelopak pohon mimpi mengikuti warna tajuk; batas biaya (≤60 butir, ≤0,4 m, kabut ≤0,6) |
+| Validator map | 0 error, 7 warning (sama dengan main) |
+| Cerita Sofia / Arland sampai tamat | langkah, area, dan frame identik dengan U5d. 0 script error |
+| Sebelum/sesudah | `docs/screens/u2e/map_mimpi_1.png`, `map_mimpi_2.png` (crop 640×360 dari tangkapan 1280×720) |
+| Ditemukan dan diperbaiki | versi pertama terlalu halus (24–40 butir 0,22 m, kabut 0,18–0,45), hampir tak terlihat → 44–60 butir 0,3 m, kabut 0,25–0,55 |
+| FPS | tidak bisa diukur di server. Tambahan per map: 1–2 sistem partikel CPU (≤60 butir) dan 3 lembar kabut di 5 map |
+| Tidak dikerjakan | jendela Galeri Komunitas: dinding 84 px penuh lukisan, perlu izin untuk mencopot lukisan |
+| Belum diuji | di HP sungguhan; debu kertas Arsip kurang terlihat di atas lantai terang (kabutnya yang memberi kesan) |
+
 ## Upgrade 5, bagian U5d — satu nama untuk satu tempat — ringkasan
 | Pemeriksaan | Hasil |
 |---|---|

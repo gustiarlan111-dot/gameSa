@@ -18,6 +18,12 @@ const DREAM := {
 	"moonlight_lake": [0.6, Color(0.7, 0.78, 0.95)],
 	"lantern_field": [0.3, Color(0.9, 0.82, 0.74)],
 	"starfall_village": [0.25, Color(0.72, 0.76, 0.92)],
+	# U2e: a wet garden, water under a bridge, a dusty archive, a hazy summer afternoon, garden dew
+	"rain_garden": [0.55, Color(0.7, 0.8, 0.78)],
+	"memory_bridge": [0.5, Color(0.66, 0.72, 0.95)],
+	"arsip_memudar": [0.42, Color(0.8, 0.8, 0.82)],
+	"kenangan_gazebo": [0.3, Color(0.96, 0.88, 0.76)],
+	"memory_garden": [0.25, Color(0.84, 0.78, 0.96)],
 }
 
 var view

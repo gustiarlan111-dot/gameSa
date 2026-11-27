@@ -1,12 +1,12 @@
 # CHANGELOG — V8.0 "The Definitive Overhaul"
 
-## Upgrade 1, bagian U1a — panggung resolusi dan penghitung FPS
+## Upgrade 1, bagian U1a — efek layar lebih ringan, panggung resolusi, penghitung FPS
 Detail: `docs/PERFORMANCE.md`.
-- **Tablet 2.5K** (misalnya Redmi Pad 2, 2560×1600): dunia game kini digambar pada 1280×800 lalu
-  diperbesar 2×. Beban GPU untuk dunia turun ±2/3. Pixel art tetap tajam, dan UI serta teks tetap
-  digambar pada resolusi layar.
-- Ponsel 1080p tidak berubah.
-- **Pengaturan → Penghitung FPS:** menampilkan FPS dan ukuran gambar dunia di bawah HUD (bawaan: mati).
+- **Efek layar** (blur tilt-shift dan bloom) kini membaca mipmap layar, bukan 12 sampel per piksel.
+  Gambarnya tetap HD dan hampir sama. Di tablet 2.5K, waktu render turun ±17% pada preset Tinggi.
+- **Tablet 2.5K, preset Sedang/Rendah:** dunia digambar 1280×800 lalu diperbesar 2×. Jauh lebih
+  ringan, tapi tepinya lebih kasar. Preset **Tinggi (bawaan) tetap HD penuh.**
+- **Pengaturan → Penghitung FPS:** menampilkan FPS dan ukuran gambar dunia (bawaan: mati).
 
 ## Upgrade 3, bagian U2e — suasana 3D untuk 7 map mimpi yang tertinggal
 Detail: `docs/WORLD3D.md` (U2e). Gambar: `docs/screens/u2e/`.

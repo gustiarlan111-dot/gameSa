@@ -179,8 +179,9 @@ func rebuild() -> void:
 	if bool(world.area.get("room3d", false)) and not world.area.get("windows", []).is_empty():
 		_static.add_child(RoomLight.new().setup(self))     # U2a: live sky in the windows, sunlight inside
 	if not _indoor and not bool(world.area.get("indoor", false)):
-		mist = WorldMist.new().setup(self)              # U2b: morning mist, dusk haze
-		_static.add_child(mist)
+		if bool(_q.get("mist", true)):
+			mist = WorldMist.new().setup(self)          # U2b: morning mist, dusk haze
+			_static.add_child(mist)
 		particles = WorldParticles.new().setup(self)    # U2b: leaves from the trees, fireflies
 		_static.add_child(particles)
 	if not _indoor:

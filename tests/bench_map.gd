@@ -17,6 +17,8 @@ var _acc := {"ft": [], "dc": [], "obj": [], "prim": [], "gpu": [], "cpu": []}
 
 
 func _ready() -> void:
+	if OS.get_environment("SHOT_QUALITY") != "":
+		GameSettings.get_all()["quality"] = OS.get_environment("SHOT_QUALITY")
 	var args := OS.get_cmdline_user_args()
 	var i := args.find("--bench")
 	area = args[i + 1] if i >= 0 and args.size() > i + 1 else "plaza"

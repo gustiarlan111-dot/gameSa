@@ -1,16 +1,16 @@
 # QA REPORT — V8.0
 
-## Upgrade 1, bagian U1a — panggung resolusi — ringkasan
+## Upgrade 1, bagian U1a — efek layar, panggung resolusi — ringkasan
 | Pemeriksaan | Hasil |
 |---|---|
-| Tes logika | **104 / 104 lulus**. Ada 2 tes baru: kapan panggung aktif (2560×1600 dan 2732×2048 ya; 2400×1080, 1920×1200, dan 1280×720 tidak); setelan penghitung FPS |
-| Cerita sampai tamat | Sofia **dengan panggung dipaksa nyala** (`STAGE=1`) dan Arland tanpa panggung: langkah, area, dan frame identik dengan main. 0 script error |
-| Waktu render di 2560×1600 (llvmpipe) | GPU −64% sampai −67% di 5 map; memori tekstur −9 sampai −33 MB. Tabel di `docs/PERFORMANCE.md` |
-| Posisi UI | gelembung obrolan NPC, HUD, tombol, dan prompt identik dengan dan tanpa panggung (`SHOT_BUBBLE=1`) |
-| Interior | kamera ortografis di dalam ruangan tetap benar (Kafe) |
-| Sebelum/sesudah | `docs/screens/u1/panggung_2560x1600.png`, `detail_1banding1.png` |
+| Tes logika | **106 / 106 lulus**. Ada 4 tes baru: kapan panggung dipakai; Tinggi tetap HD dan 1280×800 hanya di Sedang/Rendah; ganti kualitas langsung mengubah ukuran gambar (catatan: di mode headless ukuran jendela dan ukuran logis bisa sama, jadi tes ini lemah; kedua mode dicek dengan tangkapan 2560×1600); setelan penghitung FPS |
+| Cerita sampai tamat | Sofia dengan panggung dipaksa nyala, Arland tanpa panggung: langkah, area, dan frame identik. 0 script error |
+| Waktu render di 2560×1600 (Plaza, Tinggi) | efek layar baru 659 → 550 ms (−17%, dua kali ukur). Sedang 167 ms, Rendah 109 ms |
+| Ketajaman Tinggi | dengan panggung (mode HD) vs tanpa panggung: 0,19% piksel berbeda >8 level |
+| Posisi UI | gelembung obrolan, HUD, dan prompt identik di kedua mode |
+| Sebelum/sesudah | `docs/screens/u1/efek_layar.png`, `detail_1banding1.png` |
 | FPS di HP | **belum diukur**. APK ini membawa penghitung FPS untuk itu |
-| Kekurangan | di tablet, tepi dunia sedikit lebih kasar (satu piksel dunia = 2×2 piksel layar) |
+| Dibatalkan | panggung sebagai bawaan (pemilik: burik); noise kabut dari tekstur (tidak terbukti lebih cepat) |
 
 ## Upgrade 3, bagian U2e — suasana 7 map mimpi — ringkasan
 | Pemeriksaan | Hasil |

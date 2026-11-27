@@ -1,67 +1,71 @@
 # Performa (U1)
 
 ## Masalah yang dilaporkan
-Di Redmi Pad 2, game tidak mencapai 60 FPS. Tablet ini memakai GPU Mali-G57 MC2 dengan layar 2560×1600.
+Di Redmi Pad 2 (Mali-G57 MC2, 2560×1600), game tidak mencapai 60 FPS.
 
 ## Penyebab
 - Game dirancang untuk 1280×720 dan memakai stretch `canvas_items`.
-- Dengan stretch itu, dunia 3D, overlay 2D, dan efek layar (warna, vinyet, bloom) digambar untuk setiap
-  piksel fisik layar.
-- Di layar 2560×1600, jumlahnya 4,1 juta piksel per frame. Itu 4,4× lebih banyak daripada desain,
-  padahal gambarnya sama. GPU kelas MC2 biasanya kehabisan tenaga di pengisian piksel seperti ini,
-  bukan di jumlah objek.
+- Dengan stretch itu, dunia 3D, overlay 2D, dan efek layar digambar untuk setiap piksel fisik.
+- Di layar 2560×1600, jumlahnya 4,1 juta piksel per frame. Itu 4,4× lebih banyak daripada desain.
 
-## Perbaikan: panggung resolusi (`src/game/render_stage.gd`)
-- **Kapan aktif.** Panggung aktif kalau layar setidaknya 2× ukuran desain di kedua sisi
-  (`RenderStage.wanted`).
-- **Apa yang terjadi.**
-  - World, Atmosphere, dan WorldView3D digambar di dalam `SubViewport` berukuran logis
-    (1280×800 di Redmi Pad 2).
-  - Hasilnya diperbesar dengan filter *nearest*, jadi pixel art tetap tajam.
-  - UI (HUD, dialog, menu, gelembung obrolan) tetap digambar di layar asli, jadi teks tetap tajam.
-- **Koordinat.** Satuan logis di dalam panggung sama dengan satuan UI. Karena itu gelembung obrolan
-  NPC yang memetakan posisi dunia ke UI tetap pas. Ini dicek dengan `SHOT_BUBBLE=1` di 2560×1600:
-  posisi gelembungnya identik dengan dan tanpa panggung.
-- **Ponsel 1080p tidak memakai panggung.**
-  - Skalanya hanya 1,5×. Pembesaran *nearest* yang bukan bilangan bulat akan membuat piksel tidak rata.
-  - Ponsel ini tetap digambar native seperti sebelumnya.
-  - Kalau angka dari HP menunjukkan ponsel juga lambat, ini keputusan berikutnya.
-- **Kekurangan.** Di tablet, tepi karakter dan objek sedikit lebih kasar, karena satu piksel dunia
-  menjadi 2×2 piksel layar. Teks dan UI tidak terpengaruh.
+## Rincian biaya di 2560×1600, preset Tinggi
+Plaza pukul 07.00, saat kabut pagi tebal. Diukur dari timer render GPU di renderer software server.
+Angka absolutnya tidak mewakili Mali; yang bermakna hanya perbandingannya.
 
-## Penghitung FPS
-Aktifkan lewat **Pengaturan → Penghitung FPS → Nyala**. Di bawah HUD akan muncul tulisan seperti
-`58 FPS · 1280x800`. Ukuran yang ditampilkan adalah ukuran dunia yang sedang digambar. Kalau angkanya
-2560x1600, berarti panggung tidak aktif.
+| Bagian yang dimatikan (sendiri-sendiri) | Waktu render GPU | Hemat |
+|---|---|---|
+| — (semua nyala) | 659 ms | — |
+| sampel blur/bloom di efek layar | 447 ms | 32% |
+| seluruh efek layar | 378 ms | 43% |
+| kabut | 585 ms | 11% |
+| glow 3D | 588 ms | 11% |
+| bayangan | 604 ms | 8% |
+| lampu, pantulan air | ±659 ms | ±0% |
 
-## Pengukuran di server
-- Lingkungan ini memakai renderer software (llvmpipe), dan FPS-nya terkunci ±7,5. Angka FPS dari sini
-  tidak bermakna.
-- Yang bisa diukur adalah **waktu render** per frame dari timer GPU dan CPU
-  (`RenderingServer.viewport_get_measured_render_time_*`). Hasilnya dicatat oleh `tests/bench_map.tscn`
-  pada 2560×1600.
+Kesimpulannya, **efek layar adalah bagian terberat.** Efek ini membaca 12 sampel tambahan untuk
+setiap piksel (blur tilt-shift di atas dan bawah layar, ditambah bloom).
 
-| Map | Waktu render GPU tanpa → dengan panggung | CPU render | Memori tekstur |
-|---|---|---|---|
-| Plaza | 649 → 223 ms (−66%) | 480 → 194 ms | 189 → 156 MB |
-| Taman Kota | 652 → 224 ms (−66%) | 487 → 194 ms | 183 → 150 MB |
-| Padang Lentera | 724 → 242 ms (−67%) | 506 → 205 ms | 167 → 134 MB |
-| Hutan Bisik | 694 → 250 ms (−64%) | 488 → 213 ms | 234 → 201 MB |
-| Kafe Senja | 496 → 168 ms (−66%) | 262 → 133 ms | 90 → 81 MB |
+## Perubahan
 
-- Angka absolutnya berasal dari CPU server, bukan dari Mali. **Yang berarti hanya perbandingannya.**
-- Waktu render turun sekitar 3×, bukan 4×. Sisanya adalah biaya tetap per frame (bayangan dan jumlah
-  draw call), yang tidak ikut turun bersama resolusi.
+### 1. Efek layar lebih murah, gambar tetap HD (semua preset)
+- `src/fx/post25d.gdshader` kini membaca blur dan bloom dari **mipmap layar**, satu sampel untuk
+  masing-masing, menggantikan 12 sampel.
+- Ketajaman tidak berubah. Blur tilt-shift dan bloom lampu terlihat hampir sama
+  (lihat `docs/screens/u1/efek_layar.png`). Halo lampu sedikit lebih halus.
+- Hasil di Plaza, Tinggi, 2560×1600: **659 → 550 ms (−17%)**. Diukur dua kali per versi:
+  552/549 dan 665/655.
+
+### 2. Panggung resolusi, hanya untuk Sedang/Rendah (`src/game/render_stage.gd`)
+- **Kapan dipakai.** Di layar yang setidaknya 2× ukuran desain, dunia digambar di sebuah `SubViewport`.
+  Koordinat 2D di dalamnya selalu sama dengan ukuran logis UI (`size_2d_override`).
+- **Tinggi/Ultra (bawaan):** dunia digambar di resolusi layar penuh dan ditampilkan 1:1. Hasilnya
+  identik dengan tanpa panggung: hanya 0,19% piksel yang berbeda lebih dari 8 level.
+- **Sedang/Rendah:** dunia digambar 1280×800 lalu diperbesar 2× dengan filter nearest. UI tetap tajam.
+  - Plaza: Sedang 167 ms, Rendah 109 ms.
+  - Dibandingkan Tinggi lama (659 ms), penghematannya −75% dan −84%.
+  - Harganya, tepi dunia lebih kasar (lihat `docs/screens/u1/detail_1banding1.png`).
+- **Mengikuti pengaturan.** Mode berganti langsung saat kualitas grafis diubah, tanpa memuat ulang.
+- **Ponsel tidak terpengaruh.** Ponsel 1080p (skala 1,5×) tidak memakai panggung sama sekali.
+- **Biaya.** Di Tinggi, satu render target tambahan memakan memori tekstur ±27 MB (189 → 216 MB).
+  Biaya GPU-nya tidak terukur (547 ms dengan panggung, 550 ms tanpa).
+
+### 3. Penghitung FPS
+Aktifkan lewat **Pengaturan → Penghitung FPS**. Di bawah HUD akan muncul tulisan seperti
+`58 FPS · 2560x1600`. Angka di belakangnya adalah ukuran dunia yang sedang digambar.
+
+## Yang dicoba lalu dibatalkan
+- **Panggung 1280×800 sebagai bawaan.** Pemilik game menilai gambarnya burik di Redmi Pad 2 dan ingin
+  tetap HD.
+- **Noise kabut dari tekstur.** Tujuannya mengganti hash dengan pembacaan tekstur. Di renderer software
+  hasilnya tidak lebih cepat, dan pola kabutnya berubah. Tanpa bukti di GPU sungguhan, perubahan ini
+  tidak dikirim.
 
 ## Cara mengulang
 ```
-STAGE=0|1 xvfb-run -s "-screen 0 2560x1600x24" godot --rendering-driver opengl3 --resolution 2560x1600 \
-    --path . tests/bench_map.tscn -- --bench plaza
+SHOT_QUALITY=high|medium|low STAGE=0|1 QA_Q='{"taps":false}' \
+  xvfb-run -s "-screen 0 2560x1600x24" godot --rendering-driver opengl3 --resolution 2560x1600 \
+  --path . tests/bench_map.tscn -- --bench plaza
 ```
-Variabel `STAGE` memaksa panggung nyala (1) atau mati (0). Variabel ini hanya untuk QA.
-
-## Gambar
-- `docs/screens/u1/panggung_2560x1600.png`: tangkapan 2560×1600 sebelum dan sesudah. Gelembung obrolan
-  dan HUD berada di posisi yang sama. Penghitung FPS terlihat di bawah HUD.
-- `docs/screens/u1/detail_1banding1.png`: potongan 1:1. Di sini terlihat yang dikorbankan, yaitu tepi
-  yang sedikit lebih kasar.
+- `STAGE` memaksa panggung nyala (1) atau mati (0).
+- `QA_Q` menimpa satu nilai preset: `taps`, `post`, `shadows`, `glow`, `lamps`, `reflect`, atau `mist`.
+- Keduanya hanya untuk QA.

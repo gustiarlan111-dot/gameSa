@@ -496,7 +496,20 @@ func _ready() -> void:
 	# 26. U1: world drawn at the design size on 2x screens; frame counter setting
 	ok(RenderStage.scale_for(Vector2(2560, 1600)) == 2.0 and RenderStage.wanted(Vector2(2560, 1600)) and RenderStage.wanted(Vector2(2732, 2048))
 		and not RenderStage.wanted(Vector2(2400, 1080)) and not RenderStage.wanted(Vector2(1920, 1200)) and not RenderStage.wanted(Vector2(1280, 720)),
-		"panggung resolusi: tablet 2.5K digambar 1280x800, ponsel 1080p tetap native")
+		"panggung resolusi hanya untuk layar 2x (tablet 2.5K), ponsel 1080p tetap native")
+	ok(not RenderStage.light_for("high") and not RenderStage.light_for("ultra") and RenderStage.light_for("medium") and RenderStage.light_for("low")
+		and GameSettings.DEFAULTS.quality == "high", "Tinggi (bawaan) tetap HD; dunia 1280x800 hanya di Sedang/Rendah")
+	var r_st := RenderStage.new()
+	add_child(r_st)
+	var r_q: String = GameSettings.get_all().quality
+	GameSettings.get_all().quality = "medium"; r_st.refit()
+	var r_light: Vector2i = r_st.viewport.size
+	GameSettings.get_all().quality = "high"; r_st.refit()
+	var r_hd: Vector2i = r_st.viewport.size
+	GameSettings.get_all().quality = r_q
+	ok(r_light == Vector2i(get_tree().root.get_visible_rect().size.round()) and r_hd == get_window().size
+		and r_st.viewport.size_2d_override == r_light, "ganti kualitas langsung mengubah ukuran gambar dunia (koordinat 2D tetap)")
+	r_st.queue_free()
 	ok(GameSettings.DEFAULTS.show_fps == false and GameSettings.sanitize({"show_fps": true}).show_fps == true and GameSettings.sanitize({"show_fps": "ya"}).show_fps == false,
 		"penghitung FPS: mati bawaan, nilai rusak kembali ke bawaan")
 	print("%s: %d pemeriksaan, %d gagal" % ["SEMUA LULUS" if fails == 0 else "ADA YANG GAGAL", checks, fails])

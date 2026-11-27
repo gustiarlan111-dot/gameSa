@@ -62,7 +62,8 @@ func _ready() -> void:
 	engine.both_routes_completed = SaveStore.both_completed("C06")
 	runner = ActionRunner.new(engine, self)
 	world = World.new()
-	# U1: on 2x screens the world is drawn at the design size (render_stage.gd), the UI stays native
+	# U1: on 2x screens the world lives in a SubViewport (render_stage.gd): full size on Tinggi/Ultra,
+	# the design size on Sedang/Rendah; the UI always stays native
 	if RenderStage.wanted(Vector2(get_window().size)):
 		stage = RenderStage.new()
 		add_child(stage)

@@ -114,6 +114,14 @@ static func listen(cb: Callable) -> void:
 ##   post: the screen pass (grade, vignette, bloom);  taps: its blur/bloom taps (off = grade only);
 ##   lamps: real lamp lights (off = glow sprites only);  msaa: 3D anti-aliasing.
 static func quality() -> Dictionary:
+	var q := _preset()
+	var qa := OS.get_environment("QA_Q")             # QA only: JSON that overrides single values
+	if qa != "" and JSON.parse_string(qa) is Dictionary:
+		q.merge(JSON.parse_string(qa), true)
+	return q
+
+
+static func _preset() -> Dictionary:
 	match str(value("quality")):
 		"low":
 			return {"shadows": false, "shadow_size": 1024, "glow": false, "post": false, "taps": false, "lamps": false, "msaa": 0, "reflect": false}

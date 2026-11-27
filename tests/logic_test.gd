@@ -449,6 +449,29 @@ func _ready() -> void:
 			if c_p.has("alt") and not str(Data.props.get(c_p.alt, {}).get("image", "@2x")).contains("@2x") and not c_low.has(c_p.alt): c_low.append(c_p.alt)
 	ok(c_low.is_empty() and not str(Data.props.lantern_off.image).contains("lantern_post"), "map mimpi tanpa sprite 1x; lentera padam tidak ikut menyala %s" % [c_low])
 	ok(ResourceLoader.exists("res://assets/props/lantern_off.png") and ResourceLoader.exists("res://assets/props/lantern_post.png"), "file lentera lama tetap ada untuk minigame")
+	# 23. U5c story clarity (tools/story_u5c.py): rules said once, recaps, Indonesian place names, glossary
+	var u_rules := 0
+	for u_l in Data.scene("P-X02").get("lines", []):
+		if u_l.get("u5c", false): u_rules += 1
+	var u_lumi := ""
+	for u_l in Data.scene("C04-X02").get("lines", []):
+		if u_l.get("u5c", false): u_lumi += str(u_l.t)
+	ok(u_rules == 3 and u_lumi.contains("menjaga buku") and u_lumi.contains("The Quiet"), "aturan dunia dijelaskan di Prolog, peran Lumi dan arti The Quiet di Bab 4")
+	var u_norecap: Array = []
+	for u_c in ["C01", "C02", "C03", "C04", "C05", "C06", "EPI"]:
+		if Data.chapter_recap(u_c).length() < 60: u_norecap.append(u_c)
+	ok(u_norecap.is_empty() and Data.chapter_recap("PRO") == "", "setiap bab punya ringkasan 'Sebelumnya' %s" % [u_norecap])
+	var u_en: Array = []
+	for u_a in ["memory_garden", "lantern_field", "star_path", "starfall_village", "eternal_garden", "rain_garden", "clockwork_station", "moonlight_lake", "memory_bridge", "hall_of_tomorrow"]:
+		var u_n := str(Data.maps[u_a].get("name", ""))
+		if not (u_n.begins_with("Taman") or u_n.begins_with("Padang") or u_n.begins_with("Jalan") or u_n.begins_with("Desa") or u_n.begins_with("Stasiun") or u_n.begins_with("Danau") or u_n.begins_with("Jembatan") or u_n.begins_with("Balai")):
+			u_en.append(u_n)
+	ok(u_en.is_empty(), "nama tempat mimpi berbahasa Indonesia %s" % [u_en])
+	var u_gl: Array = Data.memory_book.get("glossary", [])
+	var u_glbad := 0
+	for u_g in u_gl:
+		if Data.chapter_index(str(u_g.chapter)) < 0 or str(u_g.text).length() < 30 or str(u_g.text).length() > 135: u_glbad += 1
+	ok(u_gl.size() >= 9 and u_glbad == 0 and str(u_gl[0].chapter) == "PRO", "kamus istilah: %d istilah, terbuka per bab, muat 3 baris (≤135 huruf)" % u_gl.size())
 	print("%s: %d pemeriksaan, %d gagal" % ["SEMUA LULUS" if fails == 0 else "ADA YANG GAGAL", checks, fails])
 	get_tree().quit(1 if fails > 0 else 0)
 

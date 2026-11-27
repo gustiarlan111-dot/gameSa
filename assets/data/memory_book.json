@@ -3980,5 +3980,52 @@
     "icon": "items/letter_two_sides.png",
     "requires": "both_routes_C06",
     "text": "Tamatkan Chapter 6 dari route Arland dan Sofia, lalu masuk ke Ruang Dua Surat melalui Galeri Komunitas untuk memainkan bab bonus dua perspektif."
-  }
+  },
+  "glossary": [
+    {
+      "chapter": "PRO",
+      "term": "Buku Kenangan",
+      "text": "Buku milik Arland dan Sofia. Setiap kenangan yang mereka buat bersama menjadi satu halaman."
+    },
+    {
+      "chapter": "PRO",
+      "term": "Dunia kenangan",
+      "text": "Tempat yang terbentuk dari sebuah kenangan, seperti mimpi. Mereka masuk lewat halaman buku dan bisa pulang kapan saja."
+    },
+    {
+      "chapter": "PRO",
+      "term": "Halaman memudar",
+      "text": "Tanda ada hal yang dipendam dan belum diceritakan. Halaman berwarna lagi saat mereka jujur dan saling mendengar."
+    },
+    {
+      "chapter": "C01",
+      "term": "Surat dua sisi",
+      "text": "Surat tua Kakek Wira untuk Nenek Sari. Satu cerita dari dua sudut pandang, seperti cara game ini bercerita lewat dua route."
+    },
+    {
+      "chapter": "C01",
+      "term": "The Quiet / Kabut Lupa",
+      "text": "Bukan monster. Ini kesunyian yang datang saat dua orang berhenti saling mendengarkan, dan membuat lentera serta halaman meredup."
+    },
+    {
+      "chapter": "C04",
+      "term": "Lumi",
+      "text": "Lentera kecil yang bisa bicara, lahir dari halaman pertama buku mereka. Ia menjaga buku dan menunjukkan halaman yang mulai memudar."
+    },
+    {
+      "chapter": "C04",
+      "term": "Lentera dan cahaya",
+      "text": "Di dunia kenangan, lentera menyala dari kata-kata yang benar-benar didengar. Menyalakannya berarti memperbaiki satu salah paham."
+    },
+    {
+      "chapter": "C05",
+      "term": "Batu bintang",
+      "text": "Penunjuk jalan di Jalan Bintang. Nyalakan satu per satu untuk menemukan arah."
+    },
+    {
+      "chapter": "C06",
+      "term": "Gema dua suara",
+      "text": "Potongan suara Kakek Wira dan Nenek Sari di Arsip yang Memudar. Dengarkan baik-baik, lalu pasangkan dengan benar."
+    }
+  ]
 }

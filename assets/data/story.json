@@ -319,31 +319,38 @@
     },
     {
       "id": "C01",
-      "title": "Chapter 1 — The Beginning of Us"
+      "title": "Chapter 1 — The Beginning of Us",
+      "recap": "Arland dan Sofia bertukar hadiah kecil di plaza. Sebuah buku bercahaya muncul: Buku Kenangan milik mereka berdua. Buku itu membawa mereka ke Taman Kenangan, dan di dalamnya ada surat tua yang belum selesai."
     },
     {
       "id": "C02",
-      "title": "Chapter 2 — A Little Date"
+      "title": "Chapter 2 — A Little Date",
+      "recap": "Teka-teki di kafe membawa mereka ke sebuah surat dua sisi. Surat itu milik Kakek Wira untuk Nenek Sari, pasangan yang kisahnya juga belum selesai."
     },
     {
       "id": "C03",
-      "title": "Chapter 3 — The Little Things"
+      "title": "Chapter 3 — The Little Things",
+      "recap": "Kencan-kencan kecil: kafe, gazebo, photobooth. Di senja dermaga mereka resmi jadian. Sofia mulai menyiapkan pameran kecilnya."
     },
     {
       "id": "C04",
-      "title": "Chapter 4 — The Empty Seat"
+      "title": "Chapter 4 — The Empty Seat",
+      "recap": "Mereka masak dan piknik bersama. Arland diam-diam memperbaiki proyektor tua untuk pameran Sofia. Di rumah Nenek Sari ada bingkai foto kosong bertanda W."
     },
     {
       "id": "C05",
-      "title": "Chapter 5 — Across the Stars"
+      "title": "Chapter 5 — Across the Stars",
+      "recap": "Di hari pameran, kursi Arland kosong. Hujan, kecewa, dan satu halaman buku memudar. Lumi, penjaga buku, mengajak mereka menyalakan lagi lentera dengan saling mendengar dan jujur."
     },
     {
       "id": "C06",
-      "title": "Chapter 6 — Our Tomorrow"
+      "title": "Chapter 6 — Our Tomorrow",
+      "recap": "Nenek Sari mulai lupa suara Kakek Wira, dan halaman \"W & S\" memudar. Arland dan Sofia menempuh jalan bintang masing-masing, lalu bersama menolong arsip yang memudar."
     },
     {
       "id": "EPI",
-      "title": "Epilog — To Be Continued"
+      "title": "Epilog — To Be Continued",
+      "recap": "Mereka menolak menghapus hari pameran, lalu menyaksikan kenangan empat puluh tahun lalu: Nenek Sari menunggu, Kakek Wira berlari membawa payung. Dengan menceritakannya dari dua sisi, halaman mereka pulang."
     }
   ],
   "canon_event_ids": [
@@ -876,6 +883,24 @@
           "s": "narrator",
           "t": "Halaman pertama menampilkan dua tulisan tangan yang berbeda. Saat disentuh bersama, cahaya membuka pintu.",
           "e": "neutral"
+        },
+        {
+          "s": "narrator",
+          "t": "Buku itu adalah Buku Kenangan milik mereka berdua. Setiap kenangan yang mereka buat bersama tertulis di dalamnya sebagai satu halaman.",
+          "e": "neutral",
+          "u5c": true
+        },
+        {
+          "s": "narrator",
+          "t": "Kalau sebuah halaman dibuka bersama, mereka bisa masuk ke dunia kenangan: tempat yang terbentuk dari kenangan itu. Rasanya seperti mimpi, dan mereka bisa pulang kapan saja.",
+          "e": "neutral",
+          "u5c": true
+        },
+        {
+          "s": "narrator",
+          "t": "Tapi halaman bisa memudar, yaitu saat ada hal yang dipendam dan tidak diceritakan. Cara menjaganya sederhana: jujur, dan saling mendengar.",
+          "e": "neutral",
+          "u5c": true
         }
       ],
       "flags": [
@@ -3040,6 +3065,12 @@
           "t": "Aku Lumi. Aku lahir dari halaman pertama buku kalian, di plaza, waktu dua hadiah kecil berpindah tangan."
         },
         {
+          "s": "lumi",
+          "t": "Tugasku menjaga buku kalian, dan memberi tahu halaman mana yang mulai memudar.",
+          "e": "neutral",
+          "u5c": true
+        },
+        {
           "s": "arland",
           "e": "penasaran",
           "t": "Kenapa lentera di sini padam semua?"
@@ -3053,6 +3084,12 @@
           "s": "lumi",
           "e": "serius",
           "t": "Kalau dua orang berhenti saling mendengar, Kabut Lupa datang dan memadamkannya satu per satu."
+        },
+        {
+          "s": "lumi",
+          "t": "Kabut Lupa itu yang di surat tua disebut \"The Quiet\". Bukan monster, cuma sunyi yang datang kalau tidak ada yang mau mendengarkan.",
+          "e": "neutral",
+          "u5c": true
         },
         {
           "s": "sofia",

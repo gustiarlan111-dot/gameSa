@@ -266,6 +266,13 @@ func _process(_delta: float) -> void:
 			game.runner.run([{"do": "cine", "cmds": JSON.parse_string(OS.get_environment("SHOT_CINE"))}])
 		if _frame == 4 and OS.get_environment("SHOT_TALK") == "1":
 			game.npc_life._cool = 0.0
+		# U5c QA: SHOT_CARD=<chapter> shows that chapter's title card, SHOT_BOOK=<tab> opens the book there
+		if _frame == 20 and OS.get_environment("SHOT_CARD") != "":
+			game.chapter_card(OS.get_environment("SHOT_CARD"), func(): pass)
+		if _frame == 20 and OS.get_environment("SHOT_BOOK") != "":
+			game.open_book()
+			game.book.tab = int(OS.get_environment("SHOT_BOOK"))
+			game.book._rebuild()
 		if _frame == int(_args[4]) - 1 and game.npc_life.current().size() > 0:
 			print("TALK ", game.npc_life.current().get("id"), " ", game.npc_life.current().get("a"), "+", game.npc_life.current().get("b"))
 		if _wp < _wps.size():

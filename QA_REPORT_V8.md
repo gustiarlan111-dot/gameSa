@@ -1,5 +1,18 @@
 # QA REPORT — V8.0
 
+## Upgrade 5, bagian U5c — cerita fantasi diperjelas — ringkasan
+| Pemeriksaan | Hasil |
+|---|---|
+| Tes logika | **97 / 97 lulus**. Ada 4 tes baru: baris aturan di prolog dan baris Lumi ada; recap untuk C01–EPI; 10 nama tempat berbahasa Indonesia; 9 istilah dengan bab yang sah, masing-masing muat 3 baris (≤135 huruf) |
+| Validator map | 0 error, 7 warning (sama dengan main) |
+| Cerita Sofia / Arland sampai tamat | `EPI_FREE` di frame 161.327 / 159.277 (U2c: 161.077 / 159.027). Urutan 118 / 115 langkah dan areanya identik dengan run sebelumnya. Selisih tepat +250 frame = 5 baris dialog baru × 50 frame autopilot. 0 script error |
+| Idempoten | `tools/story_u5c.py` dijalankan dua kali: md5 ketiga file data identik |
+| Save | format tidak berubah, tidak perlu migrasi. Recap dan istilah dibaca dari data, bukan dari save |
+| Sebelum/sesudah | `docs/screens/u5c/kartu_bab.png`, `prolog_aturan.png`, `buku_istilah.png` |
+| Ditemukan dan diperbaiki saat QA | teks istilah "Dunia kenangan" terpotong di baris ke-4 → dipendekkan, dan tes batas panjang ditambahkan |
+| FPS | tidak berubah secara berarti: hanya teks. Kartu bab menambah satu Label |
+| Belum diuji | dibaca oleh pemain awam sungguhan; judul bab masih berbahasa Inggris (tidak diubah karena itu nama bab) |
+
 ## Upgrade 3, bagian U2c — identitas map mimpi — ringkasan
 | Pemeriksaan | Hasil |
 |---|---|

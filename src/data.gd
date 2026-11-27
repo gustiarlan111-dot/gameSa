@@ -63,6 +63,14 @@ func emotion(id: String) -> Dictionary:
 	return e if not e.is_empty() else story.get("emotions", {}).get("neutral", {})
 
 
+## U5c: the "previously" text for a chapter's title card ("" for the prologue).
+func chapter_recap(id: String) -> String:
+	for c in story.get("chapters", []):
+		if c.get("id") == id:
+			return str(c.get("recap", ""))
+	return ""
+
+
 func chapter_title(id: String) -> String:
 	for c in story.get("chapters", []):
 		if c.get("id") == id:

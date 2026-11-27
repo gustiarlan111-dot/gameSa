@@ -1,5 +1,17 @@
 # QA REPORT — V8.0
 
+## Upgrade 1, bagian U1a — efek layar, panggung resolusi — ringkasan
+| Pemeriksaan | Hasil |
+|---|---|
+| Tes logika | **106 / 106 lulus**. Ada 4 tes baru: kapan panggung dipakai; Tinggi tetap HD dan 1280×800 hanya di Sedang/Rendah; ganti kualitas langsung mengubah ukuran gambar (catatan: di mode headless ukuran jendela dan ukuran logis bisa sama, jadi tes ini lemah; kedua mode dicek dengan tangkapan 2560×1600); setelan penghitung FPS |
+| Cerita sampai tamat | Sofia dengan panggung dipaksa nyala, Arland tanpa panggung: langkah, area, dan frame identik. 0 script error |
+| Waktu render di 2560×1600 (Plaza, Tinggi) | efek layar baru 659 → 550 ms (−17%, dua kali ukur). Sedang 167 ms, Rendah 109 ms |
+| Ketajaman Tinggi | dengan panggung (mode HD) vs tanpa panggung: 0,19% piksel berbeda >8 level |
+| Posisi UI | gelembung obrolan, HUD, dan prompt identik di kedua mode |
+| Sebelum/sesudah | `docs/screens/u1/efek_layar.png`, `detail_1banding1.png` |
+| FPS di HP | **belum diukur**. APK ini membawa penghitung FPS untuk itu |
+| Dibatalkan | panggung sebagai bawaan (pemilik: burik); noise kabut dari tekstur (tidak terbukti lebih cepat) |
+
 ## Upgrade 3, bagian U2e — suasana 7 map mimpi — ringkasan
 | Pemeriksaan | Hasil |
 |---|---|

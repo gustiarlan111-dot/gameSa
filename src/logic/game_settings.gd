@@ -18,6 +18,7 @@ const DEFAULTS := {
 	"hud_scale": 1.0,
 	"left_hand": false,      # joystick on the right, buttons on the left
 	"lightning": true,       # thunderstorm flashes (off for light-sensitive players; thunder stays)
+	"show_fps": false,       # U1: frame counter in the corner, to report performance on a device
 }
 
 static var current: Dictionary = {}
@@ -63,6 +64,8 @@ static func sanitize(d: Dictionary) -> Dictionary:
 		out.left_hand = d.left_hand
 	if d.get("lightning") is bool:
 		out.lightning = d.lightning
+	if d.get("show_fps") is bool:
+		out.show_fps = d.show_fps
 	return out
 
 
@@ -111,6 +114,14 @@ static func listen(cb: Callable) -> void:
 ##   post: the screen pass (grade, vignette, bloom);  taps: its blur/bloom taps (off = grade only);
 ##   lamps: real lamp lights (off = glow sprites only);  msaa: 3D anti-aliasing.
 static func quality() -> Dictionary:
+	var q := _preset()
+	var qa := OS.get_environment("QA_Q")             # QA only: JSON that overrides single values
+	if qa != "" and JSON.parse_string(qa) is Dictionary:
+		q.merge(JSON.parse_string(qa), true)
+	return q
+
+
+static func _preset() -> Dictionary:
 	match str(value("quality")):
 		"low":
 			return {"shadows": false, "shadow_size": 1024, "glow": false, "post": false, "taps": false, "lamps": false, "msaa": 0, "reflect": false}

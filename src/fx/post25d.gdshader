@@ -1,7 +1,8 @@
 shader_type canvas_item;
-// 2.5D screen pass (cheap, no mipmaps): depth-of-field style blur at the top and bottom of the view
+// 2.5D screen pass: depth-of-field style blur at the top and bottom of the view
 // (tilt-shift), soft bloom from bright pixels, colour grade (cool shadows, warm highlights), vignette.
 uniform sampler2D screen_tex : hint_screen_texture, filter_linear;
+uniform sampler2D screen_mip : hint_screen_texture, filter_linear_mipmap;
 uniform float blur_amt = 1.0;
 uniform float bloom = 0.22;
 uniform float vignette = 0.32;
@@ -30,17 +31,12 @@ void fragment() {
 	float r = band * 3.2 * blur_amt;
 	vec3 glow = vec3(0.0);
 	vec2 px = SCREEN_PIXEL_SIZE;
-	// 6 taps on a rotated ring: used for both the blur (radius r) and the bloom (radius 7)
-	for (int i = 0; i < (taps ? 6 : 0); i++) {
-		float a = float(i) * 1.0472 + 0.4;
-		vec2 o = vec2(cos(a), sin(a));
+	// U1: the blur and the bloom read the screen's mipmaps (one tap each) instead of 12 taps
+	if (taps) {
 		if (r > 0.05) {
-			col += texture(screen_tex, uv + o * px * r).rgb;
+			col = mix(col, textureLod(screen_mip, uv, log2(max(r, 1.0)) + 0.5).rgb, smoothstep(0.05, 1.5, r));
 		}
-		glow += max(texture(screen_tex, uv + o * px * 7.0).rgb - vec3(0.74), vec3(0.0));
-	}
-	if (taps && r > 0.05) {
-		col /= 7.0;
+		glow = max(textureLod(screen_mip, uv, 2.8).rgb - vec3(0.74), vec3(0.0)) * 6.0;
 	}
 	col += glow * (bloom * 0.8);
 	float l = dot(col, vec3(0.299, 0.587, 0.114));

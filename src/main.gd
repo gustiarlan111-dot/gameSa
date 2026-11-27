@@ -266,6 +266,14 @@ func _process(_delta: float) -> void:
 			game.runner.run([{"do": "cine", "cmds": JSON.parse_string(OS.get_environment("SHOT_CINE"))}])
 		if _frame == 4 and OS.get_environment("SHOT_TALK") == "1":
 			game.npc_life._cool = 0.0
+		# U1 QA: SHOT_BUBBLE=1 puts a chatter bubble over the nearest NPC (checks it lines up on the stage)
+		if _frame == 30 and OS.get_environment("SHOT_BUBBLE") == "1" and not w.npcs.is_empty():
+			var near := ""
+			for id in w.npcs:
+				if near == "" or w.npcs[id].position.distance_to(w.player.position) < w.npcs[near].position.distance_to(w.player.position):
+					near = id
+			game.npc_life._talk = {"a": near, "b": near, "lines": [[0, "Tes posisi gelembung"]], "i": 0, "t": 99.0, "dur": 99.0, "id": "qa"}
+			print("BUBBLE ", near, " ", w.npcs[near].position)
 		# U5c QA: SHOT_CARD=<chapter> shows that chapter's title card, SHOT_BOOK=<tab> opens the book there
 		if _frame == 20 and OS.get_environment("SHOT_CARD") != "":
 			game.chapter_card(OS.get_environment("SHOT_CARD"), func(): pass)

@@ -1,5 +1,13 @@
 # CHANGELOG — V8.0 "The Definitive Overhaul"
 
+## Upgrade 1, bagian U1a — efek layar lebih ringan, panggung resolusi, penghitung FPS
+Detail: `docs/PERFORMANCE.md`.
+- **Efek layar** (blur tilt-shift dan bloom) kini membaca mipmap layar, bukan 12 sampel per piksel.
+  Gambarnya tetap HD dan hampir sama. Di tablet 2.5K, waktu render turun ±17% pada preset Tinggi.
+- **Tablet 2.5K, preset Sedang/Rendah:** dunia digambar 1280×800 lalu diperbesar 2×. Jauh lebih
+  ringan, tapi tepinya lebih kasar. Preset **Tinggi (bawaan) tetap HD penuh.**
+- **Pengaturan → Penghitung FPS:** menampilkan FPS dan ukuran gambar dunia (bawaan: mati).
+
 ## Upgrade 3, bagian U2e — suasana 3D untuk 7 map mimpi yang tertinggal
 Detail: `docs/WORLD3D.md` (U2e). Gambar: `docs/screens/u2e/`.
 - **Taman Kenangan:** kelopak lavender, biru, dan merah muda gugur dari pohonnya, ditambah kilau dan kabut tipis.
